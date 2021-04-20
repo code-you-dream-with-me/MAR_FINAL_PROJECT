@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,11 +34,18 @@ public class RecipeController {
 	
 //	▼ 메소드 ===============================================================
 	
-	@RequestMapping(value = "recipe/do_innsert.do", method = RequestMethod.GET
+	@RequestMapping(value = "recipe/recipe_view.do", method = RequestMethod.GET
+			,produces = "application/json;charset=UTF-8")
+	public String view(Model model) throws Exception {
+		return VIEW_NAME;
+	}
+	
+	@RequestMapping(value = "recipe/do_insert.do", method = RequestMethod.GET
 			,produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String doInsert(RecipeVO recipeVO) throws Exception {
 		
+		LOG.debug("doInsert");
 		Message message = new Message();
 		message.setMsgId(Integer.toString(recipeService.upRegisterRecipe(recipeVO)));
 		

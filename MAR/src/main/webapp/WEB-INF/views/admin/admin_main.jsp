@@ -17,7 +17,8 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/">
 
-    
+	<script src="${hContext}/resources/js/jquery.min.js"></script>
+	<script src="${hContext}/resources/js/bootstrap.min.js"></script>
 
     <!-- Bootstrap core CSS -->
 	<link href="${hContext}/resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">

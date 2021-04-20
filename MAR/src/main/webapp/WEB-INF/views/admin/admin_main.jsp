@@ -40,7 +40,7 @@
 
     
     <!-- Custom styles for this template -->
-    <link href="${hContext}/resources/assets/mine/cheatsheet.css" rel="stylesheet">
+    <link href="${hContext}/resources/assets/admin/cheatsheet.css" rel="stylesheet">
 
   </head>
   <body class="bg-light">
@@ -305,7 +305,7 @@
     
 	
 	<script src="${hContext}/resources/assets/dist/js/bootstrap.bundle.min.js"></script>
-  	<script src="${hContext}/resources/assets/mine/cheatsheet.js"></script>
+  	<script src="${hContext}/resources/assets/admin/cheatsheet.js"></script>
   </body>
 
   <script type="text/javascript">

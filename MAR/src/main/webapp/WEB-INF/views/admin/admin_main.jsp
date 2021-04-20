@@ -17,7 +17,8 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/">
 
-    
+	<script src="${hContext}/resources/js/jquery.min.js"></script>
+	<script src="${hContext}/resources/js/bootstrap.min.js"></script>
 
     <!-- Bootstrap core CSS -->
 	<link href="${hContext}/resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -40,7 +41,7 @@
 
     
     <!-- Custom styles for this template -->
-    <link href="${hContext}/resources/assets/mine/cheatsheet.css" rel="stylesheet">
+    <link href="${hContext}/resources/assets/admin/cheatsheet.css" rel="stylesheet">
 
   </head>
   <body class="bg-light">
@@ -305,7 +306,7 @@
     
 	
 	<script src="${hContext}/resources/assets/dist/js/bootstrap.bundle.min.js"></script>
-  	<script src="${hContext}/resources/assets/mine/cheatsheet.js"></script>
+  	<script src="${hContext}/resources/assets/admin/cheatsheet.js"></script>
   </body>
 
   <script type="text/javascript">

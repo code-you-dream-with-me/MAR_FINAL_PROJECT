@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,8 +25,7 @@ public class ImageController {
 	
 	final Logger LOG = LoggerFactory.getLogger(ImageController.class);
 	
-	@SuppressWarnings("unused")
-	private String viewName = "";
+	private String VIEW_NAME = "image/file_upload_popup";
 	
 	@Autowired
 	ImageServiceImpl imageService;
@@ -38,8 +38,17 @@ public class ImageController {
 	
 //	▼ 메소드 ===============================================================
 	
+	@RequestMapping(value = "image/image_view.do", method = RequestMethod.GET
+			,produces = "application/json;charset=UTF-8")
+	public String view(
+			@RequestParam(value = "fromTb", required = false)String fromTb,
+			Model model) throws Exception {
+		LOG.debug("fromTb: "+fromTb);
+		model.addAttribute("fromTb", fromTb);
+		return VIEW_NAME;
+	}
 	
-	@RequestMapping(value = "image/do_innsert.do", method = RequestMethod.GET
+	@RequestMapping(value = "image/do_insert.do", method = RequestMethod.GET
 			,produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String doInsert(@RequestParam(value = "imageList", required = false)String jsonStr, 

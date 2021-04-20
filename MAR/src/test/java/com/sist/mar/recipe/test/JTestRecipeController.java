@@ -138,7 +138,7 @@ public class JTestRecipeController {
 	@SuppressWarnings("deprecation")
 	public void doInsert() throws Exception {
 		
-		MockHttpServletRequestBuilder createMessage = MockMvcRequestBuilders.get("/recipe/do_innsert.do")
+		MockHttpServletRequestBuilder createMessage = MockMvcRequestBuilders.get("/recipe/do_insert.do")
 				.param("recipeNo", Integer.toString(recipe.getRecipeNo()))
 				.param("regId", recipe.getRegId())
 				.param("title", recipe.getTitle())
@@ -162,7 +162,7 @@ public class JTestRecipeController {
 		Gson gson = new Gson();
 		String gsonString = gson.toJson(images.toArray());
 		
-		MockHttpServletRequestBuilder imageMessage = MockMvcRequestBuilders.get("/image/do_innsert.do")
+		MockHttpServletRequestBuilder imageMessage = MockMvcRequestBuilders.get("/image/do_insert.do")
 				.param("imageList", gsonString)
 				.param("fromTb", "2");
 		

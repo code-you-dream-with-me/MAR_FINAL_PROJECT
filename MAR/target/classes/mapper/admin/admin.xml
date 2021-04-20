@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mar.admin">
+	
+	<!-- com.sist.mar.admin. + 메소드 이름 -> 메소드 특정가능 -->
+	
+	<!-- doRetrieveReicpe -->
+	<select id="doRetrieveReicpe" parameterType="Search" resultType="RecipeVO">
+		SELECT
+			<choose>
+				<when test="searchDiv == 'regDt' and searchWord == 'desc'">
+					/*+ INDEX_DESC(recipe PK_RECIPE) */
+				</when>
+			</choose>        
+			<choose>
+				<when test="searchDiv == 'regDt' and searchWord == 'asc'">
+					/*+ INDEX_ASC(recipe PK_RECIPE) */
+				</when>
+			</choose>
+			<choose>
+				<when test="searchDiv == 'readCnt' and searchWord == 'desc'">
+					/*+ INDEX_DESC(recipe IDX_RECIPE_READ_CNT) */
+				</when>
+			</choose>
+			<choose>
+				<when test="searchDiv == 'readCnt' and searchWord == 'asc'">
+					/*+ INDEX_ASC(recipe IDX_RECIPE_READ_CNT) */
+				</when>
+			</choose>                                                                		
+		    recipe_no AS recipeNo,
+		    reg_id AS regId,
+		    title AS title,
+		    contents AS contents,
+		    read_cnt AS readCnt,
+		    ingredients AS ingredients,
+		    url_addr AS urlAddr,
+		    reg_dt AS regDt,
+		    mod_dt AS modDt
+		FROM recipe	
+	</select>
+	
+	
+	
+</mapper>

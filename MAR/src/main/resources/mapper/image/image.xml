@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mar.image">
+	
+	<!-- com.sist.mar.image. + 메소드 이름 -> 메소드 특정가능 -->
+	
+	<!-- doInquireRecipeSeqCurr -->
+	<select id="doInquireRecipeSeqCurr" resultType="int">
+		SELECT RECIPE_SEQ.currval 
+		FROM DUAL	
+	</select>
+	
+	<!-- doInquireItemSeqCurr -->
+	<select id="doInquireItemSeqCurr" resultType="int">
+		SELECT ITEM_SEQ.currval 
+		FROM DUAL	
+	</select>
+	
+	<!-- doInsert -->
+	<insert id="doInsert" parameterType="ImageVO">
+		INSERT INTO image (
+		    image_no,
+		    main_image,
+		    org_name,
+		    save_name,
+		    path,
+		    file_size,
+		    file_ext,
+		    from_tb,
+		    from_no,
+		    reg_dt
+		) VALUES (
+		    IMAGE_SEQ.nextval,
+		    #{mainImage},
+		    #{orgName},
+		    #{saveName},
+		    #{path},
+		    #{fileSize},
+		    #{fileExt},
+		    #{fromTb},
+		    #{fromNo},
+		    SYSDATE
+		)	
+	</insert>
+	
+	<!-- doDeleteOne -->
+	<delete id="doDeleteOne" parameterType="ImageVO">
+		DELETE FROM image
+		WHERE image_no = #{imageNo}	
+	</delete>
+	
+	<!-- doRetrieve -->
+	<select id="doRetrieve" parameterType="ImageVO" resultType="ImageVO">
+		SELECT
+		    image_no AS imageNo,
+		    main_image AS mainImage,
+		    org_name AS orgName,
+		    save_name AS saveName,
+		    path AS path,
+		    file_size AS fileSize,
+		    file_ext AS fileExt,
+		    from_tb AS fromTb,
+		    from_no AS fromNo,
+		    reg_dt AS regDt
+		FROM image
+		WHERE from_tb = #{fromTb}
+		AND from_no = #{fromNo}	
+	</select>
+	
+	
+
+</mapper>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mar.recipe">
+
+	<!-- com.sist.mar.recipe. + 메소드 이름 -> 메소드 특정가능 -->
+	
+	<!-- doInsert -->
+	<insert id="doInsert" parameterType="RecipeVO">
+		INSERT INTO recipe (
+		    recipe_no,
+		    reg_id,
+		    title,
+		    contents,
+		    read_cnt,
+		    ingredients,
+		    url_addr,
+		    reg_dt,
+		    mod_dt
+		) VALUES (
+		    RECIPE_SEQ.nextval,
+		    #{regId},
+		    #{title},
+		    #{contents},
+		    0,
+		    #{ingredients},
+		    #{urlAddr},
+		    SYSDATE,
+		    NULL
+		)	
+	</insert>
+	
+	<!-- doDelete -->
+	<delete id="doDelete" parameterType="RecipeVO">
+		DELETE FROM recipe
+		WHERE recipe_no = #{recipeNo}	
+	</delete>
+	
+	<!-- doUpdate -->
+	<update id="doUpdate" parameterType="RecipeVO">
+		UPDATE recipe
+		SET
+		    title = #{title},
+			contents = #{contents},
+			ingredients = #{ingredients},
+			url_addr = #{urlAddr},
+			mod_dt = SYSDATE
+		WHERE recipe_no = #{recipeNo}	
+	</update>
+	
+	<!-- doSelectOne -->
+	<select id="doSelectOne" parameterType="RecipeVO" resultType="RecipeVO">
+		SELECT
+		    recipe_no AS recipeNo,
+		    reg_id AS regId,
+		    title AS title,
+		    contents AS contents,
+		    read_cnt AS readCnt,
+		    ingredients AS ingredients,
+		    url_addr AS urlAddr,
+		    reg_dt AS regDt,
+		    mod_dt AS modDt
+		FROM recipe
+		WHERE recipe_no = #{recipeNo}		
+	</select>
+	
+</mapper>

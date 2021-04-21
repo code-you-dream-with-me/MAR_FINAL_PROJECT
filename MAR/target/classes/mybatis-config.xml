@@ -11,5 +11,8 @@
  		<typeAlias type="com.sist.mar.cmn.Search" alias="Search"/>
  		<typeAlias type="com.sist.mar.recipe.domain.RecipeVO" alias="RecipeVO"/>
  		<typeAlias type="com.sist.mar.image.domain.ImageVO" alias="ImageVO"/>
+		<typeAlias type="com.sist.mar.main.domain.MainVO" alias="MainVO"/>
+		
+
  	</typeAliases>
  </configuration>

@@ -1,5 +1,7 @@
 package com.sist.mar.image.controller;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -11,10 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sist.mar.cmn.Message;
+import com.sist.mar.cmn.StringUtil;
 import com.sist.mar.image.domain.ImageVO;
 import com.sist.mar.image.service.ImageServiceImpl;
 
@@ -47,6 +52,57 @@ public class ImageController {
 		model.addAttribute("fromTb", fromTb);
 		return VIEW_NAME;
 	}
+	
+	@RequestMapping(value = "image/do_upload.do", method = RequestMethod.POST
+			,produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String doUpload(MultipartHttpServletRequest request) throws Exception {
+		
+		List<MultipartFile> fileList = request.getFiles("file_list");
+		
+		Gson gson = new Gson();
+		
+		//파일이 업로드 될 경로
+		String path = "C:\\Users\\123wo\\git\\MAR_FINAL_PROJECT\\MAR\\src\\main\\webapp\\resources\\upload";
+		
+		//위에서 설정한 경로의 폴더가 없을 경우 생성
+		File dir = new File(path);
+		if(!dir.exists()) {
+			dir.mkdir();
+		}
+		
+		
+		List<ImageVO> imageList = new ArrayList<ImageVO>();
+		
+		for(MultipartFile file : fileList){
+			if(!file.isEmpty()) {
+				String orgName = file.getOriginalFilename();
+				String saveName = StringUtil.getUUID() + orgName;
+				int fileSize = (int) file.getSize();
+				String fileExt = orgName.substring(orgName.lastIndexOf("."));
+				
+				ImageVO image = new ImageVO();
+				image.setOrgName(orgName);
+				image.setSaveName(saveName);
+				image.setPath(path);
+				image.setFileSize(fileSize);
+				image.setFileExt(fileExt);
+				
+				imageList.add(image);
+				
+				file.transferTo(new File(path, saveName));
+			}
+		}
+		
+		
+		String jsonStr = gson.toJson(imageList.toArray());
+		
+		LOG.debug(jsonStr);
+		
+		return jsonStr;
+		
+	}
+	
 	
 	@RequestMapping(value = "image/do_insert.do", method = RequestMethod.GET
 			,produces = "application/json;charset=UTF-8")

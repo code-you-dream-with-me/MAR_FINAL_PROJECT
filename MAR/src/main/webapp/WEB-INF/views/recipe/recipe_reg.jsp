@@ -93,6 +93,7 @@
 
 				<!-- 변경필요 -->
 				<input type="hidden" name="regId" id="regId" value="123wodnr@naver.com"/>
+				<input type="hidden" name="imageList" id="imageList" value=""/>
 	
 	            <div class="col-12">
 	              <label for="title" class="form-label">레시피 이름<span class="text-muted"></span></label>
@@ -149,7 +150,7 @@
 	console.log('showPopup()');
 	
 	var title ="파일 업로드";
-	var option  ="toolbar=0,scrollbars=no,resizable=no,status=yes,width=1000,height=300,left=100,top=50";
+	var option  ="toolbar=0,scrollbars=no,resizable=no,status=yes,width=500,height=300,left=300,top=50";
 	
 	window.open("",title,option);
 	
@@ -170,7 +171,7 @@
   	$.ajax({
   		type: "GET",
   		url:"${hContext}/recipe/do_insert.do",
-  		asyn:"true",
+  		asyn:"false",
   		dataType:"html",
   		data:{
   			regId: $("#regId").val(),
@@ -181,7 +182,30 @@
   		},
   		success:function(data){//통신 성공
       		var message = JSON.parse(data);
-  			alert(message.msgContents);
+  			console.log(message.msgContents);
+  			
+  			$.ajax({
+  		  		type: "GET",
+  		  		url:"${hContext}/image/do_insert.do",
+  		  		asyn:"false",
+  		  		dataType:"html",
+  		  		data:{
+  		  			imageList: $("#imageList").val(),
+  		  			fromTb: $("#fromTb").val()
+  		  		},
+  		  		success:function(data){//통신 성공
+  		      		var message = JSON.parse(data);
+  		  			console.log(message.msgContents);
+  		  			alert("레시피 등록이 완료되었습니다.");
+  		      	},
+  		      	error:function(data){//실패시 처리
+  		      		console.log("error:"+data);
+  		      	},
+  		      	complete:function(data){//성공/실패와 관계없이 수행!
+  		      		console.log("complete:"+data);
+  		      	}
+  		  	});
+  			
       	},
       	error:function(data){//실패시 처리
       		console.log("error:"+data);
@@ -189,10 +213,20 @@
       	complete:function(data){//성공/실패와 관계없이 수행!
       		console.log("complete:"+data);
       	}
-  	});	  
-	  
+  	});
+  	
   });
+  	
+  
+	//popup에서 가져온 값 처리
+	function setSendChild(param) {
+		
+		var jsonString = JSON.stringify(param);
+		$("#imageList").val(jsonString); 
+		
+	}
     
   </script>
+  
 
 </html>

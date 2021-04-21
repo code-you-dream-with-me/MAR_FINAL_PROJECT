@@ -31,12 +31,10 @@
 
 ## 4. 기획서
 
-<img src="https://user-images.githubusercontent.com/72611381/115548010-ed72d800-a2e1-11eb-9aeb-76c7527ae806.jpg" width="80%">
-<img src="https://user-images.githubusercontent.com/72611381/115548024-f1065f00-a2e1-11eb-9275-ee97467736fb.jpg" width="80%">
-<img src="https://user-images.githubusercontent.com/72611381/115548031-f2d02280-a2e1-11eb-81a4-48a834cfe8ec.jpg" width="80%">
-<img src="https://user-images.githubusercontent.com/72611381/115548033-f499e600-a2e1-11eb-8957-01bd2f7be918.jpg" width="80%">
-<img src="https://user-images.githubusercontent.com/72611381/115548043-f794d680-a2e1-11eb-9b59-a2614f3d2f02.jpg" width="80%">
-<img src="https://user-images.githubusercontent.com/72611381/115548052-f95e9a00-a2e1-11eb-992f-53db975d07cc.jpg" width="80%">
+![기획서01](https://user-images.githubusercontent.com/72611381/115550105-6bd07980-a2e4-11eb-99cb-a810bdb169e8.jpg)
+![기획서02](https://user-images.githubusercontent.com/72611381/115550113-6ecb6a00-a2e4-11eb-9b09-a9cecb3ef04a.png)
+![기획서03](https://user-images.githubusercontent.com/72611381/115550126-70952d80-a2e4-11eb-8a23-3147edd3f66e.png)
+
 
 
 

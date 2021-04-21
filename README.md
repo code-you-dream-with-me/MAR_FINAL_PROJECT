@@ -14,18 +14,22 @@
 [11. 이행](#11-이행)  
 [12. 개발 URL](#12-개발-url)  
 
+​
+​
 ## 1. 목적  
 * Spring 프레임워크를 사용하여 웹표준 Full-Stack 융합 프로젝트 구현 기술 습득
 * gitHub형상관리를 사용하여 조직적 직무수행에 필요한 기술 습득
 * 결제 API를 사용하여 온라인 쇼핑몰의 주문/결제 시스템 및 전체 MVC구조 이해   
 
-
+​
+​
 ## 2. 프로젝트명  
 ### Markit - 온라인 쇼핑몰
 <img src="https://user-images.githubusercontent.com/72611381/115550882-4ee87600-a2e5-11eb-820b-30e846e22529.png" width="50%">
 (프로젝트 로고입니다.)
 
-
+​
+​
 ## 3. *MAR* 팀 소개
 ### 3.1. 팀원 /  팀장
 ```
@@ -33,6 +37,8 @@
 팀원: 김재욱, 류상준, 신한솔, 이승호, 차예빈
 ```
 
+​
+​
 ### 3.2. 담당업무
 |이름|담당업무|
 |:-------:|:-------|
@@ -43,51 +49,64 @@
 |이승호  | 주문상품조회/후기(등록)                                                   |
 |차예빈  | 상품주문/장바구니/늘사는것(찜하기기능)/결제(API)                           |
 
-
 ​
+​
+[▲목차](#0-목차) 
 ## 4. 기획서
 
 ![기획서01](https://user-images.githubusercontent.com/72611381/115550443-d2ee2e00-a2e4-11eb-9953-c85149066b4a.jpg)
 ![기획서02](https://user-images.githubusercontent.com/72611381/115550113-6ecb6a00-a2e4-11eb-9b09-a9cecb3ef04a.png)
 ![기획서03](https://user-images.githubusercontent.com/72611381/115550126-70952d80-a2e4-11eb-8a23-3147edd3f66e.png)
 
-
-
-
+​
+​
+[▲목차](#0-목차) 
 ## 5. 요구사항정의서
 
 ![mar요구사항정의서](https://user-images.githubusercontent.com/72611381/115550595-fe711880-a2e4-11eb-8eea-4fa038c40df4.png)
 
 ​
-
+​
 ## 6. WBS
 
 ![April_WBS](https://github.com/HYKim8/April/blob/master/aprilPrj/src/main/webapp/WEB-INF/doc/April_WBS.png "April_WBS")
 
 ​
-
+​
 ## 7. 개발아키텍쳐 : MVC
 
 ![April_WBS](https://github.com/HYKim8/April/blob/master/aprilPrj/src/main/webapp/WEB-INF/doc/April_MVC.png "April_MVC")
 
+​
+​
+[▲목차](#0-목차) 
 ### 7.1. 프론트
 
 ​
-
+​
+[▲목차](#0-목차) 
 ### 7.2. 백앤드 
 
 ​
-
 ​
-
+[▲목차](#0-목차) 
 ## 8. 개발 목록
 
+​
+​
+[▲목차](#0-목차) 
 ## 9. 단위테스트
 
+​
+​
+[▲목차](#0-목차) 
 ## 10. 통합테스트
 
+​
+​
+[▲목차](#0-목차) 
 ## 11. 이행
 
 ​
-
+​
 ## 12. 개발 URL 

@@ -13,8 +13,11 @@
  		<typeAlias type="com.sist.mar.image.domain.ImageVO" alias="ImageVO"/>
 		<typeAlias type="com.sist.mar.main.domain.MainVO" alias="MainVO"/>
 		
+		<!-- 추가한 사람 : 한솔 -->
+		<typeAlias type = "com.sist.mar.answer.domain.Answer" alias = "Answer" />
+		
 		<!-- 추가한 사람 : 승호 -->
- 		<typeAlias type = "com.sist.mar.review.domain.Review" alias = "Review" />
+ 		<typeAlias type = "com.sist.mar.review.domain.ReviewVO" alias = "ReviewVO" />
 
  	</typeAliases>
  </configuration>

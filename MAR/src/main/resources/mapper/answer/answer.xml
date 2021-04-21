@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mar.answer">
+	
+	<!-- getAllList -->
+	<select id="getAllList" resultType="Answer">
+		SELECT
+			answer_no as answerNo,
+		    question_no as questionNo,
+		    a_user as aUser,
+		    title,
+		    contents,
+		    CASE WHEN TO_CHAR(SYSDATE,'YYYY/MM/DD') = TO_CHAR(reg_dt, 'YYYY/MM/DD')           
+            THEN TO_CHAR(reg_dt,'HH24:MI')                                               
+            ELSE TO_CHAR(reg_dt,'YYYY/MM/DD') END regDt
+		FROM answer
+	
+	</select>
+
+	<!-- doSelectOne -->
+	<select id="doSelectOne" parameterType="Answer" resultType="Answer" >
+		SELECT
+			answer_no as answerNo,
+		    question_no as questionNo,
+		    a_user as aUser,
+		    title,
+		    contents,
+		    CASE WHEN TO_CHAR(SYSDATE,'YYYY/MM/DD') = TO_CHAR(reg_dt, 'YYYY/MM/DD')           
+            THEN TO_CHAR(reg_dt,'HH24:MI')                                               
+            ELSE TO_CHAR(reg_dt,'YYYY/MM/DD') END regDt
+		FROM answer
+		WHERE question_no = #{questionNo}
+
+	</select>
+
+	<!-- update -->
+	<update id="doUpdate" parameterType="Answer">
+
+	</update>
+
+	<!-- delete -->
+	<delete id="doDelete" parameterType="Answer">
+	 	DELETE FROM answer 
+ 		WHERE  answer_no = #{answerNo}  
+	</delete>
+	
+	<!-- insert -->
+	<insert id="doInsert" parameterType="Answer">
+		INSERT INTO answer (
+		    answer_no,
+		    question_no,
+		    a_user,
+		    title,
+		    contents,
+		    reg_dt
+		) VALUES (
+		    ANSWER_SEQ.nextval,
+		    #{questionNo},
+		    #{aUser},
+		    #{title},
+		    #{contents},
+		    SYSDATE
+		)
+	</insert>
+	
+
+
+
+</mapper>

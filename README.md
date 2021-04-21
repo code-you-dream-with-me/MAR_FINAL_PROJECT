@@ -1,14 +1,14 @@
 # MAR_FINAL_PROJECT
 
 ## 1.목적  
-* Spring 프레임워크를 사용하여 웹표준 Full-Stack 융합 프로젝트 진행을 통한 기술 습득
-* gitHub형상관리 사용을 통해 조직적 직무수행에 필요한 기술 습득
-* 결제 API를 사용하여 온라인 쇼핑몰의 주문/결제 시스템 이해  
+* Spring 프레임워크를 사용하여 웹표준 Full-Stack 융합 프로젝트 구현 기술 습득
+* gitHub형상관리를 사용하여 조직적 직무수행에 필요한 기술 습득
+* 결제 API를 사용하여 온라인 쇼핑몰의 주문/결제 시스템 및 전체 MVC구조 이해   
 
 
 ## 2. 프로젝트명  
 ### Markit - 온라인 쇼핑몰
-![markit_logo3](https://user-images.githubusercontent.com/72611381/115550882-4ee87600-a2e5-11eb-820b-30e846e22529.png)
+<img src="https://user-images.githubusercontent.com/72611381/115550882-4ee87600-a2e5-11eb-820b-30e846e22529.png" width="50%">
 (프로젝트 로고입니다.)
 
 

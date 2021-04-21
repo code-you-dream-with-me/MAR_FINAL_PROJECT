@@ -8,6 +8,8 @@
 
 ## 2. 프로젝트명  
 ### Markit - 온라인 쇼핑몰
+![markit_logo3](https://user-images.githubusercontent.com/72611381/115550882-4ee87600-a2e5-11eb-820b-30e846e22529.png)
+(프로젝트 로고입니다.)
 
 
 ## 3. *MAR* 팀 소개

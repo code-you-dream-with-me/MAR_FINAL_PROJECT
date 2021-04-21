@@ -28,7 +28,7 @@
 |차예빈  | 상품주문/장바구니/늘사는것(찜하기기능)                                   |
 
 
-
+​
 ## 4. 기획서
 
 ![기획서01](https://user-images.githubusercontent.com/72611381/115550443-d2ee2e00-a2e4-11eb-9953-c85149066b4a.jpg)
@@ -40,7 +40,7 @@
 
 ## 5. 요구사항정의서
 
-![April_WBS](https://github.com/HYKim8/April/blob/master/aprilPrj/src/main/webapp/WEB-INF/doc/APRIL_%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD%EC%A0%95%EC%9D%98%EC%84%9C(SRS).PNG "April_SRS")
+![mar요구사항정의서](https://user-images.githubusercontent.com/72611381/115550595-fe711880-a2e4-11eb-8eea-4fa038c40df4.png)
 
 ​
 

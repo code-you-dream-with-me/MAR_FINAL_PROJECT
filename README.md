@@ -31,12 +31,12 @@
 
 ## 4. 기획서
 
-<img src="https://user-images.githubusercontent.com/72611381/115546701-4d687f00-a2e0-11eb-9e16-c1747a3a847a.jpg" width="60%">
-<img src="https://user-images.githubusercontent.com/72611381/115546759-5fe2b880-a2e0-11eb-8264-8dc3c50c0f13.jpg" width="60%">
-<img src="https://user-images.githubusercontent.com/72611381/115546770-640ed600-a2e0-11eb-95c9-ef21d7b7a2f4.jpg" width="60%">
-<img src="https://user-images.githubusercontent.com/72611381/115546777-66713000-a2e0-11eb-92fb-022d9b6c1fb3.jpg" width="60%">
-<img src="https://user-images.githubusercontent.com/72611381/115546786-6b35e400-a2e0-11eb-8b35-8faff2e7dcbd.jpg" width="60%">
-<img src="https://user-images.githubusercontent.com/72611381/115546796-6ec96b00-a2e0-11eb-9ed0-bbc1eae98e0b.jpg" width="60%">
+<img src="https://user-images.githubusercontent.com/72611381/115548010-ed72d800-a2e1-11eb-9aeb-76c7527ae806.jpg" width="80%">
+<img src="https://user-images.githubusercontent.com/72611381/115548024-f1065f00-a2e1-11eb-9275-ee97467736fb.jpg" width="80%">
+<img src="https://user-images.githubusercontent.com/72611381/115548031-f2d02280-a2e1-11eb-81a4-48a834cfe8ec.jpg" width="80%">
+<img src="https://user-images.githubusercontent.com/72611381/115548033-f499e600-a2e1-11eb-8957-01bd2f7be918.jpg" width="80%">
+<img src="https://user-images.githubusercontent.com/72611381/115548043-f794d680-a2e1-11eb-9b59-a2614f3d2f02.jpg" width="80%">
+<img src="https://user-images.githubusercontent.com/72611381/115548052-f95e9a00-a2e1-11eb-992f-53db975d07cc.jpg" width="80%">
 
 
 

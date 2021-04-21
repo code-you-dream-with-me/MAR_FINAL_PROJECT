@@ -11,9 +11,13 @@
  		<typeAlias type="com.sist.mar.cmn.Search" alias="Search"/>
  		<typeAlias type="com.sist.mar.recipe.domain.RecipeVO" alias="RecipeVO"/>
  		<typeAlias type="com.sist.mar.image.domain.ImageVO" alias="ImageVO"/>
+<<<<<<< HEAD
 		<typeAlias type="com.sist.mar.main.domain.MainVO" alias="MainVO"/>
 		
 		<!-- 추가한 사람 : 승호 -->
  		<typeAlias type = "com.sist.mar.review.domain.Review" alias = "Review" />
+=======
+ 		<typeAlias type="com.sist.mar.main.domain.MainVO" alias="MainVO"/>
+>>>>>>> branch 'main' of https://github.com/code-you-dream-with-me/MAR_FINAL_PROJECT.git
  	</typeAliases>
  </configuration>

@@ -31,6 +31,15 @@
 
 ## 4. 기획서
 
+<img src="https://user-images.githubusercontent.com/72611381/115546701-4d687f00-a2e0-11eb-9e16-c1747a3a847a.jpg" width="60%">
+<img src="https://user-images.githubusercontent.com/72611381/115546759-5fe2b880-a2e0-11eb-8264-8dc3c50c0f13.jpg" width="60%">
+<img src="https://user-images.githubusercontent.com/72611381/115546770-640ed600-a2e0-11eb-95c9-ef21d7b7a2f4.jpg" width="60%">
+<img src="https://user-images.githubusercontent.com/72611381/115546777-66713000-a2e0-11eb-92fb-022d9b6c1fb3.jpg" width="60%">
+<img src="https://user-images.githubusercontent.com/72611381/115546786-6b35e400-a2e0-11eb-8b35-8faff2e7dcbd.jpg" width="60%">
+<img src="https://user-images.githubusercontent.com/72611381/115546796-6ec96b00-a2e0-11eb-9ed0-bbc1eae98e0b.jpg" width="60%">
+
+
+
 ## 5. 요구사항정의서
 
 ![April_WBS](https://github.com/HYKim8/April/blob/master/aprilPrj/src/main/webapp/WEB-INF/doc/APRIL_%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD%EC%A0%95%EC%9D%98%EC%84%9C(SRS).PNG "April_SRS")

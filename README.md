@@ -31,7 +31,7 @@
 
 ## 4. 기획서
 
-![기획서01](https://user-images.githubusercontent.com/72611381/115550105-6bd07980-a2e4-11eb-99cb-a810bdb169e8.jpg)
+![기획서01](https://user-images.githubusercontent.com/72611381/115550443-d2ee2e00-a2e4-11eb-9953-c85149066b4a.jpg)
 ![기획서02](https://user-images.githubusercontent.com/72611381/115550113-6ecb6a00-a2e4-11eb-9b09-a9cecb3ef04a.png)
 ![기획서03](https://user-images.githubusercontent.com/72611381/115550126-70952d80-a2e4-11eb-8a23-3147edd3f66e.png)
 

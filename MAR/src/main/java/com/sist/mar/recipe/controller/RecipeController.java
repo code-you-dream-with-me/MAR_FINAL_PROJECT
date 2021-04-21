@@ -22,6 +22,7 @@ public class RecipeController {
 	final Logger LOG = LoggerFactory.getLogger(RecipeController.class);
 	
 	final String VIEW_NAME = "recipe/recipe_reg";
+	final String VIEW_NAME2 = "recipe/recipe_detail";
 	
 	@Autowired
 	RecipeServiceImpl recipeService;
@@ -38,6 +39,12 @@ public class RecipeController {
 			,produces = "application/json;charset=UTF-8")
 	public String view(Model model) throws Exception {
 		return VIEW_NAME;
+	}
+	
+	@RequestMapping(value = "recipe/recipe_view2.do", method = RequestMethod.GET
+			,produces = "application/json;charset=UTF-8")
+	public String view2(Model model) throws Exception {
+		return VIEW_NAME2;
 	}
 	
 	@RequestMapping(value = "recipe/do_insert.do", method = RequestMethod.GET

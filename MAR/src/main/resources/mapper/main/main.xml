@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mar.main">
+
+	
+	<!-- doRetrieve : 최신등록상품 조회 -->
+	<select id="doRetrieve" parameterType="Search" resultType="MainVO">
+		SELECT A.*,B.*
+		FROM(
+		    SELECT g2.rnum as num,
+		           g2.path,
+		           g2.name,
+		           g2.discount,
+		           g2.price,
+		           g2.final_price as finalPrice,
+		           g2.sales
+		    FROM(
+		    SELECT ROWNUM rnum,g1.*
+		    FROM(SELECT t2.path || '/' ||t2.save_name AS path,
+		            t1.name,
+		            t1.discount,
+		            t1.price,
+		            t1.final_price, 
+		            t1.sales
+		    FROM item t1, image t2
+		    WHERE t1.item_no=t2.from_no
+		    AND t2.main_image = 1
+		    AND t2.from_tb= 1
+		    --카테고리별 조회
+		    AND t1.category_no= #{categoryNo}
+		    ORDER BY t1.reg_dt desc
+		    )g1
+		    )g2
+		    WHERE rnum BETWEEN (#{pageSize} *(#{pageNum}-1)+1) AND (#{pageSize} *(#{pageNum}-1)+#{pageSize})
+		)A CROSS JOIN(
+		    SELECT COUNT(*) total_cnt
+		    FROM item
+		)B
+		--검색 조회
+		WHERE name LIKE #{searchWord}||'%'
+	
+	</select>
+
+	<select id="doBestRetrieve" parameterType="Search" resultType="MainVO">
+		SELECT A.*,B.*
+		FROM(
+		    SELECT g2.rnum as num,
+		           g2.path,
+		           g2.name,
+		           g2.discount,
+		           g2.price,
+		           g2.final_price,
+		           g2.sales
+		    FROM(
+		    SELECT ROWNUM rnum,g1.*
+		    FROM(SELECT t2.path || '/' ||t2.save_name AS path,
+		            t1.name,
+		            t1.discount,
+		            t1.price,
+		            t1.final_price, 
+		            t1.sales
+		    FROM item t1, image t2
+		    WHERE t1.item_no=t2.from_no
+		    AND t2.main_image = 1
+		    AND t2.from_tb=1
+		    --카테고리별 조회
+		    AND t1.category_no=#{categoryNo}
+		    ORDER BY t1.sales desc
+		    )g1
+		    )g2
+		    WHERE rnum BETWEEN (#{pageSize} *(#{pageNum}-1)+1) AND (#{pageSize} *(#{pageNum}-1)+#{pageSize})
+		)A CROSS JOIN(
+		    SELECT COUNT(*) total_cnt
+		    FROM item
+		)B
+	</select>
+	
+	<select id="doSaleRetrieve" parameterType="Search" resultType="MainVO">
+		SELECT A.*,B.*
+		FROM(
+		    SELECT g2.rnum as num,
+		           g2.path,
+		           g2.name,
+		           g2.discount,
+		           g2.price,
+		           g2.final_price,
+		           g2.sales
+		    FROM(
+		    SELECT ROWNUM rnum,g1.*
+		    FROM(SELECT t2.path || '/' ||t2.save_name AS path,
+		            t1.name,
+		            t1.discount,
+		            t1.price,
+		            t1.final_price, 
+		            t1.sales
+		    FROM item t1, image t2
+		    WHERE t1.item_no=t2.from_no
+		    AND t2.main_image = 1
+		    AND t2.from_tb=1
+		    --카테고리별 조회
+		    AND t1.category_no=10
+		    AND NOT t1.discount IS NULL
+		    ORDER BY t1.reg_dt desc
+		    )g1
+		    )g2
+		    WHERE rnum BETWEEN 1 AND 10
+		)A CROSS JOIN(
+		    SELECT COUNT(*) total_cnt
+		    FROM item
+		)B
+	
+	</select>
+
+</mapper>
+
+	

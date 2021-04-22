@@ -20,5 +20,10 @@
 		<!-- 추가한 사람 : 승호 -->
  		<typeAlias type = "com.sist.mar.review.domain.ReviewVO" alias = "ReviewVO" />
 
+		<!-- 추가한 사람 : 예빈 -->
+		<typeAlias type="com.sist.mar.wishitem.domain.Wishitem" alias="Wishitem"/>
+		<typeAlias type="com.sist.mar.cart.domain.Cart" alias="Cart"/>
+		<typeAlias type="com.sist.mar.order.domain.Ordering" alias="Ordering"/>
+		<typeAlias type="com.sist.mar.order.domain.Orderitem" alias="Orderitem"/>
  	</typeAliases>
  </configuration>

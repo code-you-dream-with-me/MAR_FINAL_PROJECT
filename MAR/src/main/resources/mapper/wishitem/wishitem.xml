@@ -3,17 +3,17 @@
 <mapper namespace="com.sist.mar.wishitem">
 
 	<resultMap type="Wishitem" id="wishResult">
-		<id     property="wishNo"         column="wish_no"      />
-		<result property="memberId"       column="member_id"    />
-		<result property="itemNo"         column="item_no"      />
+		<id     property="wishNo"         column="wish_no"       />
+		<result property="memberId"       column="member_id"     />
+		<result property="itemNo"         column="item_no"       />
 		<result property="item_name"       column="name"         />
 		<result property="item_price"      column="price"        />
 		<result property="item_discount"   column="discount"     />
-		<result property="item_sale_price" column="sale_price"   />
+		<result property="item_final_price" column="final_price" />
 		<result property="image_save_name" column="save_name"    />
 		<result property="image_path"      column="path"         />
 		<result property="num"             column="rnum"         />
-		<result property="totalCnt"        column="total_cnt"    />
+		<result property="totalCnt"       column="total_cnt"     />
 	</resultMap>  
 	
 	<delete id="doDelete" parameterType="String">
@@ -21,7 +21,6 @@
 		WHERE  wish_no = #{param} 
 	</delete>
 	
-	<!-- wish_no 시퀀스로 변경 전 -->
 	<insert id="doInsert" parameterType="Wishitem">
 		INSERT INTO wishitem (
 		    wish_no,
@@ -44,7 +43,7 @@
 		    t2.name,                       
 		    t2.price,                      
 		    t2.discount,                   
-		    t2.sale_price                      
+		    t2.final_price                      
 		FROM wishitem t1, item t2
 		WHERE t1.item_no = t2.item_no                   
 		  AND t1.wish_no = #{param}               
@@ -75,7 +74,7 @@
 		                c.path                                        
 		            FROM wishitem a, item b, image c                  
 		            WHERE a.item_no = b.item_no                       
-		              AND a.item_no = c.form_no                       
+		              AND a.item_no = c.from_no                       
 		              AND c.from_tb = 1                               
 		              AND c.main_image = 1                            
 		              AND a.member_id = #{searchWord}                              
@@ -90,7 +89,7 @@
 		SELECT COUNT(*) total_cnt                                     
 		FROM wishitem a, item b, image c                              
 		WHERE a.item_no = b.item_no                                   
-		  AND a.item_no = c.form_no                                   
+		  AND a.item_no = c.from_no                                   
 		  AND c.from_tb = 1                                           
 		  AND c.main_image = 1                                        
 		  AND a.member_id = #{searchWord}                                         

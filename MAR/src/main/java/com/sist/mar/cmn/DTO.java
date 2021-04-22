@@ -10,7 +10,7 @@ public class DTO {
 	private String item_name;        //wishitem & cart 출력용
 	private int item_price;          //wishitem & cart 출력용
 	private int item_discount;       //wishitem & cart 출력용
-	private int item_sale_price;     //wishitem & cart 출력용
+	private int item_final_price;    //wishitem & cart 출력용
 	//image 테이블
 	private String image_save_name;  //wishitem & cart 출력용
 	private String image_path;       //wishitem & cart 출력용
@@ -20,13 +20,13 @@ public class DTO {
 	
 	public DTO() {}
 
-	public DTO(String item_name, int item_price, int item_discount, int item_sale_price, String image_save_name,
+	public DTO(String item_name, int item_price, int item_discount, int item_final_price, String image_save_name,
 			String image_path, int num, int totalCnt) {
 		super();
 		this.item_name = item_name;
 		this.item_price = item_price;
 		this.item_discount = item_discount;
-		this.item_sale_price = item_sale_price;
+		this.item_final_price = item_final_price;
 		this.image_save_name = image_save_name;
 		this.image_path = image_path;
 		this.num = num;
@@ -57,12 +57,12 @@ public class DTO {
 		this.item_discount = item_discount;
 	}
 
-	public int getItem_sale_price() {
-		return item_sale_price;
+	public int getItem_final_price() {
+		return item_final_price;
 	}
 
-	public void setItem_sale_price(int item_sale_price) {
-		this.item_sale_price = item_sale_price;
+	public void setItem_final_price(int item_final_price) {
+		this.item_final_price = item_final_price;
 	}
 
 	public String getImage_save_name() {
@@ -100,7 +100,7 @@ public class DTO {
 	@Override
 	public String toString() {
 		return "DTO [item_name=" + item_name + ", item_price=" + item_price + ", item_discount=" + item_discount
-				+ ", item_sale_price=" + item_sale_price + ", image_save_name=" + image_save_name + ", image_path="
+				+ ", item_final_price=" + item_final_price + ", image_save_name=" + image_save_name + ", image_path="
 				+ image_path + ", num=" + num + ", totalCnt=" + totalCnt + "]";
 	}
 

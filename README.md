@@ -69,7 +69,7 @@
 ​
 ## 6. WBS
 
-![April_WBS](https://github.com/HYKim8/April/blob/master/aprilPrj/src/main/webapp/WEB-INF/doc/April_WBS.png "April_WBS")
+![MAR_WBS](https://user-images.githubusercontent.com/72611381/115733750-21bec500-a3c4-11eb-8372-2f2a24034455.png)
 
 ​
 ​

@@ -64,6 +64,8 @@ public class ImageController {
 		
 		//파일이 업로드 될 경로
 		String path = "C:\\Users\\123wo\\git\\MAR_FINAL_PROJECT\\MAR\\src\\main\\webapp\\resources\\upload";
+		String simplePath = "/resources/upload/";
+		
 		
 		//위에서 설정한 경로의 폴더가 없을 경우 생성
 		File dir = new File(path);
@@ -84,7 +86,7 @@ public class ImageController {
 				ImageVO image = new ImageVO();
 				image.setOrgName(orgName);
 				image.setSaveName(saveName);
-				image.setPath(path);
+				image.setPath(simplePath);
 				image.setFileSize(fileSize);
 				image.setFileExt(fileExt);
 				
@@ -108,14 +110,18 @@ public class ImageController {
 			,produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String doInsert(@RequestParam(value = "imageList", required = false)String jsonStr, 
-				           @RequestParam(value = "fromTb", required = false)String fromTb 
+				           @RequestParam(value = "fromTb", required = false)String fromTb,
+				           @RequestParam(value = "MainImage", required = false)String mainImage
 			) throws Exception {
+		
+		int mainImageNum = Integer.parseInt(StringUtil.nvl(mainImage, "0"));
+		LOG.debug("mainImage"+ mainImageNum);
 		
 		Gson gson = new Gson();
 		List<ImageVO> imageList = gson.fromJson(jsonStr, new TypeToken<List<ImageVO>>() {}.getType());
 		
 		Message message = new Message();
-		message.setMsgId(Integer.toString(imageService.upRegisterImages(imageList, fromTb)));
+		message.setMsgId(Integer.toString(imageService.upRegisterImages(imageList, fromTb, mainImageNum)));
 		
 		if(message.getMsgId().equals("1")) message.setMsgContents("이미지 등록이 완료되었습니다.");
 		else message.setMsgContents("이미지 등록에 실패하였습니다.");

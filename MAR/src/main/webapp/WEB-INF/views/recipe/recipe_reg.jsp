@@ -67,21 +67,18 @@
 	            <span class="text-primary">이미지</span>
 	            
 	            <!-- 등록한 이미지가 몇 개인지 보여 줄 칸 -->
-	            <span class="badge bg-primary rounded-pill">3</span>
-	
+	            <div id="imageCntView"></div>
+	            
 	            <button type="button" class="btn btn-outline-primary me-2" onclick="showPopup(this.form);">추가</button>
-	
+	          
 	          </h4>
+				
+			  <!-- 업로드한 이미지 목록 출력 -->	
+	          <div id="uploadImageView" name="uploadImageView">
+	          </div>
 	
-	          <ul class="list-group mb-3">
-	            <li class="list-group-item d-flex justify-content-between lh-sm">
-	              <div>
-	                <h6 class="my-0">Product name</h6>
-	                <small class="text-muted">Brief description</small>
-	              </div>
-	              <span class="text-muted">$12</span>
-	            </li>
-	          </ul>
+					
+			  		
 	
 	        </form>
 	      </div>
@@ -94,6 +91,8 @@
 				<!-- 변경필요 -->
 				<input type="hidden" name="regId" id="regId" value="123wodnr@naver.com"/>
 				<input type="hidden" name="imageList" id="imageList" value=""/>
+				<input type="hidden" name="whichMainImage" id="whichMainImage" value="0"/>
+				
 	
 	            <div class="col-12">
 	              <label for="title" class="form-label">레시피 이름<span class="text-muted"></span></label>
@@ -148,6 +147,7 @@
   //팝업 창 띄우기
   function showPopup(frm) { 
 	console.log('showPopup()');
+	$("#whichMainImage").val('');
 	
 	var title ="파일 업로드";
 	var option  ="toolbar=0,scrollbars=no,resizable=no,status=yes,width=500,height=300,left=300,top=50";
@@ -184,6 +184,11 @@
       		var message = JSON.parse(data);
   			console.log(message.msgContents);
   			
+  			var mainImageNum = $("#whichMainImage").val();
+  			if("" == mainImageNum){
+  				mainImageNum = "0";
+  			}
+  			
   			$.ajax({
   		  		type: "GET",
   		  		url:"${hContext}/image/do_insert.do",
@@ -191,7 +196,8 @@
   		  		dataType:"html",
   		  		data:{
   		  			imageList: $("#imageList").val(),
-  		  			fromTb: $("#fromTb").val()
+  		  			fromTb: $("#fromTb").val(),
+  		  		    MainImage: mainImageNum
   		  		},
   		  		success:function(data){//통신 성공
   		      		var message = JSON.parse(data);
@@ -224,8 +230,44 @@
 		var jsonString = JSON.stringify(param);
 		$("#imageList").val(jsonString); 
 		
+		var tmpImageList = JSON.parse(jsonString);
+		//console.log(tmpImageList);
+		
+		var cnt = 0;
+		
+		$("#uploadImageView").empty();
+		var html = "";
+		html += "<ul class='list-group mb-3'>";
+		
+		$.each(tmpImageList, function(i, value) {
+			
+			if(cnt == 0){
+				html += "<li class='list-group-item d-flex justify-content-between lh-sm'> "+ value.orgName +" <input type = 'radio' class='form-check-input' name = 'selectImage' value = '"+i+"' checked='checked' onclick='clickWhichMainImage("+i+");'></li>";
+			} else {
+				html += "<li class='list-group-item d-flex justify-content-between lh-sm'> "+ value.orgName +" <input type = 'radio' class='form-check-input' name = 'selectImage' value = '"+i+"' onclick='clickWhichMainImage("+i+");' ></li>";
+			}
+			
+			cnt += 1;
+		});
+		
+		html += "</ul>";
+		
+		$("#uploadImageView").append(html);
+		
+		$("#imageCntView").empty();
+		var html2 = "<span class='badge bg-primary rounded-pill'>"+cnt+"</span>";
+		$("#imageCntView").append(html2);
+		
+		
 	}
     
+	function clickWhichMainImage(i){
+		console.log("clickWhichMainImage"+i);
+		$("#whichMainImage").val(i);
+	}
+	
+	
+	
   </script>
   
 

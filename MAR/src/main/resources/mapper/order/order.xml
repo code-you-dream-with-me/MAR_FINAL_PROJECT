@@ -27,15 +27,13 @@
 	</insert>
 	
 	<insert id="doInsertOrderitem" parameterType="Orderitem" >
-		INSERT INTO order_item (
+		INSERT INTO orderitem (
 		    orderitem_no,
-		    cart_no,
 		    order_no,
 		    item_no,
 		    quantity
 		) VALUES (
 		    ORDERITEM_SEQ.NEXTVAL, 
-		    #{cartNo}, 
 		    #{orderNo},
 		    #{itemNo}, 
 		    #{quantity} 

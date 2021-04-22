@@ -3,14 +3,14 @@
 <mapper namespace="com.sist.mar.cart">
 
 	<resultMap type="Cart" id="cartResult">
-		<id     property="cartNo"         column="cart_no"      />
-		<result property="memberId"       column="member_id"    />
-		<result property="itemNo"         column="item_no"      />
-		<result property="quantity"         column="quantity"      />
+		<id     property="cartNo"         column="cart_no"       />
+		<result property="memberId"       column="member_id"     />
+		<result property="itemNo"         column="item_no"       />
+		<result property="quantity"         column="quantity"    />
 		<result property="item_name"       column="name"         />
 		<result property="item_price"      column="price"        />
 		<result property="item_discount"   column="discount"     />
-		<result property="item_sale_price" column="sale_price"   />
+		<result property="item_final_price" column="final_price" />
 		<result property="image_save_name" column="save_name"    />
 		<result property="image_path"      column="path"         />
 	</resultMap>  
@@ -50,12 +50,12 @@
 		    t2.name,
 		    t2.price,
 		    t2.discount,
-		    t2.sale_price,
+		    t2.final_price,
 		    t3.save_name,                  
 			t3.path    
 		FROM cart t1, item t2, image t3
 		WHERE t1.item_no = t2.item_no 
-		  AND t1.item_no = t3.form_no      
+		  AND t1.item_no = t3.from_no      
 		  AND t3.from_tb = 1               
 		  AND t3.main_image = 1  
 		  AND t1.member_id = #{param} 

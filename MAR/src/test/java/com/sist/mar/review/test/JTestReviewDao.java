@@ -18,6 +18,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.sist.mar.cmn.Search;
 import com.sist.mar.review.dao.ReviewDaoImpl;
 import com.sist.mar.review.domain.ReviewVO;
 
@@ -49,6 +50,9 @@ public class JTestReviewDao {
 	ReviewVO review04;
 	ReviewVO review05;
 	ReviewVO review06;
+	ReviewVO review07;
+	
+	Search search;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -59,13 +63,16 @@ public class JTestReviewDao {
 		
 		LOG.debug("=context=" + context);
 		
-		review01 = new ReviewVO(41, "aaa1@gmail.com" , 10 , "제목10", "내용10" , 0 , "");
-		review02 = new ReviewVO(42, "aaa2@gmail.com" , 20 , "제목20", "내용20" , 0 , "");
-		review03 = new ReviewVO(43, "aaa3@gmail.com" , 30 , "제목30", "내용30" , 0 , "");
+		review01 = new ReviewVO(101, "aaa1@gmail.com" , 10 , "제목10", "내용10" , 0 , "");
+		review02 = new ReviewVO(102, "aaa1@gmail.com" , 10 , "제목70", "내용70" , 0 , "");
+		review03 = new ReviewVO(83, "aaa2@gmail.com" , 20 , "제목20", "내용20" , 0 , "");
+		review04 = new ReviewVO(84, "aaa3@gmail.com" , 30 , "제목30", "내용30" , 0 , "");
 		   
-		review04 = new ReviewVO(44, "bbb1@gmail.com" , 40 , "제목40", "내용40" , 0 , "");
-		review05 = new ReviewVO(45, "bbb1@gmail.com" , 50 , "제목50", "내용50" , 0 , "");
-		review06 = new ReviewVO(46, "ccc1@gmail.com" , 60 , "제목60", "내용60" , 0 , "");
+		review05 = new ReviewVO(85, "bbb1@gmail.com" , 40 , "제목40", "내용40" , 0 , "");
+		review06 = new ReviewVO(86, "bbb1@gmail.com" , 50 , "제목50", "내용50" , 0 , "");
+		review07 = new ReviewVO(87, "ccc1@gmail.com" , 60 , "제목60", "내용60" , 0 , "");
+		
+		search = new Search("20", "aaa1@gmail.com", 10, 1);
 		
 	}
 
@@ -92,12 +99,15 @@ public class JTestReviewDao {
 		LOG.debug("*************************");
 		
 		// 1.
-		reviewDao.doRetrieve();
+		reviewDao.doRetrieve(search);
+		//reviewDao.doRetrieveSelf(search);
 		
+		// 2.
 		reviewDao.doSelectOne(review01);
 		reviewDao.doSelectOne(review02);
 		reviewDao.doSelectOne(review03);
 		
+		// 3.
 		int flag = reviewDao.doReadCnt(review01);
 		assertThat(flag, is(1));
 		

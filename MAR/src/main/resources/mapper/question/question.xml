@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mar.question">
+
+
+	<!-- 
+		Mybatis 주요 개념
+	
+		parameterType   : 변수가 어디서 기원했는지에 대한 내용
+		resultType 		: 결과값의 타입  
+		resultMap		: 참고한 resultMap 
+	 -->
+
+
+	<!-- resultMap(SQL의 AS xxx를 안해도 된다) : JAVA VO의 PK인 id property, 그 외의 값인 result property를 DB의 테이블의 칼럼인 column 값에 대응시켜주는 편리한 녀석  -->
+	<!-- id PK property = VO의 PK 속성, column = 테이블 칼럼 -->
+	<resultMap type="QuestionVO" id="questionResult">
+	
+		<id 	property="questionNo" 	 column="question_no"	/>		
+		<result property="orderNo" 	     column="order_no"		/>
+		<result property="qUser"	 	 column="q_user"  		/>
+		<result property="title"  		 column="title"			/>
+		<result property="contents" 	 column="contents"		/>
+		<result property="regDt" 		 column="reg_dt"		/>
+		
+	</resultMap>
+	
+	
+	<!-- doRetrieve 카테고리 : 10 (소비자 : 자기가 쓴 질의), 20(관리자 : 전체 질의)   -->
+	<!-- sql : 해당 element는 다른 구문에서 재사용 가능한 sql구문을 정의할 때 사용된다
+		 where 엘리먼트는 태그에 의해 컨텐츠가 리턴되면 단순히 “WHERE”만을 추가한다. 게다가 컨텐츠가 “AND”나 “OR”로 시작한다면 그 “AND”나 “OR”를 지워버린다. -->
+	<sql id="searchCondition">
+		<where>
+			<choose>
+				<when test=" '10'  == searchDiv ">
+					q_user = #{searchWord}    
+				</when>
+				<when test=" '20'  == searchDiv ">
+				</when>
+			</choose> 
+		</where>
+	</sql>
+	
+	
+	<!-- doRetrieve -->
+	<select id="doRetrieve" parameterType="Search" resultType="QuestionVO">
+
+		 SELECT A.*,                                                                                                                    
+		        B.*                                                                                                                      
+		 FROM(    
+		        SELECT t2.question_no 	AS questionNo, 		                                                                                                     
+		               t2.order_no 		AS orderNo, 		                                                                                                       
+		               t2.q_user 		AS qUser,                                                                                                       
+		               t2.title			AS title,                                                                                        				
+		               t2.contents		AS contents,      			                                                                                                                                                                                                                                                                                                                                                                         
+		               DECODE(TO_CHAR(SYSDATE, 'YYYYMMDD'), TO_CHAR(t2.reg_dt, 'YYYYMMDD')
+		                          , TO_CHAR(t2.reg_dt, 'HH24:MI')             
+		                          , TO_CHAR(t2.reg_dt, 'YYYYMMDD')) AS regDt
+		         FROM(                                                                                                                
+		             SELECT ROWNUM rnum                                                                                                 
+		                     , t1.*                                                                                                     
+		             FROM(SELECT *                                                                                                      
+		                  FROM question                                                                                                                                               
+		                  ORDER BY question_no DESC ) t1  
+		              <include refid="searchCondition" />                                                                                 
+		             )t2 
+		         WHERE rnum BETWEEN #{pageSize} * (#{pageNum} - 1) + 1 AND #{pageSize} * (#{pageNum} - 1) + #{pageSize}
+		     )A                                                                                                                         
+		 CROSS JOIN                                                                                                                     
+		     (SELECT COUNT(*) totalCnt                                                                                                 
+		     FROM question          
+		     <include refid="searchCondition" />                                                                                                      
+		     )B     
+
+	                                                                                                                                                                         															
+       <!--  WHERE rnum BETWEEN #{pageSize} * (#{pageNum} - 1) + 1 AND #{pageSize} * (#{pageNum} - 1) + #{pageSize} -->
+	
+	</select>
+	
+	
+	<!-- doSelectOne (uId는 oracle 자체 키워드니 ""를 꼭 써야함)-->
+	<select id="doSelectOne" parameterType="QuestionVO" resultMap="questionResult">
+		
+		SELECT question_no, 	            					  
+			   order_no,	                					  
+			   q_user, 			  
+			   title,			                   				  
+			   contents,		                   				  	 	                   				  	    				  
+			   TO_CHAR(reg_dt, 'YYYY/MM/DD HH24MISS') reg_dt  	    			  
+		FROM   question                  					  
+		WHERE question_no = #{questionNo}
+		ORDER BY question_no
+		
+	</select>
+	
+	
+	<!-- doUpdate -->
+	<update id = "doUpdate" parameterType="QuestionVO">
+		UPDATE question
+		SET   title = #{title}
+		    , contents = #{contents}
+		    , reg_dt = SYSDATE
+		WHERE question_no = #{questionNo}
+		
+	</update>
+	
+	
+	<!-- doDelete -->
+	<delete id = "doDelete" parameterType="QuestionVO">
+	
+		DELETE FROM question
+		WHERE question_no = #{questionNo}
+	
+	</delete>
+
+
+	<!-- doInsert -->	
+	<insert id = "doInsert" parameterType="QuestionVO">
+		
+		INSERT INTO question (
+		    question_no,
+		    order_no,
+		    q_user,
+		    title,
+		    contents,
+		    reg_dt
+		) VALUES (
+		    QUESTION_SEQ.NEXTVAL,
+		    #{orderNo},
+		    #{qUser},
+		    #{title},
+		    #{contents},
+		    SYSDATE
+		)
+	
+	</insert>
+
+</mapper>

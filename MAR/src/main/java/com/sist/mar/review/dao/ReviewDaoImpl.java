@@ -11,6 +11,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.sist.mar.cmn.DTO;
+import com.sist.mar.cmn.Search;
 import com.sist.mar.review.domain.ReviewVO;
 
 /* 
@@ -57,7 +58,7 @@ public class ReviewDaoImpl {
 	}
 	
 	/**
-	 * 삭제
+	 * 후기 삭제
 	 */
 	public int doDelete(DTO dto) throws SQLException {
 		
@@ -78,7 +79,7 @@ public class ReviewDaoImpl {
 	}
 
 	/**
-	 * 등록
+	 * 후기 등록
 	 */
 	public int doInsert(DTO dto) throws SQLException {
 		
@@ -98,6 +99,9 @@ public class ReviewDaoImpl {
 		
 	}
 
+	/**
+	 * 후기 조회
+	 */
 	public DTO doSelectOne(DTO dto) throws SQLException {
 		
 		ReviewVO inVO = (ReviewVO) dto;
@@ -127,7 +131,7 @@ public class ReviewDaoImpl {
 	}
 
 	/**
-	 * 수정
+	 * 후기 수정
 	 */
 	public int doUpdate(DTO dto) throws SQLException {
 		
@@ -148,15 +152,48 @@ public class ReviewDaoImpl {
 	}
 
 	/**
-	 * 전체 후기목록 조회
+	 * 상품페이지용) 전체 후기목록 조회
 	 */
-	public List<?> doRetrieve() throws SQLException {
+	public List<?> doRetrieve(DTO dto) throws SQLException {
 		
 		List<?> list = null;
 		
+		Search search = (Search) dto;
+		
 		String statement = this.NAMESPACE + ".doRetrieve";
 		
-		list = sqlSessionTemplate.selectList(statement);
+		LOG.debug("============================");
+		LOG.debug("=search=" + search);
+		LOG.debug("=statement=" + statement);
+		LOG.debug("============================");
+		
+		list = sqlSessionTemplate.selectList(statement, search);
+		
+		for(Object vo : list) {
+			LOG.debug("vo : " + vo);
+		}
+		
+		return list;
+		
+	}
+	
+	/**
+	 * 소비자용) 본인이 쓴 후기목록 조회
+	 */
+	public List<?> doRetrieveSelf(DTO dto) throws SQLException {
+		
+		List<?> list = null;
+		
+		Search search = (Search) dto;
+		
+		String statement = this.NAMESPACE + ".doRetrieveSelf";
+		
+		LOG.debug("============================");
+		LOG.debug("=search=" + search);
+		LOG.debug("=statement=" + statement);
+		LOG.debug("============================");
+		
+		list = sqlSessionTemplate.selectList(statement, search);
 		
 		for(Object vo : list) {
 			LOG.debug("vo : " + vo);

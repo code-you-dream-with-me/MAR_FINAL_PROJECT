@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mar.item">
+
+	<!-- getAllList -->
+	<select id="getAllList" resultType="Item">
+		SELECT
+			    item_no as itemNo,
+			    name,
+			    price,
+			    production,
+			    weight,
+			    expired,
+			    detail,
+			    discount,
+			    final_price as finalPrice,
+			    sales,
+			    category_no as categoryNo,
+			    reg_id as regId,
+			    CASE WHEN TO_CHAR(SYSDATE,'YYYY/MM/DD') = TO_CHAR(reg_dt, 'YYYY/MM/DD')           
+	            THEN TO_CHAR(reg_dt,'HH24:MI')                                               
+	            ELSE TO_CHAR(reg_dt,'YYYY/MM/DD') END regDt, 
+	   			CASE WHEN TO_CHAR(SYSDATE,'YYYY/MM/DD') = TO_CHAR(mod_dt, 'YYYY/MM/DD')           
+	            THEN TO_CHAR(mod_dt,'HH24:MI')                                               
+	            ELSE TO_CHAR(mod_dt,'YYYY/MM/DD') END modDt 
+		FROM item
+	
+	</select>
+
+	<!-- getRelatedList -->
+	<select id="getRelatedList"  parameterType="Item" resultType="Item">
+ 		SELECT 
+			t1.item_no as itemNo,
+	        t1.name,
+	        t1.price,
+	        t1.production,
+	        t1.weight,
+	        t1.expired,
+	        t1.detail,
+	        t1.discount,
+	        t1.final_price as finalPrice,
+	        t1.sales,
+	        t1.category_no as categoryNo,
+	        t1.reg_id as regId,
+	   		CASE WHEN TO_CHAR(SYSDATE,'YYYY/MM/DD') = TO_CHAR(t1.reg_dt, 'YYYY/MM/DD')           
+	        	THEN TO_CHAR(t1.reg_dt,'HH24:MI')                                               
+	        	ELSE TO_CHAR(t1.reg_dt,'YYYY/MM/DD') END regDt, 
+	   		CASE WHEN TO_CHAR(SYSDATE,'YYYY/MM/DD') = TO_CHAR(t1.mod_dt, 'YYYY/MM/DD')           
+	           THEN TO_CHAR(t1.mod_dt,'HH24:MI')                                               
+	           ELSE TO_CHAR(t1.mod_dt,'YYYY/MM/DD') END modDt, 
+	        t2.main_image as mainImage,
+	        t2.path || '/' || t2.save_name AS path        
+		FROM	 (SELECT * 
+			    FROM item        
+			    WHERE category_no = #{categoryNo}
+			    AND item_no NOT IN #{itemNo}
+			    ORDER BY reg_dt DESC
+			    FETCH FIRST 5 ROWS ONLY) t1, image t2
+		WHERE   t2.from_tb =1
+				AND t2.from_no = t1.item_no
+		        AND t2.main_image = 1
+
+	</select>
+	
+
+	<!-- doSelectOne -->
+	<select id="doSelectOne" parameterType="Item" resultType="Item" >
+		SELECT
+	        item_no as itemNo,
+	        name,
+	        price,
+	        production,
+	        weight,
+	        expired,
+	        detail,
+	        discount,
+	        final_price as finalPrice,
+	        sales,
+	        category_no as categoryNo,
+	        reg_id as regId,
+    		CASE WHEN TO_CHAR(SYSDATE,'YYYY/MM/DD') = TO_CHAR(reg_dt, 'YYYY/MM/DD')           
+            THEN TO_CHAR(reg_dt,'HH24:MI')                                               
+            ELSE TO_CHAR(reg_dt,'YYYY/MM/DD') END regDt, 
+    		CASE WHEN TO_CHAR(SYSDATE,'YYYY/MM/DD') = TO_CHAR(mod_dt, 'YYYY/MM/DD')           
+            THEN TO_CHAR(mod_dt,'HH24:MI')                                               
+            ELSE TO_CHAR(mod_dt,'YYYY/MM/DD') END modDt
+		FROM item
+		WHERE item_no = #{itemNo}
+
+	</select>
+
+	<!-- update -->
+	<update id="doUpdate" parameterType="Item">
+		UPDATE item
+		SET  name = #{name},
+		     price = #{price}, 
+		     production = #{production},
+		     weight = #{weight},
+		     expired = #{expired},
+		     detail = #{detail},
+		     discount =#{discount},
+		     final_price = #{finalPrice},
+		     sales = #{sales},
+		     category_no = #{categoryNo},
+		     mod_dt = SYSDATE
+		WHERE item_no = #{itemNo}
+	</update>
+
+	<!-- delete -->
+	<delete id="doDelete" parameterType="Item">
+	 	DELETE FROM item 
+ 		WHERE  item_no = #{itemNo}  
+	</delete>
+	
+	<!-- insert -->
+	<insert id="doInsert" parameterType="Item">
+		INSERT INTO item (
+		    item_no,
+		    name,
+		    price,
+		    production,
+		    weight,
+		    expired,
+		    detail,
+		    category_no,
+		    reg_id
+		) VALUES (
+		    ITEM_SEQ.nextval,
+		    #{name},
+		    #{price},
+		    #{production},
+		    #{weight},
+		    #{expired},
+		    #{detail},
+		    #{categoryNo},
+		    #{regId}
+		)
+	</insert>
+	
+
+
+
+</mapper>

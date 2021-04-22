@@ -28,27 +28,38 @@ public class ImageServiceImpl {
 	
 //	▼ 메소드 ===============================================================	
 
-	public int upRegisterImages(List<ImageVO> imageList, String fromTb) throws Exception {
+	public int upRegisterImages(List<ImageVO> imageList, String fromTb, int mainImageNum) throws Exception {
 		int flag = 0;
-
+		int cnt = 0;
+		
 		if (imageList.size() > 0) {
 
 			if (fromTb.equals("1")) {
 				int itemSeqCurr = imageDao.doInquireItemSeqCurr();
 				
 				for (ImageVO vo : imageList) {
+					
+					if(cnt == mainImageNum) vo.setMainImage(1);  
+					
 					vo.setFromTb(Integer.parseInt(fromTb));
 					vo.setFromNo(itemSeqCurr);
 					flag = imageDao.doInsert(vo);
+					
+					cnt += 1;
 				}
 
 			} else if (fromTb.equals("2")) {
 				int recipeSeqCurr = imageDao.doInquireRecipeSeqCurr();
 
 				for (ImageVO vo : imageList) {
+					
+					if(cnt == mainImageNum) vo.setMainImage(1);  
+					
 					vo.setFromTb(Integer.parseInt(fromTb));
 					vo.setFromNo(recipeSeqCurr);
 					flag = imageDao.doInsert(vo);
+					
+					cnt += 1;
 				}
 			}
 

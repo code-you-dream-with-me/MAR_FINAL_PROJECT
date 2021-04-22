@@ -19,6 +19,7 @@
 
 	<script src="${hContext}/resources/js/jquery.min.js"></script>
 	<script src="${hContext}/resources/js/bootstrap.min.js"></script>
+	<script src="${hContext}/resources/js/eclass.js"></script>
 
     <!-- Bootstrap core CSS -->
 	<link href="${hContext}/resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -36,6 +37,14 @@
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
         }
+      }
+      tbody > tr:nth-child(odd) {background-color: #FFF0F5;}
+      .orderBtn {
+      	background-color: white;
+      	width: 20px;
+      	font-size: small;
+      	padding: 0px;
+      	margin: 0px;
       }
     </style>
 
@@ -277,24 +286,23 @@
 	      </div>
 		  
 	      <div class="bd-example">
-	        <table class="table table-hover">
+	        <table class="table table-hover" name="recipeTable" id="recipeTable">
 	          <thead>
 	          	<tr>
-	              <th scope="col" width="10%">번호</th>
-	              <th scope="col" width="55%">레시피 제목</th>
+	              <th scope="col" width="8%">번호</th>
+	              <th scope="col" width="32%">레시피 제목</th>
 	              <th scope="col" width="25%">작성자</th>
-	              <th scope="col" width="10%">조회수</th>
+	              <th scope="col" width="15%">
+	              	조회수
+	              	<input type="button" class="orderBtn" name="readCntBtn" id="readCntBtn" value="○" />
+	              </th>
+	              <th scope="col" width="20%">
+	              	등록일
+	              	<input type="button" class="orderBtn" name="redDtBtn" id="redDtBtn" value="▼" />
+	              </th>
 	          	</tr>
 	          </thead>
 	          <tbody>
-	          	<tr>
-	              <td>Cell</td>
-	              <td>Cell</td>
-	              <td>Cell</td>
-	              <td>Cell</td>
-	          	</tr>
-	          
-	          
 	          </tbody>
 	        </table>
 
@@ -310,7 +318,124 @@
   </body>
 
   <script type="text/javascript">
+  		
+  $(document).ready(function() {
+      console.log("1.document:최초수행!");
+      doRetrieveReicpe();
+    });
+  
+  $("#readCntBtn").on("click", function(e){
+	  
+	$("#redDtBtn").val("○");
+	var Btn = $("#readCntBtn").val();
+	if(Btn == "▼"){
+		$("#readCntBtn").val("▲");
+		doRetrieveReicpe("readCnt", "asc");
+	}else if(Btn == "▲"){
+		$("#readCntBtn").val("▼");
+		doRetrieveReicpe("readCnt", "desc");
+	}else if(Btn == "○"){
+		$("#readCntBtn").val("▼");
+		doRetrieveReicpe("readCnt", "desc");
+	}
+	
+  });
+  
+  $("#redDtBtn").on("click", function(e){
+	
+	  $("#readCntBtn").val("○");
+	var Btn = $("#redDtBtn").val();
+	if(Btn == "▼"){
+		$("#redDtBtn").val("▲");
+		doRetrieveReicpe("regDt", "asc");
+	}else if(Btn == "▲"){
+		$("#redDtBtn").val("▼");
+		doRetrieveReicpe("regDt", "desc");
+	}else if(Btn == "○"){
+		$("#redDtBtn").val("▼");
+		doRetrieveReicpe("regDt", "desc");
+	}
+	
+  });
+  
+  
+  function doRetrieveReicpe(orderDiv, orderWord) {
   	
+  	$.ajax({
+  		type: "GET",
+  		url:"${hContext}/admin/do_retrieve_recipe.do",
+  		asyn:"true",
+  		dataType:"html",
+  		data:{
+  			searchDiv: orderDiv,
+  			searchWord: orderWord
+  		},
+  		success:function(data){//통신 성공
+  			//console.log("success data:"+data);
+  			var parseData = JSON.parse(data);
+  			//console.log("parseData: "+parseData);
+  			
+  			//기존 데이터 삭제
+  			$("#recipeTable > tbody").empty();
+  			var html = "";
+  			
+  			//console.log("parseData.length:"+parseData.length);
+  			
+  			
+  			if(parseData.length > 0){ 
+  				
+  				$.each(parseData, function(i, value) {
+  					//console.log(i+", "+value.name);
+  					html += "   <tr>                              ";
+  					html += "     <td>"+ value.recipeNo +"</td>   ";
+  					html += "     <td>"+ value.title +"</td>      ";
+  					html += "     <td>"+ value.regId +"</td>      ";
+  					html += "     <td>"+ value.readCnt +"</td>    ";
+  					html += "     <td>"+ value.regDt +"</td>      ";
+  					html += "   </tr>                             ";
+  				});
+  				
+  			}else { 
+  				//데이터가 없는 경우
+  				html += " <tr> ";
+  				html += "   <td class='text-center' colspan='99'>등록된 게시글이 없습니다.</td> ";
+  				html += " </tr> ";
+  			}
+  			$("#recipeTable > tbody").append(html);
+  			//doInit(); //회원입력form 초기화
+  		},
+  		error:function(data){//실패시 처리
+  			console.log("error:"+data);
+  		},
+  		complete:function(data){//성공/실패와 관계없이 수행!
+  			//console.log("complete:"+data);
+  		}
+  	});     	
+  	
+  }
+  
+  
+  //table click
+  $("#recipeTable > tbody").on("click","tr",function(e){
+  	//console.log("userTable > tbody");
+  	e.preventDefault();
+  	
+  	let tds = $(this).children();
+  	var recipeNo = tds.eq(0).text();
+  	console.log("recipeNo:"+recipeNo);
+  	
+    window.location.href = "${hContext}/recipe/recipe_view2.do?recipeNo="+recipeNo;
+  	
+  	
+  	
+  	
+  });
+  //--table click
+  
+  
+  
+  
+  
   </script>
 
 </html>

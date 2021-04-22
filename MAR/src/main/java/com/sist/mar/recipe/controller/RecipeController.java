@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -43,7 +44,9 @@ public class RecipeController {
 	
 	@RequestMapping(value = "recipe/recipe_view2.do", method = RequestMethod.GET
 			,produces = "application/json;charset=UTF-8")
-	public String view2(Model model) throws Exception {
+	public String view2(Model model, @RequestParam(value = "recipeNo", required = false)String recipeNo) throws Exception {
+		
+		model.addAttribute("recipeNo", recipeNo);
 		return VIEW_NAME2;
 	}
 	

@@ -19,6 +19,7 @@
 
 	<script src="${hContext}/resources/js/jquery.min.js"></script>
 	<script src="${hContext}/resources/js/bootstrap.min.js"></script>
+	<script src="${hContext}/resources/js/eclass.js"></script>
 
     <!-- Bootstrap core CSS -->
 	<link href="${hContext}/resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -412,6 +413,25 @@
   	});     	
   	
   }
+  
+  
+  //table click
+  $("#recipeTable > tbody").on("click","tr",function(e){
+  	//console.log("userTable > tbody");
+  	e.preventDefault();
+  	
+  	let tds = $(this).children();
+  	var recipeNo = tds.eq(0).text();
+  	console.log("recipeNo:"+recipeNo);
+  	
+    window.location.href = "${hContext}/recipe/recipe_view2.do?recipeNo="+recipeNo;
+  	
+  	
+  	
+  	
+  });
+  //--table click
+  
   
   
   

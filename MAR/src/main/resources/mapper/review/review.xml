@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mar.review">
+
+	<!-- 
+		Mybatis 주요 개념
+	
+		parameterType   : 변수가 어디서 기원했는지에 대한 내용
+		resultType 		: 결과값의 타입  
+		resultMap		: 참고한 resultMap 
+	 -->
+
+
+	<!-- resultMap(SQL의 AS xxx를 안해도 된다) : JAVA VO의 PK인 id property, 그 외의 값인 result property를 DB의 테이블의 칼럼인 column 값에 대응시켜주는 편리한 녀석  -->
+	<!-- id PK property = VO의 PK 속성, column = 테이블 칼럼 -->
+	<resultMap type="ReviewVO" id="reviewResult">
+	
+		<id 	property="reviewNo" 	 column="review_no" />		
+		<result property="memberId" 	 column="member_id"/>
+		<result property="orderItemNo"	 column="orderitem_no"/>
+		<result property="title"  		 column="title"/>
+		<result property="contents" 	 column="contents"/>
+		<result property="readCnt" 	 	 column="read_cnt"/>
+		<result property="regDt" 		 column="reg_dt"/>
+		
+	</resultMap>
+	
+	
+	<!-- sql : 해당 element는 다른 구문에서 재사용 가능한 sql구문을 정의할 때 사용된다 -->
+	<!-- where 엘리먼트는 태그에 의해 컨텐츠가 리턴되면 단순히 “WHERE”만을 추가한다. 게다가 컨텐츠가 “AND”나 “OR”로 시작한다면 그 “AND”나 “OR”를 지워버린다. -->
+	<sql id="searchCondition">
+		<where>
+			<choose>
+				<when test=" '0'  == auth ">
+
+				</when>
+			
+				<when test=" '1'  == auth ">
+					member_id LIKE #{memberId} || '%'
+				</when>
+
+			</choose> 
+		</where>
+	</sql>
+	
+	
+	
+	<!-- doRetrieve -->
+	<!-- 쿼리 안쪽에 부등호 사용(쿼리 부록은 쓰면 에러뜸) : <![CDATA[부등호 쓴 쿼리]]> 다음과 같은 방식으로.. (정확히는 해당 명령어는 '문자 그대로 해석이 필요한 쿼리'를 의미)-->
+	<!-- resultMap을 사용함 : resultType = "User" -->	
+	<select id="doRetrieve" parameterType="Search" resultType="ReviewVO">
+
+		 SELECT A.*,                                                                                                                    
+		        B.*                                                                                                                      
+		 FROM(    
+		        SELECT t2.review_no 	AS reviewNo, 		                                                                                                     
+		               t2.member_id 	AS memberId, 		                                                                                                       
+		               t2.orderitem_no 	AS orderItemNo,                                                                                                       
+		               t2.title			AS title,                                                                                        				
+		               t2.contents		AS contents, 	                                                                                   			
+		               t2.read_cnt		AS readCnt,                                                                                                                                                                                                                                                                                                                                                                              
+		               DECODE(TO_CHAR(SYSDATE, 'YYYYMMDD'), TO_CHAR(t2.reg_dt, 'YYYYMMDD')
+		                          , TO_CHAR(t2.reg_dt, 'HH24:MI')             
+		                          , TO_CHAR(t2.reg_dt, 'YYYYMMDD')) AS regDt
+		         FROM(                                                                                                                
+		             SELECT ROWNUM rnum                                                                                                 
+		                     , t1.*                                                                                                     
+		             FROM(SELECT *                                                                                                      
+		                  FROM review                                                                                                                                               
+		                  ORDER BY review_no DESC ) t1                                                                           
+		             )t2 
+		        WHERE rnum BETWEEN 10 * (1 - 1) + 1 AND 10 * (1 - 1) + 10    
+		     )A                                                                                                                         
+		 CROSS JOIN                                                                                                                     
+		     (SELECT COUNT(*) totalCnt                                                                                                 
+		     FROM review                                                                                                            
+		     )B     
+
+	                                                                                                                                                                         															
+       <!--  WHERE rnum BETWEEN #{pageSize} * (#{pageNum} - 1) + 1 AND #{pageSize} * (#{pageNum} - 1) + #{pageSize} -->
+	
+	</select>
+	
+	
+	<!-- doSelectOne (uId는 oracle 자체 키워드니 ""를 꼭 써야함)-->
+	<select id="doSelectOne" parameterType="ReviewVO" resultMap="reviewResult">
+		
+		SELECT review_no, 	            					  
+			   member_id,	                					  
+			   orderitem_no, 			  
+			   title,			                   				  
+			   contents,		                   				  
+			   read_cnt,		 	                   				  	    				  
+			   TO_CHAR(reg_dt, 'YYYY/MM/DD HH24MISS') reg_dt  	    			  
+		FROM   review                  					  
+		WHERE review_no = #{reviewNo}
+		ORDER BY review_no
+		
+	</select>
+	
+	
+	<!-- doReadCnt -->
+	<update id="doReadCnt" parameterType="ReviewVO">
+	
+		UPDATE review                          
+		SET read_cnt = NVL(read_cnt, 0) + 1   
+		WHERE review_no = #{reviewNo}                       
+	
+	</update>
+	
+	
+	<!-- doUpdate -->
+	<update id = "doUpdate" parameterType="ReviewVO">
+		UPDATE review
+		SET   title = #{title}
+		    , contents = #{contents}
+		    , reg_dt = SYSDATE
+		WHERE orderitem_no = #{orderItemNo}
+		
+	</update>
+	
+	
+	<!-- doDelete -->
+	<delete id = "doDelete" parameterType="ReviewVO">
+	
+		DELETE FROM review
+		WHERE orderitem_no = #{orderItemNo}
+	
+	</delete>
+
+
+	<!-- doInsert -->	
+	<insert id = "doInsert" parameterType="ReviewVO">
+		
+		INSERT INTO review(	review_no
+							, member_id
+							, orderitem_no
+							, title
+							, contents
+							, reg_dt
+		)VALUES(
+				  REVIEW_SEQ.NEXTVAL
+				, #{memberId}
+				, #{orderItemNo} 		
+				, #{title} 	
+				, #{contents} 	
+				, SYSDATE
+		)
+	
+	</insert>
+
+</mapper>

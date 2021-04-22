@@ -11,6 +11,19 @@
  		<typeAlias type="com.sist.mar.cmn.Search" alias="Search"/>
  		<typeAlias type="com.sist.mar.recipe.domain.RecipeVO" alias="RecipeVO"/>
  		<typeAlias type="com.sist.mar.image.domain.ImageVO" alias="ImageVO"/>
- 		<typeAlias type="com.sist.mar.main.domain.MainVO" alias="MainVO"/>
+		<typeAlias type="com.sist.mar.main.domain.MainVO" alias="MainVO"/>
+		
+		<!-- 추가한 사람 : 한솔 -->
+		<typeAlias type = "com.sist.mar.answer.domain.Answer" alias = "Answer" />
+		<typeAlias type="com.sist.mar.item.domain.Item" alias="Item"/>
+		
+		<!-- 추가한 사람 : 승호 -->
+ 		<typeAlias type = "com.sist.mar.review.domain.ReviewVO" alias = "ReviewVO" />
+
+		<!-- 추가한 사람 : 예빈 -->
+		<typeAlias type="com.sist.mar.wishitem.domain.Wishitem" alias="Wishitem"/>
+		<typeAlias type="com.sist.mar.cart.domain.Cart" alias="Cart"/>
+		<typeAlias type="com.sist.mar.order.domain.Ordering" alias="Ordering"/>
+		<typeAlias type="com.sist.mar.order.domain.Orderitem" alias="Orderitem"/>
  	</typeAliases>
  </configuration>

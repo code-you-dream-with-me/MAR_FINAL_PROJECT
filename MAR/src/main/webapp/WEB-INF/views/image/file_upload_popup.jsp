@@ -23,19 +23,23 @@
   <!-- contents -->
   <c:choose>
 	<c:when test="${fromTb == 1}">
-	   <h2><c:out value="Item Images Upload"></c:out></h2>
+	   <span class="page_title_name" style="font-size: x-large;"><c:out value="Item Images Upload"></c:out></span>
 	</c:when>
 	<c:when test="${fromTb == 2}">
-	   <h2><c:out value="Recipe Images Upload"></c:out></h2>
+	   <span class="page_title_name" style="font-size: x-large;"><c:out value="Recipe Images Upload"></c:out></span>
 	</c:when>
   </c:choose>
+  <input type="button" class="button" id="file_upload" value="등록" style="margin-left: 200px;" />
   <hr>
-  <div>
-    <input type="button" class="button" value="이미지 추가" id="file_add" style="margin-left: 7px; width: 100px; ">
-    <input type="button" class="button" id="file_upload" value="등록" />
-  </div>
-  <form action="mar/upload/upload.do" id="uploadFrm" id="uploadFrm" method="post" enctype="multipart/form-data">
-	<input type="hidden" value="${fromTb}" />
+  
+	<!-- 레시피 or 상품등록 페이지에서 넘겨받은 값 -->
+	<input type="hidden" name="fromTb" id="fromTb" value="${fromTb}" />
+
+  <form action="${hContext}/image/do_upload.do" id="uploadFrm" id="uploadFrm" method="post" enctype="multipart/form-data">
+	
+	<span class="page_title_name">이미지</span>
+	<input type="file" class="text_box_main" name="file_list" id="file_list" multiple="multiple" style="width: 400px" />
+  
   </form>
   <!-- //contents -->
 
@@ -43,70 +47,40 @@
 
   <!-- javascript -->
   <script type="text/javascript">
-    //파일선택 JavaScript-------------------------------------------------------------------------
-    var count = 0; //count를 증가시키기
-
-    //class는 아래와 같이 준다
-    $(document).on('click', '.btn_dele_file', function(e) { //function의 e는 사용자 지정(event든 e든 아무거나 줘도 됨)
-      console.log('btn_del_file');
-
-      //$(this) : btn_dele_file을 말하는거
-      $(this).parent().parent().remove();
-    });
-
-    $("#file_add").on("click", function(e) {
-      //console.log("file_add click");
-      count++; //count를 증가시키기 
-
-      //이미 ""로 싸여있는 속성은 ''으로 해야 오류가 안남 (id이름이 달라야 오류가 안남)
-      var html = "<div class='form-group'>";
-      html += "<span class='page_title_name'>이미지 " + count + "</span>";
-      html += "<div class='col-xs-8 col-sm-9 col-md-10 col-lg-10'>";
-      html += "<input type='file' class='text_box_main' style='width: 400px;' name='file_" + count + "'/>";
-      html += "<input type='button' class='button' style='width: 40px;' value='X'/>"
-      html += "</div>";
-      html += "</div>";
-      console.log(html);
-      //.append : id가 uploadFrm인 태그 아래에 추가 
-      $("#uploadFrm").append(html);
-
-    });
-    //파일선택 JavaScript-------------------------------------------------------------------------
 
     //파일 json으로 받기(동기식)
-    $("#file_upload").on('click', function() {
+    $("#file_upload").on("click",function(e){
 
       console.log('file_upload');
-      var form = new FormData(document.getElementById('uploadFrm'));
-      $.ajax( //화면은 가만히 있고 업데이트 치고 싶을때
-        {
-          url: "${hContext}/image/do_insert.do",
-          data: form, //form자체를 데이터로 넘김 (서블릿에서 json으로 데이터 받는것으로 해줘야 데이터 화면에 나옴)
-          dataType: 'text',
+      
+      var form = new FormData(document.getElementById("uploadFrm"));
+      
+      $.ajax({
+          url: "${hContext}/image/do_upload.do",
+          enctype: 'multipart/form-data',
+          data: form, 
+          //dataType: 'text',
           type: 'POST',
           async: 'false',
           processData: false,
           contentType: false,
-          success: function(response) {
-            alert("이미지 등록 성공!");
-            console.log("response: " + response);
-            var jsonObj = JSON.parse(response);
-            console.log('jsonObj' + jsonObj);
+          success: function(data) {
+        	
+    		alert("이미지 등록이 완료되었습니다.");
 
+            window.opener.setSendChild(data);
             window.self.close();
-
-            window.opener.setSendChild(jsonObj);
 
           },
           error: function(jqXHR) {
             console.log('error');
           }
-        }
-      );
-
+        });
 
     });
-  </script>
+  	
+  	</script>
+  
   <!--// javascript -->
 </body>
 

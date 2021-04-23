@@ -1,6 +1,7 @@
 package com.sist.mar.wishiem.test;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 import java.util.List;
@@ -60,11 +61,15 @@ public class JTestWishitemDao {
 		LOG.debug("= addAndGet =");
 
 	   	//단건 삭제
+		//param값(wish_no, 늘사는것번호)를 받아 삭제
+		//테이블 내 삭제버튼으로 단건 삭제
 	   	dao.doDelete(wish01.getWishNo() + "");
 	   	dao.doDelete(wish02.getWishNo() + "");
 	   	dao.doDelete(wish03.getWishNo() + "");
 		
-	   	//단건 등록
+	   	//단건 등록 
+	   	//테스트를 위해 시퀀스 적용 전
+	   	//wishitem(wish_no 시퀀스예정, member_id, item_no, date는자동기입)를 받아 등록
 	   	int flag = dao.doInsert(wish01);
 	   	assertThat(flag, is(1));
 	   	flag    += dao.doInsert(wish02);
@@ -72,13 +77,16 @@ public class JTestWishitemDao {
 	   	flag    += dao.doInsert(wish03);
 	   	assertThat(flag, is(3)); 
 	   	
-	   	//단건 조회
+	   	//단건 조회 
+	   	//param값(wish_no, 늘사는것번호)를 받아 검색
+	   	//검색된 값은 팝업창을 통해 내용을 띄우고, 수량선택후 장바구니에 insert하기 위함
 	   	Wishitem outVO = (Wishitem) dao.doSelectOne(wish01.getWishNo() + "");
 		LOG.debug("==================");
 	   	LOG.debug("= outVO =" + outVO);
 	   	LOG.debug("==================");
 	   	
 	   	//목록 조회
+	   	//search(div없음, searchWord(member_id), pageSize, pageNum)를 받아 아이디에 맞는 늘사는것 조회
 		Search search = new Search("", "test01", 10, 1);
 		List<Wishitem> list = (List<Wishitem>) dao.doRetrieve(search);
 		LOG.debug("==================");
@@ -89,10 +97,12 @@ public class JTestWishitemDao {
 	}
 
 	@Test
-	@Ignore
 	public void beans() throws Exception {
 		LOG.debug("= context =" + context);
 		LOG.debug("= dao =" + dao);
+		
+		assertThat(this.context, is(notNullValue()));
+		assertThat(this.dao, is(notNullValue()));
 	}
 
 }

@@ -9,7 +9,6 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
@@ -22,7 +21,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.sist.mar.cart.dao.CartDao;
 import com.sist.mar.cart.domain.Cart;
-import com.sist.mar.cart.domain.Member;
 
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING) 
@@ -94,12 +92,12 @@ public class JTestCartDao {
 		}
 		LOG.debug("==================");
 		 
-		//주문용 회원정보 //memberVO들어와야 테스트 가능(임시vo만들어놓음)
+		//주문용 회원정보
 		//param값(member_id, 회원아이디)를 받아 검색
-		Member outVO = (Member) dao.doOrder(cart01.getMemberId());
-		LOG.debug("==================");
-	   	LOG.debug("= outVO =" + outVO);
-	   	LOG.debug("==================");
+//		Member outVO = (Member) dao.doOrder(cart01.getMemberId());
+//		LOG.debug("==================");
+//	   	LOG.debug("= outVO =" + outVO);
+//	   	LOG.debug("==================");
 	}
 
 	@Test

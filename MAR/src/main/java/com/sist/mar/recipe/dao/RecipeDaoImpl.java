@@ -46,4 +46,8 @@ public class RecipeDaoImpl {
 		return this.sqlSessionTemplate.selectOne(this.NAMESPACE + ".doSelectOne", (RecipeVO) dto);
 	}
 	
+	public int doCountReadCnt(DTO dto) throws SQLException {
+		return this.sqlSessionTemplate.update(this.NAMESPACE + ".doCountReadCnt", (RecipeVO) dto);
+	}
+	
 }

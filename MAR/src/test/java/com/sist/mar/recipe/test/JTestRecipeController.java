@@ -67,6 +67,7 @@ public class JTestRecipeController {
 	List<ImageVO> imageListYakiudon;
 	List<ImageVO> imageListYakiudonDel;
 	List<ImageVO> imageListYakiudonNew;
+	List<ImageVO> imageListYakiudonDel2;
 	List<ImageVO> imageListtteokbokki;
 	
 	RecipeVO recipe;
@@ -74,6 +75,7 @@ public class JTestRecipeController {
 	List<ImageVO> images;
 	List<ImageVO> imagesDel;
 	List<ImageVO> imagesNew;
+	List<ImageVO> imagesDel2;
 	
 	
 //	▼ 테스트 ===============================================================
@@ -85,8 +87,10 @@ public class JTestRecipeController {
 		
 		recipe01 = new RecipeVO(241, "123wodnr@naver.com", "레시피1", "레시피 컨텐츠1", 0, "재료1, 재료2, 재료3", "https://www.youtube.com/", null, null);
 		recipe01New = new RecipeVO(202, "123wodnr@naver.com", "레시피1_new", "레시피 컨텐츠1_new", 5, "재료1_new, 재료2_new, 재료3_new", "https://www.youtube.com/new", null, null);
-		recipeYakiudon = new RecipeVO(322, "123wodnr@naver.com", "볶음우동", "볶음우동 레시피", 0, "진간장, 식초, 황설탕, 물, 식용유, 양배추, 양파, 당근, 돼지고기, 대파, 우동면, 훈연멸치, 쪽파, 마요네즈", "https://www.youtube.com/embed/zRg4nxIv3j8", null, null);
-		recipeYakiudonNew = new RecipeVO(322, "123wodnr@naver.com", "볶음우동_수정", "볶음우동 레시피_수정", 0, "진간장, 식초, 황설탕, 물, 식용유, 양배추, 양파, 당근, 돼지고기, 대파, 우동면, 훈연멸치, 쪽파, 마요네즈", "https://www.youtube.com/embed/zRg4nxIv3j8", null, null);
+
+		recipeYakiudon = new RecipeVO(506, "123wodnr@naver.com", "볶음우동", "볶음우동 레시피", 0, "진간장, 식초, 황설탕, 물, 식용유, 양배추, 양파, 당근, 돼지고기, 대파, 우동면, 훈연멸치, 쪽파, 마요네즈", "https://www.youtube.com/embed/zRg4nxIv3j8", null, null);
+		recipeYakiudonNew = new RecipeVO(506, "123wodnr@naver.com", "볶음우동_수정", "볶음우동 레시피_수정", 0, "진간장, 식초, 황설탕, 물, 식용유, 양배추, 양파, 당근, 돼지고기, 대파, 우동면, 훈연멸치, 쪽파, 마요네즈", "https://www.youtube.com/embed/zRg4nxIv3j8", null, null);
+		
 		recipetteokbokki = new RecipeVO(301, "123wodnr@naver.com", "떡볶이", "떡볶이 레시피", 0, "쌀떡, 밀가루떡, 사각어묵, 양배추, 대파, 물, 삶은달걀, 고추장, 진간장, 고운 고춧가루, 굵은 고춧가루, 황설탕, msg", "https://www.youtube.com/embed/t4Es8mwdYlE", null, null);
 		
 		imageList = Arrays.asList(
@@ -98,17 +102,22 @@ public class JTestRecipeController {
 				new ImageVO(0, 0, "원본이름4", "저장이름4", "C:/20201123_eClass/04_SPRING/workspace/MAR", 246, "jpg", 0, 0, null)
 				);
 		imageListYakiudon = Arrays.asList(
-				new ImageVO(183, 1, "볶음우동 메인이미지", "zRg4nxIv3j8볶음우동 메인이미지", "C:/20201123_eClass/04_SPRING/workspace/MAR", 135, "jpg", 0, 0, null),
-				new ImageVO(184, 0, "볶음우동 부가이미지1", "zRg4nxIv3j8볶음우동 부가이미지1", "C:/20201123_eClass/04_SPRING/workspace/MAR", 246, "jpg", 0, 0, null),
-				new ImageVO(185, 0, "볶음우동 부가이미지2", "zRg4nxIv3j8볶음우동 부가이미지2", "C:/20201123_eClass/04_SPRING/workspace/MAR", 357, "jpg", 0, 0, null)
+				new ImageVO(371, 1, "볶음우동 메인이미지", "zRg4nxIv3j8볶음우동 메인이미지", "C:/20201123_eClass/04_SPRING/workspace/MAR", 135, "jpg", 0, 0, null),
+				new ImageVO(372, 0, "볶음우동 부가이미지1", "zRg4nxIv3j8볶음우동 부가이미지1", "C:/20201123_eClass/04_SPRING/workspace/MAR", 246, "jpg", 0, 0, null),
+				new ImageVO(373, 0, "볶음우동 부가이미지2", "zRg4nxIv3j8볶음우동 부가이미지2", "C:/20201123_eClass/04_SPRING/workspace/MAR", 357, "jpg", 0, 0, null)
 				);
 		imageListYakiudonDel = Arrays.asList(
-				new ImageVO(225, 0, "볶음우동 부가이미지1", "zRg4nxIv3j8볶음우동 부가이미지1", "C:/20201123_eClass/04_SPRING/workspace/MAR", 246, "jpg", 0, 0, null),
-				new ImageVO(226, 0, "볶음우동 부가이미지2", "zRg4nxIv3j8볶음우동 부가이미지2", "C:/20201123_eClass/04_SPRING/workspace/MAR", 357, "jpg", 0, 0, null)
+				new ImageVO(372, 0, "볶음우동 부가이미지1", "zRg4nxIv3j8볶음우동 부가이미지1", "C:/20201123_eClass/04_SPRING/workspace/MAR", 246, "jpg", 0, 0, null),
+				new ImageVO(373, 0, "볶음우동 부가이미지2", "zRg4nxIv3j8볶음우동 부가이미지2", "C:/20201123_eClass/04_SPRING/workspace/MAR", 357, "jpg", 0, 0, null)
 				);
 		imageListYakiudonNew = Arrays.asList(
 				new ImageVO(0, 0, "볶음우동 부가이미지3", "zRg4nxIv3j8볶음우동 부가이미지1", "C:/20201123_eClass/04_SPRING/workspace/MAR", 246, "jpg", 0, 0, null),
 				new ImageVO(0, 0, "볶음우동 부가이미지4", "zRg4nxIv3j8볶음우동 부가이미지2", "C:/20201123_eClass/04_SPRING/workspace/MAR", 357, "jpg", 0, 0, null)
+				);
+		imageListYakiudonDel2 = Arrays.asList(
+				new ImageVO(371, 1, "볶음우동 메인이미지", "zRg4nxIv3j8볶음우동 메인이미지", "C:/20201123_eClass/04_SPRING/workspace/MAR", 135, "jpg", 0, 0, null),
+				new ImageVO(372, 0, "볶음우동 부가이미지1", "zRg4nxIv3j8볶음우동 부가이미지1", "C:/20201123_eClass/04_SPRING/workspace/MAR", 246, "jpg", 0, 0, null),
+				new ImageVO(373, 0, "볶음우동 부가이미지2", "zRg4nxIv3j8볶음우동 부가이미지2", "C:/20201123_eClass/04_SPRING/workspace/MAR", 357, "jpg", 0, 0, null)
 				);
 		imageListtteokbokki = Arrays.asList(
 				new ImageVO(201, 0, "떡볶이 메인이미지", "t4Es8mwdYlE떡볶이 메인이미지", "C:/20201123_eClass/04_SPRING/workspace/MAR", 135, "jpg", 0, 0, null),
@@ -121,6 +130,7 @@ public class JTestRecipeController {
 		images = imageListYakiudon;
 		imagesDel = imageListYakiudonDel;
 		imagesNew = imageListYakiudonNew;
+		imagesDel2 = imageListYakiudonDel2;
 	}
 
 	@After
@@ -129,10 +139,12 @@ public class JTestRecipeController {
 
 	@Test
 	public void cycle() throws Exception {
-//		doInsert();
-//		doDelete();
-//		doUpdate();
+		
+		doInsert();
+		doUpdate();
 		doSelect();
+		doDelete();
+		
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -195,7 +207,7 @@ public class JTestRecipeController {
 		
 		
 		Gson gson = new Gson();
-		String gsonString = gson.toJson(images.toArray());
+		String gsonString = gson.toJson(imagesDel2.toArray());
 		
 		MockHttpServletRequestBuilder imageMessage = MockMvcRequestBuilders.get("/image/do_delete.do")
 				.param("imageList", gsonString);

@@ -99,3 +99,16 @@ $RECYCLE.BIN/
 *.lnk
 *.log
 # End of https://www.toptal.com/developers/gitignore/api/windows,eclipse,java-web
+MAR/.classpath
+MAR/.project
+MAR/target/m2e-wtp/web-resources/META-INF/maven/com.sist/mar/pom.properties
+*.class
+*.class
+MAR/target/classes/com/sist/mar/image/controller/ImageController$1.class
+MAR/target/classes/com/sist/mar/image/controller/ImageController$2.class
+MAR/target/classes/com/sist/mar/image/controller/ImageController$3.class
+MAR/target/classes/com/sist/mar/image/controller/ImageController$4.class
+MAR/target/classes/com/sist/mar/image/controller/ImageController.class
+MAR/target/classes/com/sist/mar/image/service/ImageServiceImpl.class
+MAR/target/m2e-wtp/web-resources/META-INF/maven/com.sist/mar/pom.properties
+*.class

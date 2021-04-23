@@ -41,10 +41,11 @@
       tbody > tr:nth-child(odd) {background-color: #FFF0F5;}
       .orderBtn {
       	background-color: white;
-      	width: 20px;
+      	width: 22px;
       	font-size: small;
-      	padding: 0px;
+      	padding: 0px 0px 2px 0px;
       	margin: 0px;
+      	text-align: center;
       }
     </style>
 
@@ -299,6 +300,7 @@
 	              <th scope="col" width="20%">
 	              	등록일
 	              	<input type="button" class="orderBtn" name="redDtBtn" id="redDtBtn" value="▼" />
+	              	<input type="button" class="orderBtn" name="addRecipeBtn" id="addRecipeBtn" value="+" style="float: right; font-weight: bolder;" />
 	              </th>
 	          	</tr>
 	          </thead>
@@ -323,6 +325,12 @@
       console.log("1.document:최초수행!");
       doRetrieveReicpe();
     });
+  
+  $("#addRecipeBtn").on("click", function(e){
+	  console.log("addRecipeBtn");
+	  window.location.href = "${hContext}/recipe/recipe_view.do";
+  });
+  
   
   $("#readCntBtn").on("click", function(e){
 	  

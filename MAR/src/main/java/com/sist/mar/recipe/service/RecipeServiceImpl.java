@@ -39,6 +39,7 @@ public class RecipeServiceImpl {
 	}
 	
 	public RecipeVO doSelectRecipe(RecipeVO recipeVO) throws Exception {
+		recipeDao.doCountReadCnt(recipeVO);
 		return recipeDao.doSelectOne(recipeVO);
 	}
 	

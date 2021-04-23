@@ -181,7 +181,6 @@ public class JTestReviewController {
 	
 	
 	@Test
-	@Ignore
 	public void doUpdate() throws Exception {
 		
 		// url호출, param전달
@@ -228,7 +227,6 @@ public class JTestReviewController {
 	}
 	
 	@Test
-	@Ignore
 	public void doReadcnt() throws Exception {
 		
 		// url호출, param전달
@@ -264,7 +262,6 @@ public class JTestReviewController {
 	}
 	
 	@Test
-	@Ignore
 	public void doSelectOne() throws Exception{
 		
 		// url호출, param전달
@@ -304,7 +301,6 @@ public class JTestReviewController {
 	
 	
 	@Test
-	@Ignore
 	public void doRetrieve() throws Exception {
 		
 		// url호출, param전달 (searchDiv가 10,20에 따라 상품상세 화면과 마이페이지용 출력이 다르다)

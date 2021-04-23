@@ -82,16 +82,15 @@ public class JTestAdminController {
 	
 	@SuppressWarnings("deprecation")
 	@Test
-	@Ignore
 	public void RecipeCycle() throws Exception {
 		
 		Search searchVO = new Search();
 		
-		searchVO = searchNull;
-//		searchVO = searchRegDtAsc;
-//		searchVO = searchRegDtDesc;
-//		searchVO = searchReadCntAsc;
-//		searchVO = searchReadCntDesc;
+		searchVO = searchNull;         //기본값. 등록일 내림차순
+//		searchVO = searchRegDtAsc;     //등록일 오름차순
+//		searchVO = searchRegDtDesc;    //등록일 내림차순
+//		searchVO = searchReadCntAsc;   //조회수 오름차순
+//		searchVO = searchReadCntDesc;  //조회수 내림차순
 		
 		MockHttpServletRequestBuilder createMessage = MockMvcRequestBuilders.get("/admin/do_retrieve_recipe.do")
 				.param("searchDiv", searchVO.getSearchDiv())
@@ -114,7 +113,7 @@ public class JTestAdminController {
 		
 	}
 	
-	@Test
+	
 	public void view() throws Exception {
 		MockHttpServletRequestBuilder createMessage = MockMvcRequestBuilders.get("/admin/admin_view.do");
 		

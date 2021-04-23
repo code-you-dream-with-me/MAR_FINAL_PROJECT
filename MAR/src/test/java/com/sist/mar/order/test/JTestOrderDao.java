@@ -1,6 +1,7 @@
 package com.sist.mar.order.test;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 import org.junit.After;
@@ -62,10 +63,10 @@ public class JTestOrderDao {
 	}
 
 	@Test
-//	@Ignore
 	public void addAndGet() throws Exception {
 		LOG.debug("= addAndGet =");
 		
+		//주문 등록(회원정보와 페이지 내 정보들로 주문 컬럼 입력)
 		int flag = dao.doInsertOrdering(order01);
 		assertThat(flag, is(1));
 		flag    += dao.doInsertOrdering(order02);
@@ -73,6 +74,7 @@ public class JTestOrderDao {
 		flag    += dao.doInsertOrdering(order03);
 		assertThat(flag, is(3));
 		
+		//주문상품등록 (장바구니 -> 주문상품 상품하나하나씩등록)
 		flag  = dao.doInsertOrderitem(item01);
 		assertThat(flag, is(1));
 		flag += dao.doInsertOrderitem(item02);
@@ -80,15 +82,18 @@ public class JTestOrderDao {
 		flag += dao.doInsertOrderitem(item03);
 		assertThat(flag, is(3));
 		
+		//member_id로 검색한 cart_no값들을 전부 삭제
 		dao.doDeleteCart(order01.getMemberId());
 		
 	}
 	
 	@Test
-	@Ignore
 	public void beans() {
 		LOG.debug("= context =" + context);
 		LOG.debug("= dao =" + dao);
+		
+		assertThat(this.context, is(notNullValue()));
+		assertThat(this.dao, is(notNullValue()));
 	}
 
 }

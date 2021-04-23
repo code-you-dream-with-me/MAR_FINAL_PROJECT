@@ -64,6 +64,9 @@
       th {
       	background-color: #f5f5f5;
       }
+      textarea:focus  {
+        outline: none;
+      }
     </style>
 
 
@@ -101,11 +104,11 @@
 			
 		  <div id="recipeUrlAddr"></div>
 		  
-		  <textarea id="recipeContents" rows="50" style="border: none; resize: none; font-size: large;"></textarea>
+		  <div id="recipeImage"></div>
 		  
-		  <div>
-		  재료
-		  </div>
+		  
+		  <textarea id="recipeContents" rows="50" style="border: none; resize: none; font-size: large;" readonly="readonly"></textarea>
+		  
 		  
 		  
 	  </div>	
@@ -120,6 +123,7 @@
 		console.log("1.document:최초수행!");
 	    var recipeNo = getParameter("recipeNo");
 	    doSelectOne(recipeNo);
+	    doRetrieveImage(recipeNo);
 	});
 	
 	
@@ -168,8 +172,53 @@
 		      	}
 		      	
 		  	});
+	}
+	
+	function doRetrieveImage(no){
+		
+		console.log("doRetrieveImage");
+		console.log("no: "+no);
+		
+		$.ajax({
+	  		type: "GET",
+	  		url:"${hContext}/image/do_retrieve.do",
+	  		asyn:"false",
+	  		dataType:"html",
+	  		data:{
+	  			fromTb:2,
+	  			fromNo:no
+	  		},
+	  		success:function(data){//통신 성공
+	  			var parseData = JSON.parse(data);
+	  			console.log(parseData);
+	  			
+	  		    //var title = parseData.title;
+	  		    $("#recipeImage").empty();
+	  		    var html = "";
+	  		    
+	  			if(parseData.length > 0){ 
+	  				
+	  				$.each(parseData, function(i, value) {
+	  					
+		  		    	html += "<img src='${hContext}"+value.path + value.saveName + "' style='width: 950px; padding-bottom: 30px;'>";
+	  					
+	  				});
+	  				
+	  			}
+	  			
+	  			$("#recipeImage").append(html);
+	  		    
+	      	},
+	      	error:function(data){//실패시 처리
+	      		console.log("error:"+data);
+	      	}
+	      	
+	  	});
+		
 		
 	}
+	
+	
 	
 	
 	</script>

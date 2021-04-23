@@ -11,7 +11,10 @@
  		<typeAlias type="com.sist.mar.cmn.Search" alias="Search"/>
  		<typeAlias type="com.sist.mar.recipe.domain.RecipeVO" alias="RecipeVO"/>
  		<typeAlias type="com.sist.mar.image.domain.ImageVO" alias="ImageVO"/>
+ 		
+ 		<!-- 추가한 사람: 혜영 -->
 		<typeAlias type="com.sist.mar.main.domain.MainVO" alias="MainVO"/>
+		<typeAlias type="com.sist.mar.main.domain.CateSearchVO" alias="CateSearchVO"/>
 		
 		<!-- 추가한 사람 : 한솔 -->
 		<typeAlias type = "com.sist.mar.answer.domain.Answer" alias = "Answer" />
@@ -26,5 +29,6 @@
 		<typeAlias type="com.sist.mar.cart.domain.Cart" alias="Cart"/>
 		<typeAlias type="com.sist.mar.order.domain.Ordering" alias="Ordering"/>
 		<typeAlias type="com.sist.mar.order.domain.Orderitem" alias="Orderitem"/>
+		<typeAlias type="com.sist.mar.cart.domain.Member" alias="Member"/> <!-- DaoTest를 위한 임시 파일 -->
  	</typeAliases>
  </configuration>

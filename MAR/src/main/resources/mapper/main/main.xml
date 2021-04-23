@@ -2,9 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mar.main">
 
-	
-	<!-- doRetrieve : 최신등록상품 조회 -->
-	<select id="doRetrieve" parameterType="Search" resultType="MainVO">
+	<select id="doRetrieve" parameterType="CateSearchVO" resultType="MainVO">
 		SELECT A.*,B.*
 		FROM(
 		    SELECT g2.rnum as num,
@@ -12,7 +10,7 @@
 		           g2.name,
 		           g2.discount,
 		           g2.price,
-		           g2.final_price as finalPrice,
+		           g2.final_price,
 		           g2.sales
 		    FROM(
 		    SELECT ROWNUM rnum,g1.*
@@ -25,26 +23,25 @@
 		    FROM item t1, image t2
 		    WHERE t1.item_no=t2.from_no
 		    AND t2.main_image = 1
-		    AND t2.from_tb= 1
+		    AND t2.from_tb=1
 		    --카테고리별 조회
 		    AND t1.category_no= #{categoryNo}
 		    ORDER BY t1.reg_dt desc
 		    )g1
 		    <![CDATA[
-		    WHERE ROWNUM <= (#{pageSize}*(#{pageNum}-1)+#{pageSize})
+		    WHERE ROWNUM <= (#{pageSize}*(#{pageNum}-1)+#{pageSize})  
 		    )g2
 		    WHERE rnum >= (#{pageSize}*(#{pageNum}-1)+1)
-		    ]]> 
+		    ]]>   
 		)A CROSS JOIN(
 		    SELECT COUNT(*) total_cnt
 		    FROM item
 		)B
 		--검색 조회
 		WHERE name LIKE #{searchWord}||'%'
-	
 	</select>
-
-	<select id="doBestRetrieve" parameterType="Search" resultType="MainVO">
+	
+	<select id="doBestRetrieve" parameterType="CateSearchVO" resultType="MainVO">
 		SELECT A.*,B.*
 		FROM(
 		    SELECT g2.rnum as num,
@@ -71,17 +68,17 @@
 		    ORDER BY t1.sales desc
 		    )g1
 		    <![CDATA[
-		    WHERE ROWNUM <= (#{pageSize}*(#{pageNum}-1)+#{pageSize})
+		    WHERE ROWNUM <= (#{pageSize}*(#{pageNum}-1)+#{pageSize})  
 		    )g2
 		    WHERE rnum >= (#{pageSize}*(#{pageNum}-1)+1)
 		    ]]> 
-		    )A CROSS JOIN(
+		)A CROSS JOIN(
 		    SELECT COUNT(*) total_cnt
 		    FROM item
 		)B
 	</select>
 	
-	<select id="doSaleRetrieve" parameterType="Search" resultType="MainVO">
+	<select id="doSaleRetrieve" parameterType="CateSearchVO" resultType="MainVO">
 		SELECT A.*,B.*
 		FROM(
 		    SELECT g2.rnum as num,
@@ -104,22 +101,20 @@
 		    AND t2.main_image = 1
 		    AND t2.from_tb=1
 		    --카테고리별 조회
-		    AND t1.category_no=10
+		    AND t1.category_no=#{categoryNo}
 		    AND NOT t1.discount IS NULL
 		    ORDER BY t1.reg_dt desc
 		    )g1
 		    <![CDATA[
-		    WHERE ROWNUM <= (#{pageSize}*(#{pageNum}-1)+#{pageSize})
+		    WHERE ROWNUM <= (#{pageSize}*(#{pageNum}-1)+#{pageSize})  
 		    )g2
 		    WHERE rnum >= (#{pageSize}*(#{pageNum}-1)+1)
 		    ]]> 
-		    )A CROSS JOIN(
+		)A CROSS JOIN(
 		    SELECT COUNT(*) total_cnt
 		    FROM item
 		)B
-	
 	</select>
 
 </mapper>
 
-	

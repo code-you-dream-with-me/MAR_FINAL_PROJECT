@@ -19,6 +19,7 @@
 <%@ taglib prefix= "c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 국제화 태그 -->
 <%@ taglib prefix= "fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="../cmn/common.jsp" %>
 <c:set var="hContext" value="${pageContext.request.contextPath}"></c:set>
 <!doctype html>
 <html lang="en">
@@ -28,7 +29,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.82.0">
-    <title>레시피 등록</title>
+    <title>레시피 조회</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/">
 
@@ -52,7 +53,16 @@
           font-size: 3.5rem;
         }
       }
-      body{
+      table {
+      	border-top: 3px solid black;
+      }
+      tr,td,th {
+        line-height: 30px;
+        border: 0.1em solid #f5f5f5;
+        padding: 10px 10px 10px 30px;
+      }
+      th {
+      	background-color: #f5f5f5;
       }
     </style>
 
@@ -66,27 +76,101 @@
   <br/><br/><br/>
 	<div class="container">
 	  <div class="row g-5">	
-		<div class="col-md-7 col-lg-8">
-		  <p class="h1">레시피 제목</p>
-		  <hr/>
 		  
 		  
-		  <svg class="bd-placeholder-img figure-img img-fluid rounded" width="500" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 400x300" preserveAspectRatio="xMidYMid slice" focusable="false">
-		    <rect width="100%" height="100%" fill="#868e96"></rect>
-		    <text x="50%" y="50%" fill="#dee2e6" dy=".3em">이미지 넣을칸</text>
-		  </svg>
+		  <table>
+		  	<thead>
+			  <tr>
+			  	<th>제목</th>
+			  	<td colspan="3" id="recipeTitle"></td>
+			  </tr>
+		  	</thead>
+		  	<tbody>
+			  <tr>
+			  	<th>작성자</th>
+			  	<td colspan="3" id="recipeRegId"></td>
+			  </tr>
+			  <tr>
+			  	<th scope="col" width="15%">작성일</th>
+			  	<td scope="col" width="20%" id="recipeRegDt">날짜</td>
+			  	<th scope="col" width="15%">조회수</th>
+			  	<td scope="col" width="50%" id="recipeReadCnt">조회수 숫자</td>
+			  </tr>
+		  	</tbody>
+		  </table>
+			
+		  <div id="recipeUrlAddr"></div>
+		  
+		  <textarea id="recipeContents" rows="50" style="border: none; resize: none; font-size: large;"></textarea>
+		  
+		  <div>
+		  재료
+		  </div>
 		  
 		  
-		  
-		  
-		</div>
 	  </div>	
 	</div>
+    <br/><br/><br/><br/>
 	
 	<script src="${hContext}/resources/assets/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="${hContext}/resources/assets/recipe/form-validation.js"></script>  
 	
 	<script type="text/javascript">
+	$(document).ready(function() {
+		console.log("1.document:최초수행!");
+	    var recipeNo = getParameter("recipeNo");
+	    doSelectOne(recipeNo);
+	});
+	
+	
+	function getParameter(name) {
+	    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+	        results = regex.exec(location.search);
+	    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+	}
+	
+	function doSelectOne(no){
+		
+		console.log("doSelectOne");
+		console.log("no: "+no);
+		
+		$.ajax({
+		  		type: "GET",
+		  		url:"${hContext}/recipe/do_select.do",
+		  		asyn:"false",
+		  		dataType:"html",
+		  		data:{
+		  			recipeNo:no
+		  		},
+		  		success:function(data){//통신 성공
+		  			var parseData = JSON.parse(data);
+		  			console.log(parseData.title);
+		  			
+		  		    var title = parseData.title;
+		  		    var regId = parseData.regId;
+		  		    var regDt = parseData.regDt;
+		  		    var readCnt = parseData.readCnt;
+		  		    var urlAddr = parseData.urlAddr;
+		  		    var contents = parseData.contents;
+		  		    
+		  		    document.getElementById("recipeTitle").innerHTML = title;
+		  		    document.getElementById("recipeRegId").innerHTML = regId;
+		  		    document.getElementById("recipeRegDt").innerHTML = regDt;
+		  		    document.getElementById("recipeReadCnt").innerHTML = readCnt;
+		  		    document.getElementById("recipeUrlAddr").innerHTML = "<iframe width='950px' height='540px' src='"+ urlAddr +"' title='YouTube video player'  allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
+		  		    document.getElementById("recipeContents").innerHTML = contents;
+		  		    
+		  		    
+		      	},
+		      	error:function(data){//실패시 처리
+		      		console.log("error:"+data);
+		      	}
+		      	
+		  	});
+		
+	}
+	
 	
 	</script>
   </body>

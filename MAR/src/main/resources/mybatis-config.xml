@@ -19,6 +19,7 @@
 		
 		<!-- 추가한 사람 : 승호 -->
  		<typeAlias type = "com.sist.mar.review.domain.ReviewVO" alias = "ReviewVO" />
+ 		<typeAlias type = "com.sist.mar.question.domain.QuestionVO" alias = "QuestionVO" />
 
 		<!-- 추가한 사람 : 예빈 -->
 		<typeAlias type="com.sist.mar.wishitem.domain.Wishitem" alias="Wishitem"/>

@@ -1,4 +1,4 @@
-package com.sist.mar.review.test;
+package com.sist.mar.question.test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
@@ -19,8 +19,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.sist.mar.cmn.Search;
-import com.sist.mar.review.dao.ReviewDaoImpl;
-import com.sist.mar.review.domain.ReviewVO;
+import com.sist.mar.question.dao.QuestionDaoImpl;
+import com.sist.mar.question.domain.QuestionVO;
+
+
 
 //메소드 수행 순서 : method ASCENDING ex)a~z
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -31,26 +33,21 @@ import com.sist.mar.review.domain.ReviewVO;
 //기존의 ApplicationContext context = new GenericXmlApplicationContext("/applicationContext.xml")가 한 일을 이걸로 마무리 + @Autowired로 연결시킴
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml"
 									, "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"})
-public class JTestReviewDao {
+public class JTestQuestionDao {
 
 //	▼ 변수 ===============================================================
-	final static Logger LOG = Logger.getLogger(JTestReviewDao.class);
+	final static Logger LOG = Logger.getLogger(JTestQuestionDao.class);
 	
 	@Autowired
 	ApplicationContext context;	// 테스트 오브젝트가 만들어지고나면, 스프링 테스트 컨텍스트에 의해 자동으로 주입된다.
 	
 	// 이걸 통해 UserDao라는 id를 찾는 것을 시작으로 기존 getConnection 과정이자 bean 파일을 통해 접속 정보를 얻는 과정을 시작 
 	@Autowired
-	private ReviewDaoImpl reviewDao;
+	private QuestionDaoImpl questionDao;
 	
-	ReviewVO review01;
-	ReviewVO review02;
-	ReviewVO review03;
-	
-	ReviewVO review04;
-	ReviewVO review05;
-	ReviewVO review06;
-	ReviewVO review07;
+	QuestionVO question01;
+	QuestionVO question02;
+	QuestionVO question03;
 	
 	Search search;
 	
@@ -63,17 +60,11 @@ public class JTestReviewDao {
 		
 		LOG.debug("=context=" + context);
 		
-		review01 = new ReviewVO(101, "aaa1@gmail.com" , 10 , "제목10", "내용10" , 0 , "");
-		review02 = new ReviewVO(102, "aaa1@gmail.com" , 10 , "제목70", "내용70" , 0 , "");
-		review03 = new ReviewVO(83, "aaa2@gmail.com" , 20 , "제목20", "내용20" , 0 , "");
-		review04 = new ReviewVO(84, "aaa3@gmail.com" , 30 , "제목30", "내용30" , 0 , "");
-		   
-		review05 = new ReviewVO(85, "bbb1@gmail.com" , 40 , "제목40", "내용40" , 0 , "");
-		review06 = new ReviewVO(86, "bbb1@gmail.com" , 50 , "제목50", "내용50" , 0 , "");
-		review07 = new ReviewVO(87, "ccc1@gmail.com" , 60 , "제목60", "내용60" , 0 , "");
+		question01 = new QuestionVO(24, 1 , "aaa1@gmail.com" , "제목10", "내용10" , "");
+		question02 = new QuestionVO(25, 1 , "aaa1@gmail.com" , "제목20", "내용20" , "");
+		question03 = new QuestionVO(26, 2 , "bbb1@gmail.com" , "제목30", "내용30" , "");
 		
-		search = new Search("20", "aaa1@gmail.com", 10, 1);
-		
+		search = new Search("10", "aaa1@gmail.com", 10, 1);
 	}
 
 	@After
@@ -84,38 +75,26 @@ public class JTestReviewDao {
 		LOG.debug("-------------------------");
 		
 	}
-	
-	
+
 //	▼ 테스트 ===============================================================
 	
 	@Test
 	public void listAndRead() throws SQLException {
 		// 1. 후기 전체 목록조회
 		// 2. 후기 단건 조회
-		// 3. 후기 전체 세기
 		
 		LOG.debug("*************************");
 		LOG.debug("=@listAndDetail=");
 		LOG.debug("*************************");
 		
 		// 1.
-		reviewDao.doRetrieve(search);
-		//reviewDao.doRetrieveSelf(search);
+		questionDao.doRetrieve(search);
 		
 		// 2.
-		reviewDao.doSelectOne(review01);
-		reviewDao.doSelectOne(review02);
-		reviewDao.doSelectOne(review03);
+		questionDao.doSelectOne(question01);
+		questionDao.doSelectOne(question02);
+		questionDao.doSelectOne(question03);
 		
-		// 3.
-		int flag = reviewDao.doReadCnt(review01);
-		assertThat(flag, is(1));
-		
-		flag += reviewDao.doReadCnt(review02);
-		assertThat(flag, is(2));
-		
-		flag += reviewDao.doReadCnt(review03);
-		assertThat(flag, is(3));
 		
 	}
 	
@@ -133,53 +112,41 @@ public class JTestReviewDao {
 		LOG.debug("*************************");
 		
 		// 1. 
-		reviewDao.doDelete(review01);
-		reviewDao.doDelete(review02);
-		reviewDao.doDelete(review03);
-		reviewDao.doDelete(review04);
-		reviewDao.doDelete(review05);
-		reviewDao.doDelete(review06);
+		questionDao.doDelete(question01);
+		questionDao.doDelete(question02);
+		questionDao.doDelete(question03);
 		
 		//2.
-		int flagInsert  =  reviewDao.doInsert(review01);
+		int flagInsert  =  questionDao.doInsert(question01);
 		assertThat(flagInsert, is(1));
 		
-		flagInsert  +=  reviewDao.doInsert(review02);
+		flagInsert  +=  questionDao.doInsert(question02);
 		assertThat(flagInsert, is(2));
 		
-		flagInsert  +=  reviewDao.doInsert(review03);
+		flagInsert  +=  questionDao.doInsert(question03);
 		assertThat(flagInsert, is(3));
-		
-		flagInsert  +=  reviewDao.doInsert(review04);
-		assertThat(flagInsert, is(4));
-		
-		flagInsert  +=  reviewDao.doInsert(review05);
-		assertThat(flagInsert, is(5));
-		
-		flagInsert  +=  reviewDao.doInsert(review06);
-		assertThat(flagInsert, is(6));
 
 		// 3.
-		review01.setTitle(review01.getTitle() + "수정함");
-		review01.setContents(review01.getContents() + "수정함");
+		question01.setTitle(question01.getTitle() + "수정함");
+		question01.setContents(question01.getContents() + "수정함");
 		
-		review02.setTitle(review02.getTitle() + "수정함");
-		review02.setContents(review02.getContents() + "수정함");
+		question02.setTitle(question02.getTitle() + "수정함");
+		question02.setContents(question02.getContents() + "수정함");
 		
-		review03.setTitle(review03.getTitle() + "수정함");
-		review03.setContents(review03.getContents() + "수정함");
+		question03.setTitle(question03.getTitle() + "수정함");
+		question03.setContents(question03.getContents() + "수정함");
 		
-		LOG.debug("review01 : " + review01);
-		LOG.debug("review02 : " + review02);
-		LOG.debug("review03 : " + review03);
+		LOG.debug("question01 : " + question01);
+		LOG.debug("question02 : " + question02);
+		LOG.debug("question03 : " + question03);
 		
-		int flagUpdate = reviewDao.doUpdate(review01);
+		int flagUpdate = questionDao.doUpdate(question01);
 		assertThat(flagUpdate, is(1));
 		
-		flagUpdate += reviewDao.doUpdate(review02);
+		flagUpdate += questionDao.doUpdate(question02);
 		assertThat(flagUpdate, is(2));
 		
-		flagUpdate += reviewDao.doUpdate(review03);
+		flagUpdate += questionDao.doUpdate(question03);
 		assertThat(flagUpdate, is(3));
 		
 		

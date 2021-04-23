@@ -67,7 +67,6 @@ public class ReviewVO extends DTO{
 		this.contents = contents;
 	}
 
-	
 	public int getReadCnt() {
 		return readCnt;
 	}

@@ -1,4 +1,4 @@
-package com.sist.mar.review.dao;
+package com.sist.mar.question.dao;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -12,7 +12,8 @@ import org.springframework.stereotype.Repository;
 
 import com.sist.mar.cmn.DTO;
 import com.sist.mar.cmn.Search;
-import com.sist.mar.review.domain.ReviewVO;
+import com.sist.mar.question.domain.QuestionVO;
+
 
 /* 
 	mybatipse 오류 확인
@@ -22,89 +23,86 @@ import com.sist.mar.review.domain.ReviewVO;
 */
 
 @Repository
-public class ReviewDaoImpl {
-
-	final static Logger LOG = LoggerFactory.getLogger(ReviewDaoImpl.class);
+public class QuestionDaoImpl {
 	
-	final String NAMESPACE = "com.sist.mar.review";		
+	final static Logger LOG = LoggerFactory.getLogger(QuestionDaoImpl.class);
+	
+	final String NAMESPACE = "com.sist.mar.question";		
 	
 	// xml에 존재(마이바티스를 위해 필요)
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
-	
-	public ReviewDaoImpl() {
-		
-	}
+
 	
 	/**
-	 * 후기 조회수 (doSelectOne시)
+	 * 질의 조회수 (doSelectOne시)
 	 */
 	public int doReadCnt(DTO dto)  throws SQLException{
 		
 		int flag = 0;
-		ReviewVO review = (ReviewVO) dto;
+		QuestionVO question = (QuestionVO) dto;
 		
 		// mybatis sql : NAMESPACE + . + id;
 		String statement = this.NAMESPACE + ".doReadCnt";
 		
 		LOG.debug("============================");
-		LOG.debug("=review=" + review);
+		LOG.debug("=question=" + question);
 		LOG.debug("=statement=" + statement);
 		LOG.debug("============================");
 		
-		flag = this.sqlSessionTemplate.update(statement, review);
+		flag = this.sqlSessionTemplate.update(statement, question);
 		return flag;
 		
 	}
 	
 	/**
-	 * 후기 삭제
+	 * 질의 삭제
 	 */
 	public int doDelete(DTO dto) throws SQLException {
 		
 		int flag = 0;
-		ReviewVO review = (ReviewVO) dto;
+		QuestionVO question = (QuestionVO) dto;
 		
 		// mybatis sql : NAMESPACE + . + id;
 		String statement = this.NAMESPACE + ".doDelete";
 		
 		LOG.debug("============================");
-		LOG.debug("=review=" + review);
+		LOG.debug("=question=" + question);
 		LOG.debug("=statement=" + statement);
 		LOG.debug("============================");
 		
-		flag = this.sqlSessionTemplate.delete(statement, review);
+		flag = this.sqlSessionTemplate.delete(statement, question);
 		return flag;
 		
 	}
 
 	/**
-	 * 후기 등록
+	 * 질의 등록
 	 */
 	public int doInsert(DTO dto) throws SQLException {
 		
 		int flag = 0;
-		ReviewVO review = (ReviewVO) dto;
+		QuestionVO question = (QuestionVO) dto;
 		
 		// mybatis sql : NAMESPACE + . + id;
 		String statement = this.NAMESPACE + ".doInsert";
 		
 		LOG.debug("============================");
-		LOG.debug("=review=" + review);
+		LOG.debug("=question=" + question);
 		LOG.debug("=statement=" + statement);
 		LOG.debug("============================");
 		
-		flag = this.sqlSessionTemplate.insert(statement, review);
+		flag = this.sqlSessionTemplate.insert(statement, question);
 		return flag;
 		
 	}
 
 	/**
-	 * 후기 조회
+	 * 질의 조회
 	 */
 	public DTO doSelectOne(DTO dto) throws SQLException {
 		
-		ReviewVO inVO = (ReviewVO) dto;
+		QuestionVO inVO = (QuestionVO) dto;
 
 		String statement = this.NAMESPACE + ".doSelectOne";
 		
@@ -113,7 +111,7 @@ public class ReviewDaoImpl {
 		LOG.debug("=statement=" + statement);
 		LOG.debug("============================");
 		
-		ReviewVO outVO = this.sqlSessionTemplate.selectOne(statement, inVO);
+		QuestionVO outVO = this.sqlSessionTemplate.selectOne(statement, inVO);
 		
 		LOG.debug("============================");
 		LOG.debug("=outVO=" + outVO);
@@ -127,32 +125,31 @@ public class ReviewDaoImpl {
 		}
 		
 		return outVO;
-		
 	}
 
 	/**
-	 * 후기 수정
+	 * 질의 수정
 	 */
 	public int doUpdate(DTO dto) throws SQLException {
 		
 		int flag = 0;
-		ReviewVO review = (ReviewVO) dto;
+		QuestionVO question = (QuestionVO) dto;
 		
 		// mybatis sql : NAMESPACE + . + id;
 		String statement = this.NAMESPACE + ".doUpdate";
 		
 		LOG.debug("============================");
-		LOG.debug("=review=" + review);
+		LOG.debug("=question=" + question);
 		LOG.debug("=statement=" + statement);
 		LOG.debug("============================");
 		
-		flag = this.sqlSessionTemplate.update(statement, review);
+		flag = this.sqlSessionTemplate.update(statement, question);
 		return flag;
 		
 	}
 
 	/**
-	 * 상품페이지용) 전체 후기목록 조회
+	 * 질의목록 조회 (searchDiv : 10(소비자용), 20(관리자용))
 	 */
 	public List<?> doRetrieve(DTO dto) throws SQLException {
 		
@@ -174,35 +171,6 @@ public class ReviewDaoImpl {
 		}
 		
 		return list;
-		
 	}
-	
-	/**
-	 * 소비자용) 본인이 쓴 후기목록 조회
-	 */
-	public List<?> doRetrieveSelf(DTO dto) throws SQLException {
-		
-		List<?> list = null;
-		
-		Search search = (Search) dto;
-		
-		String statement = this.NAMESPACE + ".doRetrieveSelf";
-		
-		LOG.debug("============================");
-		LOG.debug("=search=" + search);
-		LOG.debug("=statement=" + statement);
-		LOG.debug("============================");
-		
-		list = sqlSessionTemplate.selectList(statement, search);
-		
-		for(Object vo : list) {
-			LOG.debug("vo : " + vo);
-		}
-		
-		return list;
-		
-	}
-	
-	
 
 }

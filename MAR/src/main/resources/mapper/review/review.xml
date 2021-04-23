@@ -26,28 +26,24 @@
 	</resultMap>
 	
 	
-	<!-- sql : 해당 element는 다른 구문에서 재사용 가능한 sql구문을 정의할 때 사용된다 -->
-	<!-- where 엘리먼트는 태그에 의해 컨텐츠가 리턴되면 단순히 “WHERE”만을 추가한다. 게다가 컨텐츠가 “AND”나 “OR”로 시작한다면 그 “AND”나 “OR”를 지워버린다. -->
+	<!-- doRetrieve 카테고리 : 10 전체검색용, 20 내가 쓴 후기  -->
+	<!-- sql : 해당 element는 다른 구문에서 재사용 가능한 sql구문을 정의할 때 사용된다
+		 where 엘리먼트는 태그에 의해 컨텐츠가 리턴되면 단순히 “WHERE”만을 추가한다. 게다가 컨텐츠가 “AND”나 “OR”로 시작한다면 그 “AND”나 “OR”를 지워버린다. -->
 	<sql id="searchCondition">
 		<where>
 			<choose>
-				<when test=" '0'  == auth ">
-
+				<when test=" '10'  == searchDiv ">
 				</when>
 			
-				<when test=" '1'  == auth ">
-					member_id LIKE #{memberId} || '%'
+				<when test=" '20'  == searchDiv ">
+					member_id = #{searchWord}    
 				</when>
-
 			</choose> 
 		</where>
 	</sql>
 	
 	
-	
 	<!-- doRetrieve -->
-	<!-- 쿼리 안쪽에 부등호 사용(쿼리 부록은 쓰면 에러뜸) : <![CDATA[부등호 쓴 쿼리]]> 다음과 같은 방식으로.. (정확히는 해당 명령어는 '문자 그대로 해석이 필요한 쿼리'를 의미)-->
-	<!-- resultMap을 사용함 : resultType = "User" -->	
 	<select id="doRetrieve" parameterType="Search" resultType="ReviewVO">
 
 		 SELECT A.*,                                                                                                                    
@@ -67,18 +63,19 @@
 		                     , t1.*                                                                                                     
 		             FROM(SELECT *                                                                                                      
 		                  FROM review                                                                                                                                               
-		                  ORDER BY review_no DESC ) t1                                                                           
+		                  ORDER BY review_no DESC ) t1  
+		             <include refid="searchCondition" />                                                                              
 		             )t2 
-		        WHERE rnum BETWEEN 10 * (1 - 1) + 1 AND 10 * (1 - 1) + 10    
+		        WHERE rnum BETWEEN #{pageSize} * (#{pageNum} - 1) + 1 AND #{pageSize} * (#{pageNum} - 1) + #{pageSize}
 		     )A                                                                                                                         
 		 CROSS JOIN                                                                                                                     
 		     (SELECT COUNT(*) totalCnt                                                                                                 
-		     FROM review                                                                                                            
+		     FROM review    
+		     <include refid="searchCondition" />                                                                                                         
 		     )B     
 
-	                                                                                                                                                                         															
-       <!--  WHERE rnum BETWEEN #{pageSize} * (#{pageNum} - 1) + 1 AND #{pageSize} * (#{pageNum} - 1) + #{pageSize} -->
-	
+	   <!--  WHERE rnum BETWEEN 10 * (1 - 1) + 1 AND 10 * (1 - 1) + 10 -->                                                                                                                                                                          															
+      
 	</select>
 	
 	
@@ -115,7 +112,7 @@
 		SET   title = #{title}
 		    , contents = #{contents}
 		    , reg_dt = SYSDATE
-		WHERE orderitem_no = #{orderItemNo}
+		WHERE review_no = #{reviewNo}
 		
 	</update>
 	
@@ -124,7 +121,7 @@
 	<delete id = "doDelete" parameterType="ReviewVO">
 	
 		DELETE FROM review
-		WHERE orderitem_no = #{orderItemNo}
+		WHERE review_no = #{reviewNo}
 	
 	</delete>
 

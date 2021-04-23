@@ -62,7 +62,6 @@ public class JTestAnswerDao {
 	}
 	
 //	@Test
-	@SuppressWarnings({ "unchecked", "unused" })
 	public void getAllList() throws Exception{
 		List<Answer> list  =(List<Answer>) dao.getAllList();
 		

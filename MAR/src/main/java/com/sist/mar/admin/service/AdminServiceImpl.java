@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.sist.mar.admin.dao.AdminDaoImpl;
 import com.sist.mar.cmn.DTO;
+import com.sist.mar.item.domain.Item;
+import com.sist.mar.order.domain.Ordering;
 import com.sist.mar.recipe.domain.RecipeVO;
 
 @Service
@@ -33,5 +35,18 @@ public class AdminServiceImpl {
 	public List<RecipeVO> doRetrieveReicpe(DTO dto) throws SQLException {
 		return adminDao.doRetrieveReicpe(dto);
 	}
+	
+	public List<Item> doRetrieveItem(DTO dto) throws SQLException {
+		return adminDao.doRetrieveItem(dto);
+	}
+	
+	public int doDiscountItem(DTO dto) throws SQLException {
+		return adminDao.doDiscountItem(dto);
+	}
+	
+	public List<Ordering> doRetrieveOrdering(DTO dto) throws SQLException {
+		return adminDao.doRetrieveOrdering(dto);
+	}
+	
 	
 }

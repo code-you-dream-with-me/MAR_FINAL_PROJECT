@@ -50,8 +50,8 @@
 	  <main>
 	    <div class="py-5 text-center">
 	      <img class="d-block mx-auto mb-4" src="${hContext}/resources/image_source/good_food-wallpaper-800x480.jpg" alt="" style="height: 100px; border-radius: 10px;" >
-	      <h2>레시피 등록</h2><br/>
-	      <p class="lead">레시피 등록화면 입니다. 안내에 따라 각 항목을 정확히 작성바랍니다.</p>
+	      <h2>레시피 수정</h2><br/>
+	      <p class="lead">레시피 수정화면 입니다. 안내에 따라 각 항목을 정확히 작성바랍니다.</p>
 	    </div>
 	
 	    <div class="row g-5">
@@ -76,8 +76,6 @@
 			  <!-- 업로드한 이미지 목록 출력 -->	
 	          <div id="uploadImageView" name="uploadImageView">
 	          </div>
-	
-					
 			  		
 	
 	        </form>
@@ -90,7 +88,9 @@
 
 				<!-- 변경필요 -->
 				<input type="hidden" name="regId" id="regId" value="123wodnr@naver.com"/>
+				<input type="hidden" name="imageListDel" id="imageListDel" value=""/>
 				<input type="hidden" name="imageList" id="imageList" value=""/>
+				<input type="hidden" name="recipeNo" id="recipeNo" value=""/>
 				<input type="hidden" name="whichMainImage" id="whichMainImage" value="0"/>
 				
 	
@@ -129,7 +129,7 @@
 	          <hr class="my-4">
 	
 	        </form>
-	          <button class="w-100 btn btn-primary btn-lg" name="register_button" id="register_button" type="submit">레시피 등록</button>
+	          <button class="w-100 btn btn-primary btn-lg" name="register_button" id="register_button" type="submit">레시피 수정</button>
 	      </div>
 	    </div>
 	  </main>
@@ -143,7 +143,92 @@
   </body>
 
   <script type="text/javascript">
+  
+  $(document).ready(function() {
+	//console.log("1.document:최초수행!");
+    var recipeNo = getParameter("recipeNo");
+    //console.log("수정 레시피 번호:"+recipeNo);
+    doSelectOne(recipeNo);
+    doRetrieveImage(recipeNo);
+  });
+  
+  function getParameter(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }  
+  
+  function doSelectOne(no){
+	
+	console.log("doSelectOne");
+	console.log("no: "+no);
+	
+	$.ajax({
+	  		type: "GET",
+	  		url:"${hContext}/recipe/do_select.do",
+	  		asyn:"false",
+	  		dataType:"html",
+	  		data:{
+	  			recipeNo:no
+	  		},
+	  		success:function(data){//통신 성공
+	  			var parseData = JSON.parse(data);
+	  			console.log(parseData);
+	  		
+	  			var recipeNo = parseData.recipeNo;
+	  		    var title = parseData.title;
+	  		    var regId = parseData.regId;
+	  		    var regDt = parseData.regDt;
+	  		    var readCnt = parseData.readCnt;
+	  		    var ingredients = parseData.ingredients;
+	  		    var urlAddr = parseData.urlAddr;
+	  		    var contents = parseData.contents;
+	  		    
+	  		    $("#recipeNo").val(recipeNo);
+	  		    $("#title").val(title);
+	  		    $("#contents").val(contents);
+	  		    $("#ingredients").val(ingredients);
+	  		    $("#urlAddr").val(urlAddr);
+	  		    
+	      	},
+	      	error:function(data){//실패시 처리
+	      		console.log("error:"+data);
+	      	}
+	      	
+	  	});
+  }  
 
+  function doRetrieveImage(no){
+	
+	console.log("doRetrieveImage");
+	console.log("no: "+no);
+	
+	$.ajax({
+  		type: "GET",
+  		url:"${hContext}/image/do_retrieve.do",
+  		asyn:"false",
+  		dataType:"html",
+  		data:{
+  			fromTb:2,
+  			fromNo:no
+  		},
+  		success:function(data){//통신 성공
+  		
+  			//console.log(parseData);
+  			$("#imageListDel").val(data);
+  			
+      	},
+      	error:function(data){//실패시 처리
+      		console.log("error:"+data);
+      	}
+      	
+  	});
+	
+	
+  }  
+  
+  
   //팝업 창 띄우기
   function showPopup(frm) { 
 	console.log('showPopup()');
@@ -170,10 +255,11 @@
 	  
   	$.ajax({
   		type: "GET",
-  		url:"${hContext}/recipe/do_insert.do",
+  		url:"${hContext}/recipe/do_update.do",
   		asyn:"false",
   		dataType:"html",
   		data:{
+  			recipeNo: $("#recipeNo").val(),
   			regId: $("#regId").val(),
   			title: $("#title").val(),
   			contents: $("#contents").val(),
@@ -191,18 +277,20 @@
   			
   			$.ajax({
   		  		type: "GET",
-  		  		url:"${hContext}/image/do_insert.do",
+  		  		url:"${hContext}/image/do_update.do",
   		  		asyn:"false",
   		  		dataType:"html",
   		  		data:{
-  		  			imageList: $("#imageList").val(),
   		  			fromTb: $("#fromTb").val(),
+  		  			fromNo: $("#recipeNo").val(),
+  		  			imageListDel: $("#imageListDel").val(),
+  		  			imageListNew: $("#imageList").val(),
   		  		    MainImage: mainImageNum
   		  		},
   		  		success:function(data){//통신 성공
   		      		var message = JSON.parse(data);
   		  			console.log(message.msgContents);
-  		  			alert("레시피 등록이 완료되었습니다.");
+  		  			alert("레시피 수정이 완료되었습니다.");
   		  			window.location.href = "${hContext}/admin/admin_view.do";
   		      	},
   		      	error:function(data){//실패시 처리

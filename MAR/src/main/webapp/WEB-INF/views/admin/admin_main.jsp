@@ -46,6 +46,16 @@
       	padding: 0px 0px 2px 0px;
       	margin: 0px;
       	text-align: center;
+      	border-radius: 5px;
+      }
+      .wordBtn {
+      	background-color: white;
+      	width: 40px;
+      	text-align: center;
+      	margin: 0px 0px 0px 7px;
+      	padding: 0px;
+      	border-radius: 5px;
+      	font-size: small;
       }
     </style>
 
@@ -112,69 +122,6 @@
 	      <div class="bd-heading sticky-xl-top align-self-start mt-5 mb-3 mt-xl-0 mb-xl-2">
 	        <h3>회원 목록</h3>
 	      </div>
-		  
-	      <div class="bd-example">
-		    <table class="table table-hover">
-	          <thead>
-	          <tr>
-	            <th scope="col">Class</th>
-	            <th scope="col">Heading</th>
-	            <th scope="col">Heading</th>
-	          </tr>
-	          </thead>
-	          <tbody>
-	          <tr>
-	            <th scope="row">Default</th>
-	            <td>Cell</td>
-	            <td>Cell</td>
-	          </tr>
-	          
-	          <tr class="table-primary">
-	            <th scope="row">Primary</th>
-	            <td>Cell</td>
-	            <td>Cell</td>
-	          </tr>
-	          <tr class="table-secondary">
-	            <th scope="row">Secondary</th>
-	            <td>Cell</td>
-	            <td>Cell</td>
-	          </tr>
-	          <tr class="table-success">
-	            <th scope="row">Success</th>
-	            <td>Cell</td>
-	            <td>Cell</td>
-	          </tr>
-	          <tr class="table-danger">
-	            <th scope="row">Danger</th>
-	            <td>Cell</td>
-	            <td>Cell</td>
-	          </tr>
-	          <tr class="table-warning">
-	            <th scope="row">Warning</th>
-	            <td>Cell</td>
-	            <td>Cell</td>
-	          </tr>
-	          <tr class="table-info">
-	            <th scope="row">Info</th>
-	            <td>Cell</td>
-	            <td>Cell</td>
-	          </tr>
-	          <tr class="table-light">
-	            <th scope="row">Light</th>
-	            <td>Cell</td>
-	            <td>Cell</td>
-	          </tr>
-	          <tr class="table-dark">
-	            <th scope="row">Dark</th>
-	            <td>Cell</td>
-	            <td>Cell</td>
-	          </tr>
-	          </tbody>
-	        </table>
-
-	      </div>
-	      
-	      <br/><br/>
 	      
 	      <div class="bd-example">
 		    <table class="table table-hover">
@@ -212,30 +159,26 @@
 		  	
 		  	
 	      <div class="bd-example">
-	        <table class="table table-hover">
+	        <table class="table table-hover" name="itemTable" id="itemTable">
 	          <thead>
 	          	<tr>
 	              <th scope="col" width="10%">상품번호</th>
-	              <th scope="col" width="30%">상품명</th>
-	              <th scope="col" width="20%">종류</th>
-	              <th scope="col" width="10%">가격</th>
-	              <th scope="col" width="10%">할인률</th>
+	              <th scope="col" width="25%">상품명</th>
+	              <th scope="col" width="10%">종류</th>
+	              <th scope="col" width="10%">가격
+	                <input type="button" class="orderBtn" name="ItemPrice" id="ItemPrice" value="○" />
+	              </th>
+	              <th scope="col" width="13%">할인률</th>
 	              <th scope="col" width="10%">최종가격</th>
-	              <th scope="col" width="10%">판매량</th>
+	              <th scope="col" width="12%">판매량
+	                <input type="button" class="orderBtn" name="ItemSales" id="ItemSales" value="○" />
+	              </th>
+	              <th scope="col" width="10%">등록일
+	                <input type="button" class="orderBtn" name="ItemRedDtBtn" id="ItemRedDtBtn" value="▼" />
+	              </th>
 	          	</tr>
 	          </thead>
 	          <tbody>
-	          	<tr>
-	              <td>Cell</td>
-	              <td>Cell</td>
-	              <td>Cell</td>
-	              <td>Cell</td>
-	              <td>Cell</td>
-	              <td>Cell</td>
-	              <td>Cell</td>
-	          	</tr>
-	          
-	          
 	          </tbody>
 	        </table>
 	      </div>
@@ -247,32 +190,23 @@
 	      <div class="bd-heading sticky-xl-top align-self-start mt-5 mb-3 mt-xl-0 mb-xl-2">
 	        <h3>주문 목록</h3>
 	      </div>
-	      
-		  	
 		  	
 	      <div class="bd-example">
-	        <table class="table table-hover">
+	        <table class="table table-hover" name="orderingTable" id="orderingTable">
 	          <thead>
 	          	<tr>
 	              <th scope="col" width="10%">주문번호</th>
-	              <th scope="col" width="30%">주문자</th>
-	              <th scope="col" width="25%">상품명</th>
-	              <th scope="col" width="15%">금액</th>
-	              <th scope="col" width="10%">주문상태</th>
+	              <th scope="col" width="15%">주문자</th>
+	              <th scope="col" width="40%">배송지</th>
+	              <th scope="col" width="10%">금액</th>
+	              <th scope="col" width="15%">
+	              상태
+	              	<input type="button" class="wordBtn" name="orderStateBtn" id="orderStateBtn" value="전체" style="width: 60px; margin-left: 8px;" />
+	              </th>
 	              <th scope="col" width="10%">결제일</th>
 	          	</tr>
 	          </thead>
 	          <tbody>
-	          	<tr>
-	              <td>Cell</td>
-	              <td>Cell</td>
-	              <td>Cell</td>
-	              <td>Cell</td>
-	              <td>Cell</td>
-	              <td>Cell</td>
-	          	</tr>
-	          
-	          
 	          </tbody>
 	        </table>
 	      </div>
@@ -291,16 +225,16 @@
 	          <thead>
 	          	<tr>
 	              <th scope="col" width="8%">번호</th>
-	              <th scope="col" width="32%">레시피 제목</th>
+	              <th scope="col" width="35%">레시피 제목</th>
 	              <th scope="col" width="25%">작성자</th>
-	              <th scope="col" width="15%">
+	              <th scope="col" width="12%">
 	              	조회수
 	              	<input type="button" class="orderBtn" name="readCntBtn" id="readCntBtn" value="○" />
 	              </th>
 	              <th scope="col" width="20%">
 	              	등록일
 	              	<input type="button" class="orderBtn" name="redDtBtn" id="redDtBtn" value="▼" />
-	              	<input type="button" class="orderBtn" name="addRecipeBtn" id="addRecipeBtn" value="+" style="float: right; font-weight: bolder;" />
+	              	<input type="button" class="wordBtn" name="addRecipeBtn" id="addRecipeBtn" value="추가" style="float: right; font-weight: bolder;" />
 	              </th>
 	          	</tr>
 	          </thead>
@@ -324,6 +258,8 @@
   $(document).ready(function() {
       console.log("1.document:최초수행!");
       doRetrieveReicpe();
+      doRetrieveItem();
+      doRetrieveOrdering();
     });
   
   $("#addRecipeBtn").on("click", function(e){
@@ -331,7 +267,7 @@
 	  window.location.href = "${hContext}/recipe/recipe_view.do";
   });
   
-  
+  /* Recipe */
   $("#readCntBtn").on("click", function(e){
 	  
 	$("#redDtBtn").val("○");
@@ -349,6 +285,7 @@
 	
   });
   
+  /* Recipe */
   $("#redDtBtn").on("click", function(e){
 	
 	  $("#readCntBtn").val("○");
@@ -403,6 +340,7 @@
   					html += "   </tr>                             ";
   				});
   				
+  				
   			}else { 
   				//데이터가 없는 경우
   				html += " <tr> ";
@@ -422,26 +360,266 @@
   	
   }
   
-  
   //table click
   $("#recipeTable > tbody").on("click","tr",function(e){
-  	//console.log("userTable > tbody");
-  	e.preventDefault();
-  	
-  	let tds = $(this).children();
-  	var recipeNo = tds.eq(0).text();
-  	console.log("recipeNo:"+recipeNo);
-  	
-    window.location.href = "${hContext}/recipe/recipe_view2.do?recipeNo="+recipeNo;
-  	
-  	
-  	
-  	
+    	//console.log("userTable > tbody");
+    	e.preventDefault();
+    	
+    	let tds = $(this).children();
+    	var recipeNo = tds.eq(0).text();
+    	console.log("recipeNo:"+recipeNo);
+    	
+      window.location.href = "${hContext}/recipe/recipe_view2.do?recipeNo="+recipeNo;
+    	
   });
-  //--table click
+  //--table click  
   
   
+//<input type='button' class='wordBtn' onclick='selectRecipe("+value.recipeNo+");' value='조회' /><input type='button' class='wordBtn' onclick='updateRecipe("+value.recipeNo+");' value='수정' /><input type='button' class='wordBtn' onclick='deleteRecipe("+value.recipeNo+");' value='삭제' />
+/*   function selectRecipe(no) {
+	  console.log("조회 레시피번호: "+no);
+	  window.location.href = "${hContext}/recipe/recipe_view2.do?recipeNo="+no;
+  }
+    
+  function updateRecipe(no) {
+	  console.log("수정 레시피번호: "+no);
+  }
   
+  function deleteRecipe(no) {
+	  console.log("삭제 레시피번호: "+no);
+  } */
+  
+
+  /* Item */
+  $("#ItemPrice").on("click", function(e){
+  
+		$("#ItemRedDtBtn").val("○");
+		$("#ItemSales").val("○");
+		var Btn = $("#ItemPrice").val();
+		if(Btn == "▼"){
+			$("#ItemPrice").val("▲");
+			doRetrieveItem("price", "asc");
+		}else if(Btn == "▲"){
+			$("#ItemPrice").val("▼");
+			doRetrieveItem("price", "desc");
+		}else if(Btn == "○"){
+			$("#ItemPrice").val("▼");
+			doRetrieveItem("price", "desc");
+		}
+	
+  });  
+  
+  /* Item */
+  $("#ItemSales").on("click", function(e){
+  
+		$("#ItemRedDtBtn").val("○");
+		$("#ItemPrice").val("○");
+		var Btn = $("#ItemSales").val();
+		if(Btn == "▼"){
+			$("#ItemSales").val("▲");
+			doRetrieveItem("sales", "asc");
+		}else if(Btn == "▲"){
+			$("#ItemSales").val("▼");
+			doRetrieveItem("sales", "desc");
+		}else if(Btn == "○"){
+			$("#ItemSales").val("▼");
+			doRetrieveItem("sales", "desc");
+		}
+	
+  });
+
+  /* Item */
+  $("#ItemRedDtBtn").on("click", function(e){
+	
+		$("#ItemSales").val("○");
+		$("#ItemPrice").val("○");
+		var Btn = $("#ItemRedDtBtn").val();
+		if(Btn == "▼"){
+			$("#ItemRedDtBtn").val("▲");
+			doRetrieveItem("regDt", "asc");
+		}else if(Btn == "▲"){
+			$("#ItemRedDtBtn").val("▼");
+			doRetrieveItem("regDt", "desc");
+		}else if(Btn == "○"){
+			$("#ItemRedDtBtn").val("▼");
+			doRetrieveItem("regDt", "desc");
+		}
+	
+  });
+  
+  function doRetrieveItem(orderDiv, orderWord) {
+	  
+	  console.log("doRetrieveItem");
+	  console.log(orderDiv+", "+orderWord);
+	  
+	  	$.ajax({
+	  		type: "GET",
+	  		url:"${hContext}/admin/do_retrieve_item.do",
+	  		asyn:"true",
+	  		dataType:"html",
+	  		data:{
+	  			searchDiv: orderDiv,
+	  			searchWord: orderWord
+	  		},
+	  		success:function(data){//통신 성공
+	  			//console.log("success data:"+data);
+	  			var parseData = JSON.parse(data);
+	  			//console.log("parseData: "+parseData);
+	  			
+	  			//기존 데이터 삭제
+	  			$("#itemTable > tbody").empty();
+	  			var html = "";
+	  			
+	  			//console.log("parseData.length:"+parseData.length);
+	  			
+	  			
+	  			if(parseData.length > 0){ 
+	  				
+	  				$.each(parseData, function(i, value) {
+	  					//console.log(i+", "+value.name);
+	  					html += "   <tr>                              ";
+	  					html += "     <td>"+ value.itemNo +"</td>   ";
+	  					html += "     <td>"+ value.name +"</td>      ";
+	  					html += "     <td>"+ value.categoryNo +"</td>      ";
+	  					html += "     <td>"+ value.price +"</td>    ";
+	  					html += "     <td><input type='text' id='discountNum"+value.itemNo+"' value='"+ value.discount +"' style='width: 40px;'/><input type='button' class='wordBtn' value='수정' onclick='discount("+value.itemNo+");' /></td>    ";
+	  					html += "     <td>"+ value.price*(100-value.discount)/100 +"</td>    ";
+	  					html += "     <td>"+ value.sales +"</td>    ";
+	  					html += "     <td>"+ value.regDt +"</td>      ";
+	  					html += "   </tr>                             ";
+	  				});
+	  				
+	  				//원래가격*(100-할인률)/100
+	  				
+	  			}else { 
+	  				//데이터가 없는 경우
+	  				html += " <tr> ";
+	  				html += "   <td class='text-center' colspan='99'>등록된 게시글이 없습니다.</td> ";
+	  				html += " </tr> ";
+	  			}
+	  			$("#itemTable > tbody").append(html);
+	  			//doInit(); //회원입력form 초기화
+	  		},
+	  		error:function(data){//실패시 처리
+	  			console.log("error:"+data);
+	  		},
+	  		complete:function(data){//성공/실패와 관계없이 수행!
+	  			//console.log("complete:"+data);
+	  		}
+	  	});     	
+	  	
+	  }
+  
+  function discount(itemNo) {
+	  //console.log("상품번호: "+itemNo);
+	  //console.log("할인률"+$("#discountNum"+itemNo).val());
+	  
+	  $.ajax({
+	  		type: "GET",
+	  		url:"${hContext}/admin/do_dicount_item.do",
+	  		asyn:"true",
+	  		dataType:"html",
+	  		data:{
+	  			itemNo: itemNo,
+	  			discount: $("#discountNum"+itemNo).val()
+	  		},
+	  		success:function(data){//통신 성공
+	  			
+	  			var parseData = JSON.parse(data);
+	  			console.log(parseData.msgContents);
+	  			
+	  			if      ($("#ItemRedDtBtn").val()  == "▼") doRetrieveItem("regDt", "desc");
+	  			else if ($("#ItemRedDtBtn").val()  == "▲") doRetrieveItem("regDt", "asc");
+	  			else if ($("#ItemPrice").val() == "▼") doRetrieveItem("price", "desc");
+	  			else if ($("#ItemPrice").val() == "▲") doRetrieveItem("price", "asc");
+	  			else if ($("#ItemSales").val() == "▼") doRetrieveItem("sales", "desc");
+	  			else if ($("#ItemSales").val() == "▲") doRetrieveItem("sales", "asc");
+	  			
+	  			
+	  		},
+	  		error:function(data){//실패시 처리
+	  			console.log("error:"+data);
+	  		},
+	  		complete:function(data){//성공/실패와 관계없이 수행!
+	  			//console.log("complete:"+data);
+	  		}
+	  	});
+	  
+  }
+
+  $("#orderStateBtn").on("click", function(e){
+		
+		var Btn = $("#orderStateBtn").val();
+		if(Btn == "전체"){
+			$("#orderStateBtn").val("확정");
+			doRetrieveOrdering("orderState", "1");
+		}else if(Btn == "확정"){
+			$("#orderStateBtn").val("취소요청");
+			doRetrieveOrdering("orderState", "2");
+		}else if(Btn == "취소요청"){
+			$("#orderStateBtn").val("전체");
+			doRetrieveOrdering("nothing", "0");
+		}
+	
+  });  
+  
+  function doRetrieveOrdering(orderDiv, orderWord) {
+	  	
+	  	$.ajax({
+	  		type: "GET",
+	  		url:"${hContext}/admin/do_retrieve_ordering.do",
+	  		asyn:"true",
+	  		dataType:"html",
+	  		data:{
+	  			searchDiv: orderDiv,
+	  			searchWord: orderWord
+	  		},
+	  		success:function(data){//통신 성공
+	  			//console.log("success data:"+data);
+	  			var parseData = JSON.parse(data);
+	  			//console.log("parseData: "+parseData);
+	  			
+	  			//기존 데이터 삭제
+	  			$("#orderingTable > tbody").empty();
+	  			var html = "";
+	  			
+	  			//console.log("parseData.length:"+parseData.length);
+	  			
+	  			if(parseData.length > 0){ 
+	  				
+	  				//var orderState = "";
+	  				//if(value.orderState == "1") orderState = "";
+	  				
+	  				$.each(parseData, function(i, value) {
+	  					//console.log(i+", "+value.name);
+	  					html += "   <tr>                              ";
+	  					html += "     <td>"+ value.orderNo +"</td>   ";
+	  					html += "     <td>"+ value.memberId +"</td>      ";
+	  					html += "     <td>"+ value.address +"</td>      ";
+	  					html += "     <td>"+ value.price +"</td>    ";
+	  					html += "     <td>"+ value.orderState +"</td>    ";
+	  					html += "     <td>"+ value.orderDate +"</td>      ";
+	  					html += "   </tr>                             ";
+	  				});
+	  				
+	  			}else { 
+	  				//데이터가 없는 경우
+	  				html += " <tr> ";
+	  				html += "   <td class='text-center' colspan='99'>등록된 주문이 없습니다.</td> ";
+	  				html += " </tr> ";
+	  			}
+	  			$("#orderingTable > tbody").append(html);
+	  			//doInit(); //회원입력form 초기화
+	  		},
+	  		error:function(data){//실패시 처리
+	  			console.log("error:"+data);
+	  		},
+	  		complete:function(data){//성공/실패와 관계없이 수행!
+	  			//console.log("complete:"+data);
+	  		}
+	  	});     	
+	  	
+	  }  
   
   
   </script>

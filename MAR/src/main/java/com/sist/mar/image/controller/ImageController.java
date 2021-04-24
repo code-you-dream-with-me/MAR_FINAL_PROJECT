@@ -159,15 +159,19 @@ public class ImageController {
 			@RequestParam(value = "fromTb", required = false)String fromTb,
 			@RequestParam(value = "fromNo", required = false)String fromNo,
 			@RequestParam(value = "imageListDel", required = false)String jsonStrDel,
-			@RequestParam(value = "imageListNew", required = false)String jsonStrNew
+			@RequestParam(value = "imageListNew", required = false)String jsonStrNew,
+			@RequestParam(value = "MainImage", required = false)String mainImage
 			) throws Exception {
+		
+		int mainImageNum = Integer.parseInt(StringUtil.nvl(mainImage, "0"));
+		LOG.debug("mainImage"+ mainImageNum);
 		
 		Gson gson = new Gson();
 		List<ImageVO> imageListDel = gson.fromJson(jsonStrDel, new TypeToken<List<ImageVO>>() {}.getType());
 		List<ImageVO> imageListNew = gson.fromJson(jsonStrNew, new TypeToken<List<ImageVO>>() {}.getType());
 		
 		Message message = new Message();
-		message.setMsgId(Integer.toString(imageService.upUpdateImages(Integer.parseInt(fromTb), Integer.parseInt(fromNo), imageListDel, imageListNew)));
+		message.setMsgId(Integer.toString(imageService.upUpdateImages(Integer.parseInt(fromTb), Integer.parseInt(fromNo), imageListDel, imageListNew, mainImageNum)));
 		
 		if(message.getMsgId().equals("1")) message.setMsgContents("이미지 수정이 완료되었습니다.");
 		else message.setMsgContents("이미지 수정에 실패하였습니다.");

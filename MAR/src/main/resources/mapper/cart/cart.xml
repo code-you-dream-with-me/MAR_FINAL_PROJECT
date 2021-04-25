@@ -63,7 +63,7 @@
 	</select>
 	
 	<!-- resultType="Member"로 변경해야함 -->
-	<select id="doOrder" parameterType="String" resultType="Cart">
+	<select id="doOrderMember" parameterType="String" resultType="Cart">
 		SELECT
 		    member_id,
 		    name,

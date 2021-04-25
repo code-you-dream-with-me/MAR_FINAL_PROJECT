@@ -29,6 +29,5 @@
 		<typeAlias type="com.sist.mar.cart.domain.Cart" alias="Cart"/>
 		<typeAlias type="com.sist.mar.order.domain.Ordering" alias="Ordering"/>
 		<typeAlias type="com.sist.mar.order.domain.Orderitem" alias="Orderitem"/>
-		<typeAlias type="com.sist.mar.cart.domain.Member" alias="Member"/> <!-- DaoTest를 위한 임시 파일 -->
  	</typeAliases>
  </configuration>

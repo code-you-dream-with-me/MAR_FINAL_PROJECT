@@ -34,11 +34,102 @@
 		    read_cnt AS readCnt,
 		    ingredients AS ingredients,
 		    url_addr AS urlAddr,
-		    reg_dt AS regDt,
-		    mod_dt AS modDt
+			CASE WHEN TO_CHAR(SYSDATE,'YYYY/MM/DD') = TO_CHAR(reg_dt,'YYYY/MM/DD')           
+				THEN TO_CHAR(reg_dt,'HH24:MI')                                               
+			ELSE TO_CHAR(reg_dt,'YYYY/MM/DD')                                                
+			END AS regDt,
+			CASE WHEN TO_CHAR(SYSDATE,'YYYY/MM/DD') = TO_CHAR(mod_dt,'YYYY/MM/DD')           
+				THEN TO_CHAR(mod_dt,'HH24:MI')                                               
+			ELSE TO_CHAR(mod_dt,'YYYY/MM/DD')                                                
+			END AS modDt
 		FROM recipe	
 	</select>
 	
+	<!-- doRetrieveItem -->
+	<select id="doRetrieveItem" parameterType="Search" resultType="Item">
+		SELECT
+			<choose>
+				<when test="searchDiv == 'regDt' and searchWord == 'desc'">
+					/*+ INDEX_DESC(item PK_ITEM) */
+				</when>
+			</choose>        
+			<choose>
+				<when test="searchDiv == 'regDt' and searchWord == 'asc'">
+					/*+ INDEX_ASC(item PK_ITEM) */
+				</when>
+			</choose>
+			<choose>
+				<when test="searchDiv == 'sales' and searchWord == 'desc'">
+					/*+ INDEX_DESC(item IDX_ITEM_SALES) */
+				</when>
+			</choose>
+			<choose>
+				<when test="searchDiv == 'sales' and searchWord == 'asc'">
+					/*+ INDEX_ASC(item IDX_ITEM_SALES) */
+				</when>
+			</choose>
+			<choose>
+				<when test="searchDiv == 'price' and searchWord == 'desc'">
+					/*+ INDEX_DESC(item IDX_ITEM_PRICE) */
+				</when>
+			</choose>
+			<choose>
+				<when test="searchDiv == 'price' and searchWord == 'asc'">
+					/*+ INDEX_ASC(item IDX_ITEM_PRICE) */
+				</when>
+			</choose>  			                                       		
+			item_no as itemNo,
+			name,
+			price,
+			production,
+			weight,
+			expired,
+			detail,
+			discount,
+			final_price as finalPrice,
+			sales,
+			category_no as categoryNo,
+			reg_id as regId,
+			CASE WHEN TO_CHAR(SYSDATE,'YYYY/MM/DD') = TO_CHAR(reg_dt, 'YYYY/MM/DD')           
+		    THEN TO_CHAR(reg_dt,'HH24:MI')                                               
+		    ELSE TO_CHAR(reg_dt,'YYYY/MM/DD') END regDt, 
+			CASE WHEN TO_CHAR(SYSDATE,'YYYY/MM/DD') = TO_CHAR(mod_dt, 'YYYY/MM/DD')           
+		    THEN TO_CHAR(mod_dt,'HH24:MI')                                               
+		    ELSE TO_CHAR(mod_dt,'YYYY/MM/DD') END modDt 
+		FROM item	
+	</select>
+	
+	<!-- doDiscountItem -->
+	<update id="doDiscountItem" parameterType="Item">
+		UPDATE item
+		SET discount = #{discount}
+		WHERE item_no = #{itemNo}	
+	</update>
+	
+	<!-- doRetrieveOrdering -->
+	<select id="doRetrieveOrdering" parameterType="Search" resultType="Ordering">
+		SELECT
+			/*+ INDEX_DESC(ordering PK_ORDERING) */
+		    order_no AS orderNo,
+		    member_id AS memberId,
+		    price,
+		    name,
+		    phone,
+		    address,
+		    request,
+		    order_state AS orderState,
+			CASE WHEN TO_CHAR(SYSDATE,'YYYY/MM/DD') = TO_CHAR(order_date,'YYYY/MM/DD')           
+				THEN TO_CHAR(order_date,'HH24:MI')                                               
+			ELSE TO_CHAR(order_date,'YYYY/MM/DD')                                                
+			END AS orderDate
+		FROM ordering
+		WHERE 1 = 1 
+		<choose>
+			<when test="searchDiv == 'orderState'">
+				AND order_state = #{searchWord}
+			</when>
+		</choose>                                                                   		
+	</select>
 	
 	
 </mapper>

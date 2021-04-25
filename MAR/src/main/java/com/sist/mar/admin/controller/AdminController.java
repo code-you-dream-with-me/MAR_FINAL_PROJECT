@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sist.mar.admin.service.AdminServiceImpl;
+import com.sist.mar.cmn.Message;
 import com.sist.mar.cmn.Search;
 import com.sist.mar.cmn.StringUtil;
+import com.sist.mar.item.domain.Item;
+import com.sist.mar.order.domain.Ordering;
 import com.sist.mar.recipe.domain.RecipeVO;
 
 @Controller
@@ -65,11 +68,56 @@ public class AdminController {
 		
 	}
 	
+	@RequestMapping(value = "admin/do_retrieve_item.do", method = RequestMethod.GET
+			,produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String doRetrieveItem(Search search) throws Exception {
+		
+		search.setSearchDiv(StringUtil.nvl(search.getSearchDiv(), "regDt"));
+		search.setSearchWord(StringUtil.nvl(search.getSearchWord(), "desc"));
+		
+		List<Item> itemList = adminService.doRetrieveItem(search);
+		Gson gson = new Gson();
+		return gson.toJson(itemList.toArray());
+		
+	}
 	
 	
+	@RequestMapping(value = "admin/do_dicount_item.do", method = RequestMethod.GET
+			,produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String doDiscountItem(Item item) throws Exception {
+		
+		LOG.debug("doDiscountItem");
+		LOG.debug("item: "+item);
+		
+		Message message = new Message();
+		Gson gson = new Gson();
+		
+		int flag = adminService.doDiscountItem(item);
+		
+		message.setMsgId(Integer.toString(flag));
+		
+		if(message.getMsgId().equals("1")) message.setMsgContents("할인률이 수정되었습니다.");
+		else message.setMsgContents("할인률이 수정이 실패하였습니다.");
+		
+		return gson.toJson(message);
+		
+	}
 	
-	
-	
+	@RequestMapping(value = "admin/do_retrieve_ordering.do", method = RequestMethod.GET
+			,produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String doRetrieveOrdering(Search search) throws Exception {
+		
+		search.setSearchDiv(StringUtil.nvl(search.getSearchDiv(), "nothing"));
+		search.setSearchWord(StringUtil.nvl(search.getSearchWord(), "0"));
+		
+		List<Ordering> orderingList = adminService.doRetrieveOrdering(search);
+		Gson gson = new Gson();
+		return gson.toJson(orderingList.toArray());
+		
+	}
 	
 	
 	

@@ -79,8 +79,9 @@ public class ImageServiceImpl {
 		return flag;
 	}
 	
-	public int upUpdateImages(int fromTb, int fromNo, List<ImageVO> imageListDel, List<ImageVO> imageListNew) throws Exception {
+	public int upUpdateImages(int fromTb, int fromNo, List<ImageVO> imageListDel, List<ImageVO> imageListNew, int mainImageNum) throws Exception {
 		int flag = 0;
+		int cnt = 0;
 		
 		if(imageListDel.size() > 0) {
 			for(ImageVO vo : imageListDel) {
@@ -90,9 +91,13 @@ public class ImageServiceImpl {
 		
 		if(imageListNew.size() > 0) {
 			for(ImageVO vo : imageListNew) {
+				if(cnt == mainImageNum) vo.setMainImage(1);
+				
 				vo.setFromTb(fromTb);
 				vo.setFromNo(fromNo);
 				flag = imageDao.doInsert(vo);
+				
+				cnt += 1;
 			}
 		}
 		return flag;

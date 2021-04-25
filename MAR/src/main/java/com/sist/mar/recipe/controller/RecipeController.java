@@ -24,6 +24,7 @@ public class RecipeController {
 	
 	final String VIEW_NAME = "recipe/recipe_reg";
 	final String VIEW_NAME2 = "recipe/recipe_detail";
+	final String VIEW_NAME3 = "recipe/recipe_mod";
 	
 	@Autowired
 	RecipeServiceImpl recipeService;
@@ -48,6 +49,14 @@ public class RecipeController {
 		
 		model.addAttribute("recipeNo", recipeNo);
 		return VIEW_NAME2;
+	}
+	
+	@RequestMapping(value = "recipe/recipe_view3.do", method = RequestMethod.GET
+			,produces = "application/json;charset=UTF-8")
+	public String view3(Model model, @RequestParam(value = "recipeNo", required = false)String recipeNo) throws Exception {
+		
+		model.addAttribute("recipeNo", recipeNo);
+		return VIEW_NAME3;
 	}
 	
 	@RequestMapping(value = "recipe/do_insert.do", method = RequestMethod.GET

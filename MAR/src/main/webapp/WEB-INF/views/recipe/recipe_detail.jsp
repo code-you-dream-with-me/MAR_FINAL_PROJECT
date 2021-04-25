@@ -80,6 +80,13 @@
 	<div class="container">
 	  <div class="row g-5">	
 		  
+		  <input type="hidden" id="imageList" />
+		  
+		  <div class="bd-example">
+		  	<button type="button" class="btn btn-primary" id="reicpeDeleteBtn" style="float: right; margin-right: -20px;">삭제</button>
+		  	<button type="button" class="btn btn-primary" id="reicpeUpdateBtn" style="float: right; margin-right: 10px;">수정</button>
+		  	<input type="hidden" id="recipeNo" name="recipeNo" /> 
+		  </div>
 		  
 		  <table>
 		  	<thead>
@@ -151,6 +158,7 @@
 		  			var parseData = JSON.parse(data);
 		  			console.log(parseData.title);
 		  			
+		  			var recipeNo = parseData.recipeNo;
 		  		    var title = parseData.title;
 		  		    var regId = parseData.regId;
 		  		    var regDt = parseData.regDt;
@@ -158,6 +166,7 @@
 		  		    var urlAddr = parseData.urlAddr;
 		  		    var contents = parseData.contents;
 		  		    
+		  		    $("#recipeNo").val(recipeNo);
 		  		    document.getElementById("recipeTitle").innerHTML = title;
 		  		    document.getElementById("recipeRegId").innerHTML = regId;
 		  		    document.getElementById("recipeRegDt").innerHTML = regDt;
@@ -189,6 +198,9 @@
 	  			fromNo:no
 	  		},
 	  		success:function(data){//통신 성공
+	  			
+	  			$("#imageList").val(data);
+	  			
 	  			var parseData = JSON.parse(data);
 	  			console.log(parseData);
 	  			
@@ -219,7 +231,59 @@
 	}
 	
 	
+	$("#reicpeUpdateBtn").on("click", function(e){
+		var recipeNo = $("#recipeNo").val();
+		console.log("수정 레시피 번호:"+recipeNo);
+		window.location.href = "${hContext}/recipe/recipe_view3.do?recipeNo="+recipeNo;
+	});
 	
+	//reicpeDeleteBtn
+	$("#reicpeDeleteBtn").on("click", function(e){
+		
+		if(confirm("삭제 하시겠습니까?")==false)return;
+		
+		var recipeNo = $("#recipeNo").val();
+		console.log("삭제 레시피 번호:"+recipeNo);
+		
+		$.ajax({
+	  		type: "GET",
+	  		url:"${hContext}/recipe/do_delete.do",
+	  		asyn:"false",
+	  		dataType:"html",
+	  		data:{
+	  			recipeNo: recipeNo
+	  		},
+	  		success:function(data){//통신 성공
+	  			
+	  			$.ajax({
+	  		  		type: "GET",
+	  		  		url:"${hContext}/image/do_delete.do",
+	  		  		asyn:"false",
+	  		  		dataType:"html",
+	  		  		data:{
+	  		  			imageList: $("#imageList").val()
+	  		  		},
+	  		  		success:function(data){//통신 성공
+	  		  			var parseData = JSON.parse(data);
+	  		  			alert(parseData.msgContents);
+	  		  			window.location.href = "${hContext}/admin/admin_view.do";
+	  		  			
+	  		      	},
+	  		      	error:function(data){//실패시 처리
+	  		      		console.log("error:"+data);
+	  		      	}
+	  		      	
+	  		  	});
+					  		
+	  			
+	      	},
+	      	error:function(data){//실패시 처리
+	      		console.log("error:"+data);
+	      	}
+	      	
+	  	});
+		
+	});
 	
 	</script>
   </body>

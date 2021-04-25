@@ -15,6 +15,7 @@
  		<!-- 추가한 사람: 혜영 -->
 		<typeAlias type="com.sist.mar.main.domain.MainVO" alias="MainVO"/>
 		<typeAlias type="com.sist.mar.main.domain.CateSearchVO" alias="CateSearchVO"/>
+		<typeAlias type="com.sist.mar.code.domain.Code" alias="Code"/>
 		
 		<!-- 추가한 사람 : 한솔 -->
 		<typeAlias type = "com.sist.mar.answer.domain.Answer" alias = "Answer" />

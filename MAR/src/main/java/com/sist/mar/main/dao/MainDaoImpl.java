@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import com.sist.mar.cmn.DTO;
 import com.sist.mar.cmn.Search;
+import com.sist.mar.cmn.StringUtil;
 import com.sist.mar.main.domain.CateSearchVO;
 import com.sist.mar.main.domain.MainVO;
 
@@ -37,15 +38,10 @@ public class MainDaoImpl {
 	//생성자
 	public MainDaoImpl() {}
 	
-	/**
-	 * 최신등록순 상품목록
-	 * @param CateSearchVO dto
-	 * @return MainVO List<?>
-	 * @throws SQLException
-	 */
+	
 	public List<?> doRetrieve(DTO dto) throws SQLException {
 		
-		LOG.debug(" ٩( ᐛ )و Dao시작! >>>>>>>>>>>> 최신등록순 상품목록");
+		LOG.debug(" ٩( ᐛ )و Dao의 doRetrieve()시작! ");
 		
 		CateSearchVO param = (CateSearchVO) dto;
 		String statement = this.NAMESPACE+".doRetrieve";
@@ -53,7 +49,7 @@ public class MainDaoImpl {
 		LOG.debug("=param= "+param);
 		LOG.debug("=statement= "+statement);
 		LOG.debug("=================================================");
-
+		
 		List<MainVO> list = sqlSessionTemplate.selectList(statement, param);
 		
 		for(MainVO vo:list) {
@@ -63,54 +59,5 @@ public class MainDaoImpl {
 		return list;
 	}
 
-	/**
-	 * 판매량순 상품목록
-	 * @param CateSearchVO dto
-	 * @return MainVO List<?>
-	 * @throws SQLException
-	 */
-	public List<?> doBestRetrieve(DTO dto) throws SQLException {
-		LOG.debug(" ٩( ᐛ )و Dao시작! >>>>>>>>>>>> 판매량순 상품목록");
-		
-		CateSearchVO param = (CateSearchVO) dto;
-		String statement = this.NAMESPACE+".doBestRetrieve";
-		LOG.debug("=================================================");
-		LOG.debug("=param= "+param);
-		LOG.debug("=statement= "+statement);
-		LOG.debug("=================================================");
-
-		List<MainVO> list = sqlSessionTemplate.selectList(statement, param);
-		
-		for(MainVO vo:list) {
-			LOG.debug("=vo="+vo);
-		}
-		
-		return list;
-	}
-
-	/**
-	 * 할인적용된 상품목록
-	 * @param CateSearchVO dto
-	 * @return MainVO List<?>
-	 * @throws SQLException
-	 */
-	public List<?> doSaleRetrieve(DTO dto) throws SQLException {
-		LOG.debug(" ٩( ᐛ )و Dao시작! >>>>>>>>>>>> 할인적용된 상품목록");
-		
-		CateSearchVO param = (CateSearchVO) dto;
-		String statement = this.NAMESPACE+".doSaleRetrieve";
-		LOG.debug("=================================================");
-		LOG.debug("=param= "+param);
-		LOG.debug("=statement= "+statement);
-		LOG.debug("=================================================");
-
-		List<MainVO> list = sqlSessionTemplate.selectList(statement, param);
-		
-		for(MainVO vo:list) {
-			LOG.debug("=vo="+vo);
-		}
-		
-		return list;
-	}
 
 }

@@ -5,6 +5,7 @@ import com.sist.mar.cmn.DTO;
 public class CateSearchVO extends DTO {
 
 	private int	   categoryNo; //카테고리번호
+	private String listDiv;    //목록분류 (카테고리별목록10, 신상품목록20, 베스트목록30, 알뜰목록40)
 	private String searchWord; //검색어(상품명만 검색)
 	private int    pageSize;   //페이지 사이즈
 	private int    pageNum;    //페이지 num
@@ -13,9 +14,10 @@ public class CateSearchVO extends DTO {
 	public CateSearchVO() {}
 
 
-	public CateSearchVO(int categoryNo, String searchWord, int pageSize, int pageNum) {
+	public CateSearchVO(int categoryNo, String listDiv, String searchWord, int pageSize, int pageNum) {
 		super();
 		this.categoryNo = categoryNo;
+		this.listDiv = listDiv;
 		this.searchWord = searchWord;
 		this.pageSize = pageSize;
 		this.pageNum = pageNum;
@@ -29,6 +31,16 @@ public class CateSearchVO extends DTO {
 
 	public void setCategoryNo(int categoryNo) {
 		this.categoryNo = categoryNo;
+	}
+
+
+	public String getListDiv() {
+		return listDiv;
+	}
+
+
+	public void setListDiv(String listDiv) {
+		this.listDiv = listDiv;
 	}
 
 
@@ -64,11 +76,12 @@ public class CateSearchVO extends DTO {
 
 	@Override
 	public String toString() {
-		return "CateSearchVO [categoryNo=" + categoryNo + ", searchWord=" + searchWord + ", pageSize=" + pageSize
-				+ ", pageNum=" + pageNum + ", toString()=" + super.toString() + "]";
+		return "CateSearchVO [categoryNo=" + categoryNo + ", listDiv=" + listDiv + ", searchWord=" + searchWord
+				+ ", pageSize=" + pageSize + ", pageNum=" + pageNum + ", toString()=" + super.toString() + "]";
 	}
 
 
+	
 	
 	
 }

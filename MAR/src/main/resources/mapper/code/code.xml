@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mar.code">
+
+	<select id="doRetrieve" parameterType="Code" resultType="Code">
+		SELECT mst_code as mstCode,
+		    det_code 	as detCode,
+		    mst_nm 		as mstNm,
+		    det_nm 		as detNm,
+		    seq,
+		    use_yn 		as useYn
+		FROM
+		    com_code
+		WHERE use_yn='1'
+		AND mst_code IN 
+	  	<foreach item="item" index="index" 
+	  	collection="codeList" open="(" separator="," close=")">
+	       	#{item}
+	  	</foreach>
+		ORDER BY mst_code,seq
+	</select>
+
+</mapper>

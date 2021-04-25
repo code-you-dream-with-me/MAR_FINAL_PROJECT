@@ -23,17 +23,10 @@ public class MainServiceImpl implements MainService {
 	
 	@Override
 	public List<?> doRetrieve(DTO dto) throws SQLException {
+		LOG.debug(" ٩( ᐛ )و Service를 지나서~ ");
+		LOG.debug("================================");
 		return this.mainDao.doRetrieve(dto);
 	}
 
-	@Override
-	public List<?> doBestRetrieve(DTO dto) throws SQLException {
-		return this.mainDao.doBestRetrieve(dto);
-	}
 
-	@Override
-	public List<?> doSaleRetrieve(DTO dto) throws SQLException {
-		return this.mainDao.doSaleRetrieve(dto);
-	}
-	
 }

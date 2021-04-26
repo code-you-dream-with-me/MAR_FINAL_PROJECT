@@ -35,7 +35,7 @@
 	<!-- 레시피 or 상품등록 페이지에서 넘겨받은 값 -->
 	<input type="hidden" name="fromTb" id="fromTb" value="${fromTb}" />
 
-  <form action="${hContext}/image/do_upload.do" id="uploadFrm" id="uploadFrm" method="post" enctype="multipart/form-data">
+  <form action="${hContext}/image/do_upload.do" id="uploadFrm" id="uploadFrm" method="post" enctype="multipart/form-data" accept-charset="UTF-8" >
 	
 	<span class="page_title_name">이미지</span>
 	<input type="file" class="text_box_main" name="file_list" id="file_list" multiple="multiple" style="width: 400px" />

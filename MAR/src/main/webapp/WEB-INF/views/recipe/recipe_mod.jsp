@@ -275,6 +275,10 @@
   				mainImageNum = "0";
   			}
   			
+  			if($("#imageList").val() == ""){
+  				$("#imageList").val($("#imageListDel").val());
+  			}
+  			
   			$.ajax({
   		  		type: "GET",
   		  		url:"${hContext}/image/do_update.do",

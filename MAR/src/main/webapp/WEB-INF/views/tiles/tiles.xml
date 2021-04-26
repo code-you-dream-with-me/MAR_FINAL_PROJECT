@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC 
+"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+	<!--▶layout01 -->
+	<definition name="first-layout" template="/WEB-INF/views/tiles/layouts/layout01.jsp">
+		<put-attribute name="title" value=""/>
+		<put-attribute name="header" value="/WEB-INF/views/tiles/template/header.jsp"/>
+		<put-attribute name="container" value=""/>
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/template/footer.jsp"/>
+	</definition>
+	
+	<!-- layout01 동적화면 적용 -->
+	
+	<!-- main.jsp -->
+	<definition name="*/main" extends="first-layout">
+		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
+		<put-attribute name="container" value="/WEB-INF/views/{1}/main.jsp"/>
+	</definition>
+	
+	<!--// layout01 동적화면 적용 -->
+
+	<!--▶layout02 -->
+	<definition name="second-layout" template="/WEB-INF/views/tiles/layouts/layout02.jsp">
+		<put-attribute name="title" value=""/>
+		<put-attribute name="header" value="/WEB-INF/views/tiles/template/header.jsp"/>
+		<put-attribute name="sidebar" value="/WEB-INF/views/tiles/template/sidebar.jsp"/>
+		<put-attribute name="container" value=""/>
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/template/footer.jsp"/>
+	</definition>
+	
+	<!-- layout02 동적화면 적용 -->
+	
+	<!-- hello.jsp(테스트완료) -->
+	<definition name="" extends="second-layout"><!-- */hello -->
+		<put-attribute name="title" value="테스트"/>
+		<put-attribute name="container" value=""/><!-- /WEB-INF/views/{1}/hello.jsp -->
+	</definition>
+	
+	<!--// layout02 동적화면 적용 -->
+
+</tiles-definitions>

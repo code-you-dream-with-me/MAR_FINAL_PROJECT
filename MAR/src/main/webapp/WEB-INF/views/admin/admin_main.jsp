@@ -38,7 +38,7 @@
           font-size: 3.5rem;
         }
       }
-      tbody > tr:nth-child(odd) {background-color: #FFF0F5;}
+      tbody > tr:nth-child(odd) {background-color: #e1f5fe;}
       .orderBtn {
       	background-color: white;
       	width: 22px;
@@ -52,10 +52,23 @@
       	background-color: white;
       	width: 40px;
       	text-align: center;
-      	margin: 0px 0px 0px 7px;
+      	margin: 0px 2px 0px 2px;
       	padding: 0px;
       	border-radius: 5px;
       	font-size: small;
+      	float: right;
+      }
+      .menuBtn {
+      	background-color: white;
+      	width: 70px;
+      	height: 30px;
+      	text-align: center;
+      	margin: 0px 0px 0px 0px;
+      	padding: 0px;
+      	border-radius: 5px;
+      	font-size: medium;
+      	float: right;
+      	font-weight: bolder;
       }
     </style>
 
@@ -197,9 +210,9 @@
 	          	<tr>
 	              <th scope="col" width="10%">주문번호</th>
 	              <th scope="col" width="15%">주문자</th>
-	              <th scope="col" width="40%">배송지</th>
+	              <th scope="col" width="35%">배송지</th>
 	              <th scope="col" width="10%">금액</th>
-	              <th scope="col" width="15%">
+	              <th scope="col" width="20%">
 	              상태
 	              	<input type="button" class="wordBtn" name="orderStateBtn" id="orderStateBtn" value="전체" style="width: 60px; margin-left: 8px;" />
 	              </th>
@@ -221,20 +234,20 @@
 	      </div>
 		  
 	      <div class="bd-example">
+	      	<input type="button" class="menuBtn" name="addRecipeBtn" id="addRecipeBtn" value="추가" />
 	        <table class="table table-hover" name="recipeTable" id="recipeTable">
 	          <thead>
 	          	<tr>
 	              <th scope="col" width="8%">번호</th>
-	              <th scope="col" width="35%">레시피 제목</th>
-	              <th scope="col" width="25%">작성자</th>
+	              <th scope="col" width="40%">레시피 제목</th>
+	              <th scope="col" width="28%">작성자</th>
 	              <th scope="col" width="12%">
 	              	조회수
 	              	<input type="button" class="orderBtn" name="readCntBtn" id="readCntBtn" value="○" />
 	              </th>
-	              <th scope="col" width="20%">
+	              <th scope="col" width="12%">
 	              	등록일
 	              	<input type="button" class="orderBtn" name="redDtBtn" id="redDtBtn" value="▼" />
-	              	<input type="button" class="wordBtn" name="addRecipeBtn" id="addRecipeBtn" value="추가" style="float: right; font-weight: bolder;" />
 	              </th>
 	          	</tr>
 	          </thead>
@@ -374,21 +387,6 @@
   });
   //--table click  
   
-  
-//<input type='button' class='wordBtn' onclick='selectRecipe("+value.recipeNo+");' value='조회' /><input type='button' class='wordBtn' onclick='updateRecipe("+value.recipeNo+");' value='수정' /><input type='button' class='wordBtn' onclick='deleteRecipe("+value.recipeNo+");' value='삭제' />
-/*   function selectRecipe(no) {
-	  console.log("조회 레시피번호: "+no);
-	  window.location.href = "${hContext}/recipe/recipe_view2.do?recipeNo="+no;
-  }
-    
-  function updateRecipe(no) {
-	  console.log("수정 레시피번호: "+no);
-  }
-  
-  function deleteRecipe(no) {
-	  console.log("삭제 레시피번호: "+no);
-  } */
-  
 
   /* Item */
   $("#ItemPrice").on("click", function(e){
@@ -449,8 +447,8 @@
   
   function doRetrieveItem(orderDiv, orderWord) {
 	  
-	  console.log("doRetrieveItem");
-	  console.log(orderDiv+", "+orderWord);
+	  //console.log("doRetrieveItem");
+	  //console.log(orderDiv+", "+orderWord);
 	  
 	  	$.ajax({
 	  		type: "GET",
@@ -547,16 +545,20 @@
 	  
   }
 
+  /* ordering */
   $("#orderStateBtn").on("click", function(e){
 		
 		var Btn = $("#orderStateBtn").val();
 		if(Btn == "전체"){
-			$("#orderStateBtn").val("확정");
+			$("#orderStateBtn").val("주문확정");
 			doRetrieveOrdering("orderState", "1");
-		}else if(Btn == "확정"){
+		}else if(Btn == "주문확정"){
 			$("#orderStateBtn").val("취소요청");
 			doRetrieveOrdering("orderState", "2");
 		}else if(Btn == "취소요청"){
+			$("#orderStateBtn").val("취소확정");
+			doRetrieveOrdering("orderState", "3");
+		}else if(Btn == "취소확정"){
 			$("#orderStateBtn").val("전체");
 			doRetrieveOrdering("nothing", "0");
 		}
@@ -592,12 +594,25 @@
 	  				
 	  				$.each(parseData, function(i, value) {
 	  					//console.log(i+", "+value.name);
-	  					html += "   <tr>                              ";
+	  					
+	  					var orderStateStr = "";
+	  					switch(value.orderState) {
+	  						case "1" : orderStateStr = "주문확정"; html += "   <tr>"; break;
+	  						case "2" : orderStateStr = "취소요청"; html += "   <tr class='table-danger'>"; break;
+	  						case "3" : orderStateStr = "취소확정"; html += "   <tr class='table-success'>"; break;
+	  					}
+	  					
 	  					html += "     <td>"+ value.orderNo +"</td>   ";
 	  					html += "     <td>"+ value.memberId +"</td>      ";
 	  					html += "     <td>"+ value.address +"</td>      ";
 	  					html += "     <td>"+ value.price +"</td>    ";
-	  					html += "     <td>"+ value.orderState +"</td>    ";
+	  					
+	  					switch(value.orderState) {
+  						case "2" : html += "     <td>"+ orderStateStr +"<input type='button' class='wordBtn' value='승인' onclick='approve("+value.orderNo +","+ orderWord+");'  /><input type='button' class='wordBtn' value='거부' onclick='reject("+value.orderNo +","+ orderWord+");'  /></td>    "; break;
+  						case "3" : html += "     <td>"+ orderStateStr +"<input type='button' class='wordBtn' value='승인취소' onclick='returnn("+value.orderNo +","+ orderWord+");' style='width: 82px;' /></td>    "; break;
+  						default : html += "     <td>"+ orderStateStr +"</td>    ";
+	  					}
+	  					
 	  					html += "     <td>"+ value.orderDate +"</td>      ";
 	  					html += "   </tr>                             ";
 	  				});
@@ -619,7 +634,49 @@
 	  		}
 	  	});     	
 	  	
-	  }  
+  }  
+  
+  function reject(orderNo, orderWord) {
+	  controlOrderState(orderNo, "reject", orderWord);
+  }
+  
+  function returnn(orderNo, orderWord) {
+	  controlOrderState(orderNo, "return", orderWord);
+  }
+  
+  function approve(orderNo, orderWord) {
+	  controlOrderState(orderNo, "approve", orderWord);
+  }
+  
+  function controlOrderState(orderNo, methodName, orderWord) {
+	  var orderDiv = "";
+	  if(orderWord == null || orderWord == "0") {
+		  orderDiv = "nothing";
+	  } else {
+		  orderDiv = "orderState";
+	  }
+	  
+	  $.ajax({
+	  		type: "GET",
+	  		url:"${hContext}/admin/do_"+methodName+"_cancel.do",
+	  		asyn:"true",
+	  		dataType:"html",
+	  		data:{
+	  			orderNo: orderNo
+	  		},
+	  		success:function(data){//통신 성공
+	  			var parseData = JSON.parse(data);
+	  			console.log(orderNo+"번 주문에 대한 "+parseData.msgContents);
+	  			doRetrieveOrdering(orderDiv, orderWord);
+	  		},
+	  		error:function(data){//실패시 처리
+	  			console.log("error:"+data);
+	  		},
+	  		complete:function(data){//성공/실패와 관계없이 수행!
+	  			//console.log("complete:"+data);
+	  		}
+	  	});
+  }
   
   
   </script>

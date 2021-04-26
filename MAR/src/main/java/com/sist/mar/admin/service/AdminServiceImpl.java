@@ -48,5 +48,16 @@ public class AdminServiceImpl {
 		return adminDao.doRetrieveOrdering(dto);
 	}
 	
+	public int doRejectCancel(DTO dto) throws SQLException {
+		return adminDao.doRejectCancel(dto);
+	}
+	
+	public int doReturnCancel(DTO dto) throws SQLException {
+		return adminDao.doReturnCancel(dto);
+	}
+	
+	public int doApproveCancel(DTO dto) throws SQLException {
+		return adminDao.doApproveCancel(dto);
+	}
 	
 }

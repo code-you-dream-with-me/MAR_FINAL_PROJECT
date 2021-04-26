@@ -48,5 +48,16 @@ public class AdminDaoImpl {
 		return this.sqlSessionTemplate.selectList(this.NAMESPACE + ".doRetrieveOrdering", dto);
 	}
 	
+	public int doRejectCancel(DTO dto) throws SQLException {
+		return this.sqlSessionTemplate.update(this.NAMESPACE + ".doRejectCancel", dto);
+	}
+	
+	public int doReturnCancel(DTO dto) throws SQLException {
+		return this.sqlSessionTemplate.update(this.NAMESPACE + ".doReturnCancel", dto);
+	}
+	
+	public int doApproveCancel(DTO dto) throws SQLException {
+		return this.sqlSessionTemplate.update(this.NAMESPACE + ".doApproveCancel", dto);
+	}
 	
 }

@@ -30,5 +30,6 @@
 		<typeAlias type="com.sist.mar.cart.domain.Cart" alias="Cart"/>
 		<typeAlias type="com.sist.mar.order.domain.Ordering" alias="Ordering"/>
 		<typeAlias type="com.sist.mar.order.domain.Orderitem" alias="Orderitem"/>
+		
  	</typeAliases>
  </configuration>

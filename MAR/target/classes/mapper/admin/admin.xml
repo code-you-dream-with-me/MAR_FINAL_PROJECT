@@ -131,5 +131,25 @@
 		</choose>                                                                   		
 	</select>
 	
+	<!-- doRejectCancel -->
+	<update id="doRejectCancel" parameterType="Ordering">
+		UPDATE ordering
+		SET order_state = 1
+		WHERE order_no = #{orderNo}	
+	</update>
+	
+	<!-- doReturnCancel -->
+	<update id="doReturnCancel" parameterType="Ordering">
+		UPDATE ordering
+		SET order_state = 2
+		WHERE order_no = #{orderNo}	
+	</update>	
+		
+	<!-- doApproveCancel -->
+	<update id="doApproveCancel" parameterType="Ordering">
+		UPDATE ordering
+		SET order_state = 3
+		WHERE order_no = #{orderNo}	
+	</update>
 	
 </mapper>

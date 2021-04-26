@@ -88,9 +88,6 @@ public class AdminController {
 	@ResponseBody
 	public String doDiscountItem(Item item) throws Exception {
 		
-		LOG.debug("doDiscountItem");
-		LOG.debug("item: "+item);
-		
 		Message message = new Message();
 		Gson gson = new Gson();
 		
@@ -119,7 +116,58 @@ public class AdminController {
 		
 	}
 	
+	@RequestMapping(value = "admin/do_reject_cancel.do", method = RequestMethod.GET
+			,produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String doRejectCancel(Ordering ordering) throws Exception {
+		
+		Message message = new Message();
+		Gson gson = new Gson();
+		
+		int flag = adminService.doRejectCancel(ordering);
+		message.setMsgId(Integer.toString(flag));
+		
+		if(message.getMsgId().equals("1")) message.setMsgContents("주문취소요청에 대한 거부가 완료되었습니다.");
+		else message.setMsgContents("주문취소요청에 대한 거부가 실패하였습니다.");
+		
+		return gson.toJson(message);
+		
+	}	
+
+	@RequestMapping(value = "admin/do_return_cancel.do", method = RequestMethod.GET
+			,produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String doReturnCancel(Ordering ordering) throws Exception {
+		
+		Message message = new Message();
+		Gson gson = new Gson();
+		
+		int flag = adminService.doReturnCancel(ordering);
+		message.setMsgId(Integer.toString(flag));
+		
+		if(message.getMsgId().equals("1")) message.setMsgContents("주문취소요청 승인을 재심사합니다.");
+		else message.setMsgContents("주문취소요청 승인을 재심사를 실패하였습니다.");
+		
+		return gson.toJson(message);
+		
+	}
 	
-	
+	@RequestMapping(value = "admin/do_approve_cancel.do", method = RequestMethod.GET
+			,produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String doApproveCancel(Ordering ordering) throws Exception {
+		
+		Message message = new Message();
+		Gson gson = new Gson();
+		
+		int flag = adminService.doApproveCancel(ordering);
+		message.setMsgId(Integer.toString(flag));
+		
+		if(message.getMsgId().equals("1")) message.setMsgContents("주문취소요청 승인을 합니다.");
+		else message.setMsgContents("주문취소요청 승인에 실패하였습니다.");
+		
+		return gson.toJson(message);
+		
+	}	
 	
 }

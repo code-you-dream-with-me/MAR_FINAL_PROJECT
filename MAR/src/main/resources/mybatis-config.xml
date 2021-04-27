@@ -9,8 +9,11 @@
  	<typeAliases>
  		<!-- Domain에 별칭부여 VO를 간략히 사용 -->
  		<typeAlias type="com.sist.mar.cmn.Search" alias="Search"/>
+ 		
+ 		<!-- 추가한 사람: 재욱 -->
  		<typeAlias type="com.sist.mar.recipe.domain.RecipeVO" alias="RecipeVO"/>
  		<typeAlias type="com.sist.mar.image.domain.ImageVO" alias="ImageVO"/>
+ 		<typeAlias type="com.sist.mar.member.domain.MemberVO" alias="MemberVO"/>
  		
  		<!-- 추가한 사람: 혜영 -->
 		<typeAlias type="com.sist.mar.main.domain.MainVO" alias="MainVO"/>

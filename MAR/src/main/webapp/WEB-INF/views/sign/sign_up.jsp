@@ -100,15 +100,15 @@
             <label for="address" class="form-label">Address</label>
             <input type="text" class="form-control" id="address">
           </div>
-        </form><br/><br/>
-          <button type="submit" id="signUpBtn" class="btn btn-primary">회원등록</button>
+        </form><br/>
+          <button type="submit" id="signUpBtn" class="btn btn-primary">회원등록</button><br/><br/>
         </div>
 		  
 	    </div>
 	    
 	  </main>	
 	</div>
-    <br/><br/><br/><br/>
+    <br/><br/>
 	
 	<script src="${hContext}/resources/assets/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="${hContext}/resources/assets/recipe/form-validation.js"></script>  

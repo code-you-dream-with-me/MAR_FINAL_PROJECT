@@ -28,6 +28,19 @@
 		<beans:property name="maxUploadSize" value="10485760"/><!-- 10MB --> 
 		<beans:property name="defaultEncoding" value="UTF-8"></beans:property>
 	</beans:bean>
+	
+	<!-- Tiles객체 설정 -->
+	<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+		<beans:property name="order" value="1"/>
+	</beans:bean>
+	<!-- Spring과 Tiles연결 -->
+	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<beans:property name="definitions">
+			<beans:list>
+				<beans:value>/WEB-INF/views/tiles/tiles.xml</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
 
 	
 </beans:beans>

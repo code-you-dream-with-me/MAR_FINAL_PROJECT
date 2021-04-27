@@ -14,6 +14,7 @@
  		<typeAlias type="com.sist.mar.recipe.domain.RecipeVO" alias="RecipeVO"/>
  		<typeAlias type="com.sist.mar.image.domain.ImageVO" alias="ImageVO"/>
  		<typeAlias type="com.sist.mar.member.domain.MemberVO" alias="MemberVO"/>
+ 		<typeAlias type="com.sist.mar.recipe.domain.SimpleItemVO" alias="SimpleItemVO"/>
  		
  		<!-- 추가한 사람: 혜영 -->
 		<typeAlias type="com.sist.mar.main.domain.MainVO" alias="MainVO"/>

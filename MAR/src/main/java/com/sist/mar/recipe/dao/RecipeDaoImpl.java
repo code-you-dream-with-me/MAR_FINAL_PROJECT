@@ -1,6 +1,7 @@
 package com.sist.mar.recipe.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.sist.mar.cmn.DTO;
 import com.sist.mar.recipe.domain.RecipeVO;
+import com.sist.mar.recipe.domain.SimpleItemVO;
 
 @Repository
 public class RecipeDaoImpl {
@@ -48,6 +50,10 @@ public class RecipeDaoImpl {
 	
 	public int doCountReadCnt(DTO dto) throws SQLException {
 		return this.sqlSessionTemplate.update(this.NAMESPACE + ".doCountReadCnt", (RecipeVO) dto);
+	}
+	
+	public List<SimpleItemVO> doRetrieveRelevantItem(DTO dto) throws SQLException {
+		return this.sqlSessionTemplate.selectList(this.NAMESPACE + ".doRetrieveRelevantItem", (RecipeVO) dto);
 	}
 	
 }

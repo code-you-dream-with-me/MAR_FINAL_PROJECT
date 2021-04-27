@@ -79,6 +79,19 @@ public class JTestQuestionDao {
 //	▼ 테스트 ===============================================================
 	
 	@Test
+	public void checkAnswer() {
+		
+		LOG.debug("*************************");
+		LOG.debug("=@checkAnswer=");
+		LOG.debug("*************************");
+		
+		questionDao.answerCheck(question01);
+		questionDao.answerCheck(question02);
+	}
+	
+	
+	@Test
+	@Ignore
 	public void listAndRead() throws SQLException {
 		// 1. 후기 전체 목록조회
 		// 2. 후기 단건 조회

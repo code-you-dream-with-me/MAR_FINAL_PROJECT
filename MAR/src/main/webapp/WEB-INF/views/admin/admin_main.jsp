@@ -183,7 +183,7 @@
 	              <th scope="col" width="10%">가격
 	                <input type="button" class="orderBtn" name="ItemPrice" id="ItemPrice" value="○" />
 	              </th>
-	              <th scope="col" width="8%">할인률</th>
+	              <th scope="col" width="8%"  >할인률</th>
 	              <th scope="col" width="5%"> </th>
 	              <th scope="col" width="10%">최종가격</th>
 	              <th scope="col" width="12%">판매량
@@ -362,8 +362,9 @@
     	let tds = $(this).children();
     	var itemNo = tds.eq(0).text();
     	console.log("itemNo:"+itemNo);
-        window.location.href = "${hContext}/item/item_deview.do?itemNo="+itemNo;
+        /* window.location.href = "${hContext}/item/item_deview.do?itemNo="+itemNo; */
   });
+
 
   //상품 등록 페이지로 이동 
     $("#addItemBtn").on("click", function(e){
@@ -429,8 +430,8 @@
 	  					html += "     <td>"+ value.name +"</td>      ";
 	  					html += "     <td>"+ value.categoryNo +"</td>      ";
 	  					html += "     <td>"+ value.price +"</td>    ";
-	  					html += "     <td><input type='text' id='discountNum"+value.itemNo+"' value='"+ value.discount +"' style='width: 40px;'/></td>    ";
-	  					html += "     <td><input type='button' class='wordBtn' value='수정' onclick='discount("+value.itemNo+");' /></td>    ";
+	  					html += "     <td><input type='text' onclick='event.cancelBubble=true' id='discountNum"+value.itemNo+"' value='"+ value.discount +"' style='width: 40px;'/></td>    ";
+	  					html += "     <td><input type='button'class='wordBtn' value='수정' onclick='discount("+value.itemNo+");' /></td>    ";
 	  					html += "     <td>"+ value.price*(100-value.discount)/100 +"</td>    ";
 	  					html += "     <td>"+ value.sales +"</td>    ";
 	  					html += "     <td>"+ value.regDt +"</td>      ";

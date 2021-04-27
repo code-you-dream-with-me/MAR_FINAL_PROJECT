@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mar.cart">
+
+	<resultMap type="Cart" id="cartResult">
+		<id     property="cartNo"         column="cart_no"       />
+		<result property="memberId"       column="member_id"     />
+		<result property="itemNo"         column="item_no"       />
+		<result property="quantity"         column="quantity"    />
+		<result property="item_name"       column="name"         />
+		<result property="item_price"      column="price"        />
+		<result property="item_discount"   column="discount"     />
+		<result property="item_final_price" column="final_price" />
+		<result property="image_save_name" column="save_name"    />
+		<result property="image_path"      column="path"         />
+	</resultMap>  
+
+	<delete id="doDelete" parameterType="String">
+		DELETE FROM cart 
+		WHERE cart_no = #{param} 
+	</delete>
+	
+	<!-- cart_no 시퀀스로 변경 전 -->
+	<insert id="doInsert" parameterType="Cart">
+		INSERT INTO cart (
+		    cart_no,      
+		    member_id,    
+		    item_no,      
+		    quantity      
+		) VALUES (        
+		    CART_SEQ.NEXTVAL,            
+		    #{memberId},            
+		    #{itemNo},            
+		    #{quantity}             
+		)                 
+	</insert>
+	
+	<update id="doUpdate" parameterType="Cart">
+		UPDATE cart      
+		SET quantity = #{quantity} 
+		WHERE cart_no = #{cartNo}
+	</update>
+	
+	<select id="doRetrieve" parameterType="String" resultMap="cartResult">
+		SELECT
+		    t1.cart_no,
+		    t1.member_id,
+		    t1.item_no,
+		    t1.quantity,
+		    t2.name,
+		    t2.price,
+		    t2.discount,
+		    t2.final_price,
+		    t3.save_name,                  
+			t3.path    
+		FROM cart t1, item t2, image t3
+		WHERE t1.item_no = t2.item_no 
+		  AND t1.item_no = t3.from_no      
+		  AND t3.from_tb = 1               
+		  AND t3.main_image = 1  
+		  AND t1.member_id = #{param} 
+		ORDER BY t1.cart_no
+	</select>
+	
+	<!-- resultType="Member"로 변경해야함 -->
+	<select id="doOrder" parameterType="String" resultType="MemberVO">
+		SELECT
+		    member_id AS memberId,
+		    name,
+		    phone,
+		    address
+		FROM
+		    member
+		WHERE member_id = #{param}
+	</select>
+	
+	<select id="cartCheck" parameterType="Cart" resultType="int">
+		SELECT COUNT(*) cnt
+		FROM cart
+		WHERE item_no = #{itemNo}
+		AND member_id = #{memberId} 
+	</select>
+
+</mapper>

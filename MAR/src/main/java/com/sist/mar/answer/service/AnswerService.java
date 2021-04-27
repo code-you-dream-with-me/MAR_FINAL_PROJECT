@@ -21,7 +21,7 @@ public interface AnswerService {
 	 * @return DTO
 	 * @throws SQLException
 	 */
-	DTO doSelectOne(DTO dto) throws SQLException;
+	List<?> doSelectOne(DTO dto) throws SQLException;
 	
 	/**
 	 * 문의 답변 수정

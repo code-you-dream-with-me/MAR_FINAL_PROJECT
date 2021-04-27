@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
+
 import com.sist.mar.answer.domain.Answer;
 import com.sist.mar.cmn.DTO;
+
 
 @Repository
 public class AnswerDaoImpl  {
@@ -22,6 +24,8 @@ public class AnswerDaoImpl  {
 	
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
+	
+
 	
 	/**
 	 * 문의 답변 전체 목록 조회
@@ -45,26 +49,16 @@ public class AnswerDaoImpl  {
 	 * @return DTO
 	 * @throws SQLException
 	 */
-	public DTO doSelectOne(DTO dto) throws SQLException {
+	public List<?> doSelectOne(DTO dto) throws SQLException {
 		Answer inVO = (Answer) dto;
-		Answer outVO = null;
-		
-		String statement = NAMESPACE+".doSelectOne";
-		LOG.debug("=inVO="+inVO);
-		LOG.debug("=statement="+statement);
-		
-		outVO = this.sqlSessionTemplate.selectOne(statement, inVO);
 
-		LOG.debug("=outVO="+outVO);
+		String statement = NAMESPACE+".doSelectOne";
+		List<Answer> list = sqlSessionTemplate.selectList(statement, inVO);
 		
-		if(null == outVO) {
-			LOG.debug("=============================");
-			LOG.debug("=null outVO ="+outVO);
-			LOG.debug("=============================");			
-			throw new EmptyResultDataAccessException("여기 EmptyResultDataAccessException",1);
+		for(Answer vo : list) {
+			LOG.debug("vo :"+vo);
 		}
-		
-		return outVO;
+		return list;
 	}
 
 	

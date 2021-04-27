@@ -48,7 +48,7 @@
     <!-- Custom styles for this template -->
     <link href="${hContext}/resources/assets/sign/signin.css" rel="stylesheet">
   </head>
-  <body class="text-center">
+  <body class="text-center" style="background-color: white;">
     
 <main class="form-signin">
   <form>
@@ -100,8 +100,13 @@
 		  		success:function(data){//통신 성공
 		  			
 		  			var parseData = JSON.parse(data);
-		  			alert(parseData.msgContents);
-		  			window.location.href = "${hContext}/main/main_view.do ";
+		  			if(parseData.msgId == 1){
+			  			window.location.href = "${hContext}/main/main_view.do ";
+		  			} else {
+			  			alert(parseData.msgContents);
+		  			}
+		  		
+		  			//window.location.href = "${hContext}/admin/admin_view.do ";
 		  			
 		  		},
 		  		error:function(data){//실패시 처리

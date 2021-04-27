@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.sist.mar.cmn.DTO;
 import com.sist.mar.member.dao.MemberDaoImpl;
+import com.sist.mar.member.domain.MemberVO;
 
 @Service
 public class MemberServiceImpl {
@@ -31,4 +32,11 @@ public class MemberServiceImpl {
 		return memberDao.doLoginCheck(dto);
 	}
 	
+	public int doCheckDuplicatedId(DTO dto) throws SQLException {
+		return memberDao.doCheckDuplicatedId(dto);
+	}
+	
+	public MemberVO doSelectOne(DTO dto) throws SQLException {
+		return memberDao.doSelectOne(dto);
+	}
 }

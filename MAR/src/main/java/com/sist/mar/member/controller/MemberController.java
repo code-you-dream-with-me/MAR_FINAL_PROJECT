@@ -1,5 +1,7 @@
 package com.sist.mar.member.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,14 +67,20 @@ public class MemberController {
 	@RequestMapping(value = "member/do_login_check.do", method = RequestMethod.POST
 			,produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String doLoginCheck(MemberVO memberVO) throws Exception {
+	public String doLoginCheck(MemberVO memberVO, HttpSession session) throws Exception {
 		
 		LOG.debug("doLoginCheck");
 		Message message = new Message();
 		message.setMsgId(Integer.toString(memberService.doLoginCheck(memberVO)));
 		
-		if(message.getMsgId().equals("1")) message.setMsgContents("로그인이 완료되었습니다.");
-		else message.setMsgContents("아이디와 비밀번호를 확인해 주세요.");
+		if(message.getMsgId().equals("1")) {
+			message.setMsgContents("로그인이 완료되었습니다.");
+			MemberVO member = memberService.doSelectOne(memberVO);
+			session.setAttribute("member", member);
+		}
+		else {
+			message.setMsgContents("아이디와 비밀번호를 확인해 주세요.");
+		}
 		
 		Gson gson = new Gson();
 		LOG.debug("메세지: "+gson.toJson(message));
@@ -81,6 +89,24 @@ public class MemberController {
 		
 	}
 	
+	@RequestMapping(value = "member/do_check_duplicated_id.do", method = RequestMethod.POST
+			,produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String doCheckDuplicatedId(MemberVO memberVO) throws Exception {
+		
+		LOG.debug("doCheckDuplicatedId");
+		Message message = new Message();
+		message.setMsgId(Integer.toString(memberService.doCheckDuplicatedId(memberVO)));
+		
+		if(message.getMsgId().equals("1")) message.setMsgContents("이미 존재하는 이메일입니다.");
+		else message.setMsgContents("사용가능한 이메일입니다.");
+		
+		Gson gson = new Gson();
+		LOG.debug("메세지: "+gson.toJson(message));
+		
+		return gson.toJson(message);
+		
+	}
 	
 	
 }

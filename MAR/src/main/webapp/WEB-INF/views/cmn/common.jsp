@@ -15,7 +15,6 @@
  --%>    
 
 <%
-	out.print("웹 캐시");
 
    //HTTP 1.1에서 지원하는 헤더: 웹브라우저가 응답결과를 캐시하지 않음.
    response.setHeader("Cashe-Control", "no-cache");

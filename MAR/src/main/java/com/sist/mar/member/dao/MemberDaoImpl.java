@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.sist.mar.cmn.DTO;
+import com.sist.mar.member.domain.MemberVO;
 
 @Repository
 public class MemberDaoImpl {
@@ -31,5 +32,15 @@ public class MemberDaoImpl {
 	public int doLoginCheck(DTO dto) throws SQLException {
 		return this.sqlSessionTemplate.selectOne(this.NAMESPACE + ".doLoginCheck", dto);
 	}
+	
+	public int doCheckDuplicatedId(DTO dto) throws SQLException {
+		return this.sqlSessionTemplate.selectOne(this.NAMESPACE + ".doCheckDuplicatedId", dto);
+	}
+	
+	public MemberVO doSelectOne(DTO dto) throws SQLException {
+		return this.sqlSessionTemplate.selectOne(this.NAMESPACE + ".doSelectOne", dto);
+	}
+	
+	
 	
 }

@@ -33,7 +33,26 @@
 		AND pw = #{pw}	
 	</select>
 	
+	<!-- doCheckDuplicatedId -->
+	<select id="doCheckDuplicatedId" parameterType="MemberVO" resultType="int">
+		SELECT COUNT(*) cnt
+		FROM member
+		WHERE member_id = #{memberId}
+	</select>
 	
-	
+	<!-- doSelectOne -->
+	<select id="doSelectOne" parameterType="MemberVO" resultType="MemberVO">
+		SELECT
+		    member_id AS memberId,
+		    pw,
+		    name,
+		    phone,
+		    address,
+		    auth,
+		    reg_dt AS regDt,
+		    mod_dt AS modDt
+		FROM member
+		WHERE member_id = #{memberId}	
+	</select>
 
 </mapper>

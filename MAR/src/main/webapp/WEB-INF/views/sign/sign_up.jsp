@@ -53,32 +53,35 @@
           font-size: 3.5rem;
         }
       }
-
+      #idCheckBtn {
+      	width: 70px;
+      	float: right;
+      	font-size: small;
+      	padding: 2px;
+      }
     </style>
 
 
     <!-- 사용자 정의 스타일 입력 스타일시트 -->
-    <link href="${hContext}/resources/assets/recipe/woogie.css" rel="stylesheet">
+    <link href="${hContext}/resources/assets/sign/signin.css" rel="stylesheet">
 
   </head>
 
-  <body>
+  <body style="background-color: white;"><!--  class="text-center" -->
   <br/><br/><br/>
-	<div class="container">
-	  <main>
+	  <main class="form-signin">
 	  
 		<div class="py-5 text-center">
 		  <h2>회원가입</h2>
 		</div>
-		
-	    <div class="row g-5" style="border: 1px solid black;">	
-		  
 
-        <div class="bd-example">
         <form id="signUpFrm" name="signUpFrm">
+        <input type="hidden" name="idCheckFlag" id="idCheckFlag" value="">
+	  	<input type="hidden" name="checkedId" id="checkedId" value="">
+	  	
           <div class="mb-3">
-            <label for="memberId" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="memberId" aria-describedby="emailHelp">
+            <label for="memberId" class="form-label">Email address</label><input type="button" class="btn btn-primary btn-sm" value="중복체크" id="idCheckBtn" />
+            <input type="email" class="form-control" id="memberId" aria-describedby="emailHelp" placeholder="입력 후 중복체크를 해주세요">
           </div>
           <div class="mb-3">
             <label for="pw" class="form-label">Password</label>
@@ -86,7 +89,7 @@
           </div>
           <div class="mb-3">
             <label for="pw_check" class="form-label">Password check</label>
-            <input type="password" class="form-control" id="pw_check">
+            <input type="password" class="form-control" id="pw_check" placeholder="비밀번호를 한 번 더 입력해 주세요">
           </div>
           <div class="mb-3">
             <label for="name" class="form-label">Name</label>
@@ -94,7 +97,7 @@
           </div>
           <div class="mb-3">
             <label for="phone" class="form-label">Phone number</label>
-            <input type="text" class="form-control" id="phone">
+            <input type="text" class="form-control" id="phone"  placeholder="'-'를 빼고 입력해주세요">
           </div>
           <div class="mb-3">
             <label for="address" class="form-label">Address</label>
@@ -102,12 +105,9 @@
           </div>
         </form><br/>
           <button type="submit" id="signUpBtn" class="btn btn-primary">회원등록</button><br/><br/>
-        </div>
 		  
-	    </div>
 	    
 	  </main>	
-	</div>
     <br/><br/>
 	
 	<script src="${hContext}/resources/assets/dist/js/bootstrap.bundle.min.js"></script>
@@ -115,14 +115,93 @@
 	
 	<script type="text/javascript">
 		
-		$("#signUpBtn").on("click", function(e){
-			console.log("signUpBtn");
+		$("#idCheckBtn").on("click", function(e){
+	    	console.log("idCheckBtn");
+	    	if(!verifyEmail()) { $("#memberId").val(""); return; }
+	    	
+	    	$.ajax({
+		  		type: "POST",
+		  		url:"${hContext}/member/do_check_duplicated_id.do",
+		  		asyn:"true",
+		  		dataType:"html",
+		  		data:{
+		  			memberId: $("#memberId").val()
+		  		},
+		  		success:function(data){//통신 성공
+		  			
+		  			var parseData = JSON.parse(data);
+		  			
+		  			if("1"==parseData.msgId){
+		    			alert(parseData.msgContents);
+		    			$("#memberId").val("");
+		    			document.getElementById("memberId").focus();
+		    			$("#idCheckFlag").val("");
+		    			$("#checkedId").val("");
+		    		}else{
+		    			alert(parseData.msgContents);
+		    			document.getElementById("pw").focus();
+		    			$("#idCheckFlag").val("checked");
+		    			$("#checkedId").val($("#memberId").val());
+		    			
+		    		}
+		  			
+		  		},
+		  		error:function(data){//실패시 처리
+		  			console.log("error:"+data);
+		  		}
+		  	});
+	    	
+	    });
+		
+		function verifyEmail() { 
+			var emailVal = $("#memberId").val(); 
+			var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; 
+			if (emailVal.match(regExp) != null) { console.log('Good!'); return true; } 
+			else { alert('올바른 이메일을 입력해 주십시오.'); return false; } 
+		}
+
+		function checkPassword(){
+
+			var id = $("#memberId").val();
+			var password = $("#pw").val();
 			
-			console.log($("#memberId").val());
-			console.log($("#pw").val());
-			console.log($("#name").val());
-			console.log($("#phone").val());
-			console.log($("#address").val());
+	    	if(!/^[a-zA-Z0-9]{7,15}$/.test(password)) { alert('비밀번호는 숫자와 영문자 조합으로 7~15자리를 사용해야 합니다.'); return false; }
+
+	    	var checkNumber = password.search(/[0-9]/g);
+	    	var checkEnglish = password.search(/[a-z]/ig);
+
+	    	if(checkNumber <0 || checkEnglish <0) { alert("비밀번호는 숫자와 영문자를 혼용하여야 합니다."); return false; }
+	    	if(/(\w)\1\1\1/.test(password)) { alert('비밀번호에 444같은 문자를 4번 이상 사용하실 수 없습니다.'); return false; }
+	    	if(password.search(id) > -1){ alert("비밀번호에 아이디가 포함되었습니다."); return false; }
+
+	    	return true;
+
+	    }
+		
+	
+		$("#signUpBtn").on("click", function(e){
+			//console.log("signUpBtn");
+			
+			var memberId = $("#memberId").val();
+			var pw = $("#pw").val();
+			var pw_check = $("#pw_check").val();
+			var name = $("#name").val();
+			var phone = $("#phone").val();
+			var address = $("#address").val();
+			
+			var idCheckFlag = $("#idCheckFlag").val();
+			var checkedId = $("#checkedId").val();
+			
+			if(null == memberId || memberId.trim().length == 0) { document.getElementById("memberId").focus(); alert("E-MAIL을 입력 하세요."); return; }
+			if(null == pw || pw.trim().length == 0) { document.getElementById("pw").focus(); alert("비밀번호를 입력 하세요."); return; }
+			if(null == pw_check || pw_check.trim().length == 0) { document.getElementById("pw_check").focus(); alert("비밀번호 확인을 입력 하세요."); return; }
+			if(null == name || name.trim().length == 0) { document.getElementById("name").focus(); alert("이름을 입력 하세요."); return; }
+			if(null == phone || phone.trim().length == 0) { document.getElementById("phone").focus(); alert("전화번호를 입력 하세요."); return; }
+			if(null == address || address.trim().length == 0) { document.getElementById("address").focus(); alert("주소를 입력 하세요."); return; }
+			
+			if(idCheckFlag != "checked") { alert("id 중복체크를 하세요."); return; }
+			if(checkedId != memberId) { alert("id 중복체크를 하세요."); return; }
+			if(!checkPassword()) {return;}
 			
 			$.ajax({
 		  		type: "POST",
@@ -130,11 +209,11 @@
 		  		asyn:"true",
 		  		dataType:"html",
 		  		data:{
-		  			memberId: $("#memberId").val(),
-		  			pw: $("#pw").val(),
-		  			name: $("#name").val(),
-		  			phone: $("#phone").val(),
-		  			address: $("#address").val()
+		  			memberId: memberId,
+		  			pw: pw,
+		  			name: name,
+		  			phone: phone,
+		  			address: address
 		  		},
 		  		success:function(data){//통신 성공
 		  			

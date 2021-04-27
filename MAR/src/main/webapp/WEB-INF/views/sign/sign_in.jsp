@@ -4,6 +4,7 @@
 <%@ taglib prefix= "c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 국제화 태그 -->
 <%@ taglib prefix= "fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="../cmn/common.jsp" %>
 <c:set var="hContext" value="${pageContext.request.contextPath}"></c:set>
 <!doctype html>
 <html lang="en">
@@ -55,27 +56,61 @@
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
     <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">Email address</label>
+      <input type="email" class="form-control" id="memberId" placeholder="name@example.com">
+      <label for="memberId">Email address</label>
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-      <label for="floatingPassword">Password</label>
+      <input type="password" class="form-control" id="pw" placeholder="Password">
+      <label for="pw">Password</label>
     </div>
 
-    <div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me"> Remember me
-      </label>
-    </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2017â2021</p>
   </form>
+  
+    <div>
+      <button id="signInBtn" class="w-100 btn btn-lg btn-primary" type="submit" style="margin-bottom: 15px;">로그인</button>
+      <button id="signUpBtn" class="w-100 btn btn-lg btn-primary" type="submit">회원가입</button>
+    </div>
+    <p class="mt-5 mb-3 text-muted">&copy; markit</p>
+
 </main>
 
 	<script src="${hContext}/resources/assets/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="${hContext}/resources/assets/recipe/form-validation.js"></script>
 
+
+	<script type="text/javascript">
+		
+		$("#signUpBtn").on("click", function(){
+			console.log("signUpBtn");
+			window.location.href = "${hContext}/member/sign_up_view.do";
+		});
+		
+		$("#signInBtn").on("click", function(){
+			console.log("signInBtn");
+			
+			$.ajax({
+		  		type: "POST",
+		  		url:"${hContext}/member/do_login_check.do",
+		  		asyn:"true",
+		  		dataType:"html",
+		  		data:{
+		  			memberId: $("#memberId").val(),
+		  			pw: $("#pw").val()
+		  		},
+		  		success:function(data){//통신 성공
+		  			
+		  			var parseData = JSON.parse(data);
+		  			alert(parseData.msgContents);
+		  			window.location.href = "${hContext}/main/main_view.do ";
+		  			
+		  		},
+		  		error:function(data){//실패시 처리
+		  			console.log("error:"+data);
+		  		}
+		  	});
+		});
+	
+	</script>
     
   </body>
 </html>

@@ -27,5 +27,8 @@ public class MemberServiceImpl {
 		return memberDao.doRegister(dto);
 	}
 	
+	public int doLoginCheck(DTO dto) throws SQLException {
+		return memberDao.doLoginCheck(dto);
+	}
 	
 }

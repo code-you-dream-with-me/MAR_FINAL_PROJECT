@@ -124,9 +124,9 @@
 			console.log($("#phone").val());
 			console.log($("#address").val());
 			
-			/* $.ajax({
+			$.ajax({
 		  		type: "POST",
-		  		url:"${hContext}/member/do_sign_up.do",
+		  		url:"${hContext}/member/do_register.do",
 		  		asyn:"true",
 		  		dataType:"html",
 		  		data:{
@@ -139,20 +139,14 @@
 		  		success:function(data){//통신 성공
 		  			
 		  			var parseData = JSON.parse(data);
-		  			console.log(parseData.msgContents);
-		  			
-		  			if      ($("#ItemRedDtBtn").val()  == "▼") doRetrieveItem("regDt", "desc");
-		  			else if ($("#ItemRedDtBtn").val()  == "▲") doRetrieveItem("regDt", "asc");
-		  			else if ($("#ItemPrice").val() == "▼") doRetrieveItem("price", "desc");
-		  			else if ($("#ItemPrice").val() == "▲") doRetrieveItem("price", "asc");
-		  			else if ($("#ItemSales").val() == "▼") doRetrieveItem("sales", "desc");
-		  			else if ($("#ItemSales").val() == "▲") doRetrieveItem("sales", "asc");
+		  			alert(parseData.msgContents);
+		  			window.location.href = "${hContext}/member/sign_in_view.do";
 		  			
 		  		},
 		  		error:function(data){//실패시 처리
 		  			console.log("error:"+data);
 		  		}
-		  	}); */
+		  	});
 			
 		});
 

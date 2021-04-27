@@ -28,5 +28,8 @@ public class MemberDaoImpl {
 		return this.sqlSessionTemplate.insert(this.NAMESPACE + ".doRegister", dto);
 	}
 	
+	public int doLoginCheck(DTO dto) throws SQLException {
+		return this.sqlSessionTemplate.selectOne(this.NAMESPACE + ".doLoginCheck", dto);
+	}
 	
 }

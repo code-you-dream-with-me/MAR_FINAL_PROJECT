@@ -30,7 +30,7 @@ public class MemberController {
 	
 //	▼ 메소드 ===============================================================
 
-	@RequestMapping(value = "member/login_view.do", method = RequestMethod.GET
+	@RequestMapping(value = "member/sign_in_view.do", method = RequestMethod.GET
 			,produces = "application/json;charset=UTF-8")
 	public String viewLogin(Model model) throws Exception {
 		return "sign/sign_in";
@@ -43,7 +43,7 @@ public class MemberController {
 	}
 	
 	
-	@RequestMapping(value = "recipe/do_register.do", method = RequestMethod.GET
+	@RequestMapping(value = "member/do_register.do", method = RequestMethod.POST
 			,produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String doRegister(MemberVO memberVO) throws Exception {
@@ -61,5 +61,26 @@ public class MemberController {
 		return gson.toJson(message);
 		
 	}
+	
+	@RequestMapping(value = "member/do_login_check.do", method = RequestMethod.POST
+			,produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String doLoginCheck(MemberVO memberVO) throws Exception {
+		
+		LOG.debug("doLoginCheck");
+		Message message = new Message();
+		message.setMsgId(Integer.toString(memberService.doLoginCheck(memberVO)));
+		
+		if(message.getMsgId().equals("1")) message.setMsgContents("로그인이 완료되었습니다.");
+		else message.setMsgContents("아이디와 비밀번호를 확인해 주세요.");
+		
+		Gson gson = new Gson();
+		LOG.debug("메세지: "+gson.toJson(message));
+		
+		return gson.toJson(message);
+		
+	}
+	
+	
 	
 }

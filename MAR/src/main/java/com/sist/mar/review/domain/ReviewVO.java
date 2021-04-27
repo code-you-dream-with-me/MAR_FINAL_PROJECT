@@ -6,11 +6,12 @@ public class ReviewVO extends DTO{
 
 	private int reviewNo;		// 후기글 번호(PK, 시퀀스 적용)
 	private String memberId;	// 회원 이메일(ID)
-	private int orderItemNo;	// 주문번호 (원칙적으로 FK)
+	private int orderItemNo;	// 주문상품번호 (원칙적으로 FK)
 	private String title;		// 제목
 	private String contents;	// 내용
 	private int readCnt;		// 조회수
 	private String regDt;		// 등록일
+
 	
 	public ReviewVO() {
 		
@@ -85,10 +86,13 @@ public class ReviewVO extends DTO{
 
 	@Override
 	public String toString() {
-		return "Review [reviewNo=" + reviewNo + ", memberId=" + memberId + ", orderItemNo=" + orderItemNo + ", title="
+		return "ReviewVO [reviewNo=" + reviewNo + ", memberId=" + memberId + ", orderItemNo=" + orderItemNo + ", title="
 				+ title + ", contents=" + contents + ", readCnt=" + readCnt + ", regDt=" + regDt + ", toString()="
 				+ super.toString() + "]";
 	}
+
+	
+
 
 	
 	

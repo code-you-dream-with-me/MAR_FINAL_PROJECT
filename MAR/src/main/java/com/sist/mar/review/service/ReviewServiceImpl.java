@@ -15,9 +15,9 @@ public class ReviewServiceImpl{
 	@Autowired
 	ReviewDaoImpl reviewDaoImpl;
 	
+	
 	public ReviewServiceImpl(){}
 
-	
 
 	public int doReadCnt(DTO dto) throws SQLException {
 		
@@ -39,6 +39,7 @@ public class ReviewServiceImpl{
 
 	public DTO doSelectOne(DTO dto) throws SQLException {
 		
+		reviewDaoImpl.doReadCnt(dto);
 		return reviewDaoImpl.doSelectOne(dto);
 	}
 

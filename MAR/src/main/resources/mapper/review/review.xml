@@ -49,7 +49,8 @@
 		 SELECT A.*,                                                                                                                    
 		        B.*                                                                                                                      
 		 FROM(    
-		        SELECT t2.review_no 	AS reviewNo, 		                                                                                                     
+		        SELECT t2.rnum 			AS num,   
+		        	   t2.review_no 	AS reviewNo, 		                                                                                                     
 		               t2.member_id 	AS memberId, 		                                                                                                       
 		               t2.orderitem_no 	AS orderItemNo,                                                                                                       
 		               t2.title			AS title,                                                                                        				
@@ -63,10 +64,11 @@
 		                     , t1.*                                                                                                     
 		             FROM(SELECT *                                                                                                      
 		                  FROM review                                                                                                                                               
-		                  ORDER BY review_no DESC ) t1  
+		                  ORDER BY review_no ASC ) t1  
 		             <include refid="searchCondition" />                                                                              
 		             )t2 
 		        WHERE rnum BETWEEN #{pageSize} * (#{pageNum} - 1) + 1 AND #{pageSize} * (#{pageNum} - 1) + #{pageSize}
+				ORDER BY review_no DESC
 		     )A                                                                                                                         
 		 CROSS JOIN                                                                                                                     
 		     (SELECT COUNT(*) totalCnt                                                                                                 

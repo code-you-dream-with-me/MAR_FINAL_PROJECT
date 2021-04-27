@@ -173,6 +173,7 @@
 		  	
 		  	
 	      <div class="bd-example">
+	      <input type="button" class="menuBtn" name="addItemBtn" id="addItemBtn" value="추가" />
 	        <table class="table table-hover" name="itemTable" id="itemTable">
 	          <thead>
 	          	<tr>
@@ -354,6 +355,22 @@
     	console.log("recipeNo:"+recipeNo);
         window.location.href = "${hContext}/recipe/recipe_view2.do?recipeNo="+recipeNo;
   });
+  
+  //상품 상세보기 페이지로 이동
+  $("#itemTable > tbody").on("click","tr",function(e){
+    	e.preventDefault();
+    	let tds = $(this).children();
+    	var itemNo = tds.eq(0).text();
+    	console.log("itemNo:"+itemNo);
+        window.location.href = "${hContext}/item/item_deview.do?itemNo="+itemNo;
+  });
+
+  //상품 등록 페이지로 이동 
+    $("#addItemBtn").on("click", function(e){
+	  console.log("addItemBtn");
+	  window.location.href = "${hContext}/item/item_view.do";
+  });
+  
 
   /* Item */
   $("#ItemPrice").on("click", function(e){

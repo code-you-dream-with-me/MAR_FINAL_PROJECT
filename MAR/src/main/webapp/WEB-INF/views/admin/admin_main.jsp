@@ -52,11 +52,10 @@
       	background-color: white;
       	width: 40px;
       	text-align: center;
-      	margin: 0px 2px 0px 2px;
+      	margin: 0px 1px 0px 1px;
       	padding: 0px;
       	border-radius: 5px;
       	font-size: small;
-      	float: right;
       }
       .menuBtn {
       	background-color: white;
@@ -96,6 +95,7 @@
 	  <h2 class="h6 pt-4 pb-3 mb-4 border-bottom">On this page</h2>
 	  <nav class="small" id="toc">
 	    <ul class="list-unstyled">
+	    
 	      <li class="my-2">
 	        <button class="btn d-inline-flex align-items-center collapsed" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#member-collapse" aria-controls="contents-collapse">회원</button>
 	        <ul class="list-unstyled ps-3 collapse" id="member-collapse">
@@ -120,6 +120,7 @@
 	          <li><a class="d-inline-flex align-items-center rounded" href="#recipe_list">레시피 목록</a></li>
 	        </ul>
 	      </li>
+	      
 	    </ul>
 	  </nav>
 	</aside>
@@ -181,7 +182,8 @@
 	              <th scope="col" width="10%">가격
 	                <input type="button" class="orderBtn" name="ItemPrice" id="ItemPrice" value="○" />
 	              </th>
-	              <th scope="col" width="13%">할인률</th>
+	              <th scope="col" width="8%">할인률</th>
+	              <th scope="col" width="5%"> </th>
 	              <th scope="col" width="10%">최종가격</th>
 	              <th scope="col" width="12%">판매량
 	                <input type="button" class="orderBtn" name="ItemSales" id="ItemSales" value="○" />
@@ -210,11 +212,11 @@
 	          	<tr>
 	              <th scope="col" width="10%">주문번호</th>
 	              <th scope="col" width="15%">주문자</th>
-	              <th scope="col" width="35%">배송지</th>
+	              <th scope="col" width="33%">배송지</th>
 	              <th scope="col" width="10%">금액</th>
-	              <th scope="col" width="20%">
-	              상태
-	              	<input type="button" class="wordBtn" name="orderStateBtn" id="orderStateBtn" value="전체" style="width: 60px; margin-left: 8px;" />
+	              <th scope="col" width="10%">상태</th>
+	              <th scope="col" width="12%">
+	              	<input type="button" class="wordBtn" name="orderStateBtn" id="orderStateBtn" value="전체" style="width: 60px;" />
 	              </th>
 	              <th scope="col" width="10%">결제일</th>
 	          	</tr>
@@ -280,40 +282,25 @@
 	  window.location.href = "${hContext}/recipe/recipe_view.do";
   });
   
+  
   /* Recipe */
   $("#readCntBtn").on("click", function(e){
-	  
 	$("#redDtBtn").val("○");
-	var Btn = $("#readCntBtn").val();
-	if(Btn == "▼"){
-		$("#readCntBtn").val("▲");
-		doRetrieveReicpe("readCnt", "asc");
-	}else if(Btn == "▲"){
-		$("#readCntBtn").val("▼");
-		doRetrieveReicpe("readCnt", "desc");
-	}else if(Btn == "○"){
-		$("#readCntBtn").val("▼");
-		doRetrieveReicpe("readCnt", "desc");
+	switch($("#readCntBtn").val()){
+		case "▼": $("#readCntBtn").val("▲"); doRetrieveReicpe("readCnt", "asc"); break;
+		case "▲": $("#readCntBtn").val("▼"); doRetrieveReicpe("readCnt", "desc"); break;
+		case "○": $("#readCntBtn").val("▼"); doRetrieveReicpe("readCnt", "desc"); break;
 	}
-	
   });
   
   /* Recipe */
   $("#redDtBtn").on("click", function(e){
-	
-	  $("#readCntBtn").val("○");
-	var Btn = $("#redDtBtn").val();
-	if(Btn == "▼"){
-		$("#redDtBtn").val("▲");
-		doRetrieveReicpe("regDt", "asc");
-	}else if(Btn == "▲"){
-		$("#redDtBtn").val("▼");
-		doRetrieveReicpe("regDt", "desc");
-	}else if(Btn == "○"){
-		$("#redDtBtn").val("▼");
-		doRetrieveReicpe("regDt", "desc");
+	$("#readCntBtn").val("○");
+	switch($("#redDtBtn").val()){
+		case "▼": $("#redDtBtn").val("▲"); doRetrieveReicpe("regDt", "asc"); break;
+		case "▲": $("#redDtBtn").val("▼"); doRetrieveReicpe("regDt", "desc"); break;
+		case "○": $("#redDtBtn").val("▼"); doRetrieveReicpe("regDt", "desc"); break;
 	}
-	
   });
   
   
@@ -329,21 +316,13 @@
   			searchWord: orderWord
   		},
   		success:function(data){//통신 성공
-  			//console.log("success data:"+data);
   			var parseData = JSON.parse(data);
-  			//console.log("parseData: "+parseData);
-  			
-  			//기존 데이터 삭제
   			$("#recipeTable > tbody").empty();
   			var html = "";
-  			
-  			//console.log("parseData.length:"+parseData.length);
-  			
   			
   			if(parseData.length > 0){ 
   				
   				$.each(parseData, function(i, value) {
-  					//console.log(i+", "+value.name);
   					html += "   <tr>                              ";
   					html += "     <td>"+ value.recipeNo +"</td>   ";
   					html += "     <td>"+ value.title +"</td>      ";
@@ -353,21 +332,15 @@
   					html += "   </tr>                             ";
   				});
   				
-  				
   			}else { 
-  				//데이터가 없는 경우
   				html += " <tr> ";
   				html += "   <td class='text-center' colspan='99'>등록된 게시글이 없습니다.</td> ";
   				html += " </tr> ";
   			}
   			$("#recipeTable > tbody").append(html);
-  			//doInit(); //회원입력form 초기화
   		},
   		error:function(data){//실패시 처리
   			console.log("error:"+data);
-  		},
-  		complete:function(data){//성공/실패와 관계없이 수행!
-  			//console.log("complete:"+data);
   		}
   	});     	
   	
@@ -375,81 +348,48 @@
   
   //table click
   $("#recipeTable > tbody").on("click","tr",function(e){
-    	//console.log("userTable > tbody");
     	e.preventDefault();
-    	
     	let tds = $(this).children();
     	var recipeNo = tds.eq(0).text();
     	console.log("recipeNo:"+recipeNo);
-    	
-      window.location.href = "${hContext}/recipe/recipe_view2.do?recipeNo="+recipeNo;
-    	
+        window.location.href = "${hContext}/recipe/recipe_view2.do?recipeNo="+recipeNo;
   });
-  //--table click  
-  
 
   /* Item */
   $("#ItemPrice").on("click", function(e){
-  
 		$("#ItemRedDtBtn").val("○");
 		$("#ItemSales").val("○");
-		var Btn = $("#ItemPrice").val();
-		if(Btn == "▼"){
-			$("#ItemPrice").val("▲");
-			doRetrieveItem("price", "asc");
-		}else if(Btn == "▲"){
-			$("#ItemPrice").val("▼");
-			doRetrieveItem("price", "desc");
-		}else if(Btn == "○"){
-			$("#ItemPrice").val("▼");
-			doRetrieveItem("price", "desc");
+		switch($("#ItemPrice").val()){
+			case "▼": $("#ItemPrice").val("▲"); doRetrieveItem("price", "asc"); break;
+			case "▲": $("#ItemPrice").val("▼"); doRetrieveItem("price", "desc"); break;
+			case "○": $("#ItemPrice").val("▼"); doRetrieveItem("price", "desc"); break;
 		}
-	
   });  
   
   /* Item */
   $("#ItemSales").on("click", function(e){
-  
 		$("#ItemRedDtBtn").val("○");
 		$("#ItemPrice").val("○");
-		var Btn = $("#ItemSales").val();
-		if(Btn == "▼"){
-			$("#ItemSales").val("▲");
-			doRetrieveItem("sales", "asc");
-		}else if(Btn == "▲"){
-			$("#ItemSales").val("▼");
-			doRetrieveItem("sales", "desc");
-		}else if(Btn == "○"){
-			$("#ItemSales").val("▼");
-			doRetrieveItem("sales", "desc");
-		}
-	
+		switch($("#ItemSales").val()){
+			case "▼": $("#ItemSales").val("▲"); doRetrieveItem("sales", "asc"); break;
+			case "▲": $("#ItemSales").val("▼"); doRetrieveItem("sales", "desc"); break;
+			case "○": $("#ItemSales").val("▼"); doRetrieveItem("sales", "desc"); break;
+		}		
   });
 
   /* Item */
   $("#ItemRedDtBtn").on("click", function(e){
-	
 		$("#ItemSales").val("○");
 		$("#ItemPrice").val("○");
-		var Btn = $("#ItemRedDtBtn").val();
-		if(Btn == "▼"){
-			$("#ItemRedDtBtn").val("▲");
-			doRetrieveItem("regDt", "asc");
-		}else if(Btn == "▲"){
-			$("#ItemRedDtBtn").val("▼");
-			doRetrieveItem("regDt", "desc");
-		}else if(Btn == "○"){
-			$("#ItemRedDtBtn").val("▼");
-			doRetrieveItem("regDt", "desc");
-		}
-	
+		switch($("#ItemRedDtBtn").val()){
+			case "▼": $("#ItemRedDtBtn").val("▲"); doRetrieveItem("regDt", "asc"); break;
+			case "▲": $("#ItemRedDtBtn").val("▼"); doRetrieveItem("regDt", "desc"); break;
+			case "○": $("#ItemRedDtBtn").val("▼"); doRetrieveItem("regDt", "desc"); break;
+		}		
   });
   
   function doRetrieveItem(orderDiv, orderWord) {
-	  
-	  //console.log("doRetrieveItem");
-	  //console.log(orderDiv+", "+orderWord);
-	  
+ 
 	  	$.ajax({
 	  		type: "GET",
 	  		url:"${hContext}/admin/do_retrieve_item.do",
@@ -460,57 +400,53 @@
 	  			searchWord: orderWord
 	  		},
 	  		success:function(data){//통신 성공
-	  			//console.log("success data:"+data);
 	  			var parseData = JSON.parse(data);
-	  			//console.log("parseData: "+parseData);
-	  			
-	  			//기존 데이터 삭제
 	  			$("#itemTable > tbody").empty();
 	  			var html = "";
-	  			
-	  			//console.log("parseData.length:"+parseData.length);
-	  			
 	  			
 	  			if(parseData.length > 0){ 
 	  				
 	  				$.each(parseData, function(i, value) {
-	  					//console.log(i+", "+value.name);
 	  					html += "   <tr>                              ";
 	  					html += "     <td>"+ value.itemNo +"</td>   ";
 	  					html += "     <td>"+ value.name +"</td>      ";
 	  					html += "     <td>"+ value.categoryNo +"</td>      ";
 	  					html += "     <td>"+ value.price +"</td>    ";
-	  					html += "     <td><input type='text' id='discountNum"+value.itemNo+"' value='"+ value.discount +"' style='width: 40px;'/><input type='button' class='wordBtn' value='수정' onclick='discount("+value.itemNo+");' /></td>    ";
+	  					html += "     <td><input type='text' id='discountNum"+value.itemNo+"' value='"+ value.discount +"' style='width: 40px;'/></td>    ";
+	  					html += "     <td><input type='button' class='wordBtn' value='수정' onclick='discount("+value.itemNo+");' /></td>    ";
 	  					html += "     <td>"+ value.price*(100-value.discount)/100 +"</td>    ";
 	  					html += "     <td>"+ value.sales +"</td>    ";
 	  					html += "     <td>"+ value.regDt +"</td>      ";
 	  					html += "   </tr>                             ";
 	  				});
 	  				
-	  				//원래가격*(100-할인률)/100
-	  				
 	  			}else { 
-	  				//데이터가 없는 경우
 	  				html += " <tr> ";
 	  				html += "   <td class='text-center' colspan='99'>등록된 게시글이 없습니다.</td> ";
 	  				html += " </tr> ";
 	  			}
 	  			$("#itemTable > tbody").append(html);
-	  			//doInit(); //회원입력form 초기화
 	  		},
 	  		error:function(data){//실패시 처리
 	  			console.log("error:"+data);
-	  		},
-	  		complete:function(data){//성공/실패와 관계없이 수행!
-	  			//console.log("complete:"+data);
 	  		}
 	  	});     	
 	  	
 	  }
   
   function discount(itemNo) {
-	  //console.log("상품번호: "+itemNo);
-	  //console.log("할인률"+$("#discountNum"+itemNo).val());
+	  
+	  var discountNum = $("#discountNum"+itemNo).val();
+	  console.log(discountNum);
+	  console.log(isNaN(discountNum));
+	  
+	  //isNaN(param) -> true: "문자열", undifined, NaN / false: 숫자, boolean, null, ""
+	  if(isNaN(discountNum)) {
+		  alert("숫자를 입력하십시오"); 
+		  $("#discountNum"+itemNo).val("");
+		  $("#discountNum"+itemNo).focus();
+		  return;
+	  }
 	  
 	  $.ajax({
 	  		type: "GET",
@@ -519,7 +455,7 @@
 	  		dataType:"html",
 	  		data:{
 	  			itemNo: itemNo,
-	  			discount: $("#discountNum"+itemNo).val()
+	  			discount: discountNum
 	  		},
 	  		success:function(data){//통신 성공
 	  			
@@ -533,36 +469,21 @@
 	  			else if ($("#ItemSales").val() == "▼") doRetrieveItem("sales", "desc");
 	  			else if ($("#ItemSales").val() == "▲") doRetrieveItem("sales", "asc");
 	  			
-	  			
 	  		},
 	  		error:function(data){//실패시 처리
 	  			console.log("error:"+data);
-	  		},
-	  		complete:function(data){//성공/실패와 관계없이 수행!
-	  			//console.log("complete:"+data);
 	  		}
 	  	});
-	  
   }
 
   /* ordering */
   $("#orderStateBtn").on("click", function(e){
-		
-		var Btn = $("#orderStateBtn").val();
-		if(Btn == "전체"){
-			$("#orderStateBtn").val("주문확정");
-			doRetrieveOrdering("orderState", "1");
-		}else if(Btn == "주문확정"){
-			$("#orderStateBtn").val("취소요청");
-			doRetrieveOrdering("orderState", "2");
-		}else if(Btn == "취소요청"){
-			$("#orderStateBtn").val("취소확정");
-			doRetrieveOrdering("orderState", "3");
-		}else if(Btn == "취소확정"){
-			$("#orderStateBtn").val("전체");
-			doRetrieveOrdering("nothing", "0");
-		}
-	
+		switch($("#orderStateBtn").val()){
+			case "전체": $("#orderStateBtn").val("주문확정"); doRetrieveOrdering("orderState", "1"); break;
+			case "주문확정": $("#orderStateBtn").val("취소요청"); doRetrieveOrdering("orderState", "2"); break;
+			case "취소요청": $("#orderStateBtn").val("취소확정"); doRetrieveOrdering("orderState", "3"); break;
+			case "취소확정": $("#orderStateBtn").val("전체"); doRetrieveOrdering("nothing", "0"); break;
+		}	
   });  
   
   function doRetrieveOrdering(orderDiv, orderWord) {
@@ -577,24 +498,13 @@
 	  			searchWord: orderWord
 	  		},
 	  		success:function(data){//통신 성공
-	  			//console.log("success data:"+data);
 	  			var parseData = JSON.parse(data);
-	  			//console.log("parseData: "+parseData);
-	  			
-	  			//기존 데이터 삭제
 	  			$("#orderingTable > tbody").empty();
 	  			var html = "";
 	  			
-	  			//console.log("parseData.length:"+parseData.length);
-	  			
 	  			if(parseData.length > 0){ 
 	  				
-	  				//var orderState = "";
-	  				//if(value.orderState == "1") orderState = "";
-	  				
 	  				$.each(parseData, function(i, value) {
-	  					//console.log(i+", "+value.name);
-	  					
 	  					var orderStateStr = "";
 	  					switch(value.orderState) {
 	  						case "1" : orderStateStr = "주문확정"; html += "   <tr>"; break;
@@ -606,11 +516,12 @@
 	  					html += "     <td>"+ value.memberId +"</td>      ";
 	  					html += "     <td>"+ value.address +"</td>      ";
 	  					html += "     <td>"+ value.price +"</td>    ";
+  						html += "     <td>"+ orderStateStr +"</td>    "; 
 	  					
 	  					switch(value.orderState) {
-  						case "2" : html += "     <td>"+ orderStateStr +"<input type='button' class='wordBtn' value='승인' onclick='approve("+value.orderNo +","+ orderWord+");'  /><input type='button' class='wordBtn' value='거부' onclick='reject("+value.orderNo +","+ orderWord+");'  /></td>    "; break;
-  						case "3" : html += "     <td>"+ orderStateStr +"<input type='button' class='wordBtn' value='승인취소' onclick='returnn("+value.orderNo +","+ orderWord+");' style='width: 82px;' /></td>    "; break;
-  						default : html += "     <td>"+ orderStateStr +"</td>    ";
+  						case "2" : html += "<td><input type='button' class='wordBtn' value='승인' onclick='approve("+value.orderNo +","+ orderWord+");'  /><input type='button' class='wordBtn' value='거부' onclick='reject("+value.orderNo +","+ orderWord+");'  /></td>"; break;
+  						case "3" : html += "<td><input type='button' class='wordBtn' value='승인취소' onclick='returnn("+value.orderNo +","+ orderWord+");' style='width: 82px;' /></td>"; break;
+  						default  : html += "<td>"+ "" +"</td>    ";  break;
 	  					}
 	  					
 	  					html += "     <td>"+ value.orderDate +"</td>      ";
@@ -618,19 +529,14 @@
 	  				});
 	  				
 	  			}else { 
-	  				//데이터가 없는 경우
 	  				html += " <tr> ";
 	  				html += "   <td class='text-center' colspan='99'>등록된 주문이 없습니다.</td> ";
 	  				html += " </tr> ";
 	  			}
 	  			$("#orderingTable > tbody").append(html);
-	  			//doInit(); //회원입력form 초기화
 	  		},
 	  		error:function(data){//실패시 처리
 	  			console.log("error:"+data);
-	  		},
-	  		complete:function(data){//성공/실패와 관계없이 수행!
-	  			//console.log("complete:"+data);
 	  		}
 	  	});     	
 	  	
@@ -650,11 +556,8 @@
   
   function controlOrderState(orderNo, methodName, orderWord) {
 	  var orderDiv = "";
-	  if(orderWord == null || orderWord == "0") {
-		  orderDiv = "nothing";
-	  } else {
-		  orderDiv = "orderState";
-	  }
+	  if(orderWord == undefined || orderWord == "0") orderDiv = "nothing";
+	  else orderDiv = "orderState";
 	  
 	  $.ajax({
 	  		type: "GET",

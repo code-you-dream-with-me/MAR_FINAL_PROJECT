@@ -126,11 +126,14 @@
 	<script src="${hContext}/resources/assets/recipe/form-validation.js"></script>  
 	
 	<script type="text/javascript">
+	
+	//전역변수로 선언
+	var recipeNo = 0;
+	
 	$(document).ready(function() {
-		console.log("1.document:최초수행!");
-	    var recipeNo = getParameter("recipeNo");
-	    doSelectOne(recipeNo);
-	    doRetrieveImage(recipeNo);
+	    recipeNo = getParameter("recipeNo");
+	    doSelectOne();
+	    doRetrieveImage();
 	});
 	
 	
@@ -143,37 +146,37 @@
 	
 	function doSelectOne(no){
 		
-		console.log("doSelectOne");
-		console.log("no: "+no);
-		
 		$.ajax({
 		  		type: "GET",
 		  		url:"${hContext}/recipe/do_select.do",
 		  		asyn:"false",
 		  		dataType:"html",
 		  		data:{
-		  			recipeNo:no
+		  			recipeNo:recipeNo
 		  		},
 		  		success:function(data){//통신 성공
 		  			var parseData = JSON.parse(data);
-		  			console.log(parseData.title);
-		  			
-		  			var recipeNo = parseData.recipeNo;
-		  		    var title = parseData.title;
-		  		    var regId = parseData.regId;
-		  		    var regDt = parseData.regDt;
-		  		    var readCnt = parseData.readCnt;
-		  		    var urlAddr = parseData.urlAddr;
-		  		    var contents = parseData.contents;
+		  		
+		  			//객체의 프로퍼티
+		  		    var recipe = {
+		  		    		recipeNo : parseData.recipeNo,
+		  		    		regId : parseData.regId,
+		  		    		title : parseData.title,
+		  		    		contents : parseData.contents,
+		  		    		readCnt : parseData.readCnt,
+		  		    		ingredients : parseData.ingredients,
+		  		    		urlAddr : parseData.urlAddr,
+		  		    		regDt : parseData.regDt,
+		  		    		modDt : parseData.modDt
+		  		    };
 		  		    
-		  		    $("#recipeNo").val(recipeNo);
-		  		    document.getElementById("recipeTitle").innerHTML = title;
-		  		    document.getElementById("recipeRegId").innerHTML = regId;
-		  		    document.getElementById("recipeRegDt").innerHTML = regDt;
-		  		    document.getElementById("recipeReadCnt").innerHTML = readCnt;
-		  		    document.getElementById("recipeUrlAddr").innerHTML = "<iframe width='950px' height='540px' src='"+ urlAddr +"' title='YouTube video player'  allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
-		  		    document.getElementById("recipeContents").innerHTML = contents;
-		  		    
+		  		    $("#recipeNo").val(recipe.recipeNo);
+		  		    document.getElementById("recipeTitle").innerHTML = recipe.title;
+		  		    document.getElementById("recipeRegId").innerHTML = recipe.regId;
+		  		    document.getElementById("recipeRegDt").innerHTML = recipe.regDt;
+		  		    document.getElementById("recipeReadCnt").innerHTML = recipe.readCnt;
+		  		    document.getElementById("recipeUrlAddr").innerHTML = "<iframe width='950px' height='540px' src='"+ recipe.urlAddr +"' title='YouTube video player'  allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
+		  		    document.getElementById("recipeContents").innerHTML = recipe.contents;
 		  		    
 		      	},
 		      	error:function(data){//실패시 처리
@@ -183,10 +186,7 @@
 		  	});
 	}
 	
-	function doRetrieveImage(no){
-		
-		console.log("doRetrieveImage");
-		console.log("no: "+no);
+	function doRetrieveImage(){
 		
 		$.ajax({
 	  		type: "GET",
@@ -195,16 +195,14 @@
 	  		dataType:"html",
 	  		data:{
 	  			fromTb:2,
-	  			fromNo:no
+	  			fromNo:recipeNo
 	  		},
 	  		success:function(data){//통신 성공
 	  			
 	  			$("#imageList").val(data);
-	  			
 	  			var parseData = JSON.parse(data);
 	  			console.log(parseData);
 	  			
-	  		    //var title = parseData.title;
 	  		    $("#recipeImage").empty();
 	  		    var html = "";
 	  		    
@@ -230,10 +228,7 @@
 		
 	}
 	
-	
 	$("#reicpeUpdateBtn").on("click", function(e){
-		var recipeNo = $("#recipeNo").val();
-		console.log("수정 레시피 번호:"+recipeNo);
 		window.location.href = "${hContext}/recipe/recipe_view3.do?recipeNo="+recipeNo;
 	});
 	
@@ -241,9 +236,6 @@
 	$("#reicpeDeleteBtn").on("click", function(e){
 		
 		if(confirm("삭제 하시겠습니까?")==false)return;
-		
-		var recipeNo = $("#recipeNo").val();
-		console.log("삭제 레시피 번호:"+recipeNo);
 		
 		$.ajax({
 	  		type: "GET",
@@ -267,14 +259,12 @@
 	  		  			var parseData = JSON.parse(data);
 	  		  			alert(parseData.msgContents);
 	  		  			window.location.href = "${hContext}/admin/admin_view.do";
-	  		  			
 	  		      	},
 	  		      	error:function(data){//실패시 처리
 	  		      		console.log("error:"+data);
 	  		      	}
 	  		      	
 	  		  	});
-					  		
 	  			
 	      	},
 	      	error:function(data){//실패시 처리

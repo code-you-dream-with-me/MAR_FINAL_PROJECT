@@ -10,6 +10,7 @@ public class QuestionVO extends DTO{
 	private String title;		// 제목
 	private String contents;	// 내용
 	private String regDt;		// 등록일
+	private int answerCheck;	// 답변 체크
 	
 	public QuestionVO() {
 		
@@ -74,11 +75,22 @@ public class QuestionVO extends DTO{
 		this.regDt = regDt;
 	}
 
+	public int getAnswerCheck() {
+		return answerCheck;
+	}
+
+	public void setAnswerCheck(int answerCheck) {
+		this.answerCheck = answerCheck;
+	}
+
 	@Override
 	public String toString() {
 		return "QuestionVO [questionNo=" + questionNo + ", orderNo=" + orderNo + ", qUser=" + qUser + ", title=" + title
-				+ ", contents=" + contents + ", regDt=" + regDt + ", toString()=" + super.toString() + "]";
+				+ ", contents=" + contents + ", regDt=" + regDt + ", answerCheck=" + answerCheck + ", toString()="
+				+ super.toString() + "]";
 	}
+	
+
 	
 	
 	

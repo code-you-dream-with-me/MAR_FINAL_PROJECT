@@ -34,6 +34,28 @@ public class QuestionDaoImpl {
 	SqlSessionTemplate sqlSessionTemplate;
 
 	
+	/*
+	 * 답변 체크 (있으면 1, 없으면 0(=기본값))
+	 */
+	public int answerCheck(DTO dto) {
+		
+		int flag = 0;
+		QuestionVO question = (QuestionVO) dto;
+		
+		// mybatis sql : NAMESPACE + . + id;
+		String statement = this.NAMESPACE + ".answerCheck";
+		
+		LOG.debug("============================");
+		LOG.debug("=question=" + question);
+		LOG.debug("=statement=" + statement);
+		LOG.debug("============================");
+		
+		flag = this.sqlSessionTemplate.update(statement, question);
+		return flag;
+		
+	}
+	
+	
 	/**
 	 * 질의 조회수 (doSelectOne시)
 	 */

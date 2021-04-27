@@ -243,6 +243,11 @@
       		var message = JSON.parse(data);
   			console.log(message.msgContents);
   			
+  			var mainImageNum = $("#whichMainImage").val();
+  			if("" == mainImageNum){
+  				mainImageNum = "0";
+  			}
+  			
   			//상품 이미지 등록
   			$.ajax({
   		  		type: "GET",
@@ -251,7 +256,8 @@
   		  		dataType:"html",
   		  		data:{
   		  			imageList: $("#imageList").val(),
-  		  			fromTb: $("#fromTb").val()
+  		  			fromTb: $("#fromTb").val(),
+  		  			MainImage: mainImageNum
   		  		},
   		  		success:function(data){//통신 성공
   		      		var message = JSON.parse(data);

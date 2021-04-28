@@ -90,10 +90,11 @@
 <body>
 
  		<div class="container01" id="listContainer">
- 			<div id="row-wrap">
+			<div class="row">
 				<!-- 동적 html추가 -->
-          	</div>
-            <div class="row">
+			</div>
+				
+<%--             <div class="row">
                 <div class="col-sm-6 col-md-3">
                     <div class="thumbnail">
                         <img src="${hContext }/resources/image_source/test_source/thum05.PNG" alt="item_img">
@@ -134,7 +135,7 @@
                         </div>
                     </div>
                 </div>
-            </div><!--row02-->
+            </div><!--row02--> --%>
         </div>
 	
 <script type="text/javascript">
@@ -169,67 +170,9 @@
         		console.log("success data:"+data);
     			var parseData = JSON.parse(data);
     			console.log("parseData.length:"+parseData.length);
-    			console.log("parseData.name:"+parseData.name);
-    			
-/*     			var html = "";
-    			if(parseData.length>0) {
-        			
-    				for(var i=0; i<parseData.length; i++) {
-    					html += " <div class='row'><!--한row에 thumbnail4개-->                                                       ";
-       					html += " 	<div class='col-sm-6 col-md-3'>                                                                ";
-       					html += " 		<div class='thumbnail'>                                                                    ";
-       					html += " 			<img src='"+parseData[i].path+"' alt='item_img'>                                          ";
-       					html += " 			<div class='caption'>                                                                  ";
-       					html += " 				<h3>"+parseData.name+"</h3>                                                        ";
-       					html += " 				<span class='discount'>"+parseData.discount+"%</span>                              ";
-       					html += " 				<span class='final-price'>"+parseData.finalPrice+"원</span>                         ";
-       					html += " 				<h3 class='origin-price'>"+parseData.price+"원</h3>                                 ";
-       					html += " 			</div>                                                                                 ";
-       					html += " 		</div>                                                                                     ";
-       					html += " 	</div>                                                                                         ";
-       					html += " 	<div class='col-sm-6 col-md-3'>                                                                ";
-    					html += " 		<div class='thumbnail'>                                                                    ";
-    					html += " 			<img src='"+parseData.path+"' alt='item_img'>                                          ";
-    					html += " 			<div class='caption'>                                                                  ";
-    					html += " 				<h3>"+parseData.name+"</h3>                                                        ";
-    					html += " 				<span class='discount'>"+parseData.discount+"%</span>                              ";
-    					html += " 				<span class='final-price'>"+parseData.finalPrice+"원</span>                         ";
-    					html += " 				<h3 class='origin-price'>"+parseData.price+"원</h3>                                 ";
-    					html += " 			</div>                                                                                 ";
-    					html += " 		</div>                                                                                     ";
-    					html += " 	</div>                                                                                         ";
-       					html += " 	<div class='col-sm-6 col-md-3'>                                                                ";
-    					html += " 		<div class='thumbnail'>                                                                    ";
-    					html += " 			<img src='"+parseData.path+"' alt='item_img'>                                          ";
-    					html += " 			<div class='caption'>                                                                  ";
-    					html += " 				<h3>"+parseData.name+"</h3>                                                        ";
-    					html += " 				<span class='discount'>"+parseData.discount+"%</span>                              ";
-    					html += " 				<span class='final-price'>"+parseData.finalPrice+"원</span>                         ";
-    					html += " 				<h3 class='origin-price'>"+parseData.price+"원</h3>                                 ";
-    					html += " 			</div>                                                                                 ";
-    					html += " 		</div>                                                                                     ";
-    					html += " 	</div>                                                                                         ";
-       					html += " 	<div class='col-sm-6 col-md-3'>                                                                ";
-    					html += " 		<div class='thumbnail'>                                                                    ";
-    					html += " 			<img src='"+parseData.path+"' alt='item_img'>                                          ";
-    					html += " 			<div class='caption'>                                                                  ";
-    					html += " 				<h3>"+parseData.name+"</h3>                                                        ";
-    					html += " 				<span class='discount'>"+parseData.discount+"%</span>                              ";
-    					html += " 				<span class='final-price'>"+parseData.finalPrice+"원</span>                         ";
-    					html += " 				<h3 class='origin-price'>"+parseData.price+"원</h3>                                 ";
-    					html += " 			</div>                                                                                 ";
-    					html += " 		</div>                                                                                     ";
-    					html += " 	</div>                                                                                         ";
-    					html += " </div><!--row01-->                                                                               ";
-        			}
-    				$("#row-wrap").append(html);
-    				
-    			}//--if */
-
-	
     			
     			//기존데이터 삭제 (id가 listContainer인 요소의 클래스값이 row인 div요소를 제거)
-    			$("#listContainer>#row-wrap").empty();
+    			$("#listContainer>.row").empty();
     			var html = ""; 
     		
     			
@@ -238,57 +181,22 @@
     				//목록 추가
     				$.each(parseData, function(i, value) {
     					console.log(i+","+value.name);
-    					html += " <div class='row'><!--한row에 thumbnail4개-->                                                       ";
     					html += " 	<div class='col-sm-6 col-md-3'>                                                                ";
     					html += " 		<div class='thumbnail'>                                                                    ";
     					html += " 			<img src='"+value.path+"' alt='item_img'>                                              ";
     					html += " 			<div class='caption'>                                                                  ";
     					html += " 				<h3>"+value.name+"</h3>                                                            ";
     					html += " 				<span class='discount'>"+value.discount+"%</span>                                  ";
-    					html += " 				<span class='final-price'>"+value.finalPrice+"원</span>                              ";
-    					html += " 				<h3 class='origin-price'>"+value.price+"원</h3>                                       ";
+    					html += " 				<span class='final-price'>"+value.finalPrice+"원</span>                             ";
+    					html += " 				<h3 class='origin-price'>"+value.price+"원</h3>                                     ";
     					html += " 			</div>                                                                                 ";
     					html += " 		</div>                                                                                     ";
     					html += " 	</div>                                                                                         ";
-       					html += " 	<div class='col-sm-6 col-md-3'>                                                                ";
-    					html += " 		<div class='thumbnail'>                                                                    ";
-    					html += " 			<img src='"+value.path+"' alt='item_img'>                                              ";
-    					html += " 			<div class='caption'>                                                                  ";
-    					html += " 				<h3>"+value.name+"</h3>                                                            ";
-    					html += " 				<span class='discount'>"+value.discount+"</span>                                  ";
-    					html += " 				<span class='final-price'>"+value.finalPrice+"</span>                              ";
-    					html += " 				<h3 class='origin-price'>"+value.price+"</h3>                                       ";
-    					html += " 			</div>                                                                                 ";
-    					html += " 		</div>                                                                                     ";
-    					html += " 	</div>                                                                                         ";
-       					html += " 	<div class='col-sm-6 col-md-3'>                                                                ";
-    					html += " 		<div class='thumbnail'>                                                                    ";
-    					html += " 			<img src='"+value.path+"' alt='item_img'>                                              ";
-    					html += " 			<div class='caption'>                                                                  ";
-    					html += " 				<h3>"+value.name+"</h3>                                                            ";
-    					html += " 				<span class='discount'>"+value.discount+"</span>                                  ";
-    					html += " 				<span class='final-price'>"+value.finalPrice+"</span>                              ";
-    					html += " 				<h3 class='origin-price'>"+value.price+"</h3>                                       ";
-    					html += " 			</div>                                                                                 ";
-    					html += " 		</div>                                                                                     ";
-    					html += " 	</div>                                                                                         ";
-       					html += " 	<div class='col-sm-6 col-md-3'>                                                                ";
-    					html += " 		<div class='thumbnail'>                                                                    ";
-    					html += " 			<img src='"+value.path+"' alt='item_img'>                                              ";
-    					html += " 			<div class='caption'>                                                                  ";
-    					html += " 				<h3>"+value.name+"</h3>                                                            ";
-    					html += " 				<span class='discount'>"+value.discount+"</span>                                  ";
-    					html += " 				<span class='final-price'>"+value.finalPrice+"</span>                              ";
-    					html += " 				<h3 class='origin-price'>"+value.price+"</h3>                                       ";
-    					html += " 			</div>                                                                                 ";
-    					html += " 		</div>                                                                                     ";
-    					html += " 	</div>                                                                                         ";
-    					html += " </div><!--row01-->                                                                               ";
+     
     				});
     			}
-    			//ㅑㅑi가 4가 되면 return
     			//container에 데이터 추가
-    			$("#listContainer>#row-wrap").append(html); 
+    			$("#listContainer>.row").append(html); 
     			
         	},
         	error:function(data){//실패시 처리

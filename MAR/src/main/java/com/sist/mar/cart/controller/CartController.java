@@ -47,7 +47,7 @@ public class CartController {
 		int flag = cartService.doDelete(param);
 		String resultMsg = "";
 		if(flag == 1) {
-			resultMsg = "삭제를 성공하였습니다.";
+			resultMsg = "상품을 삭제하였습니다.";
 		} else {
 			resultMsg = "삭제를 실패하였습니다.";
 		}

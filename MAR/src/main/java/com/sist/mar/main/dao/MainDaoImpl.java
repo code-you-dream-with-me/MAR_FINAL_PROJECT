@@ -52,9 +52,9 @@ public class MainDaoImpl {
 		
 		List<MainVO> list = sqlSessionTemplate.selectList(statement, param);
 		
-		for(MainVO vo:list) {
-			LOG.debug("=vo="+vo);
-		}
+//		for(MainVO vo:list) {
+//			LOG.debug("=vo="+vo);
+//		}
 		
 		return list;
 	}

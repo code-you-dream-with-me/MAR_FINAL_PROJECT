@@ -41,26 +41,9 @@ public class MainController {
 		LOG.debug("******************************************************");
 		LOG.debug("* 메인 화면 load *");
 		LOG.debug("******************************************************");
-	
-		List codeListParam = new ArrayList<String>();
-		codeListParam.add("LIST_DIV");//목록구분
-		
-		List<Code> codeList = getCodePageRetrieve(codeListParam);
-		
-		List<Code> comListDiv = new ArrayList<Code>();
-		
-		for(Code vo:codeList) {
-			if(vo.getMstCode().equals("LIST_DIV")) {
-				comListDiv.add(vo);
-				LOG.debug(vo.toString());
-			}
-		}
-		model.addAttribute("LIST_DIV", comListDiv);
 		
 		return "main/main";
 	}
-	
-
 	
 	//<<<<목록조회 메서드>>>>
 	@RequestMapping(value="main/do_retrieve.do", method=RequestMethod.GET
@@ -104,13 +87,6 @@ public class MainController {
 		
 		return jsonList;
 	}
-	
-	private List<?> getCodePageRetrieve(List<String> codeList) throws SQLException {
-	Map<String,Object> codeMap = new HashMap<String,Object>();
-	
-	codeMap.put("codeList",codeList);
-	
-	return codeService.getCodeRetrieve(codeMap);
-	}
+
 
 }

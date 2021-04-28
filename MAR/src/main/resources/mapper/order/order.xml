@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mar.order">
+
+	<insert id="doInsertOrdering" parameterType="Ordering" >
+		INSERT INTO ordering (
+		    order_no,
+		    member_id,
+		    price,
+		    name,
+		    phone,
+		    address,
+		    request,
+		    order_state,
+		    order_date
+		) VALUES (
+		    ORDERING_SEQ.NEXTVAL, 
+		    #{memberId},
+		    #{price},
+		    #{name}, 
+		    #{phone}, 
+		    #{address}, 
+		    #{request}, 
+		    #{orderState},
+		    SYSDATE
+		)
+	</insert>
+	
+	<insert id="doInsertOrderitem" parameterType="Orderitem" >
+		INSERT INTO orderitem (
+		    orderitem_no,
+		    order_no,
+		    item_no,
+		    quantity
+		) VALUES (
+		    ORDERITEM_SEQ.NEXTVAL, 
+		    #{orderNo},
+		    #{itemNo}, 
+		    #{quantity} 
+		)
+	</insert>
+	
+	<delete id="doDeleteCart" parameterType="String">
+		DELETE FROM cart
+		WHERE cart_no IN (
+		                    SELECT cart_no
+		                    FROM cart
+		                    WHERE member_id = #{param}
+		                 )
+	</delete>
+	
+	<select id="doSelectOneOrderNo" parameterType="String" resultType="int" >
+		SELECT order_no
+		FROM (SELECT * FROM ordering ORDER BY order_date DESC)
+		WHERE member_id = #{param}
+		<![CDATA[ AND ROWNUM <= 1 ]]>
+	</select>
+
+</mapper>

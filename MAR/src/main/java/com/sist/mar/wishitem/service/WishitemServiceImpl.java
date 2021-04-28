@@ -25,22 +25,27 @@ public class WishitemServiceImpl implements WishitemService {
 	public WishitemServiceImpl() {}
 	
 	// dao에 있는 삭제, 등록, 단건조회, 목록조회
+	@Override
 	public int doDelete(String param) throws SQLException {
 		return this.wishDao.doDelete(param);
 	}
 	
+	@Override
 	public int doInsert(DTO dto) throws SQLException {
 		return this.wishDao.doInsert(dto);
 	}
 	
+	@Override
 	public DTO doSelectOne(String param) throws SQLException {
 		return this.wishDao.doSelectOne(param);
 	}
 	
+	@Override
 	public List<?> doRetrieve(DTO dto) throws SQLException {
 		return this.wishDao.doRetrieve(dto);
 	}
 	
+	@Override
 	public int wishitemCheck(DTO dto) throws SQLException {
 		return this.wishDao.wishitemCheck(dto);
 	}

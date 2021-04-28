@@ -49,12 +49,16 @@ public class WishitemController {
 		LOG.debug("param : " + param);
 		
 		int flag = wishService.doDelete(param);
-		String message = "";
+		String resultMsg = "";
 		if(flag == 1) {
-			message = "성공";
+			resultMsg = "삭제를 성공하였습니다.";
 		} else {
-			message = "실패";
+			resultMsg = "삭제를 실패하였습니다.";
 		}
+		
+		Message message = new Message();
+		message.setMsgContents(resultMsg);
+		
 		Gson gson = new Gson();
 		String jsonStr = gson.toJson(message);
 		LOG.debug("jsonStr : " + jsonStr);

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.sist.mar.cart.domain.Cart;
 import com.sist.mar.cart.service.CartService;
+import com.sist.mar.cmn.Message;
 
 @Controller
 public class CartController {
@@ -44,12 +45,16 @@ public class CartController {
 		LOG.debug("param : " + param);
 		
 		int flag = cartService.doDelete(param);
-		String message = "";
+		String resultMsg = "";
 		if(flag == 1) {
-			message = "성공";
+			resultMsg = "삭제를 성공하였습니다.";
 		} else {
-			message = "실패";
+			resultMsg = "삭제를 실패하였습니다.";
 		}
+		
+		Message message = new Message();
+		message.setMsgContents(resultMsg);
+		
 		Gson gson = new Gson();
 		String jsonStr = gson.toJson(message);
 		LOG.debug("jsonStr : " + jsonStr);
@@ -64,22 +69,26 @@ public class CartController {
 		LOG.debug("cart : " + cart);
 		
 		int checkFlag = cartService.cartCheck(cart);
-		String msg = "";
+		String resultMsg = "";
 		if (checkFlag == 0) {
 			//동일상품이 장바구니에 없다면 등록
 			int flag = cartService.doInsert(cart);
 			if(1 == flag) {
-				msg = "장바구니에 상품을 담았습니다.";
+				resultMsg = "장바구니에 상품을 담았습니다.";
 			} else {
-				msg = "상품을 담지 못했습니다.";
+				resultMsg = "상품을 담지 못했습니다.";
 			}
 		} else {
 			//동일상품이 장바구니에 있다면 등록x
-			msg = "장바구니에 존재하는 상품입니다.";
+			resultMsg = "장바구니에 존재하는 상품입니다.";
 		}
+		
+		
+		Message message = new Message();
+		message.setMsgContents(resultMsg);
 
 		Gson gson = new Gson();
-		String jsonStr = gson.toJson(msg);
+		String jsonStr = gson.toJson(message);
 		LOG.debug("jsonStr : " + jsonStr);
 		return jsonStr;
 	}

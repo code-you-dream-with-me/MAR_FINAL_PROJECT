@@ -27,11 +27,11 @@
                 <!--class="navbar navbar-default"-->
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav" id="navList">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                aria-expanded="false">카테고리 <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
+                	<input type="hidden" name="pageSize" id="pageSize"/>
+                    <ul class="nav navbar-nav" name="listDiv" id="listDiv" >
+                        <li class="dropdown" value="10" class="e">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">카테고리 <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu" name="categoryNo" id="categoryNo">
                                 <li><a href="#">채소</a></li>
                                 <li class="divider"></li>
                                 <li><a href="#">과일/견과/쌀</a></li>
@@ -53,17 +53,17 @@
                                 <li><a href="#">베이커리/치즈</a></li>
                             </ul>
                         </li>
-                        <li value="20"><a href="#">신상품</a></li>
-                        <li value="30"><a href="#">베스트</a></li>
-                        <li value="40"><a href="#">알뜰쇼핑</a></li>
+                        <li value="20" class="e"><a href="#">신상품</a></li>
+                        <li value="30" class="e"><a href="#">베스트</a></li>
+                        <li value="40" class="e"><a href="#">알뜰쇼핑</a></li>
                         <li><a href="#">레시피</a></li>
-                        <li><a href="#">장바구니</a></li>    
+                        <li><a href="#">장바구니</a></li>
                     </ul>
                     <div class="nav navbar-form navbar-right search_container" role="search">
                         <table class="search_elements">
                             <tr>
                                 <td>
-                                    <input type="text" placeholder="검색어를 입력하십시오" class="search_input">
+                                    <input type="text" name="searchWord" id="searchWord" maxlength="100" placeholder="검색어를 입력하십시오" class="search_input">
                                 </td>
                                 <td>
                                     <a href="#"><img src="${hContext }/resources/image_source/black-24dp/1x/outline_search_black_24dp.png"></a>

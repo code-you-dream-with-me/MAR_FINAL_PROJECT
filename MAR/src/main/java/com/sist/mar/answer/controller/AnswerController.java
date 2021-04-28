@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import com.google.gson.Gson;
 import com.sist.mar.answer.domain.Answer;
 import com.sist.mar.answer.service.AnswerService;
 import com.sist.mar.cmn.Message;
+import com.sist.mar.item.domain.Item;
 
 @Controller
 public class AnswerController {
@@ -35,6 +37,15 @@ public class AnswerController {
 		LOG.debug("=================");
 		return "answer/answer";
 	}
+	
+	@RequestMapping(value = "answer/answer_moview.do")
+	public String view02(Model model) {
+		LOG.debug("=================");
+		LOG.debug("=answer view=");
+		LOG.debug("=================");
+		return "answer/answer_mod";
+	}
+
 
 	/**
 	 * 답변 전체 목록 조회
@@ -88,6 +99,58 @@ public class AnswerController {
 		LOG.debug("jsonList:" + jsonList);
 
 		return jsonList;
+	}
+	
+   
+	@RequestMapping(value = "answer/do_selectans.do",method = RequestMethod.GET
+			,produces = "application/json;charset=UTF-8")
+	@ResponseBody	
+	public String doSelectAnswer(Answer answer) throws SQLException {
+		LOG.debug("param:"+answer);
+		
+		Answer outVO = (Answer) answerService.doSelectAnswer(answer);
+		
+		LOG.debug("outVO:"+outVO);
+		
+		Gson gson = new Gson();
+		String jsonStr = gson.toJson(outVO);
+		LOG.debug("jsonStr:"+jsonStr);
+		
+		return jsonStr;
+	}
+	
+	
+	/**
+	 * 답변 수정
+	 * @param dto
+	 * @return JSON(1:성공,0:실패)
+	 * @throws RuntimeException
+	 * @throws SQLException 
+	 */     
+	@SuppressWarnings("deprecation")
+	@RequestMapping(value = "answer/do_update.do",method = RequestMethod.POST
+			,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody       
+	public String doUpdate(Answer answer) throws SQLException {
+		LOG.debug("param:"+answer);
+		
+		int flag = answerService.doUpdate(answer);
+		String resultMsg = "";
+		if(1 == flag) {
+			resultMsg = "답변이 수정되었습니다.";
+		}else {
+			resultMsg = "답변 수정에 실패했습니다";
+		}
+		
+		Message message=new Message();
+		message.setMsgId(flag+"");
+		message.setMsgContents(resultMsg);
+		
+		Gson  gson=new Gson();
+		String jsonStr = gson.toJson(message);
+		LOG.debug("jsonStr:"+jsonStr);
+		
+		return jsonStr;
 	}
 
 	/**

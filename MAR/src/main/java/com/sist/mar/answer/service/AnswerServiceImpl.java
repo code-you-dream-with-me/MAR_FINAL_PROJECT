@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 
 import com.sist.mar.answer.dao.AnswerDaoImpl;
 import com.sist.mar.cmn.DTO;
+import com.sist.mar.question.dao.QuestionDaoImpl;
 
 @Service
 public class AnswerServiceImpl implements AnswerService {
 
 	@Autowired
 	AnswerDaoImpl answerDaoImpl;
+	
+	@Autowired
+	QuestionDaoImpl questionDaoImpl;
 	
 	@Override
 	public List<?> getAllList() throws SQLException {
@@ -37,7 +41,13 @@ public class AnswerServiceImpl implements AnswerService {
 
 	@Override
 	public int doInsert(DTO dto) throws SQLException {
-		return answerDaoImpl.doInsert(dto);
+		int flag = answerDaoImpl.doInsert(dto);
+		return questionDaoImpl.answerCheck(dto);
+	}
+
+	@Override
+	public DTO doSelectAnswer(DTO dto) throws SQLException {
+		return answerDaoImpl.doSelectAnswer(dto);
 	}
 
 }

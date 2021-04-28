@@ -23,6 +23,9 @@ public interface AnswerService {
 	 */
 	List<?> doSelectOne(DTO dto) throws SQLException;
 	
+	
+	DTO doSelectAnswer(DTO dto) throws SQLException;
+	
 	/**
 	 * 문의 답변 수정
 	 * @param DTO

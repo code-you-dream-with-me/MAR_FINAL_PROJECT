@@ -60,11 +60,46 @@ public class AnswerDaoImpl  {
 		}
 		return list;
 	}
-
 	
+	public DTO doSelectAnswer(DTO dto) throws SQLException {
+		Answer inVO = (Answer) dto;
+		Answer outVO = null;
+		
+		String statement = NAMESPACE+".doSelectAnswer";
+		LOG.debug("=inVO="+inVO);
+		LOG.debug("=statement="+statement);
+		
+		outVO = this.sqlSessionTemplate.selectOne(statement, inVO);
+
+		LOG.debug("=outVO="+outVO);
+		
+		if(null == outVO) {
+			LOG.debug("=============================");
+			LOG.debug("=null outVO ="+outVO);
+			LOG.debug("=============================");			
+			throw new EmptyResultDataAccessException("여기 EmptyResultDataAccessException",1);
+		}
+		
+		return outVO;
+
+	}
+
+	/**
+	 * 답변 내용 수정
+	 * @param dto
+	 * @return
+	 * @throws SQLException
+	 */
 	public int doUpdate(DTO dto) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		int flag = 0;
+		Answer answer = (Answer) dto;
+		
+		String statement = NAMESPACE+".doUpdate";
+		
+		flag = sqlSessionTemplate.update(statement, answer);
+		
+		return flag;
+		
 	}
 
 	/**

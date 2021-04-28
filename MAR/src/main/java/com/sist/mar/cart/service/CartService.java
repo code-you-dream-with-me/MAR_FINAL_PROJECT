@@ -1,0 +1,48 @@
+package com.sist.mar.cart.service;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sist.mar.cart.dao.CartDao;
+import com.sist.mar.cmn.DTO;
+
+@Service
+public class CartService {
+
+	final Logger LOG = LoggerFactory.getLogger(CartService.class);
+
+	@Autowired
+	public CartDao cartDao;
+	
+	public CartService() {}
+	
+	// dao에 있는 삭제, 등록, 단건조회, 목록조회
+	public int doDelete(String param) throws SQLException {
+		return this.cartDao.doDelete(param);
+	}
+	
+	public int doInsert(DTO dto) throws SQLException {
+		return this.cartDao.doInsert(dto);
+	}
+	
+	public int doUpdate(DTO dto) throws SQLException {
+		return this.cartDao.doUpdate(dto);
+	}
+	
+	public List<?> doRetrieve(String param) throws SQLException {
+		return this.cartDao.doRetrieve(param);
+	}
+	
+	public DTO doOrder(String param) throws SQLException {
+		return this.cartDao.doOrder(param);
+	}
+	
+	public int cartCheck(DTO dto) throws SQLException {
+		return this.cartDao.cartCheck(dto);
+	}
+}

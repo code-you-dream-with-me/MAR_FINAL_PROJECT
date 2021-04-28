@@ -29,7 +29,7 @@
 	
 	<!-- answerCheck -->
 	<!-- 답변수가 0보다 많으면, QUESTION 테이블의 answer_check 칼럼이 0 -> 1로 변함.. 현재 doSelectOne시 갱신, 답변 insert시 발동가능하게 하길.. -->
-	<update id="answerCheck" parameterType="QuestionVO">
+	<update id="answerCheck" parameterType="Answer">
 	
 		UPDATE question
 		SET answer_check = 1

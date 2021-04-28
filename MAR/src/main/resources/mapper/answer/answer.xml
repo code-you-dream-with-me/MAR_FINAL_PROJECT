@@ -16,6 +16,21 @@
 		FROM answer
 	
 	</select>
+	
+		<!-- doSelectOne -->
+	<select id="doSelectAnswer" parameterType="Answer" resultType="Answer" >
+		SELECT
+			answer_no as answerNo,
+		    question_no as questionNo,
+		    a_user as aUser,
+		    contents,
+		    CASE WHEN TO_CHAR(SYSDATE,'YYYY/MM/DD') = TO_CHAR(reg_dt, 'YYYY/MM/DD')           
+            THEN TO_CHAR(reg_dt,'HH24:MI')                                               
+            ELSE TO_CHAR(reg_dt,'YYYY/MM/DD') END regDt
+		FROM answer
+		WHERE answer_no = #{answerNo}
+
+	</select>
 
 	<!-- doSelectOne -->
 	<select id="doSelectOne" parameterType="Answer" resultType="Answer" >
@@ -34,7 +49,9 @@
 
 	<!-- update -->
 	<update id="doUpdate" parameterType="Answer">
-
+		UPDATE answer
+		SET contents = #{contents}
+		WHERE answer_no = #{answerNo}
 	</update>
 
 	<!-- delete -->

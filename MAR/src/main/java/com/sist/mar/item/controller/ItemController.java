@@ -43,6 +43,11 @@ public class ItemController {
 		return "item/item_detail";
 	}
 	
+	@RequestMapping(value = "item/item_mod.do")
+	public String view03(Model model) {
+
+		return "item/item_mod";
+	}
 	/**
 	 * 상품 전체 목록 조회
 	 * @param dto

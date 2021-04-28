@@ -17,9 +17,9 @@ import com.sist.mar.cart.service.CartService;
 import com.sist.mar.cmn.Search;
 
 @Controller
-public class cartController {
+public class CartController {
 
-	final Logger LOG = LoggerFactory.getLogger(cartController.class);
+	final Logger LOG = LoggerFactory.getLogger(CartController.class);
 	
 	@Autowired
 	CartService cartService;

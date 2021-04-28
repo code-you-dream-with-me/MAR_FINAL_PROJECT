@@ -20,9 +20,9 @@ import com.sist.mar.wishitem.domain.Wishitem;
 import com.sist.mar.wishitem.service.WishitemService;
 
 @Controller
-public class wishitemController {
+public class WishitemController {
 
-	final Logger LOG = LoggerFactory.getLogger(wishitemController.class);
+	final Logger LOG = LoggerFactory.getLogger(WishitemController.class);
 	
 	@Autowired
 	WishitemService wishService;

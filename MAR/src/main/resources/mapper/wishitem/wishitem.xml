@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mar.wishitem">
+
+	<resultMap type="Wishitem" id="wishResult">
+		<id     property="wishNo"         column="wish_no"       />
+		<result property="memberId"       column="member_id"     />
+		<result property="itemNo"         column="item_no"       />
+		<result property="item_name"       column="name"         />
+		<result property="item_price"      column="price"        />
+		<result property="item_discount"   column="discount"     />
+		<result property="item_final_price" column="final_price" />
+		<result property="image_save_name" column="save_name"    />
+		<result property="image_path"      column="path"         />
+		<result property="num"             column="rnum"         />
+		<result property="totalCnt"       column="total_cnt"     />
+	</resultMap>  
+	
+	<delete id="doDelete" parameterType="String">
+		DELETE FROM wishitem
+		WHERE  wish_no = #{param} 
+	</delete>
+	
+	<insert id="doInsert" parameterType="Wishitem">
+		INSERT INTO wishitem (
+		    wish_no,
+		    member_id,
+		    item_no,
+		    wish_date
+		) VALUES (
+		    WISH_SEQ.NEXTVAL,
+		    #{memberId},
+		    #{itemNo},
+		    SYSDATE
+		)               
+	</insert>
+	
+	<select id="doSelectOne" parameterType="String" resultMap="wishResult">
+		SELECT                             
+		    t1.wish_no,                    
+		    t1.member_id,                  
+		    t1.item_no,                    
+		    t2.name,                       
+		    t2.price,                      
+		    t2.discount,                   
+		    t2.final_price                      
+		FROM wishitem t1, item t2
+		WHERE t1.item_no = t2.item_no                   
+		  AND t1.wish_no = #{param}               
+	</select>
+	
+	<select id="doRetrieve" parameterType="Search" resultMap="wishResult" fetchSize="1000">
+		SELECT A.*, B.*                                               
+		FROM (                                                        
+		    SELECT                                                    
+		        t2.rnum,                                              
+		        t2.wish_no,                                           
+		        t2.member_id,                                         
+		        t2.item_no,                                           
+		        t2.name,                                              
+		        t2.price,                                                                                 
+		        t2.save_name,                                         
+		        t2.path                                               
+		    FROM (                                                    
+		        SELECT ROWNUM rnum, t1.*                              
+		        FROM (                                                
+		            SELECT                                            
+		                a.wish_no,                                    
+		                a.member_id,                                  
+		                a.item_no,                                    
+		                b.name,                                       
+		                b.price,                                                                     
+		                c.save_name,                                  
+		                c.path                                        
+		            FROM wishitem a, item b, image c                  
+		            WHERE a.item_no = b.item_no                       
+		              AND a.item_no = c.from_no                       
+		              AND c.from_tb = 1                               
+		              AND c.main_image = 1                            
+		              AND a.member_id = #{searchWord}                              
+		            ORDER BY a.wish_date                              
+		        )t1
+		    <![CDATA[  
+		        WHERE ROWNUM <= (#{pageSize} * (#{pageNum} - 1) + #{pageSize})                                                 
+		    )t2                                                       
+		    WHERE rnum >= (#{pageSize} * (#{pageNum} - 1) + 1)
+		    ]]>
+		) A CROSS JOIN (                                              
+		SELECT COUNT(*) total_cnt                                     
+		FROM wishitem a, item b, image c                              
+		WHERE a.item_no = b.item_no                                   
+		  AND a.item_no = c.from_no                                   
+		  AND c.from_tb = 1                                           
+		  AND c.main_image = 1                                        
+		  AND a.member_id = #{searchWord}                                         
+		)B                                                            
+	</select>
+	
+	<select id="wishitemCheck" parameterType="Wishitem" resultType="int">
+		SELECT COUNT(*) cnt
+		FROM wishitem
+		WHERE item_no = #{itemNo}
+	    AND member_id = #{memberId}
+	</select>
+  
+
+</mapper>

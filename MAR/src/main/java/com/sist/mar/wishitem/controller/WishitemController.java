@@ -17,7 +17,7 @@ import com.sist.mar.cmn.Message;
 import com.sist.mar.cmn.Search;
 import com.sist.mar.cmn.StringUtil;
 import com.sist.mar.wishitem.domain.Wishitem;
-import com.sist.mar.wishitem.service.WishitemServiceImpl;
+import com.sist.mar.wishitem.service.WishitemService;
 
 @Controller
 public class WishitemController {
@@ -25,7 +25,7 @@ public class WishitemController {
 	final Logger LOG = LoggerFactory.getLogger(WishitemController.class);
 	
 	@Autowired
-	WishitemServiceImpl wishService;
+	WishitemService wishService;
 	
 	// 늘사는것 페이지 -------------------------------------------------------------------------------------
 	@RequestMapping(value = "wishitem/wishitem_list.do")

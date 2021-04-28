@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.sist.mar.cart.domain.Cart;
-import com.sist.mar.cart.service.CartServiceImpl;
-import com.sist.mar.cmn.Search;
+import com.sist.mar.cart.service.CartService;
 
 @Controller
 public class CartController {
@@ -22,7 +21,7 @@ public class CartController {
 	final Logger LOG = LoggerFactory.getLogger(CartController.class);
 	
 	@Autowired
-	CartServiceImpl cartService;
+	CartService cartService;
 	
 	// 장바구니 페이지 -------------------------------------------------------------------------------------
 	@RequestMapping(value = "cart/cart_list.do")

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
+import com.sist.mar.answer.domain.Answer;
 import com.sist.mar.cmn.DTO;
 import com.sist.mar.cmn.Search;
 import com.sist.mar.question.domain.QuestionVO;
@@ -40,7 +41,8 @@ public class QuestionDaoImpl {
 	public int answerCheck(DTO dto) {
 		
 		int flag = 0;
-		QuestionVO question = (QuestionVO) dto;
+		
+		Answer question = (Answer) dto;
 		
 		// mybatis sql : NAMESPACE + . + id;
 		String statement = this.NAMESPACE + ".answerCheck";

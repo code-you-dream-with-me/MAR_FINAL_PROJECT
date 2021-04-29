@@ -50,15 +50,21 @@ public class AdminServiceImpl {
 	}
 	
 	public int doRejectCancel(DTO dto) throws SQLException {
-		return adminDao.doRejectCancel(dto);
+		int flag = adminDao.doRejectCancelPayment(dto);
+		flag += adminDao.doRejectCancel(dto);
+		return flag;
 	}
 	
 	public int doReturnCancel(DTO dto) throws SQLException {
-		return adminDao.doReturnCancel(dto);
+		int flag = adminDao.doReturnCancelPayment(dto);
+		flag += adminDao.doReturnCancel(dto);
+		return flag;
 	}
 	
 	public int doApproveCancel(DTO dto) throws SQLException {
-		return adminDao.doApproveCancel(dto);
+		int flag = adminDao.doApproveCancelPayment(dto);
+		flag += adminDao.doApproveCancel(dto);
+		return flag;
 	}
 	
 	public List<MemberVO> doRetrieveMember(DTO dto) throws SQLException {

@@ -153,6 +153,27 @@
 		WHERE order_no = #{orderNo}	
 	</update>
 	
+	<!-- doRejectCancelPayment -->
+	<update id="doRejectCancelPayment">
+		UPDATE payment
+		SET state = '1'
+		WHERE order_no = #{orderNo}		
+	</update>
+	
+	<!-- doReturnCancelPayment -->
+	<update id="doReturnCancelPayment">
+		UPDATE payment
+		SET state = '1'
+		WHERE order_no = #{orderNo}		
+	</update>
+	
+	<!-- doApproveCancelPayment -->
+	<update id="doApproveCancelPayment">
+		UPDATE payment
+		SET state = '2'
+		WHERE order_no = #{orderNo}	
+	</update>
+	
 	<!-- doRetrieveMember -->
 	<select id="doRetrieveMember" resultType="MemberVO">
 		SELECT

@@ -128,7 +128,7 @@ public class AdminController {
 		int flag = adminService.doRejectCancel(ordering);
 		message.setMsgId(Integer.toString(flag));
 		
-		if(message.getMsgId().equals("1")) message.setMsgContents("주문취소요청에 대한 거부가 완료되었습니다.");
+		if(message.getMsgId().equals("2")) message.setMsgContents("주문취소요청에 대한 거부가 완료되었습니다.");
 		else message.setMsgContents("주문취소요청에 대한 거부가 실패하였습니다.");
 		
 		return gson.toJson(message);
@@ -146,7 +146,7 @@ public class AdminController {
 		int flag = adminService.doReturnCancel(ordering);
 		message.setMsgId(Integer.toString(flag));
 		
-		if(message.getMsgId().equals("1")) message.setMsgContents("주문취소요청 승인을 재심사합니다.");
+		if(message.getMsgId().equals("2")) message.setMsgContents("주문취소요청 승인을 재심사합니다.");
 		else message.setMsgContents("주문취소요청 승인을 재심사를 실패하였습니다.");
 		
 		return gson.toJson(message);
@@ -164,7 +164,7 @@ public class AdminController {
 		int flag = adminService.doApproveCancel(ordering);
 		message.setMsgId(Integer.toString(flag));
 		
-		if(message.getMsgId().equals("1")) message.setMsgContents("주문취소요청 승인을 합니다.");
+		if(message.getMsgId().equals("2")) message.setMsgContents("주문취소요청 승인을 합니다.");
 		else message.setMsgContents("주문취소요청 승인에 실패하였습니다.");
 		
 		return gson.toJson(message);

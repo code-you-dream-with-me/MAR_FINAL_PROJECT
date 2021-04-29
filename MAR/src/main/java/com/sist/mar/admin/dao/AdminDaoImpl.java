@@ -61,6 +61,18 @@ public class AdminDaoImpl {
 		return this.sqlSessionTemplate.update(this.NAMESPACE + ".doApproveCancel", dto);
 	}
 	
+	public int doRejectCancelPayment(DTO dto) throws SQLException {
+		return this.sqlSessionTemplate.update(this.NAMESPACE + ".doRejectCancelPayment", dto);
+	}
+	
+	public int doReturnCancelPayment(DTO dto) throws SQLException {
+		return this.sqlSessionTemplate.update(this.NAMESPACE + ".doReturnCancelPayment", dto);
+	}
+	
+	public int doApproveCancelPayment(DTO dto) throws SQLException {
+		return this.sqlSessionTemplate.update(this.NAMESPACE + ".doApproveCancelPayment", dto);
+	}
+	
 	public List<MemberVO> doRetrieveMember(DTO dto) throws SQLException {
 		return this.sqlSessionTemplate.selectList(this.NAMESPACE + ".doRetrieveMember", dto);
 	}

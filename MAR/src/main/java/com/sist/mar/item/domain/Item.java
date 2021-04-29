@@ -21,6 +21,7 @@ public class Item extends DTO {
 	
 	private int mainImage;
 	private String path;
+	private String saveName;    
 
 	
 	public Item () {}
@@ -28,7 +29,7 @@ public class Item extends DTO {
 
 	public Item(int itemNo, String name, int price, String production, String weight, String expired, String detail,
 			int discount, int finalPrice, int sales, int categoryNo, String regId, String regDt, String modDt,
-			int mainImage, String path) {
+			int mainImage, String path, String saveName) {
 		super();
 		this.itemNo = itemNo;
 		this.name = name;
@@ -46,6 +47,7 @@ public class Item extends DTO {
 		this.modDt = modDt;
 		this.mainImage = mainImage;
 		this.path = path;
+		this.saveName = saveName;
 	}
 
 
@@ -209,15 +211,24 @@ public class Item extends DTO {
 	}
 
 
+	public String getSaveName() {
+		return saveName;
+	}
+
+
+	public void setSaveName(String saveName) {
+		this.saveName = saveName;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Item [itemNo=" + itemNo + ", name=" + name + ", price=" + price + ", production=" + production
 				+ ", weight=" + weight + ", expired=" + expired + ", detail=" + detail + ", discount=" + discount
 				+ ", finalPrice=" + finalPrice + ", sales=" + sales + ", categoryNo=" + categoryNo + ", regId=" + regId
 				+ ", regDt=" + regDt + ", modDt=" + modDt + ", mainImage=" + mainImage + ", path=" + path
-				+ ", toString()=" + super.toString() + "]";
+				+ ", saveName=" + saveName + ", toString()=" + super.toString() + "]";
 	}
-
 
 
 

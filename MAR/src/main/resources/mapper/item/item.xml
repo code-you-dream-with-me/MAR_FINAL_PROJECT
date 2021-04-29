@@ -49,13 +49,14 @@
 	           THEN TO_CHAR(t1.mod_dt,'HH24:MI')                                               
 	           ELSE TO_CHAR(t1.mod_dt,'YYYY/MM/DD') END modDt, 
 	        t2.main_image as mainImage,
-	        t2.path || '/' || t2.save_name AS path        
+	        t2.path,
+	        t2.save_name AS saveName       
 		FROM	 (SELECT * 
 			    FROM item        
 			    WHERE category_no = #{categoryNo}
 			    AND item_no NOT IN #{itemNo}
 			    ORDER BY reg_dt DESC
-			    FETCH FIRST 5 ROWS ONLY) t1, image t2
+			    FETCH FIRST 4 ROWS ONLY) t1, image t2
 		WHERE   t2.from_tb =1
 				AND t2.from_no = t1.item_no
 		        AND t2.main_image = 1

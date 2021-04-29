@@ -1,5 +1,8 @@
 package com.sist.mar.recipe.service;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.sist.mar.recipe.dao.RecipeDaoImpl;
 import com.sist.mar.recipe.domain.RecipeVO;
+import com.sist.mar.recipe.domain.SimpleItemVO;
 
 @Service
 public class RecipeServiceImpl {
@@ -43,7 +47,12 @@ public class RecipeServiceImpl {
 		return recipeDao.doSelectOne(recipeVO);
 	}
 	
-	
+	public List<SimpleItemVO> doShowRelevantItem(RecipeVO recipeVO) throws SQLException {
+		recipeDao.doInsertRelevantItem(recipeVO);
+		List<SimpleItemVO> list = recipeDao.doRetrieveRelevantItem();
+		recipeDao.doDeleteRelevantItem();
+		return list;
+	}
 	
 	
 }

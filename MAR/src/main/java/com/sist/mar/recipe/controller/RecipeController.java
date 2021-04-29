@@ -1,5 +1,7 @@
 package com.sist.mar.recipe.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.sist.mar.cmn.Message;
 import com.sist.mar.recipe.domain.RecipeVO;
+import com.sist.mar.recipe.domain.SimpleItemVO;
 import com.sist.mar.recipe.service.RecipeServiceImpl;
 
 @Controller
@@ -121,5 +124,16 @@ public class RecipeController {
 		return recipeService.doSelectRecipe(recipeVO);
 	}
 	
+	
+	@RequestMapping(value = "recipe/do_show_relevant_item.do", method = RequestMethod.GET
+			,produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String doShowRelevantItem(RecipeVO recipeVO) throws Exception {
+			
+		List<SimpleItemVO> list = recipeService.doShowRelevantItem(recipeVO);
+		Gson gson = new Gson();
+		return gson.toJson(list.toArray());
+		
+	}
 	
 }

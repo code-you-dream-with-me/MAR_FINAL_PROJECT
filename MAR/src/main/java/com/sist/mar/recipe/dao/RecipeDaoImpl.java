@@ -52,8 +52,16 @@ public class RecipeDaoImpl {
 		return this.sqlSessionTemplate.update(this.NAMESPACE + ".doCountReadCnt", (RecipeVO) dto);
 	}
 	
-	public List<SimpleItemVO> doRetrieveRelevantItem(DTO dto) throws SQLException {
-		return this.sqlSessionTemplate.selectList(this.NAMESPACE + ".doRetrieveRelevantItem", (RecipeVO) dto);
+	public void doInsertRelevantItem(DTO dto) throws SQLException {
+		this.sqlSessionTemplate.insert(this.NAMESPACE + ".doInsertRelevantItem", (RecipeVO) dto);
+	}
+	
+	public List<SimpleItemVO> doRetrieveRelevantItem() throws SQLException {
+		return this.sqlSessionTemplate.selectList(this.NAMESPACE + ".doRetrieveRelevantItem");
+	}
+	
+	public int doDeleteRelevantItem() throws SQLException {
+		return this.sqlSessionTemplate.delete(this.NAMESPACE + ".doDeleteRelevantItem");
 	}
 	
 }

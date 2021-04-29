@@ -33,6 +33,7 @@ import com.google.gson.reflect.TypeToken;
 import com.sist.mar.image.domain.ImageVO;
 import com.sist.mar.recipe.controller.RecipeController;
 import com.sist.mar.recipe.domain.RecipeVO;
+import com.sist.mar.recipe.domain.SimpleItemVO;
 
 //메소드 수행 순서: method ASCENDING ex)a~z
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -88,7 +89,7 @@ public class JTestRecipeController {
 		recipe01 = new RecipeVO(241, "123wodnr@naver.com", "레시피1", "레시피 컨텐츠1", 0, "재료1, 재료2, 재료3", "https://www.youtube.com/", null, null);
 		recipe01New = new RecipeVO(202, "123wodnr@naver.com", "레시피1_new", "레시피 컨텐츠1_new", 5, "재료1_new, 재료2_new, 재료3_new", "https://www.youtube.com/new", null, null);
 
-		recipeYakiudon = new RecipeVO(506, "123wodnr@naver.com", "볶음우동", "볶음우동 레시피", 0, "진간장, 식초, 황설탕, 물, 식용유, 양배추, 양파, 당근, 돼지고기, 대파, 우동면, 훈연멸치, 쪽파, 마요네즈", "https://www.youtube.com/embed/zRg4nxIv3j8", null, null);
+		recipeYakiudon = new RecipeVO(564, "123wodnr@naver.com", "볶음우동", "볶음우동 레시피", 0, "진간장, 식초, 황설탕, 물, 식용유, 양배추, 양파, 당근, 돼지고기, 대파, 우동면, 훈연멸치, 쪽파, 마요네즈", "https://www.youtube.com/embed/zRg4nxIv3j8", null, null);
 		recipeYakiudonNew = new RecipeVO(506, "123wodnr@naver.com", "볶음우동_수정", "볶음우동 레시피_수정", 0, "진간장, 식초, 황설탕, 물, 식용유, 양배추, 양파, 당근, 돼지고기, 대파, 우동면, 훈연멸치, 쪽파, 마요네즈", "https://www.youtube.com/embed/zRg4nxIv3j8", null, null);
 		
 		recipetteokbokki = new RecipeVO(301, "123wodnr@naver.com", "떡볶이", "떡볶이 레시피", 0, "쌀떡, 밀가루떡, 사각어묵, 양배추, 대파, 물, 삶은달걀, 고추장, 진간장, 고운 고춧가루, 굵은 고춧가루, 황설탕, msg", "https://www.youtube.com/embed/t4Es8mwdYlE", null, null);
@@ -138,12 +139,42 @@ public class JTestRecipeController {
 	}
 
 	@Test
+	@Ignore
 	public void cycle() throws Exception {
 		
-		doInsert();
-		doUpdate();
-		doSelect();
-		doDelete();
+//		doInsert();
+//		doUpdate();
+//		doSelect();
+//		doDelete();
+		
+		
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Test
+	public void doShowRelevantItem() throws Exception {
+		
+		recipe.setRecipeNo(563);
+		
+		MockHttpServletRequestBuilder createMessage = MockMvcRequestBuilders.get("/recipe/do_show_relevant_item.do")
+				.param("recipeNo", Integer.toString(recipe.getRecipeNo()));
+		
+		ResultActions resultActions = mockMvc.perform(createMessage)
+				.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(status().isOk());
+		
+		String list = resultActions.andDo(print()).andReturn().getResponse().getContentAsString();
+		
+		LOG.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		LOG.debug("list: "+list);
+		LOG.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		
+		Gson gson = new Gson();
+		List<SimpleItemVO> simpleItemList = gson.fromJson(list, new TypeToken<List<SimpleItemVO>>() {}.getType());
+		
+		for(SimpleItemVO vo : simpleItemList) {
+			LOG.debug(vo.toString());
+		}
 		
 	}
 	

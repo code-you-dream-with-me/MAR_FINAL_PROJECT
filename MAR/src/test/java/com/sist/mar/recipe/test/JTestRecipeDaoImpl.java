@@ -56,13 +56,18 @@ public class JTestRecipeDaoImpl {
 		LOG.debug(webApplicationContext.toString());
 		LOG.debug(dao.toString());
 		
-		List<SimpleItemVO> list = dao.doRetrieveRelevantItem(recipe);
+		dao.doInsertRelevantItem(recipe);
+		
+		List<SimpleItemVO> list = dao.doRetrieveRelevantItem();
 		LOG.debug(list.toString());
 		
 		
 		for(SimpleItemVO vo : list) {
 			LOG.debug(vo.toString());
 		}
+		
+		dao.doDeleteRelevantItem();
+		
 		
 	}
 

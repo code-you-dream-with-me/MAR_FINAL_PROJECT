@@ -70,84 +70,28 @@
 		WHERE recipe_no = #{recipeNo}	
 	</update>
 	
+	<!-- doInsertRelevantItem -->
+	<insert id="doInsertRelevantItem" statementType="CALLABLE" parameterType="RecipeVO">
+		{
+			CALL do_insert_relevant_item(#{recipeNo})
+		}
+	</insert>
+	
 	<!-- doRetrieveRelevantItem -->
-	<select id="doRetrieveRelevantItem" parameterType="RecipeVO" resultType="SimpleItemVO">
-		DECLARE
-		    SimpleItemNo item.item_no%TYPE;
-		    SimpleItemName item.name%TYPE;
-			SimpleItemPrice item.price%TYPE;
-			SimpleItemImageNo image.image_no%TYPE;
-			SimpleItemImagePath image.path%TYPE;
-			SimpleItemImageName image.save_name%TYPE;
-		    total_ingredient_cnt NUMBER := 0;
-		  
-		BEGIN
-		
-			SELECT COUNT(
-					TRIM(
-						REGEXP_SUBSTR(t0.ingredients,'[^,]+', 1, LEVEL)
-					)
-				)
-			INTO total_ingredient_cnt
-			FROM
-			(	
-				SELECT ingredients
-				FROM recipe
-				WHERE recipe_no = #{recipeNo}
-			)t0
-			CONNECT BY REGEXP_SUBSTR(ingredients, '[^,]+', 1, LEVEL) IS NOT NULL;
-		    
-			WHILE(total_ingredient_cnt > 0) 
-			LOOP
-				BEGIN
-					SELECT t3.item_no, t3.name, t3.price, t4.image_no, t4.path, t4.save_name 
-					INTO SimpleItemNo, SimpleItemName, SimpleItemPrice, SimpleItemImageNo, SimpleItemImagePath, SimpleItemImageName
-					FROM(
-						SELECT t2.item_no, t2.name, t2.price
-						FROM(
-							SELECT item_no, name, sales, price
-							FROM item
-							WHERE name like 
-							'%' || 
-							(
-								SELECT t1.ingredients
-								FROM(
-									SELECT ROWNUM rnum,
-										TRIM(
-											REGEXP_SUBSTR(t0.ingredients,'[^,]+', 1, LEVEL)
-										) AS ingredients 
-									FROM
-									(	
-										SELECT ingredients
-										FROM recipe
-										WHERE recipe_no = #{recipeNo}
-									)t0
-									CONNECT BY REGEXP_SUBSTR(ingredients, '[^,]+', 1, LEVEL) IS NOT NULL					
-								)t1
-								WHERE t1.rnum = total_ingredient_cnt
-							)
-							|| '%'
-							
-							ORDER BY sales DESC
-						)t2
-						WHERE ROWNUM = 1
-					)t3, image t4
-					WHERE t3.item_no = t4.from_no
-					AND t4.main_image = 1
-					
-					;
-					total_ingredient_cnt := total_ingredient_cnt - 1;
-				
-				EXCEPTION
-					WHEN NO_DATA_FOUND THEN
-		                total_ingredient_cnt := total_ingredient_cnt - 1;
-		                CONTINUE;
-				END;
-				
-			END LOOP;
-			
-		END;	
+	<select id="doRetrieveRelevantItem" resultType="SimpleItemVO">
+		SELECT
+		    simple_item_no AS SimpleItemNo,
+		    simple_item_name AS SimpleItemName,
+		    simple_item_price AS SimpleItemPrice,
+		    simple_item_image_no AS SimpleItemImageNo,
+		    simple_item_image_path AS SimpleItemImagePath,
+		    simple_item_image_name AS SimpleItemImageName
+		FROM simpleitem	
 	</select>
 	
+	<!-- doDeleteRelevantItem -->
+	<delete id="doDeleteRelevantItem">
+		DELETE FROM simpleitem
+	</delete>
 	
 </mapper>

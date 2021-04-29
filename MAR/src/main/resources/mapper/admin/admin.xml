@@ -102,7 +102,8 @@
 	<!-- doDiscountItem -->
 	<update id="doDiscountItem" parameterType="Item">
 		UPDATE item
-		SET discount = #{discount}
+		SET discount = #{discount},
+			final_price = price*(100-#{discount})/100
 		WHERE item_no = #{itemNo}	
 	</update>
 	

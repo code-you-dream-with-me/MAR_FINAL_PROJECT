@@ -67,6 +67,28 @@
       textarea:focus  {
         outline: none;
       }
+      .recipe_item_entire_div {
+      }
+      .recipe_item_individual_div {
+      	outline: 0.3px solid lightgray;
+      	width: 200px;
+      	height: 300px;
+      	float: left;
+      	margin: 0px 15px 20px 15px;
+      }
+      .recipe_item_image_div {
+      	width: 200px;
+      	height: 200px;
+      	margin: 0px;
+      	float: left;
+      }
+      .recipe_item_detail_div {
+      	width: 200px;
+      	height: 85px;
+      	margin: 15px 0px 0px 0px;
+      	float: left;
+      	line-height: 30px;
+      }
     </style>
 
 
@@ -113,9 +135,12 @@
 		  
 		  <div id="recipeImage"></div>
 		  
-		  
 		  <textarea id="recipeContents" rows="50" style="border: none; resize: none; font-size: large;" readonly="readonly"></textarea>
 		  
+		  <h4>Recipe item</h4>
+		  <hr/>
+		  <div class="recipe_item_entire_div" id = "recipe_item">
+		  </div>
 		  
 		  
 	  </div>	
@@ -134,6 +159,7 @@
 	    recipeNo = getParameter("recipeNo");
 	    doSelectOne();
 	    doRetrieveImage();
+	    doShowRelevantItem();
 	});
 	
 	
@@ -186,8 +212,78 @@
 		  	});
 	}
 	
-	function doRetrieveImage(){
+	function doShowRelevantItem(){
 		
+		$.ajax({
+	  		type: "GET",
+	  		url:"${hContext}/recipe/do_show_relevant_item.do",
+	  		asyn:"false",
+	  		dataType:"html",
+	  		data:{
+	  			recipeNo:recipeNo
+	  		},
+	  		success:function(data){//통신 성공
+	  			
+	  			$("#imageList").val(data);
+	  			var parseData = JSON.parse(data);
+	  			console.log(parseData);
+	  			
+	  			var SimpleItemNo = 0;
+	  			var SimpleItemName = "";
+	  			var SimpleItemPrice = 0;
+	  			var SimpleItemImageNo = 0;
+	  			var SimpleItemImagePath = "";
+	  			var SimpleItemImageName = "";
+	  		    
+				var html = "";
+	  			
+				if(parseData.length > 0){ 
+	  				
+	  				$.each(parseData, function(i, value) {
+	  					
+	  					
+	  					SimpleItemNo = value.SimpleItemNo;
+	  					SimpleItemName = value.SimpleItemName;
+	  					SimpleItemPrice = value.SimpleItemPrice;
+	  					SimpleItemImageNo = value.SimpleItemImageNo;
+	  					SimpleItemImagePath = value.SimpleItemImagePath;
+	  					SimpleItemImageName = value.SimpleItemImageName;
+	  					
+	  					
+	  					console.log(value);
+	  					
+	  					html += "	<div class='recipe_item_individual_div' onclick='selectItem("+SimpleItemNo+");' >         ";
+	  					html += "	  <div class='recipe_item_image_div'>      ";
+	  					html += "     <img src='${hContext}"+SimpleItemImagePath+SimpleItemImageName+"' style='width: 200px; height: 200px; object-fit: cover;'/> "
+	  					html += "     </div> "
+	  					html += "	  <div class='recipe_item_detail_div' style='text-align: center;'>     ";
+	  					html += "       <span style='font-weight: bold;'>"+SimpleItemName+"</span><br/> "
+	  					html += "       <span>"+SimpleItemPrice+" 원</span> "
+	  					html += "     </div>"
+	  					html += "	</div>                                           ";
+	  					
+	  				});
+	  				
+	  			}
+	  			
+				
+				$("#recipe_item").append(html);
+	  		    
+	      	},
+	      	error:function(data){//실패시 처리
+	      		console.log("error:"+data);
+	      	}
+	      	
+	  	});
+		
+	}
+	
+	function selectItem(SimpleItemNo) {
+		console.log("selectItem: "+SimpleItemNo);
+	}
+	
+	
+	function doRetrieveImage(){
 		$.ajax({
 	  		type: "GET",
 	  		url:"${hContext}/image/do_retrieve.do",
@@ -199,11 +295,9 @@
 	  		},
 	  		success:function(data){//통신 성공
 	  			
-	  			$("#imageList").val(data);
 	  			var parseData = JSON.parse(data);
 	  			console.log(parseData);
 	  			
-	  		    $("#recipeImage").empty();
 	  		    var html = "";
 	  		    
 	  			if(parseData.length > 0){ 
@@ -224,9 +318,8 @@
 	      	}
 	      	
 	  	});
-		
-		
 	}
+	
 	
 	$("#reicpeUpdateBtn").on("click", function(e){
 		window.location.href = "${hContext}/recipe/recipe_view3.do?recipeNo="+recipeNo;

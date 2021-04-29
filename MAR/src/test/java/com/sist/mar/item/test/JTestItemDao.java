@@ -48,8 +48,8 @@ public class JTestItemDao {
 		LOG.debug("=@Before=");
 		LOG.debug("=======================");	
 
-		item01 = new Item(22, "상품", 1000, "국내산", "1kg", "별도표기", "설명", 0, 0, 0, 10, "sinangsong@gmail.com", "", "",0,"");
-		item02 = new Item(23, "상품2", 3000, "국내산", "2kg", "별도표기", "설명", 0, 0, 0, 10, "sinangsong@gmail.com", "", "",0,"");
+		item01 = new Item(22, "상품", 1000, "국내산", "1kg", "별도표기", "설명", 0, 0, 0, 10, "sinangsong@gmail.com", "", "",0,"","");
+		item02 = new Item(23, "상품2", 3000, "국내산", "2kg", "별도표기", "설명", 0, 0, 0, 10, "sinangsong@gmail.com", "", "",0,"","");
 	}
 
 	@After

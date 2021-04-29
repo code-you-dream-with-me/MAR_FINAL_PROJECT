@@ -77,7 +77,7 @@
 
   </head>
   <body class="bg-light">
-  <div class="container01">
+	
 	
 	<!-- 오른쪽 네비게이션 -->
 	<aside class="bd-aside sticky-xl-top text-muted align-self-start mb-3 mb-xl-5 px-2">
@@ -127,24 +127,18 @@
 	      </div>
 	      
 	      <div class="bd-example">
-		    <table class="table table-hover">
+		    <table class="table table-hover" id="memberTable" name="memberTable">
 	          <thead>
 	          	<tr>
 	              <th scope="col" width="25%">이메일</th>
 	              <th scope="col" width="15%">이름</th>
-	              <th scope="col" width="45%">주소</th>
+	              <th scope="col" width="30%">주소</th>
+	              <th scope="col" width="6%">권한</th>
+	              <th scope="col" width="9%"><input type="button" class="wordBtn" name="authBtn" id="authBtn" value="전체" style="width: 50px;" /></th>
 	              <th scope="col" width="15%">전화번호</th>
 	          	</tr>
 	          </thead>
 	          <tbody>
-	          	<tr>
-	              <td>Cell</td>
-	              <td>Cell</td>
-	              <td>Cell</td>
-	              <td>Cell</td>
-	          	</tr>
-	          
-	          
 	          </tbody>
 	        </table>
 	      </div>
@@ -256,7 +250,7 @@
 	
 	<script src="${hContext}/resources/assets/dist/js/bootstrap.bundle.min.js"></script>
   	<script src="${hContext}/resources/assets/admin/cheatsheet.js"></script>
-  </div>
+  	
   </body>
 
   <script type="text/javascript">
@@ -266,6 +260,7 @@
       doRetrieveReicpe();
       doRetrieveItem();
       doRetrieveOrdering();
+      doRetrieveMember();
     });
   
   $("#addRecipeBtn").on("click", function(e){
@@ -588,6 +583,65 @@
 	  		}
 	  	});
   }
+  
+  
+  function doRetrieveMember(orderDiv, orderWord) {
+	  	
+	  	$.ajax({
+	  		type: "GET",
+	  		url:"${hContext}/admin/do_retrieve_member.do",
+	  		asyn:"true",
+	  		dataType:"html",
+	  		data:{
+	  			searchDiv: orderDiv,
+	  			searchWord: orderWord
+	  		},
+	  		success:function(data){//통신 성공
+	  			var parseData = JSON.parse(data);
+	  			$("#memberTable > tbody").empty();
+	  			var html = "";
+	  			
+	  			if(parseData.length > 0){ 
+	  				
+	  				$.each(parseData, function(i, value) {
+	  					
+	  					var auth = "";
+	  					if(value.auth == '1') { auth = "관리자"; }
+	  					else { auth = "일반"; }
+	  					
+	  					html += "   <tr>";
+	  					html += "     <td>"+ value.memberId +"</td>   ";
+	  					html += "     <td>"+ value.name +"</td>      ";
+	  					html += "     <td>"+ value.address +"</td>      ";
+	  					html += "     <td colspan='2'>"+ auth +"</td>      ";
+	  					html += "     <td>"+ value.phone +"</td>    ";
+	  					html += "   </tr>                             ";
+	  				});
+	  				
+	  			}else { 
+	  				html += " <tr> ";
+	  				html += "   <td class='text-center' colspan='99'>등록된 회원이 없습니다.</td> ";
+	  				html += " </tr> ";
+	  			}
+	  			$("#memberTable > tbody").append(html);
+	  		},
+	  		error:function(data){//실패시 처리
+	  			console.log("error:"+data);
+	  		}
+	  	});     	
+	  	
+  }  
+  
+  //authBtn
+  /* member */
+  $("#authBtn").on("click", function(e){
+		switch($("#authBtn").val()){
+			case "전체": $("#authBtn").val("일반"); doRetrieveMember("auth", "0"); break;
+			case "일반": $("#authBtn").val("관리자"); doRetrieveMember("auth", "1"); break;
+			case "관리자": $("#authBtn").val("전체"); doRetrieveMember("nothing", "0"); break;
+		}	
+  });  
+  
   
   
   </script>

@@ -154,7 +154,7 @@
 	</update>
 	
 	<!-- doRetrieveMember -->
-	<select id="doRetrieveMember">
+	<select id="doRetrieveMember" resultType="MemberVO">
 		SELECT
 		    member_id AS memberId,
 		    pw,

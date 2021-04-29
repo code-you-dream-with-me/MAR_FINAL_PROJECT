@@ -45,7 +45,7 @@
 
   </head>
   <body class="bg-light">
-    
+  <div class="container01">  
 	<div class="container">
 	  <main>
 	    <div class="py-5 text-center">
@@ -139,7 +139,7 @@
 	<script src="${hContext}/resources/assets/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="${hContext}/resources/assets/recipe/form-validation.js"></script>
 	    
-
+  </div>
   </body>
 
   <script type="text/javascript">

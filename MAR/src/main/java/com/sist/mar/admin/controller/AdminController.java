@@ -18,6 +18,7 @@ import com.sist.mar.cmn.Message;
 import com.sist.mar.cmn.Search;
 import com.sist.mar.cmn.StringUtil;
 import com.sist.mar.item.domain.Item;
+import com.sist.mar.member.domain.MemberVO;
 import com.sist.mar.order.domain.Ordering;
 import com.sist.mar.recipe.domain.RecipeVO;
 
@@ -169,5 +170,19 @@ public class AdminController {
 		return gson.toJson(message);
 		
 	}	
+	
+	@RequestMapping(value = "admin/do_retrieve_member.do", method = RequestMethod.GET
+			,produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String doRetrieveMember(Search search) throws Exception {
+		
+		search.setSearchDiv(StringUtil.nvl(search.getSearchDiv(), "nothing"));
+		search.setSearchWord(StringUtil.nvl(search.getSearchWord(), "0"));
+		
+		List<MemberVO> memberList = adminService.doRetrieveMember(search);
+		Gson gson = new Gson();
+		return gson.toJson(memberList.toArray());
+		
+	}
 	
 }

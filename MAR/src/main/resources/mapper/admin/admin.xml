@@ -153,4 +153,25 @@
 		WHERE order_no = #{orderNo}	
 	</update>
 	
+	<!-- doRetrieveMember -->
+	<select id="doRetrieveMember">
+		SELECT
+		    member_id AS memberId,
+		    pw,
+		    name,
+		    phone,
+		    address,
+		    auth,
+		    reg_dt AS regDt,
+		    mod_dt AS modDt
+		FROM member
+		WHERE 1 = 1
+		<choose>
+			<when test="searchDiv == 'auth'">
+				AND auth = #{searchWord}
+			</when>
+		</choose>			
+	</select>
+	
+	
 </mapper>

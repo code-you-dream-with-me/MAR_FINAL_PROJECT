@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.sist.mar.cmn.DTO;
 import com.sist.mar.item.domain.Item;
+import com.sist.mar.member.domain.MemberVO;
 import com.sist.mar.order.domain.Ordering;
 import com.sist.mar.recipe.domain.RecipeVO;
 
@@ -58,6 +59,10 @@ public class AdminDaoImpl {
 	
 	public int doApproveCancel(DTO dto) throws SQLException {
 		return this.sqlSessionTemplate.update(this.NAMESPACE + ".doApproveCancel", dto);
+	}
+	
+	public List<MemberVO> doRetrieveMember(DTO dto) throws SQLException {
+		return this.sqlSessionTemplate.selectList(this.NAMESPACE + ".doRetrieveMember", dto);
 	}
 	
 }

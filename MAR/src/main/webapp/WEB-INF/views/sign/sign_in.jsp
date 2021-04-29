@@ -49,6 +49,7 @@
     <link href="${hContext}/resources/assets/sign/signin.css" rel="stylesheet">
   </head>
   <body class="text-center" style="background-color: white;">
+  <div class="container01">
     
 <main class="form-signin">
   <form>
@@ -116,6 +117,6 @@
 		});
 	
 	</script>
-    
+  </div>
   </body>
 </html>

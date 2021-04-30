@@ -98,7 +98,7 @@
             <div class="jumbotron">
                 <div class="jumbo-box">
                     <span class="material-icons-outlined"> check_circle </span>
-                    <h4>${boardName}님의 주문이 완료되었습니다!</h4>
+                    <h4>${memberName}님의 주문이 완료되었습니다!</h4>
                     <hr>
                     <div class="price-part">
                         <h4>결제금액</h4>

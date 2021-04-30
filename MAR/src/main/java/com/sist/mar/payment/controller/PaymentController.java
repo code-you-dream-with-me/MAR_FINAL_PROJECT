@@ -50,7 +50,7 @@ public class PaymentController {
 	@RequestMapping(value = "order/do_payment.do", method = RequestMethod.GET)
 	public String doPayment(String memberName, int price, Model model) throws SQLException {
 		LOG.debug("doPayment");
-		LOG.debug("memberId : " + memberName);
+		LOG.debug("memberName : " + memberName);
 		LOG.debug("price : " + price);
 		
 		model.addAttribute("memberName", memberName);

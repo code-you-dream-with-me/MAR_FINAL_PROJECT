@@ -7,27 +7,18 @@
 <head>
 <meta charset="utf-8">
 <!-- CSS -->
-<link rel="stylesheet" type="text/css" href="${hContext}/resources/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="${hContext}/resources/css/normalize.css">
 <link rel="stylesheet" type="text/css" href="${hContext}/resources/css/y_base.css">
-<!-- JS -->
-<script src="${hContext}/resources/js/jquery.min.js"></script>
-<script src="${hContext}/resources/js/eclass.js" charset="utf-8"></script>
-<script src="${hContext}/resources/js/bootstrap.min.js"></script>
-<script src="${hContext}/resources/js/jquery.bootpag.js" charset="utf-8"></script>
-<!-- font -->
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap" >
 <title>WISHITEM_LIST</title>
 </head>	
 <body>	
 	<!-- center -->
 	<div class="container02">
-		<form action="" id="wishFrm" name="wishFrm" >
+		<form action="" id="wishFrm" name="wishFrm">
 			<input type="hidden" id="member_id" name="member_id" value="test01" />
 			<input type="hidden" id="param" name="param" />
 		</form>
-		
+
 		<div class="mid_section">
 			<div class="comn_ttl_wrap align_ttl_wrap">
 				<dl>
@@ -38,7 +29,7 @@
 				</dl>
 			</div>
 			<div class="comn_tb_wrap">
-				<table id="wishTable" >
+				<table id="wishTable">
 					<thead>
 						<tr>
 							<th class="info_gs">

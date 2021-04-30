@@ -8,20 +8,10 @@
 <head>
 <meta charset="utf-8">
 <!-- CSS -->
-<link rel="stylesheet" type="text/css"
-	href="${hContext}/resources/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${hContext}/resources/css/normalize.css">
-<link rel="stylesheet" type="text/css"
-	href="${hContext}/resources/css/y_base.css">
-<!-- JS -->
-<script src="${hContext}/resources/js/jquery.min.js"></script>
-<script src="${hContext}/resources/js/eclass.js" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="${hContext}/resources/css/normalize.css">
+<link rel="stylesheet" type="text/css" href="${hContext}/resources/css/y_base.css">
 <!-- 결제 아임포트 -->
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
-<!-- font -->
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap">
 <title>ORDER_FORM</title>
 </head>
 <body>

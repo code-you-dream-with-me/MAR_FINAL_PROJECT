@@ -57,7 +57,7 @@
                         <li value="30" class="e"><a href="#">베스트</a></li>
                         <li value="40" class="e"><a href="#">알뜰쇼핑</a></li>
                         <li id="moveToRecipe"><a href="#">레시피</a></li>
-                        <li id="moveToCart"><a href="#">장바구니</a></li>
+                        <li id="moveToCart"><a href="${hContext}/cart/cart_list.do">장바구니</a></li>
                     </ul>
                     <div class="nav navbar-form navbar-right search_container" role="search">
                         <table class="search_elements">

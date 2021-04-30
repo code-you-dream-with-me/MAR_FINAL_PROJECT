@@ -123,6 +123,7 @@
 		    weight,
 		    expired,
 		    detail,
+		    final_price,
 		    category_no,
 		    reg_id
 		) VALUES (
@@ -133,6 +134,7 @@
 		    #{weight},
 		    #{expired},
 		    #{detail},
+		    #{finalPrice},
 		    #{categoryNo},
 		    #{regId}
 		)

@@ -86,28 +86,16 @@
 	    <ul class="list-unstyled">
 	    
 	      <li class="my-2">
-	        <button class="btn d-inline-flex align-items-center collapsed" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#member-collapse" aria-controls="contents-collapse">회원</button>
-	        <ul class="list-unstyled ps-3 collapse" id="member-collapse">
-	          <li><a class="d-inline-flex align-items-center rounded" href="#member_list">회원 목록</a></li>
-	        </ul>
+	        <a class="d-inline-flex align-items-center rounded" href="#member_list"><button class="btn d-inline-flex align-items-center collapsed" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#member-collapse" aria-controls="contents-collapse">회원</button></a>
 	      </li>
 	      <li class="my-2">
-	        <button class="btn d-inline-flex align-items-center collapsed" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#product-collapse" aria-controls="forms-collapse">상품</button>
-	        <ul class="list-unstyled ps-3 collapse" id="product-collapse">
-	          <li><a class="d-inline-flex align-items-center rounded" href="#product_list">상품 목록</a></li>
-	        </ul>
+	        <a class="d-inline-flex align-items-center rounded" href="#product_list"><button class="btn d-inline-flex align-items-center collapsed" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#product-collapse" aria-controls="forms-collapse">상품</button></a>
 	      </li>
 	      <li class="my-2">
-	        <button class="btn d-inline-flex align-items-center collapsed" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#order-collapse" aria-controls="forms-collapse">주문</button>
-	        <ul class="list-unstyled ps-3 collapse" id="order-collapse">
-	          <li><a class="d-inline-flex align-items-center rounded" href="#order_list">주문 목록</a></li>
-	        </ul>
+	        <a class="d-inline-flex align-items-center rounded" href="#order_list"><button class="btn d-inline-flex align-items-center collapsed" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#order-collapse" aria-controls="forms-collapse">주문</button></a>
 	      </li>
 	      <li class="my-2">
-	        <button class="btn d-inline-flex align-items-center collapsed" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#recipe-collapse" aria-controls="components-collapse">레시피</button>
-	        <ul class="list-unstyled ps-3 collapse" id="recipe-collapse">
-	          <li><a class="d-inline-flex align-items-center rounded" href="#recipe_list">레시피 목록</a></li>
-	        </ul>
+	        <a class="d-inline-flex align-items-center rounded" href="#recipe_list"><button class="btn d-inline-flex align-items-center collapsed" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#recipe-collapse" aria-controls="components-collapse">레시피</button></a>
 	      </li>
 	      
 	    </ul>

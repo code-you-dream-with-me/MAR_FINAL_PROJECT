@@ -89,6 +89,18 @@ public class MemberController {
 		
 	}
 	
+	@RequestMapping(value = "member/do_logoff.do", method = RequestMethod.POST)
+	public String doLogOff(HttpSession session) {
+		String returnUrl = "main/main";
+		
+		if(null != session.getAttribute("member")) {
+			session.removeAttribute("member");
+			session.invalidate();
+		}
+		
+		return returnUrl;
+	}
+	
 	@RequestMapping(value = "member/do_check_duplicated_id.do", method = RequestMethod.POST
 			,produces = "application/json;charset=UTF-8")
 	@ResponseBody

@@ -68,13 +68,8 @@ public class CartController {
 		LOG.debug("= doInsert() =");
 		LOG.debug("cart : " + cart);
 		
-		//HttpSession session
-		//세션으로 memberId
-		//if(null != session.getAttribute("member")) {
-		//	MemberVO member = (MemberVO) session.getAttribute("member");
-		//	cart.setMemberId(member.getuId());
-		//}
 		
+		Message message = new Message();
 		int checkFlag = cartService.cartCheck(cart);
 		String resultMsg = "";
 		if (checkFlag == 0) {
@@ -82,16 +77,16 @@ public class CartController {
 			int flag = cartService.doInsert(cart);
 			if(1 == flag) {
 				resultMsg = "장바구니에 상품을 담았습니다.";
+				message.setMsgId(flag + "");
 			} else {
 				resultMsg = "상품을 담지 못했습니다.";
+				message.setMsgId(flag + "");
 			}
 		} else {
 			//동일상품이 장바구니에 있다면 등록x
 			resultMsg = "장바구니에 존재하는 상품입니다.";
+			message.setMsgId("1");
 		}
-		
-		
-		Message message = new Message();
 		message.setMsgContents(resultMsg);
 
 		Gson gson = new Gson();

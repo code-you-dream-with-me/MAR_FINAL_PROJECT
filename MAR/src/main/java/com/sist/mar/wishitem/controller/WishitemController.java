@@ -71,13 +71,6 @@ public class WishitemController {
 		LOG.debug("= doInsert() =");
 		LOG.debug("wishitem : " + wishitem);
 		
-		//HttpSession session
-		//세션으로 memberId
-		//if(null != session.getAttribute("member")) {
-		//	MemberVO member = (MemberVO) session.getAttribute("member");
-		//	wishitem.setMemberId(member.getuId());
-		//}
-		
 		int checkFlag = wishService.wishitemCheck(wishitem);
 		String resultMsg = "";
 		if (checkFlag == 0) {
@@ -122,13 +115,6 @@ public class WishitemController {
 	public String doRetrieve(Search search) throws SQLException{ 
 		LOG.debug("= doRetrieve() =");
 		LOG.debug("search : " + search);
-		
-		//HttpSession session
-		//세션으로 memberId(=searchword)
-		//if(null != session.getAttribute("member")) {
-		//	MemberVO member = (MemberVO) session.getAttribute("member");
-		//	search.setSearchWord(member.getuId());
-		//}
 		
 		//NVL 처리 
 		if(search.getPageSize() == 0) {

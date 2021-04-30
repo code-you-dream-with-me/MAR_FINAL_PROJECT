@@ -155,8 +155,15 @@
 			let method    = "POST";
 			let async     = "true";
 			EClass.callAjax(url, paramters, method, async, function(data) {
-				alert(data.msgContents);
+				if(data.msgId == 0) {
+					alert("data.msgContents");
+				}else{
+					if(confirm(data.msgContents+"\늘 사는 것으로 이동하시겠습니까?")==true){
+						javascript:opener.window.location.href ="${hContext}/cart/cart_list.do";
+					}
+				}
 				self.close();
+				
 			});		
 		});
 	</script>

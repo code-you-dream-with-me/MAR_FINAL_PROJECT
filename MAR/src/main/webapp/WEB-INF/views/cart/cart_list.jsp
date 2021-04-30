@@ -17,7 +17,7 @@
 	<div class="container01">
 		<form action="" id="cartFrm" name="cartFrm">
 			<div>
-				<input type="hidden" name="memberId" id="memberId" value="test01" /> 
+				<input type="hidden" name="memberId" id="memberId" value="<%=session.getAttribute("memberId")%>" /> 
 			</div>
 		</form>
 		

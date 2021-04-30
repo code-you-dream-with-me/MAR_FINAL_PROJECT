@@ -22,7 +22,7 @@
 <body>
 	<!-- center -->
 	<form action="" id="wishPopupFrm" name="wishPopupFrm" >
-		<input type="hidden" name="memberId" id="memberId" value="${outVO.memberId}"/>
+		<input type="hidden" name="memberId" id="memberId" value="<%=session.getAttribute("memberId")%>"/>
 		<input type="hidden" name="itemNo"   id="itemNo" value="${outVO.itemNo}"  />
 	</form>
 	

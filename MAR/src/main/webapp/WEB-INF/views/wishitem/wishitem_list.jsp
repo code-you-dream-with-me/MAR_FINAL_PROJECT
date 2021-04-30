@@ -15,7 +15,7 @@
 	<!-- center -->
 	<div class="container02">
 		<form action="" id="wishFrm" name="wishFrm">
-			<input type="hidden" id="member_id" name="member_id" value="test01" />
+			<input type="hidden" id="member_id" name="member_id" value="<%=session.getAttribute("memberId")%>" />
 			<input type="hidden" id="param" name="param" />
 		</form>
 

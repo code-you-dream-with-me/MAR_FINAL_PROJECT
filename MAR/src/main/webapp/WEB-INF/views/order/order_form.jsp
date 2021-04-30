@@ -18,7 +18,7 @@
 	<!-- center -->
 	<div class="container01">
 		<form action="" id="" name="">
-			<input type="hidden" id="memberId" name="memberId" value="test01">
+			<input type="hidden" id="memberId" name="memberId" value="<%=session.getAttribute("memberId")%>">
 			<input type="hidden" id="payNo" name="payNo" value="">
 		</form>
 		<div class="mid_section">

@@ -347,7 +347,7 @@
   		  		data:{
   		  			
   		  			fromNo: itemNo,
-  		  			fromTb: $("#fromTb").val(),
+  		  			fromTb: 1,
 		  			imageListDel: $("#imageListDel").val(),
 		  			imageListNew: $("#imageList").val(),
 		  		    MainImage: mainImageNum

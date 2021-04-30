@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +19,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.sist.mar.cmn.Message;
 import com.sist.mar.cmn.StringUtil;
 import com.sist.mar.code.service.CodeService;
 import com.sist.mar.main.domain.CateSearchVO;
+import com.sist.mar.main.domain.MainRecipeVO;
 import com.sist.mar.main.domain.MainVO;
 import com.sist.mar.main.service.MainService;
+import com.sist.mar.member.domain.MemberVO;
 
 @Controller
 public class MainController {
@@ -118,6 +124,76 @@ public class MainController {
 		LOG.debug("================================");
 		
 		return jsonList;
+	}
+	
+	//<<<<레시피목록 메서드>>>>
+	@RequestMapping(value="main/do_recipe_retrieve.do", method=RequestMethod.GET
+			,produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String doRecipeRetrieve(CateSearchVO search) throws SQLException {
+		LOG.debug(" ٩( ᐛ )و Controller의 doRecipeRetrieve()시작! ");
+		LOG.debug("================================");
+		LOG.debug("search param: "+search);
+		LOG.debug("================================");
+		
+
+		//NVL처리
+		//검색어가 없을 시 ""처리
+		search.setSearchWord(StringUtil.nvl(search.getSearchWord(), ""));
+		//목록분류 없을 시 ""처리
+		search.setListDiv(StringUtil.nvl(search.getListDiv(),""));
+		//페이지NUM에 0이 들어올 시 
+		if(search.getPageNum()==0) {
+			search.setPageNum(1);//1로 만들어줌
+		}
+		//페이지사이즈에 0이 들어올 시
+		if(search.getPageSize()==0) {
+			search.setPageSize(10);//10으로 만들어줌
+		}
+		
+		LOG.debug("================================");
+		LOG.debug("param_init(초기화): "+search);
+		LOG.debug("================================");
+		
+		List<MainRecipeVO> list = (List<MainRecipeVO>) this.mainService.doRecipeRetrieve(search);
+		
+		for(MainRecipeVO vo:list) {
+			LOG.debug(vo.toString());
+		}
+		
+		Gson gson = new Gson();
+		String jsonList = gson.toJson(list);//object -> json 
+		LOG.debug("================================");
+		LOG.debug("jsonList: "+jsonList);
+		LOG.debug("================================");
+		
+		return jsonList;
+	}
+	
+	//장바구니 갈때는 로그인 세션이 필요..아 @Responsebody안해줘서 안됐던거였다.. 진짜 어이없다..
+	//<<<<<장바구니화면 연결>>>>>
+	@RequestMapping(value= "main/move_to_cart.do", method=RequestMethod.GET,
+			produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String viewCart(Model model, HttpSession session) throws SQLException {
+		Message message = new Message();
+		//세션========================
+		if(null != session.getAttribute("member")) {
+			message.setMsgId("1");
+			message.setMsgContents("장바구니로 이동");
+		}else {
+			message.setMsgId("0");
+			message.setMsgContents("로그인 후 이용하실 수 있습니다.");
+		}
+		//===========================
+
+		Gson gson = new Gson();
+		String messageJson = gson.toJson(message);
+		LOG.debug("================================");
+		LOG.debug("messageJson: "+messageJson);
+		LOG.debug("================================");
+		
+		return messageJson;
 	}
 
 

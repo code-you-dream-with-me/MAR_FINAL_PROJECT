@@ -26,6 +26,7 @@
 		SELECT A.*,B.*
 		FROM(
 		    SELECT g2.rnum as num,
+		    	   g2.item_no as itemNo,  
 		           g2.path,
 		           g2.name,
 		           g2.discount,
@@ -34,12 +35,13 @@
 		           g2.sales
 		    FROM(
 		    SELECT ROWNUM rnum,g1.*
-		    FROM(SELECT t2.path || t2.save_name AS path,
-		            t1.name,
-		            t1.discount,
-		            t1.price,
-		            t1.final_price, 
-		            t1.sales
+		    FROM(SELECT t1.item_no, 
+			    		t2.path || t2.save_name AS path,
+			            t1.name,
+			            t1.discount,
+			            t1.price,
+			            t1.final_price, 
+			            t1.sales
 		    FROM item t1, image t2
 		    WHERE t1.item_no=t2.from_no
 		    AND t2.main_image = 1
@@ -58,6 +60,46 @@
 		)B
 		--검색 조회
 		WHERE name LIKE '%'||#{searchWord}||'%'
+	</select>
+	
+	<select id="doRecipeRetrieve"  parameterType="CateSearchVO" resultType="MainRecipeVO">
+		SELECT A.*,B.*
+		FROM(
+		    SELECT 	g2.rnum as num,
+		            g2.recipe_no as recipeNo,
+					g2.path,
+					g2.reg_id as regId,
+					g2.title,
+					g2.read_cnt as readCnt,
+					g2.reg_dt as regDt,
+					g2.mod_dt as modDt
+		    FROM(
+		    SELECT ROWNUM rnum,g1.*
+		    FROM(SELECT t1.recipe_no,
+						t2.path||t2.save_name as path,
+						t1.reg_id,
+						t1.title,
+			            t1.read_cnt,
+			            t1.reg_dt,
+			            t1.mod_dt
+		    FROM recipe t1, image t2
+		    WHERE t1.recipe_no=t2.from_no
+		    AND t2.main_image = 1
+			AND t2.from_tb = 2
+		    ORDER BY t1.reg_dt desc
+		    )g1
+		    <![CDATA[
+		    WHERE ROWNUM <= (#{pageSize}*(#{pageNum}-1)+#{pageSize})  
+		    )g2
+		    WHERE rnum >= (#{pageSize}*(#{pageNum}-1)+1)
+		    ]]> 
+		)A CROSS JOIN(
+		    SELECT COUNT(*) totalCnt
+		    FROM recipe
+		)B
+		--검색 조회
+		WHERE title LIKE '%'||#{searchWord}||'%'
+	
 	</select>
 	
 </mapper>

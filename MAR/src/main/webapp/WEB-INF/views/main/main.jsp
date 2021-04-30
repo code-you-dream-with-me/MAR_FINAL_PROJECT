@@ -11,7 +11,7 @@
 <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
 
 <!-- 부트스트랩 -->
-<link href="${hContext}/resources/css/bootstrap.min.css" rel="stylesheet" >
+<link href="${hContext}/resources/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- 부가적인 테마 -->
 <link rel="stylesheet" href="${hContext}/resources/css/bootstrap-theme.min.css">
@@ -80,11 +80,20 @@
     text-decoration:line-through;
     text-decoration-color: #949494;
 }
+ 
+.eye {
+    float: left;
+    vertical-align: middle;
+    margin: -3px 3px 0px 0px;
+} 
+
+ 
 </style>
 </head>
 <body>
-	
+		
  		<div class="container01" id="listContainer">
+ 		<input type="hidden" name="member" id="member" value="${sessionScope.member}"/>
 			<div class="row">
 				<!-- 동적 html추가 -->
 			</div>
@@ -138,158 +147,9 @@
 	//jquery 객채생성 완료
 	$(document).ready(function() {//화면이 로딩되면 바로 수행
 		console.log("1.document:최초수행!");
-		
-		doRetrieve(1);
-		
-		$(".dropdown-toggle").dropdown()
-		
+		doRetrieve(1); 
 	});
 	
-	//장바구니 이동
-	$("#moveToCart").on("click",function(e){
-		console.log("moveToCart click");
-	});
-	
-	//레시피 목록 조회
-	$("#moveToRecipe").on("click",function(e){
-		console.log("moveToRecipe click");
-		
-	});
-	
-	//로고 클릭 시 메인화면 doRetrieve실행
-	$(".logo").on("click",function(e){
-		//console.log("logo click");
-		doRetrieve(1);
-	});
-	
-	//카테고리 조회
- 	$(".dropdown-menu").on("click","li",function(e) {
-		e.preventDefault();
-		let lis = $(this);
-		var cateNo = lis.val();
-		console.log("cateNo="+cateNo);
-		
-		$.ajax({
-    		type: "GET",
-    		url:"${hContext}/main/do_retrieve.do",
-    		asyn:"true",
-    		dataType:"html",
-    		data:{ categoryNo:  cateNo,
-    			   listDiv : 10
-    			  },
-    		success:function(data){//통신 성공
-        		console.log("success data:"+data);
-    			var parseData = JSON.parse(data);
-    			console.log("parseData.length:"+parseData.length);
-    			
-    			//기존데이터 삭제 (id가 listContainer인 요소의 클래스값이 row인 div요소를 제거)
-    			$("#listContainer>.row").empty();
-    			var html = ""; 
-    		
-     			if(parseData.length>0) {//데이터가 있는경우
-
-    				//목록 추가
-    				$.each(parseData, function(i, value) {
-    					console.log(i+","+value.name);
-    					html += " 	<div class='col-sm-6 col-md-3'>                                                                ";
-    					html += " 		<div class='thumbnail'>                                                                    ";
-    					html += " 			<img src='${hContext}"+value.path+"' alt='item_img'>                                   ";
-    					html += " 			<div class='caption'>                                                                  ";
-    					html += " 				<h3>"+value.name+"</h3>                                                            ";
-    					html += " 				<span class='discount'>"+value.discount+"%</span>                                  ";
-    					html += " 				<span class='final-price'>"+value.finalPrice+"원</span>                             ";
-    					html += " 				<h3 class='origin-price'>"+value.price+"원</h3>                                     ";
-    					html += " 			</div>                                                                                 ";
-    					html += " 		</div>                                                                                     ";
-    					html += " 	</div>                                                                                         ";
-     
-    				});
-    			}
-    			//container에 데이터 추가
-    			$("#listContainer>.row").append(html); 
-    			
-        	},
-        	error:function(data){//실패시 처리
-        		console.log("error:"+data);
-        	},
-        	complete:function(data){//성공/실패와 관계없이 수행!
-        		console.log("complete:"+data);
-        	}
-    	});
-	
-		
-	}); 
-	
-	//신상품,베스트,알뜰쇼핑 조회
-	//eq(1),(2),(3)인 요소만 선택하게 하고싶은데 진짜 안된다.. 결국 그냥 class=e 줘서 선택하게함..
-	//slice가 있는것 같은데 css적용예시만 있어서 on에는 어떻게 쓰여야 할지 모르겠다..
-	$("#listDiv").on("click","li.e",function(e){
-		e.preventDefault();
-		//console.log("listDiv click li");
-		let tds = $(this);
-		var listDivData = tds.val();
-		console.log("listDivData="+listDivData);
-		
-		$.ajax({
-    		type: "GET",
-    		url:"${hContext}/main/do_retrieve.do",
-    		asyn:"true",
-    		dataType:"html",
-    		data:{ listDiv: listDivData },
-    		success:function(data){//통신 성공
-        		console.log("success data:"+data);
-    			var parseData = JSON.parse(data);
-    			console.log("parseData.length:"+parseData.length);
-    			
-    			//기존데이터 삭제 (id가 listContainer인 요소의 클래스값이 row인 div요소를 제거)
-    			$("#listContainer>.row").empty();
-    			var html = ""; 
-    		
-     			if(parseData.length>0) {//데이터가 있는경우
-
-    				//목록 추가
-    				$.each(parseData, function(i, value) {
-    					console.log(i+","+value.name);
-    					html += " 	<div class='col-sm-6 col-md-3'>                                                                ";
-    					html += " 		<div class='thumbnail'>                                                                    ";
-    					html += " 			<img src='${hContext}"+value.path+"' alt='item_img'>                                   ";
-    					html += " 			<div class='caption'>                                                                  ";
-    					html += " 				<h3>"+value.name+"</h3>                                                            ";
-    					html += " 				<span class='discount'>"+value.discount+"%</span>                                  ";
-    					html += " 				<span class='final-price'>"+value.finalPrice+"원</span>                             ";
-    					html += " 				<h3 class='origin-price'>"+value.price+"원</h3>                                     ";
-    					html += " 			</div>                                                                                 ";
-    					html += " 		</div>                                                                                     ";
-    					html += " 	</div>                                                                                         ";
-     
-    				});
-    			
-     			}
-     			
-    			//container에 데이터 추가
-    			$("#listContainer>.row").append(html); 
-    			
-        	},
-        	error:function(data){//실패시 처리
-        		console.log("error:"+data);
-        	},
-        	complete:function(data){//성공/실패와 관계없이 수행!
-        		console.log("complete:"+data);
-        	}
-    	});
-		
-	});
-	
-	//검색어 Enter Event처리
-	$("#searchWord").on("keypress",function(e) {
-		console.log(e.type+","+e.which);
-    	if(e.which == 13){
-    		console.log("Enter:"+e.which);
-    		e.preventDefault();//두번 호출되지 않게 함
-    		doRetrieve(1);//엔터 누를 시 doRetrive함수 실행
-    	}       
-    });
-		
 	//기본 조회(메인화면 로드시 실행)
 	function doRetrieve(page) {
       	$.ajax({
@@ -316,7 +176,7 @@
     				$.each(parseData, function(i, value) {
     					console.log(i+","+value.name);
     					html += " 	<div class='col-sm-6 col-md-3'>                                                                ";
-    					html += " 		<div class='thumbnail' onclick='moveToItem("+value.itemNo+")'>                                                                    ";
+    					html += " 		<div class='thumbnail'>                                                                    ";
     					html += " 			<img src='${hContext}"+value.path+"' alt='item_img'>                                              ";
     					html += " 			<div class='caption'>                                                                  ";
     					html += " 				<h3>"+value.name+"</h3>                                                            ";
@@ -340,13 +200,6 @@
         		console.log("complete:"+data);
         	}
     	});
-	}
-	
-	//상품 클릭하여 상품 상세로 이동
-	function moveToItem(itemNo){
-	
-		console.log("itemNo:"+itemNo);
-		window.location.href = "${hContext}/item/item_deview.do?itemNo="+itemNo;
 	}
 
 

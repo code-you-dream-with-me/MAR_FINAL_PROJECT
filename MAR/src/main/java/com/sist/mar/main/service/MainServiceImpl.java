@@ -28,5 +28,12 @@ public class MainServiceImpl implements MainService {
 		return this.mainDao.doRetrieve(dto);
 	}
 
+	@Override
+	public List<?> doRecipeRetrieve(DTO dto) throws SQLException {
+		LOG.debug(" ٩( ᐛ )و Service를 지나서~ ");
+		LOG.debug("================================");
+		return this.mainDao.doRecipeRetrieve(dto);
+	}
+
 
 }

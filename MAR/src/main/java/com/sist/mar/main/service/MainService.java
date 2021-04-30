@@ -15,5 +15,6 @@ public interface MainService {
 	 */
 	List<?> doRetrieve(DTO dto) throws SQLException;
 
+	List<?> doRecipeRetrieve(DTO dto) throws SQLException;
 
 }

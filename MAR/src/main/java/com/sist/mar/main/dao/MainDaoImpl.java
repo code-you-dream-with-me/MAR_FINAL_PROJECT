@@ -19,6 +19,7 @@ import com.sist.mar.cmn.DTO;
 import com.sist.mar.cmn.Search;
 import com.sist.mar.cmn.StringUtil;
 import com.sist.mar.main.domain.CateSearchVO;
+import com.sist.mar.main.domain.MainRecipeVO;
 import com.sist.mar.main.domain.MainVO;
 
 
@@ -38,7 +39,7 @@ public class MainDaoImpl {
 	//생성자
 	public MainDaoImpl() {}
 	
-	
+	//상품목록조회
 	public List<?> doRetrieve(DTO dto) throws SQLException {
 		
 		LOG.debug(" ٩( ᐛ )و Dao의 doRetrieve()시작! ");
@@ -53,6 +54,27 @@ public class MainDaoImpl {
 		List<MainVO> list = sqlSessionTemplate.selectList(statement, param);
 		
 //		for(MainVO vo:list) {
+//			LOG.debug("=vo="+vo);
+//		}
+		
+		return list;
+	}
+	
+	//레시피게시물목록조회
+	public List<?> doRecipeRetrieve(DTO dto) throws SQLException {
+		
+		LOG.debug(" ٩( ᐛ )و Dao의 doRecipeRetrieve()시작! ");
+		
+		CateSearchVO param = (CateSearchVO) dto;
+		String statement = this.NAMESPACE+".doRecipeRetrieve";
+		LOG.debug("=================================================");
+		LOG.debug("=param= "+param);
+		LOG.debug("=statement= "+statement);
+		LOG.debug("=================================================");
+		
+		List<MainRecipeVO> list = sqlSessionTemplate.selectList(statement, param);
+		
+//		for(MainRecipeVO vo:list) {
 //			LOG.debug("=vo="+vo);
 //		}
 		

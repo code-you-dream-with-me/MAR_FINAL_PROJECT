@@ -4,6 +4,7 @@ import com.sist.mar.cmn.DTO;
 
 public class MainVO extends DTO{
 	
+	private int    itemNo	   ; //상품번호
 	private String path        ; //경로
 	private String name        ; //상품명
 	private int    discount    ; //할인율
@@ -15,8 +16,9 @@ public class MainVO extends DTO{
 	
 	public MainVO() {}
 
-	public MainVO(String path, String name, int discount, int price, int finalPrice, int sales) {
+	public MainVO(int itemNo, String path, String name, int discount, int price, int finalPrice, int sales) {
 		super();
+		this.itemNo = itemNo;
 		this.path = path;
 		this.name = name;
 		this.discount = discount;
@@ -25,6 +27,16 @@ public class MainVO extends DTO{
 		this.sales = sales;
 	}
 
+
+
+
+	public int getItemNo() {
+		return itemNo;
+	}
+
+	public void setItemNo(int itemNo) {
+		this.itemNo = itemNo;
+	}
 
 	public String getPath() {
 		return path;
@@ -76,12 +88,13 @@ public class MainVO extends DTO{
 		this.sales = sales;
 	}
 
-
 	@Override
 	public String toString() {
-		return "MainVO [path=" + path + ", name=" + name + ", discount=" + discount + ", price=" + price
-				+ ", finalPrice=" + finalPrice + ", sales=" + sales + ", toString()=" + super.toString() + "]";
+		return "MainVO [itemNo=" + itemNo + ", path=" + path + ", name=" + name + ", discount=" + discount + ", price="
+				+ price + ", finalPrice=" + finalPrice + ", sales=" + sales + ", toString()=" + super.toString() + "]";
 	}
+
+
 
 	
 }

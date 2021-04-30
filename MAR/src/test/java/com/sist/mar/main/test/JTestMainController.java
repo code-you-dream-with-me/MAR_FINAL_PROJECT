@@ -33,6 +33,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sist.mar.main.domain.CateSearchVO;
+import com.sist.mar.main.domain.MainRecipeVO;
 import com.sist.mar.main.domain.MainVO;
 
 
@@ -69,9 +70,10 @@ public class JTestMainController {
 	}
 	
 	@Test
+	@Ignore
 	public void doRetrieve() throws Exception {
 		MockHttpServletRequestBuilder createMessage = MockMvcRequestBuilders.get("/main/do_retrieve.do")
-				.param("categoryNo", String.valueOf(search.getCategoryNo()))//User에 있는 변수이름과 같게 줘야함
+				.param("categoryNo", String.valueOf(search.getCategoryNo()))//CateSearchVO에 있는 변수이름과 같게
 				.param("listDiv", search.getListDiv())
 				.param("searchWord", search.getSearchWord())
 				.param("pageSize", String.valueOf(search.getPageSize()))
@@ -89,6 +91,31 @@ public class JTestMainController {
 		List<MainVO> list = gson.fromJson(result, new TypeToken<List<MainVO>>() {}.getType());
 		
 		for(MainVO vo : list) {
+			LOG.debug("vo: "+vo);
+		}
+	}
+	
+	@Test
+	public void doRecipeRetrieve() throws Exception {
+		MockHttpServletRequestBuilder createMessage = MockMvcRequestBuilders.get("/main/do_recipe_retrieve.do")
+				.param("categoryNo", String.valueOf(search.getCategoryNo()))//CateSearchVO에 있는 변수이름과 같게
+				.param("listDiv", search.getListDiv())
+				.param("searchWord", search.getSearchWord())
+				.param("pageSize", String.valueOf(search.getPageSize()))
+				.param("pageNum", String.valueOf(search.getPageNum()));
+
+		ResultActions resultActions = mockMvc.perform(createMessage)
+				.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))//application/json;charset=UTF-8
+				.andExpect(status().isOk());//isOk()대신 is2xxSuccessful()로 사용해도 된다 (상태값 200은 서버가 제대로 작동한다는 의미니까)
+		//출력 결과 요약
+		String result = resultActions.andDo(print())
+						.andReturn()
+						.getResponse().getContentAsString();
+		//json -> List
+		Gson gson = new Gson();
+		List<MainRecipeVO> list = gson.fromJson(result, new TypeToken<List<MainRecipeVO>>() {}.getType());
+		
+		for(MainRecipeVO vo : list) {
 			LOG.debug("vo: "+vo);
 		}
 	}

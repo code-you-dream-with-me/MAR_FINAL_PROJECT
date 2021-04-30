@@ -50,7 +50,7 @@ public class JTestMainDao {
 		LOG.debug("====================================");
 		
 		//int categoryNo, String listDiv, String searchWord, int pageSize, int pageNum
-		search = new CateSearchVO(0,"40","",10,1);
+		search = new CateSearchVO(0,"0","",10,1);
 	}
 
 	@After
@@ -64,6 +64,7 @@ public class JTestMainDao {
 	@Test
 	public void doAllRetrieve() throws SQLException {
 		dao.doRetrieve(search);
+		dao.doRecipeRetrieve(search);
 	}
 
 	@Test

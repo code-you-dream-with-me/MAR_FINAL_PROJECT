@@ -89,7 +89,7 @@ public class MemberController {
 		
 	}
 	
-	@RequestMapping(value = "member/do_logoff.do", method = RequestMethod.POST)
+	@RequestMapping(value = "member/do_logoff.do", method = RequestMethod.GET)
 	public String doLogOff(HttpSession session) {
 		String returnUrl = "main/main";
 		

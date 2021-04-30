@@ -26,7 +26,7 @@
 					<div class="col-xs-6 col-md-3">
 						<h6>DEVELOPERS</h6>
 						<p>
-							Hyeyoung Kim</br>Jaeuk Kim</br>Sangjun Ryu</br>Hansol Shin</br>Seungho Lee</br>Yebin Cha
+							Hyeyoung Kim</br>Jaeuk Kim</br>Hansol Shin</br>Seungho Lee</br>Yebin Cha
 						</p>
 					</div>
 				</div>

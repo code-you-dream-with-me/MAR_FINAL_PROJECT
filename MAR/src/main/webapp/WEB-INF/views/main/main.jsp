@@ -83,7 +83,7 @@
 </style>
 </head>
 <body>
-
+	
  		<div class="container01" id="listContainer">
 			<div class="row">
 				<!-- 동적 html추가 -->
@@ -141,9 +141,86 @@
 		
 		doRetrieve(1);
 		
+		$(".dropdown-toggle").dropdown()
+		
 	});
 	
+	//장바구니 이동
+	$("#moveToCart").on("click",function(e){
+		console.log("moveToCart click");
+	});
 	
+	//레시피 목록 조회
+	$("#moveToRecipe").on("click",function(e){
+		console.log("moveToRecipe click");
+		
+	});
+	
+	//로고 클릭 시 메인화면 doRetrieve실행
+	$(".logo").on("click",function(e){
+		//console.log("logo click");
+		doRetrieve(1);
+	});
+	
+	//카테고리 조회
+ 	$(".dropdown-menu").on("click","li",function(e) {
+		e.preventDefault();
+		let lis = $(this);
+		var cateNo = lis.val();
+		console.log("cateNo="+cateNo);
+		
+		$.ajax({
+    		type: "GET",
+    		url:"${hContext}/main/do_retrieve.do",
+    		asyn:"true",
+    		dataType:"html",
+    		data:{ categoryNo:  cateNo,
+    			   listDiv : 10
+    			  },
+    		success:function(data){//통신 성공
+        		console.log("success data:"+data);
+    			var parseData = JSON.parse(data);
+    			console.log("parseData.length:"+parseData.length);
+    			
+    			//기존데이터 삭제 (id가 listContainer인 요소의 클래스값이 row인 div요소를 제거)
+    			$("#listContainer>.row").empty();
+    			var html = ""; 
+    		
+     			if(parseData.length>0) {//데이터가 있는경우
+
+    				//목록 추가
+    				$.each(parseData, function(i, value) {
+    					console.log(i+","+value.name);
+    					html += " 	<div class='col-sm-6 col-md-3'>                                                                ";
+    					html += " 		<div class='thumbnail'>                                                                    ";
+    					html += " 			<img src='${hContext}"+value.path+"' alt='item_img'>                                   ";
+    					html += " 			<div class='caption'>                                                                  ";
+    					html += " 				<h3>"+value.name+"</h3>                                                            ";
+    					html += " 				<span class='discount'>"+value.discount+"%</span>                                  ";
+    					html += " 				<span class='final-price'>"+value.finalPrice+"원</span>                             ";
+    					html += " 				<h3 class='origin-price'>"+value.price+"원</h3>                                     ";
+    					html += " 			</div>                                                                                 ";
+    					html += " 		</div>                                                                                     ";
+    					html += " 	</div>                                                                                         ";
+     
+    				});
+    			}
+    			//container에 데이터 추가
+    			$("#listContainer>.row").append(html); 
+    			
+        	},
+        	error:function(data){//실패시 처리
+        		console.log("error:"+data);
+        	},
+        	complete:function(data){//성공/실패와 관계없이 수행!
+        		console.log("complete:"+data);
+        	}
+    	});
+	
+		
+	}); 
+	
+	//신상품,베스트,알뜰쇼핑 조회
 	//eq(1),(2),(3)인 요소만 선택하게 하고싶은데 진짜 안된다.. 결국 그냥 class=e 줘서 선택하게함..
 	//slice가 있는것 같은데 css적용예시만 있어서 on에는 어떻게 쓰여야 할지 모르겠다..
 	$("#listDiv").on("click","li.e",function(e){
@@ -175,7 +252,7 @@
     					console.log(i+","+value.name);
     					html += " 	<div class='col-sm-6 col-md-3'>                                                                ";
     					html += " 		<div class='thumbnail'>                                                                    ";
-    					html += " 			<img src='"+value.path+"' alt='item_img'>                                              ";
+    					html += " 			<img src='${hContext}"+value.path+"' alt='item_img'>                                   ";
     					html += " 			<div class='caption'>                                                                  ";
     					html += " 				<h3>"+value.name+"</h3>                                                            ";
     					html += " 				<span class='discount'>"+value.discount+"%</span>                                  ";
@@ -186,7 +263,9 @@
     					html += " 	</div>                                                                                         ";
      
     				});
-    			}
+    			
+     			}
+     			
     			//container에 데이터 추가
     			$("#listContainer>.row").append(html); 
     			
@@ -211,20 +290,16 @@
     	}       
     });
 		
-	
+	//기본 조회(메인화면 로드시 실행)
 	function doRetrieve(page) {
       	$.ajax({
     		type: "GET",
     		url:"${hContext}/main/do_retrieve.do",
     		asyn:"true",
     		dataType:"html",
-    		data:{
-    			//categoryNo: $("#categoryNo").val(),
-    			listDiv: $("#listDiv").val(),//왜 nvl처리가 안될까
-    			searchWord: $("#searchWord").val(),
-    			//pageSize: $("#pageSize").val(),
-    			pageNum: page
-    		},
+    		data:{  listDiv: $("#listDiv").val(),
+    				searchWord: $("#searchWord").val(),
+    				pageNum: page },
     		success:function(data){//통신 성공
         		console.log("success data:"+data);
     			var parseData = JSON.parse(data);
@@ -242,7 +317,7 @@
     					console.log(i+","+value.name);
     					html += " 	<div class='col-sm-6 col-md-3'>                                                                ";
     					html += " 		<div class='thumbnail'>                                                                    ";
-    					html += " 			<img src='"+value.path+"' alt='item_img'>                                              ";
+    					html += " 			<img src='${hContext}"+value.path+"' alt='item_img'>                                              ";
     					html += " 			<div class='caption'>                                                                  ";
     					html += " 				<h3>"+value.name+"</h3>                                                            ";
     					html += " 				<span class='discount'>"+value.discount+"%</span>                                  ";

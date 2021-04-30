@@ -32,32 +32,32 @@
                         <li class="dropdown" value="10" class="e">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">카테고리 <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu" name="categoryNo" id="categoryNo">
-                                <li><a href="#">채소</a></li>
+                                <li value="10"><a href="#">채소</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">과일/견과/쌀</a></li>
+                                <li value="20"><a href="#">과일/견과/쌀</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">수산/해산/건어물</a></li>
+                                <li value="30"><a href="#">수산/해산/건어물</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">정육/계란</a></li>
+                                <li value="40"><a href="#">정육/계란</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">국/반찬/메인요리</a></li>
+                                <li value="50"><a href="#">국/반찬/메인요리</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">샐러드/간편식</a></li>
+                                <li value="60"><a href="#">샐러드/간편식</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">면/양념/오일</a></li>
+                                <li value="70"><a href="#">면/양념/오일</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">생수/음료/우유/커피</a></li>
+                                <li value="80"><a href="#">생수/음료/우유/커피</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">간식/과자/떡</a></li>
+                                <li value="90"><a href="#">간식/과자/떡</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">베이커리/치즈</a></li>
+                                <li value="100"><a href="#">베이커리/치즈</a></li>
                             </ul>
                         </li>
                         <li value="20" class="e"><a href="#">신상품</a></li>
                         <li value="30" class="e"><a href="#">베스트</a></li>
                         <li value="40" class="e"><a href="#">알뜰쇼핑</a></li>
-                        <li><a href="#">레시피</a></li>
-                        <li><a href="#">장바구니</a></li>
+                        <li id="moveToRecipe"><a href="#">레시피</a></li>
+                        <li id="moveToCart"><a href="#">장바구니</a></li>
                     </ul>
                     <div class="nav navbar-form navbar-right search_container" role="search">
                         <table class="search_elements">

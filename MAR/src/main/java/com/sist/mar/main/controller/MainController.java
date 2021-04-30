@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.sist.mar.cmn.StringUtil;
-import com.sist.mar.code.domain.Code;
 import com.sist.mar.code.service.CodeService;
 import com.sist.mar.main.domain.CateSearchVO;
 import com.sist.mar.main.domain.MainVO;
@@ -37,14 +36,47 @@ public class MainController {
 	
 	//<<<<<main화면 연결>>>>>
 	@RequestMapping(value= "main/main_view.do")
-	public String main(Model model) throws SQLException {
+	public String main(Model model,CateSearchVO search) throws SQLException {
 		LOG.debug("******************************************************");
 		LOG.debug("* 메인 화면 load *");
 		LOG.debug("******************************************************");
+		LOG.debug("================================");
+		LOG.debug("search param: "+search);
+		LOG.debug("================================");
 		
+		//NVL처리
+		//검색어가 없을 시 ""처리
+		search.setSearchWord(StringUtil.nvl(search.getSearchWord(), ""));
+		//목록분류 없을 시 20(신상품조회)처리
+		search.setListDiv(StringUtil.nvl(search.getListDiv(),"20"));
+		if(search.getCategoryNo()==0) {
+			search.setCategoryNo(0);
+		}
+		//페이지NUM에 0이 들어올 시 
+		if(search.getPageNum()==0) {
+			search.setPageNum(1);//1로 만들어줌
+		}
+		//페이지사이즈에 0이 들어올 시
+		if(search.getPageSize()==0) {
+			search.setPageSize(10);//10으로 만들어줌
+		}
+		
+		LOG.debug("================================");
+		LOG.debug("param_init(초기화): "+search);
+		LOG.debug("================================");
+		
+		List<MainVO> list = (List<MainVO>) this.mainService.doRetrieve(search);
+		
+		for(MainVO vo:list) {
+			LOG.debug(vo.toString());
+		}
+		
+		//model로 list를 화면에 넘겨줌
+		model.addAttribute("list",list);
+				
 		return "main/main";
 	}
-	
+
 	//<<<<목록조회 메서드>>>>
 	@RequestMapping(value="main/do_retrieve.do", method=RequestMethod.GET
 			,produces = "application/json;charset=UTF-8")

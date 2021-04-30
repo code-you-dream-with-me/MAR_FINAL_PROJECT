@@ -25,6 +25,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap" rel="stylesheet">
 <!-- icon -->
 <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
+<!-- favicon -->
+<link rel="shortcut icon" href="${hContext}/resources/image_source/markit_favicon.ico" type="image/x-icon">
+<link rel="icon" href="${hContext}/resources/image_source/markit_favicon.ico" type="image/x-icon">
 
 <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
 <script src="${hContext}/resources/js/jquery.min.js"></script>

@@ -12,15 +12,34 @@
 		<put-attribute name="footer" value="/WEB-INF/views/tiles/template/footer.jsp"/>
 	</definition>
 	
-	<!-- layout01 동적화면 적용 -->
+	<!-- layout01 동적화면 적용 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>-->
 	
 	<!-- main.jsp -->
 	<definition name="*/main" extends="first-layout">
 		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
 		<put-attribute name="container" value="/WEB-INF/views/{1}/main.jsp"/>
 	</definition>
+
 	
-	<!--// layout01 동적화면 적용 -->
+	<!-- cart_list.jsp -->
+	<definition name="*/cart_list" extends="first-layout">
+		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
+		<put-attribute name="container" value="/WEB-INF/views/{1}/cart_list.jsp"/>
+	</definition>
+	<!-- order_form.jsp -->
+	<definition name="*/order_form" extends="first-layout">
+		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
+		<put-attribute name="container" value="/WEB-INF/views/{1}/order_form.jsp"/>
+	</definition>
+	<!-- payment_detail.jsp -->
+	<definition name="*/payment_detail" extends="first-layout">
+		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
+		<put-attribute name="container" value="/WEB-INF/views/{1}/payment_detail.jsp"/>
+	</definition>
+	
+	<!--// layout01 동적화면 적용 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>-->
+
+
 
 	<!--▶layout02 -->
 	<definition name="second-layout" template="/WEB-INF/views/tiles/layouts/layout02.jsp">
@@ -31,14 +50,15 @@
 		<put-attribute name="footer" value="/WEB-INF/views/tiles/template/footer.jsp"/>
 	</definition>
 	
-	<!-- layout02 동적화면 적용 -->
+	<!-- layout02 동적화면 적용 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>-->
 	
-	<!-- hello.jsp(테스트완료) -->
-	<definition name="" extends="second-layout"><!-- */hello -->
-		<put-attribute name="title" value="테스트"/>
-		<put-attribute name="container" value=""/><!-- /WEB-INF/views/{1}/hello.jsp -->
+	<!-- wishitem_list.jsp -->
+	<definition name="*/wishitem_list" extends="second-layout">
+		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
+		<put-attribute name="container" value="/WEB-INF/views/{1}/wishitem_list.jsp"/>
 	</definition>
+
 	
-	<!--// layout02 동적화면 적용 -->
+	<!--// layout02 동적화면 적용 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>-->
 
 </tiles-definitions>

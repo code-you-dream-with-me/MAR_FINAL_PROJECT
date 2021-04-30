@@ -16,6 +16,7 @@
 			</when>
 			<when test=" '40' == listDiv "><!-- 이벤트목록40-->
 				AND NOT t1.discount IS NULL
+				AND NOT t1.discount = 0
 	    		ORDER BY t1.reg_dt desc
 			</when>
 		</choose>
@@ -29,11 +30,11 @@
 		           g2.name,
 		           g2.discount,
 		           g2.price,
-		           g2.final_price,
+		           g2.final_price as finalPrice,
 		           g2.sales
 		    FROM(
 		    SELECT ROWNUM rnum,g1.*
-		    FROM(SELECT t2.path || '/' ||t2.save_name AS path,
+		    FROM(SELECT t2.path || t2.save_name AS path,
 		            t1.name,
 		            t1.discount,
 		            t1.price,
@@ -52,11 +53,11 @@
 		    WHERE rnum >= (#{pageSize}*(#{pageNum}-1)+1)
 		    ]]>   
 		)A CROSS JOIN(
-		    SELECT COUNT(*) total_cnt
+		    SELECT COUNT(*) totalCnt
 		    FROM item
 		)B
 		--검색 조회
-		WHERE name LIKE #{searchWord}||'%'
+		WHERE name LIKE '%'||#{searchWord}||'%'
 	</select>
 	
 </mapper>

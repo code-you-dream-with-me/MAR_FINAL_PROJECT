@@ -3,7 +3,7 @@
 <mapper namespace="com.sist.mar.item">
 
 	<!-- getAllList -->
-	<select id="getAllList" resultType="Item">
+	<select id="getAllList" resultType="Item" >
 		SELECT
 			    item_no as itemNo,
 			    name,

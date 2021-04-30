@@ -68,6 +68,13 @@ public class CartController {
 		LOG.debug("= doInsert() =");
 		LOG.debug("cart : " + cart);
 		
+		//HttpSession session
+		//세션으로 memberId
+		//if(null != session.getAttribute("member")) {
+		//	MemberVO member = (MemberVO) session.getAttribute("member");
+		//	cart.setMemberId(member.getuId());
+		//}
+		
 		int checkFlag = cartService.cartCheck(cart);
 		String resultMsg = "";
 		if (checkFlag == 0) {
@@ -121,6 +128,13 @@ public class CartController {
 		LOG.debug("= doRetrieve() =");
 		LOG.debug("param : " + param);
 	
+		//HttpSession session
+		//세션으로 memberId(=searchWord)
+		//if(null != session.getAttribute("member")) {
+		//	MemberVO member = (MemberVO) session.getAttribute("member");
+		//	search.setSearchWord(member.getuId());
+		//}
+		
 		List<Cart> list = (List<Cart>) cartService.doRetrieve(param);
 		for(Cart vo : list) {
 			LOG.debug(vo.toString());

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.sist.mar.cmn.Message;
 import com.sist.mar.cmn.Search;
-import com.sist.mar.cmn.StringUtil;
 import com.sist.mar.wishitem.domain.Wishitem;
 import com.sist.mar.wishitem.service.WishitemService;
 
@@ -72,6 +71,13 @@ public class WishitemController {
 		LOG.debug("= doInsert() =");
 		LOG.debug("wishitem : " + wishitem);
 		
+		//HttpSession session
+		//세션으로 memberId
+		//if(null != session.getAttribute("member")) {
+		//	MemberVO member = (MemberVO) session.getAttribute("member");
+		//	wishitem.setMemberId(member.getuId());
+		//}
+		
 		int checkFlag = wishService.wishitemCheck(wishitem);
 		String resultMsg = "";
 		if (checkFlag == 0) {
@@ -113,12 +119,18 @@ public class WishitemController {
 	// 늘사는것 조회 -----------------------------------------------------------------------------------
 	@RequestMapping(value = "wishitem/do_retrieve.do", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String doRetrieve(Search search) throws SQLException{
+	public String doRetrieve(Search search) throws SQLException{ 
 		LOG.debug("= doRetrieve() =");
 		LOG.debug("search : " + search);
 		
+		//HttpSession session
+		//세션으로 memberId(=searchword)
+		//if(null != session.getAttribute("member")) {
+		//	MemberVO member = (MemberVO) session.getAttribute("member");
+		//	search.setSearchWord(member.getuId());
+		//}
+		
 		//NVL 처리 
-		search.setSearchWord(StringUtil.nvl(search.getSearchWord(), ""));
 		if(search.getPageSize() == 0) {
 			search.setPageSize(10);
 		}

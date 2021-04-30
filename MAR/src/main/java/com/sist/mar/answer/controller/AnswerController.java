@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -30,19 +31,23 @@ public class AnswerController {
 	public AnswerController() {
 	}
 
-	@RequestMapping(value = "answer/answer_view.do")
-	public String view01(Model model) {
+	@RequestMapping(value = "answer/answer_view.do", method = RequestMethod.GET)
+	public String view01(Model model,@RequestParam(value = "questionNo", required = false)String questionNo) throws Exception {
 		LOG.debug("=================");
 		LOG.debug("=answer view=");
 		LOG.debug("=================");
+		
+		model.addAttribute("questionNo", questionNo);
 		return "answer/answer";
 	}
 	
-	@RequestMapping(value = "answer/answer_moview.do")
-	public String view02(Model model) {
+	@RequestMapping(value = "answer/answer_moview.do",  method = RequestMethod.GET)
+	public String view02(Model model, @RequestParam(value = "answerNo", required = false)String answerNo) throws Exception {
 		LOG.debug("=================");
 		LOG.debug("=answer view=");
 		LOG.debug("=================");
+		
+		model.addAttribute("answerNo", answerNo);
 		return "answer/answer_mod";
 	}
 

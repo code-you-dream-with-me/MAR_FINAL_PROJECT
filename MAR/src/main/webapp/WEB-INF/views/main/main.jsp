@@ -316,7 +316,7 @@
     				$.each(parseData, function(i, value) {
     					console.log(i+","+value.name);
     					html += " 	<div class='col-sm-6 col-md-3'>                                                                ";
-    					html += " 		<div class='thumbnail'>                                                                    ";
+    					html += " 		<div class='thumbnail' onclick='moveToItem("+value.itemNo+")'>                                                                    ";
     					html += " 			<img src='${hContext}"+value.path+"' alt='item_img'>                                              ";
     					html += " 			<div class='caption'>                                                                  ";
     					html += " 				<h3>"+value.name+"</h3>                                                            ";
@@ -340,6 +340,13 @@
         		console.log("complete:"+data);
         	}
     	});
+	}
+	
+	//상품 클릭하여 상품 상세로 이동
+	function moveToItem(itemNo){
+	
+		console.log("itemNo:"+itemNo);
+		window.location.href = "${hContext}/item/item_deview.do?itemNo="+itemNo;
 	}
 
 

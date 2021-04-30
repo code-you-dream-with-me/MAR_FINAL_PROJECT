@@ -5,7 +5,7 @@ body{height:100%; font-size:100%; font-weight:normal; font-family:'Gothic A1', s
 _:-ms-fullscreen, :root body {overflow-y:scroll;}
 
 
-.mid_section{width:1030px; margin:50px auto 0;}
+.mid_section{width:100%; margin:50px auto 0;}
 
 /***
      [reset]

@@ -8,7 +8,6 @@
 <head>
 <meta charset="utf-8">
 <!-- CSS -->
-<link rel="stylesheet" type="text/css" href="${hContext}/resources/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="${hContext}/resources/css/normalize.css">
 <link rel="stylesheet" type="text/css" href="${hContext}/resources/css/y_base.css">
 <!-- JS -->

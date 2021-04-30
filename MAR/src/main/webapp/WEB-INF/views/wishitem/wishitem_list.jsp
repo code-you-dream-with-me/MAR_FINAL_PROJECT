@@ -14,11 +14,11 @@
 <body>	
 	<!-- center -->
 	<div class="container02">
-		<form action="" id="wishFrm" name="wishFrm" >
+		<form action="" id="wishFrm" name="wishFrm">
 			<input type="hidden" id="member_id" name="member_id" value="test01" />
 			<input type="hidden" id="param" name="param" />
 		</form>
-		
+
 		<div class="mid_section">
 			<div class="comn_ttl_wrap align_ttl_wrap">
 				<dl>
@@ -29,7 +29,7 @@
 				</dl>
 			</div>
 			<div class="comn_tb_wrap">
-				<table id="wishTable" >
+				<table id="wishTable">
 					<thead>
 						<tr>
 							<th class="info_gs">

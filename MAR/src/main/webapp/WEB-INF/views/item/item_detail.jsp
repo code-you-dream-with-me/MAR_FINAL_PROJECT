@@ -107,6 +107,7 @@
 	<!-- header -->
 	
 	<!-- //header -->
+	<div class="container01">
 	<div class="btn" id="btnDiv" >
 		  	<button type="button" class="btn1" id="deleteBtn" >삭제</button>
 		  	<button type="button" class="btn1" id="updateBtn" >수정</button>
@@ -181,7 +182,7 @@
 			</tbody>
 		  </table>
 		</div>
-	</div>
+		
 		
 		<!-- 버튼 -->
 		<div class="btns">
@@ -199,14 +200,17 @@
 		<!-- 관련 상품 리스트 -->
 		<div>
 			<h3>Related Product</h3>
-			 <hr/>
+		<div>
+			<h2>Related Product</h2>
 	 		<div id="relatedList" >
+	 		<div class="row"></div>
 	        </div>
+		</div>
 		</div>
 		<!-- 상세이미지 -->
   		<div class="detailimg" id="detailimg">
 		</div> 
-		
+	</div>	
 
 <!-- javascript -->
 
@@ -263,7 +267,7 @@
     			var parseData = JSON.parse(data);
     			console.log(parseData.length);
     			
-		  		   $("#relatedList").empty();
+    			   $("#relatedList>.row").empty();
 		  		  	var html = "";
 		  		  	
 		  			if(parseData.length > 0){ 
@@ -272,7 +276,7 @@
 		  					console.log(i+","+value.name);
 		  					
 		  				
-		  					html+=" <div class='col-sm-3 col-md-2'>";
+		  					html+=" <div class='col-sm-3 col-md-3'>";
 		  					html+="       <div class='thumbnail' onclick='moveToItem("+value.itemNo+")'>";
 		  					html+="        <img src='${hContext}"+value.path + value.saveName +  "' style='width: 200px; height: 200px; object-fit: cover; '>";
 		  					html+=" 		   <div class='caption'>";
@@ -295,7 +299,7 @@
 		  				
 		  			}
 
-		  		$("#relatedList").append(html);
+		  		$("#relatedList>.row").append(html);
 
         	},
         	error:function(data){//실패시 처리

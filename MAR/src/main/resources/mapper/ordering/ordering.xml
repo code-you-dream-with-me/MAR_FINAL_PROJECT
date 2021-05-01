@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mar.ordering">
+
+
+	<!-- 
+		Mybatis 주요 개념
+	
+		parameterType   : 변수가 어디서 기원했는지에 대한 내용
+		resultType 		: 결과값의 타입  
+		resultMap		: 참고한 resultMap 
+	 -->
+
+	<select id="doSelectItemList" parameterType="Orderitem" resultType="Orderitem">
+	
+		SELECT t1.orderitem_no 		AS orderitemNo,
+		       t1.order_no 			AS orderNo,
+		       t1.item_no 			AS itemNo,
+		       t1.quantity,
+		       COUNT(*) OVER() 		AS totalCnt,
+		       t2.order_date 		AS orderDate,
+      		   t3.name				AS itemName
+		FROM  orderitem t1
+		        , ordering t2
+		        , item t3
+		WHERE t1.order_no = #{orderNo}
+		AND   t1.order_no = t2.order_no
+		AND   t1.item_no = t3.item_no      
+		ORDER BY t1.orderitem_no
+	
+	</select>
+
+
+	<!-- doUndoRequest -->
+	<update id="doUndoRequest" parameterType="Ordering">
+	
+		UPDATE ordering
+		SET   order_state = '2'
+		WHERE order_no = #{orderNo}
+	
+	</update>
+
+
+	<!-- doSelectOne -->
+	<select id="doSelectOne" parameterType="Ordering" resultType="Ordering">
+	
+		SELECT
+		    order_no		AS orderNo,
+		    member_id		AS memberId,
+		    price,
+		    name,
+		    phone,
+		    address,
+		    request,
+		    order_state		AS orderState,
+		    order_date		AS orderDate
+		FROM
+		    ordering
+		WHERE order_no = #{orderNo}   
+	
+	</select>
+
+
+	<!-- doRetrieve -->
+ 	<select id="doRetrieve" parameterType="Search" resultType="Ordering">
+
+		SELECT  t2.rnum				AS num
+		        , t2.order_no       AS orderNo
+		        , t2.member_id      AS memberId
+		        , t2.price
+		        , t2.name
+		        , t2.phone
+		        , t2.address
+		        , t2.request
+		        , t2.order_state    AS orderState
+		        , t2.order_date     AS orderDate
+		        , t2.orderItemCnt
+		        , t2.totalCnt		AS totalCnt
+		FROM(
+		        SELECT DISTINCT ROWNUM rnum
+		                , t1.*
+		                , COUNT(*) OVER() totalCnt
+		        FROM(
+		                SELECT DISTINCT A.*
+		                       , COUNT(*) OVER(PARTITION BY A.order_no) orderItemCnt
+		                FROM 
+		                    (SELECT *
+		                     FROM ordering
+		                     ) A
+		                     , orderitem B 
+		                WHERE  A.order_no = B.order_no    
+		                AND member_id = #{searchWord}
+		                ORDER BY A.order_no DESC      
+		             )t1
+		        )t2
+		WHERE rnum BETWEEN #{pageSize} * (#{pageNum} - 1) + 1 AND #{pageSize} * (#{pageNum} - 1) + #{pageSize}
+
+	</select>
+
+</mapper>

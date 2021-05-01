@@ -18,6 +18,7 @@
 		<form action="" id="cartFrm" name="cartFrm">
 			<div>
 				<input type="hidden" name="memberId" id="memberId" value="<%=vo.getMemberId()%>" /> 
+				<input type="hidden" name="itemNo"   id="itemNo"/>
 			</div>
 		</form>
 		
@@ -155,15 +156,13 @@
 		$("#cartTable>tbody").on("click",".table_item_name", function(e){
 			e.preventDefault();
 
-			console.log("상품상세로 이동 : " + $(this).closest('tr').find('td:eq(0)').text() );
-/* 			//post 형식으로 보내기
-			let url       = 상품상세페이지
-			let paramters = wishNo??
-			let method    = "POST";
-			let async     = "true";
-			EClass.callAjax(url, paramters, method, async, function(data) {
-				doRetrieve(1);
-			});	  */
+			console.log("상품상세로 이동 : " + $(this).closest('tr').find('td:eq(1)').text() );
+ 			//post 형식으로 보내기
+ 			var frm = document.cartFrm;
+ 			frm.action = "${hContext}/item/item_deview.do";
+ 			frm.itemNo.value = $(this).closest('tr').find('td:eq(1)').text();
+ 			frm.method = "GET";
+ 			frm.submit();
 		});
 		
 		// 목록 조회 -----------------------------------------------------

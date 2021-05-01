@@ -1,7 +1,8 @@
+<%@page import="com.sist.mar.member.domain.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="hContext" value="${pageContext.request.contextPath}"></c:set>
-
+<% MemberVO vo = (MemberVO) session.getAttribute("member"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,14 +11,13 @@
 <link rel="stylesheet" type="text/css" href="${hContext}/resources/css/normalize.css">
 <link rel="stylesheet" type="text/css" href="${hContext}/resources/css/y_base.css">
 <title>CART_LIST</title>
-
 </head>	
 <body>
 	<!-- center -->
 	<div class="container01">
 		<form action="" id="cartFrm" name="cartFrm">
 			<div>
-				<input type="hidden" name="memberId" id="memberId" value="<%=session.getAttribute("memberId")%>" /> 
+				<input type="hidden" name="memberId" id="memberId" value="<%=vo.getMemberId()%>" /> 
 			</div>
 		</form>
 		

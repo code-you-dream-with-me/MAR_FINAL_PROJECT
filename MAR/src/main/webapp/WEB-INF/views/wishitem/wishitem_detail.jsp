@@ -1,8 +1,9 @@
+<%@page import="com.sist.mar.member.domain.MemberVO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="hContext" value="${pageContext.request.contextPath}"></c:set>
-
+<% MemberVO vo = (MemberVO) session.getAttribute("member"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +23,7 @@
 <body>
 	<!-- center -->
 	<form action="" id="wishPopupFrm" name="wishPopupFrm" >
-		<input type="hidden" name="memberId" id="memberId" value="<%=session.getAttribute("memberId")%>"/>
+		<input type="hidden" name="memberId" id="memberId" value="<%=vo.getMemberId()%>"/>
 		<input type="hidden" name="itemNo"   id="itemNo" value="${outVO.itemNo}"  />
 	</form>
 	

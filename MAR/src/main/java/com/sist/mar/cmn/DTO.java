@@ -16,7 +16,12 @@ public class DTO {
 	private String image_path;       //wishitem & cart 출력용
 	//공통
 	private int num;                 //번호
+	private int orderItemCnt;        //해당주문의 총상품 종류번호
 	private int totalCnt;            //총글수
+	//주문상품조회
+	private String itemName;			 //상품명(주문번호를 단서로 otherItem 쿼리 뽑고, 그곳의 상품번호를 단서로 상품명을 뽑는건 3중 조인으로 가능한데, 
+									 //		문제는 otheritem vo에 이를 받을 관련변수 없어서 추가)
+	
 	
 	public DTO() {}
 
@@ -30,6 +35,7 @@ public class DTO {
 		this.image_save_name = image_save_name;
 		this.image_path = image_path;
 		this.num = num;
+		this.orderItemCnt = orderItemCnt;
 		this.totalCnt = totalCnt;
 	}
 
@@ -89,6 +95,15 @@ public class DTO {
 		this.num = num;
 	}
 
+	
+	public int getOrderItemCnt() {
+		return orderItemCnt;
+	}
+
+	public void setOrderItemCnt(int orderItemCnt) {
+		this.orderItemCnt = orderItemCnt;
+	}
+
 	public int getTotalCnt() {
 		return totalCnt;
 	}
@@ -101,7 +116,8 @@ public class DTO {
 	public String toString() {
 		return "DTO [item_name=" + item_name + ", item_price=" + item_price + ", item_discount=" + item_discount
 				+ ", item_final_price=" + item_final_price + ", image_save_name=" + image_save_name + ", image_path="
-				+ image_path + ", num=" + num + ", totalCnt=" + totalCnt + "]";
+				+ image_path + ", num=" + num + ", orderItemCnt=" + orderItemCnt + ", totalCnt=" + totalCnt + "]";
 	}
 
+	
 }

@@ -20,6 +20,7 @@ import com.sist.mar.cmn.StringUtil;
 import com.sist.mar.item.domain.Item;
 import com.sist.mar.member.domain.MemberVO;
 import com.sist.mar.order.domain.Ordering;
+import com.sist.mar.payment.domain.Payment;
 import com.sist.mar.recipe.domain.RecipeVO;
 
 @Controller
@@ -170,6 +171,13 @@ public class AdminController {
 		return gson.toJson(message);
 		
 	}	
+	
+	@RequestMapping(value = "admin/do_select_payment_from_ordering.do", method = RequestMethod.GET
+			,produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public Payment doSelectPaymentFromOrdering(Ordering ordering) throws Exception {
+		return adminService.doSelectPaymentFromOrdering(ordering);
+	}
 	
 	@RequestMapping(value = "admin/do_retrieve_member.do", method = RequestMethod.GET
 			,produces = "application/json;charset=UTF-8")

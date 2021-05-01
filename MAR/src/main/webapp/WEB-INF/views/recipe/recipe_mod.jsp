@@ -87,7 +87,7 @@
 	          <div class="row g-3">
 
 				<!-- 변경필요 -->
-				<input type="hidden" name="regId" id="regId" value="123wodnr@naver.com"/>
+				<input type="hidden" name="regId" id="regId" value=""/>
 				<input type="hidden" name="imageListDel" id="imageListDel" value=""/>
 				<input type="hidden" name="imageList" id="imageList" value=""/>
 				<input type="hidden" name="recipeNo" id="recipeNo" value=""/>
@@ -150,6 +150,18 @@
     //console.log("수정 레시피 번호:"+recipeNo);
     doSelectOne(recipeNo);
     doRetrieveImage(recipeNo);
+    
+    var member = {
+    		memberId: '${sessionScope.member.memberId}', 
+	   		auth: '${sessionScope.member.auth}'
+	};
+	    
+	if(member.auth != '1'){ 
+		alert("관리자가 아니면 불가능 합니다.");
+		window.location.href = "${hContext}/member/sign_in_view.do";
+	}
+	$("#regId").val(member.memberId);
+	
   });
   
   function getParameter(name) {

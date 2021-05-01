@@ -89,7 +89,7 @@
 	          <div class="row g-3">
 
 				<!-- 변경필요 -->
-				<input type="hidden" name="regId" id="regId" value="123wodnr@naver.com"/>
+				<input type="hidden" name="regId" id="regId" value=""/>
 				<input type="hidden" name="imageList" id="imageList" value=""/>
 				<input type="hidden" name="whichMainImage" id="whichMainImage" value="0"/>
 				
@@ -144,6 +144,28 @@
 
   <script type="text/javascript">
 
+  $(document).ready(function() {
+      
+      var member = {
+    		  memberId: '${sessionScope.member.memberId}', 
+    		  pw: '${sessionScope.member.pw}', 
+    		  name: '${sessionScope.member.name}', 
+    		  phone: '${sessionScope.member.phone}', 
+    		  address: '${sessionScope.member.address}', 
+    		  auth: '${sessionScope.member.auth}', 
+    		  regDt: '${sessionScope.member.regDt}', 
+    		  modDt: '${sessionScope.member.modDt}'
+      };
+      
+      if(member.memberId == ""){
+    	  alert("관리자가 아니면 불가능 합니다.");
+    	  window.location.href = "${hContext}/member/sign_in_view.do";
+      }
+      
+      $("#regId").val(member.memberId);
+      
+    });
+  
   //팝업 창 띄우기
   function showPopup(frm) { 
 	console.log('showPopup()');

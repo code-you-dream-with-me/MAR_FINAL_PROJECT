@@ -81,7 +81,7 @@
 	
 	<!-- 오른쪽 네비게이션 -->
 	<aside class="bd-aside sticky-xl-top text-muted align-self-start mb-3 mb-xl-5 px-2">
-	  <h2 class="h6 pt-4 pb-3 mb-4 border-bottom">On this page</h2>
+	  <h2 class="h6 pt-4 pb-3 mb-4 border-bottom">${sessionScope.member.name} 관리자</h2>
 	  <nav class="small" id="toc">
 	    <ul class="list-unstyled">
 	    
@@ -249,7 +249,25 @@
       doRetrieveItem();
       doRetrieveOrdering();
       doRetrieveMember();
+      
+      var member = {
+    		  memberId: '${sessionScope.member.memberId}', 
+    		  pw: '${sessionScope.member.pw}', 
+    		  name: '${sessionScope.member.name}', 
+    		  phone: '${sessionScope.member.phone}', 
+    		  address: '${sessionScope.member.address}', 
+    		  auth: '${sessionScope.member.auth}', 
+    		  regDt: '${sessionScope.member.regDt}', 
+    		  modDt: '${sessionScope.member.modDt}'
+      };
+      
+      if(member.memberId == ""){
+    	  alert("관리자 계정이 아니면 이용할 수 없는 페이지 입니다.");
+    	  window.location.href = "${hContext}/member/sign_in_view.do";
+      }
+      
     });
+  
   
   $("#addRecipeBtn").on("click", function(e){
 	  console.log("addRecipeBtn");
@@ -562,6 +580,10 @@
 	  			var parseData = JSON.parse(data);
 	  			console.log(orderNo+"번 주문에 대한 "+parseData.msgContents);
 	  			doRetrieveOrdering(orderDiv, orderWord);
+	  			
+	  			if(methodName == 'approve'){
+	  				doSelectPaymentFromOrdering(orderNo);
+	  			}
 	  		},
 	  		error:function(data){//실패시 처리
 	  			console.log("error:"+data);
@@ -570,6 +592,37 @@
 	  			//console.log("complete:"+data);
 	  		}
 	  	});
+  }
+  
+  function doSelectPaymentFromOrdering(orderNo) {
+	  
+	  $.ajax({
+	  		type: "GET",
+	  		url:"${hContext}/admin/do_select_payment_from_ordering.do",
+	  		asyn:false,
+	  		dataType:"html",
+	  		data:{
+	  			orderNo: orderNo
+	  		},
+	  		success:function(data){//통신 성공
+	  			var parseData = JSON.parse(data);
+	  			var payNo = parseData.payNo;
+	  			console.log("결제취소 payNo: "+payNo);
+	  			
+	  			let url       = "${hContext}/payment/do_payment_cancel.do";
+	  			let paramters = { "payNo" : payNo };
+	  			let method    = "POST";
+	  			let async     = "true";
+	  			EClass.callAjax(url, paramters, method, async, function(data) {
+	  				alert(data.msgContents);
+	  			});	
+	  			
+	  		},
+	  		error:function(data){//실패시 처리
+	  			console.log("error:"+data);
+	  		}
+	  	});
+	  
   }
   
   

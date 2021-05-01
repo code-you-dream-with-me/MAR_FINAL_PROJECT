@@ -13,6 +13,7 @@ import com.sist.mar.cmn.DTO;
 import com.sist.mar.item.domain.Item;
 import com.sist.mar.member.domain.MemberVO;
 import com.sist.mar.order.domain.Ordering;
+import com.sist.mar.payment.domain.Payment;
 import com.sist.mar.recipe.domain.RecipeVO;
 
 @Service
@@ -65,6 +66,10 @@ public class AdminServiceImpl {
 		int flag = adminDao.doApproveCancelPayment(dto);
 		flag += adminDao.doApproveCancel(dto);
 		return flag;
+	}
+	
+	public Payment doSelectPaymentFromOrdering(DTO dto) throws SQLException {
+		return adminDao.doSelectPaymentFromOrdering(dto);
 	}
 	
 	public List<MemberVO> doRetrieveMember(DTO dto) throws SQLException {

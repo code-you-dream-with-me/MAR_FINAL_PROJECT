@@ -105,11 +105,11 @@
 		  
 		  <input type="hidden" id="imageList" />
 		  
-		  <div class="bd-example">
+		  <div class="bd-example" id="btnDiv">
 		  	<button type="button" class="btn btn-primary" id="reicpeDeleteBtn" style="float: right; margin-right: -20px;">삭제</button>
 		  	<button type="button" class="btn btn-primary" id="reicpeUpdateBtn" style="float: right; margin-right: 10px;">수정</button>
-		  	<input type="hidden" id="recipeNo" name="recipeNo" /> 
 		  </div>
+  	  	  <input type="hidden" id="recipeNo" name="recipeNo" /> 
 		  
 		  <table>
 		  	<thead>
@@ -161,6 +161,14 @@
 	    doSelectOne();
 	    doRetrieveImage();
 	    doShowRelevantItem();
+	    
+	    var member = {
+	  		  memberId: '${sessionScope.member.memberId}', 
+	   		  auth: '${sessionScope.member.auth}'
+	    };
+	    
+	    if(member.auth != '1'){ $("#btnDiv").empty(); }
+	    
 	});
 	
 	

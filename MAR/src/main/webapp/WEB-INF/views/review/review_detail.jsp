@@ -81,7 +81,7 @@
 				
 					<label class="col-md-2 col-lg-2 control-label"> 후기 번호</label>
 					<div class = "col-md-2 col-lg-2">
-						<input type = "hidden" readonly="readonly" value= "${reviewNo }" id = "param" name = "param"/>
+						<input type = "hidden" readonly="readonly" value= "${checkMemberId }" id = "checkMemberId" name = "checkMemberId"/>
 						<input type = "text"   readonly="readonly" class = "form-control" value= "${reviewNo }" id = "reviewNo" name = "reviewNo" />  
 					</div>
 					
@@ -102,7 +102,7 @@
 					
 					<label class="col-md-2 col-lg-2 control-label">이메일(ID)</label>
 					<div class = "col-md-3 col-lg-3">
-						<input type = "text" readonly="readonly" class = "form-control" id = "memberId" name = "memberId" />  
+						<input type = "text" readonly="readonly" class = "form-control" value= "${memberId }" id = "memberId" name = "memberId" />  
 					</div>
 
 				</div>
@@ -155,7 +155,7 @@
 			  		asyn: "false",
 			  		dataType : "html",
 			  		data:{
-			  			reviewNo : $("#param").val()
+			  			reviewNo : $("#reviewNo").val()
 			  		},
 			  		success:function(data){	//통신 성공
 			  			var parseData = JSON.parse(data);
@@ -190,6 +190,16 @@
 			console.log("doDeleteBtn");
 			e.preventDefault();
 			
+			if($("#checkMemberId").val() == null )  {
+				alert("삭제를 누르기 전에 로그인을 먼저 해주세요.");
+				return;
+			}
+			
+			if($("#checkMemberId").val() != $("#memberId").val() ) {
+				alert("후기를 작성한 작성자 본인이 아니면 삭제하실 수 없습니다.");
+				return;
+			}
+			
 			let url = "${hContext}/review/do_delete.do";
 			let parameter = {"reviewNo" : $("#reviewNo").val(),
 							 "memberId" : $("#memberId").val()			};
@@ -219,9 +229,20 @@
 		
 		// doUpdateBtn click 시 테이블의 데이터 박스로 전달
  		$("#doUpdateBtn").on("click", function(e){
-			
+ 			
  			console.log("doUpdateBtn");
 			e.preventDefault();
+			
+			
+			if($("#checkMemberId").val() == null )  {
+				alert("수정을 누르기 전에 로그인을 먼저 해주세요.");
+				return;
+			}
+			
+			if($("#checkMemberId").val() != $("#memberId").val() ) {
+				alert("후기를 작성한 작성자 본인이 아니면 수정하실 수 없습니다.");
+				return;
+			}
 			
 			var reviewNo = $("#reviewNo").val();
 			

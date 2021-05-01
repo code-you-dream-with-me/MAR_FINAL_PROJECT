@@ -13,6 +13,8 @@
     Copyright (C) by KandJang All right reserved.
 */
  --%>
+<%@ page import="com.sist.mar.order.domain.Ordering"%>
+<%@ page import="com.sist.mar.question.domain.QuestionVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- core -->
@@ -64,6 +66,7 @@
 		</div>
 		<!--// 제목 -->
 	
+		
 		<!--  form -->
 		<form action = "" class = "form-horizontal">
 
@@ -78,7 +81,7 @@
 				<div class = "form-group">
 					
 					<div class = "col-md-2 col-lg-2">
-						<input type = "hidden"  class = "form-control" value= "${questionNo }" id = "questionNo" name = "questionNo" />  
+						<input type = "hidden"  class = "form-control" id = "questionNo" name = "questionNo" />  
 					</div>
 					
 					<div class = "col-md-3 col-lg-3">
@@ -92,12 +95,12 @@
 				
 					<label class="col-md-2 col-lg-2 control-label">주문번호</label>
 					<div class = "col-md-2 col-lg-2">
-						<input type = "text" readonly="readonly" class = "form-control" id = "orderNo" name = "orderNo" /> 
+						<input type = "text" readonly="readonly"  value= "${orderNo }" class = "form-control" id = "orderNo" name = "orderNo" /> 
 					</div>
 					
 					<label class="col-md-2 col-lg-2 control-label">이메일(ID)</label>
 					<div class = "col-md-3 col-lg-3">
-						<input type = "text" readonly="readonly" class = "form-control" id = "qUser" name = "qUser" />  
+						<input type = "text" readonly="readonly" value= "${qUser }" class = "form-control" id = "qUser" name = "qUser" />  
 					</div>
 		
 				</div>
@@ -158,8 +161,7 @@
 			}
 			
 			let url = "${hContext}/question/do_insert.do";
-			let parameter = {"questionNo" : $("#questionNo").val(),
-							 "orderNo" 	  : $("#orderNo").val(),
+			let parameter = {"orderNo" 	  : $("#orderNo").val(),
 							 "qUser" 	  : $("#qUser").val(),
 							 "title" 	  : $("#title").val(),
 							 "contents"   : $("#contents").val(),
@@ -167,7 +169,7 @@
 			let method	= "GET";
 			let async	= false;
 			
-			console.log("parameter : " + $("#questionNo").val());
+			console.log("parameter : " + parameter);
 			
 			if(confirm("등록 하시겠습니까?") == false) return;
 			
@@ -178,9 +180,9 @@
 				
 				alert(data.msgContents);
 				
-				if("1" == data.msgId){	// 삭제 성공
+				if("1" == data.msgId){	// 등록 성공
 					window.location.href = "${hContext}/question/question_view.do";
-				}else{	// 삭제 실패
+				}else{	// 등록 실패
 					alert(data.msgId + " \n " +data.msgContents);
 				}
 			})

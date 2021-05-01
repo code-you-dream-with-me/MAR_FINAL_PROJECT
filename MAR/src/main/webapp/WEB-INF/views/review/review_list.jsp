@@ -148,42 +148,6 @@
 		});
 		
 		
-/* 		// table click 시 테이블의 데이터 박스로 전달
-		$("#userTable>tbody").on("click", "tr", function(e){
-			
-			e.preventDefault();
-			// console.log("userTable>tbody");
-			let tds = $(this).children();
-			var uIdData = tds.eq(1).text();
-			// console.log("uId : " + uIdData);
-			
-			let url = "${hContext}/user/do_selectOne.do";
-			let parameters = {"uId":uIdData};
-			let method = "GET";
-			let async = true;
-			
-			// console.log("parameters : " + parameters);
-			// console.log("url : " + url);
-			
-			EClass.callAjax(url, parameters, method, async, function(data) {
-				console.log("data : " + data);
-				// let parseData = JSON.parse(data);
-				console.log("data.name : " + data.name);
-				
-				$("#uId").val(data.uId);
-				$("#name").val(data.name);
-				$("#passwd").val(data.passwd);
-				$("#level").val(data.intLevel);
-				$("#login").val(data.login);
-				$("#recommend").val(data.recommend);
-				$("#email").val(data.email);
-				$("#regDt").val(data.regDt);
-				
-				$("#uId").prop("disabled", "disabled");
-			}) 
-		}); */
-
-		
 		// 페이징 처리
 		function doRetrieve(page){
 			console.log("page : " + page);
@@ -302,10 +266,12 @@
 			
 			let tds = $(this).children();
 			var reviewNo = tds.eq(1).text();
+			var memberId = tds.eq(3).text();
 			
 			console.log("reviewNo : " + reviewNo);
+			console.log("memberId : " + memberId);
 			
-			window.location.href = "${hContext}/review/review_detail_view.do?reviewNo=" + reviewNo;
+			window.location.href = "${hContext}/review/review_detail_view.do?reviewNo=" + reviewNo + "&memberId=" + memberId;
 				
 		}); 
 		

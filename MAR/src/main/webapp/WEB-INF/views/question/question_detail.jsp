@@ -13,7 +13,7 @@
     Copyright (C) by KandJang All right reserved.
 */
  --%>
-<%@page import="com.sist.mar.question.domain.QuestionVO"%>
+<%@ page import="com.sist.mar.question.domain.QuestionVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- core -->
@@ -61,7 +61,7 @@
 	
 		<!-- 제목 -->
 		<div class="page-header">
-			<h2>후기 열람</h2>
+			<h2>1:1 질의 내용</h2>
 		</div>
 		<!--// 제목 -->
 	
@@ -74,15 +74,22 @@
 				<input type = "button" class = "btn btn-primary btn-sm" value = "삭제" id = "doDeleteBtn" /> 
 			</div>
 			
-			
+
 			<div class = "form-horizontal col-md-12 col-lg-12">
-			
+				<h4>답변여부</h4> <br/>
+				<div class = "form-group">
+					<label class="col-md-2 col-lg-2 control-label">답변여부</label>
+					<div class = "col-md-2 col-lg-2">
+						<input type = "text"  class = "form-control"  value= "${answerCheck }"	 readonly="readonly" id = "answerCheck" name = "answerCheck"/>
+						<input type = "text"  class = "form-control"  value= "${memberId }" 	 readonly="readonly" id = "memberId" name = "memberId"/>
+					</div>
+				</div>
+				
 				<h4>1:1 문의 정보</h4> <br/>
 				<div class = "form-group">
 				
 					<label class="col-md-2 col-lg-2 control-label">1:1 문의 번호</label>
 					<div class = "col-md-2 col-lg-2">
-						<input type = "hidden" readonly="readonly" value= "${questionNo }" id = "param" name = "param"/>
 						<input type = "text"   readonly="readonly" class = "form-control" value= "${questionNo }" id = "questionNo" name = "questionNo" />  
 					</div>
 					
@@ -103,7 +110,7 @@
 					
 					<label class="col-md-2 col-lg-2 control-label">이메일(ID)</label>
 					<div class = "col-md-3 col-lg-3">
-						<input type = "text" readonly="readonly" class = "form-control" id = "qUser" name = "qUser" />  
+						<input type = "text" readonly="readonly" class = "form-control" value= "${qUser }" id = "qUser" name = "qUser" />  
 					</div>
 		
 				</div>
@@ -156,7 +163,7 @@
 			  		asyn: "false",
 			  		dataType : "html",
 			  		data:{
-			  			questionNo : $("#param").val()
+			  			questionNo : $("#questionNo").val()
 			  		},
 			  		success:function(data){	//통신 성공
 			  			var parseData = JSON.parse(data);
@@ -174,7 +181,7 @@
 			  		    $("#title").val(title);
 			  		    $("#contents").val(contents);
 			  		    $("#regDt").val(regDt);
-
+			  		  	$("#answerCheck").val(answerCheck);
 			  		    
 			      	},
 			      	error:function(data){//실패시 처리
@@ -191,9 +198,19 @@
 			console.log("doDeleteBtn");
 			e.preventDefault();
 			
+			if($("#qUser").val() != $("#memberId").val() ) {
+				alert("작성자 본인이 아니면 삭제하실 수 없습니다.");
+				return;
+			}
+			
+			if($("#answerCheck").val() == '1') {
+				alert("이미 답변이 완료된 1:1문의글은 삭제하실수 없습니다.");
+				return;
+			}
+			
 			let url = "${hContext}/question/do_delete.do";
-			let parameter = {"questionNo" : $("#questionNo").val(),
-							 "qUser" : $("#qUser").val()			};
+			let parameter = {"questionNo" 	: $("#questionNo").val(),
+							 "qUser" 		: $("#qUser").val()			};
 			let method	= "GET";
 			let async	= false;
 			
@@ -224,8 +241,17 @@
  			console.log("doUpdateBtn");
 			e.preventDefault();
 			
-			var questionNo = $("#questionNo").val();
+			if($("#qUser").val() != $("#memberId").val() ) {
+				alert("작성자 본인이 아니면 수정하실 수 없습니다.");
+				return;
+			}
 			
+			if($("#answerCheck").val() == 1) {
+				alert("이미 답변이 완료된 1:1문의글은 수정하실수 없습니다.");
+				return;
+			}
+			
+			var questionNo = $("#questionNo").val();
 			console.log("questionNo : " + questionNo);
 			
 			window.location.href = "${hContext}/question/question_mng_view.do?questionNo=" + questionNo;

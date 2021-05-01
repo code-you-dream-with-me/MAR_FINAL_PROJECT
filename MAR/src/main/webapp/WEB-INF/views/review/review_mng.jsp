@@ -183,44 +183,32 @@
 		}  		
 		
 		
-		// doDeleteBtn 클릭시 게시물 삭제
-		$("#doDeleteBtn").on("click", function(e) {
-			
-			console.log("doDeleteBtn");
-			e.preventDefault();
-			
-			let url = "${hContext}/review/do_delete.do";
-			let parameter = {"reviewNo" : $("#reviewNo").val(),
-							 "memberId" : $("#memberId").val()			};
-			let method	= "GET";
-			let async	= false;
-			
-			console.log("parameter : " + $("#reviewNo").val());
-			
-			if(confirm("삭제 하시겠습니까?") == false) return;
-			
-			EClass.callAjax(url, parameter, method, async, function(data) {
-				console.log("data : " + data);
-				console.log("data.msgContents : " + data.msgContents);
-				// "msgId":"1","msgContents"
-				
-				alert(data.msgContents);
-				
-				if("1" == data.msgId){	// 삭제 성공
-					window.location.href = "${hContext}/review/review_view.do";
-				}else{	// 삭제 실패
-					alert(data.msgId + " \n " +data.msgContents);
-				}
-			})
-			
-		});
 		
-		
-		// doDeleteBtn 클릭시 게시물 삭제
+		// comUpdateBtn 클릭시 게시물 수정 확정
 		$("#comUpdateBtn").on("click", function(e) {
 			
 			console.log("comUpdateBtn");
 			e.preventDefault();
+			
+			let title = $("#title").val();
+			console.log("title : " + title);
+			
+			// 제목
+			if(eUtil.ISEmpty(title) == true ){
+				alert("제목을 확인 하세요");
+				$("#title").focus();
+				return;
+			}
+			
+			let contents = $("#contents").val();
+			console.log("contents : " + contents);
+			
+			// 제목
+			if(eUtil.ISEmpty(contents) == true ){
+				alert("내용을 확인 하세요");
+				$("#contents").focus();
+				return;
+			}
 			
 			let url = "${hContext}/review/do_update.do";
 			let parameter = {"reviewNo" : $("#reviewNo").val(),

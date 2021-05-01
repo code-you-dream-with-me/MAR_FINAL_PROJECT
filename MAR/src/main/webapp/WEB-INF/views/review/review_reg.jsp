@@ -78,7 +78,7 @@
 				<div class = "form-group">
 				
 					<div class = "col-md-2 col-lg-2">
-						<input type = "hidden"    class = "form-control" value= "${reviewNo }" id = "reviewNo" name = "reviewNo" />  
+						<input type = "hidden"    class = "form-control" id = "reviewNo" name = "reviewNo" />  
 					</div>
 					
 					<div class = "col-md-3 col-lg-3">
@@ -97,7 +97,7 @@
 					
 					<label class="col-md-2 col-lg-2 control-label">이메일(ID)</label>
 					<div class = "col-md-3 col-lg-3">
-						<input type = "text"  readonly="readonly" class = "form-control" id = "memberId" name = "memberId" />  
+						<input type = "text"  readonly="readonly" class = "form-control" value= "${sessionScope.member}" id = "memberId" name = "memberId" />  
 					</div>
 
 				</div>

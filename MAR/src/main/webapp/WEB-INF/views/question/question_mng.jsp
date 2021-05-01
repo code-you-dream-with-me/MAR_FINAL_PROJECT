@@ -60,7 +60,7 @@
 	
 		<!-- 제목 -->
 		<div class="page-header">
-			<h2>후기 열람</h2>
+			<h2>1:1 질의 수정</h2>
 		</div>
 		<!--// 제목 -->
 	
@@ -80,7 +80,6 @@
 				
 					<label class="col-md-2 col-lg-2 control-label">1:1 문의 번호</label>
 					<div class = "col-md-2 col-lg-2">
-						<input type = "hidden" readonly="readonly" value= "${questionNo }" id = "param" name = "param"/>
 						<input type = "text"   readonly="readonly" class = "form-control" value= "${questionNo }" id = "questionNo" name = "questionNo" />  
 					</div>
 					
@@ -139,7 +138,7 @@
 		$(document).ready(function() {
 			console.log("1.document:최초수행!");
 			
-			doSelectOne();
+			//doSelectOne();
 	
 		});//--document ready
 		
@@ -154,7 +153,7 @@
 			  		asyn: "false",
 			  		dataType : "html",
 			  		data:{
-			  			questionNo : $("#param").val()
+			  			questionNo : $("#questionNo").val()
 			  		},
 			  		success:function(data){	//통신 성공
 			  			var parseData = JSON.parse(data);
@@ -172,6 +171,7 @@
 			  		    $("#title").val(title);
 			  		    $("#contents").val(contents);
 			  		    $("#regDt").val(regDt);
+			  		  	$("#answerCheck").val(answerCheck);
 
 			  		    
 			      	},
@@ -183,11 +183,31 @@
 		}  		
 		
 		
-		// doDeleteBtn 클릭시 게시물 삭제
+		// comUpdateBtn 클릭시 게시물 수정 확정
 		$("#comUpdateBtn").on("click", function(e) {
 			
 			console.log("comUpdateBtn");
 			e.preventDefault();
+			
+			let title = $("#title").val();
+			console.log("title : " + title);
+			
+			// 제목
+			if(eUtil.ISEmpty(title) == true ){
+				alert("제목을 확인 하세요");
+				$("#title").focus();
+				return;
+			}
+			
+			let contents = $("#contents").val();
+			console.log("contents : " + contents);
+			
+			// 제목
+			if(eUtil.ISEmpty(contents) == true ){
+				alert("내용을 확인 하세요");
+				$("#contents").focus();
+				return;
+			}
 			
 			let url = "${hContext}/question/do_update.do";
 			let parameter = {"questionNo" : $("#questionNo").val(),

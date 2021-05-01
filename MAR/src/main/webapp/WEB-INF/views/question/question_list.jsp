@@ -80,7 +80,8 @@
 	    		 	<!-- //버튼 -->
 	    		 	
 	    		 	<!-- hidden -->
-	    		 	<input type = "hidden"   name = "questionNo"		 value = "" />
+	    		 	<input type = "hidden"   name = "searchDiv"	id = "searchDiv" 	 value = "${searchDiv }" />
+	    		 	<input type = "hidden"   name = "searchWord"	id = "searchWord" 	 value = "${searchWord }" />
 					<!-- // hidden -->
 	    		 	
 	    		</div>
@@ -94,8 +95,8 @@
 			<!-- table -->
 			<table id="questionTable" class="table table-striped table-bordered table-hover table-condensed">
 				<thead class="bg-primary">
+					<th class="text-center col-lg-1 col-md-1  col-xs-1">글번호</th>
 					<th class="text-center col-lg-1 col-md-1  col-xs-1">답변여부</th>
-					<th class="text-center col-lg-1 col-md-1  col-xs-1">등록순서</th>
 					<th class="text-center col-lg-1 col-md-1  col-xs-1">질의번호</th>
 					<th class="text-center col-lg-6 col-md-6  col-xs-6">제목</th>
 					<th class="text-center col-lg-1 col-md-1  col-xs-1">글쓴이(ID)</th>
@@ -145,42 +146,6 @@
 			e.preventDefault();	// 두번 호출 방지
 			doRetrieve(1);
 		});
-		
-		
-/* 		// table click 시 테이블의 데이터 박스로 전달
-		$("#userTable>tbody").on("click", "tr", function(e){
-			
-			e.preventDefault();
-			// console.log("userTable>tbody");
-			let tds = $(this).children();
-			var uIdData = tds.eq(1).text();
-			// console.log("uId : " + uIdData);
-			
-			let url = "${hContext}/user/do_selectOne.do";
-			let parameters = {"uId":uIdData};
-			let method = "GET";
-			let async = true;
-			
-			// console.log("parameters : " + parameters);
-			// console.log("url : " + url);
-			
-			EClass.callAjax(url, parameters, method, async, function(data) {
-				console.log("data : " + data);
-				// let parseData = JSON.parse(data);
-				console.log("data.name : " + data.name);
-				
-				$("#uId").val(data.uId);
-				$("#name").val(data.name);
-				$("#passwd").val(data.passwd);
-				$("#level").val(data.intLevel);
-				$("#login").val(data.login);
-				$("#recommend").val(data.recommend);
-				$("#email").val(data.email);
-				$("#regDt").val(data.regDt);
-				
-				$("#uId").prop("disabled", "disabled");
-			}) 
-		}); */
 
 		
 		// 페이징 처리
@@ -227,8 +192,8 @@
 	        				//console.log(i + "," + value.name);
 	        				
 	        				html += "<tr>";
-	        				html += "	<td class='text-center'>"+ value.answerCheck +"</td>";
 	        				html += "	<td class='text-center'>"+ value.num + "</td>";
+	        				html += "	<td class='text-center'>"+ value.answerCheck +"</td>";
 	        				html += "	<td class='text-left'>"+ value.questionNo +"</td>";
 	        				html += "	<td class='text-left'>"+ value.title +"</td>";
 	        				html += "	<td class='text-left'>"+ value.qUser +"</td>";
@@ -301,11 +266,16 @@
 			// console.log("userTable>tbody");
 			
 			let tds = $(this).children();
+			
+			var answerCheck = tds.eq(1).text();
 			var questionNo = tds.eq(2).text();
+			var qUser 		= tds.eq(4).text();
 			
 			console.log("questionNo : " + questionNo);
+			console.log("answerCheck : " + answerCheck);
+			console.log("qUser : " + qUser);
 			
-			window.location.href = "${hContext}/question/question_detail_view.do?questionNo=" + questionNo;
+			window.location.href = "${hContext}/question/question_detail_view.do?questionNo=" + questionNo + "&answerCheck=" + answerCheck+ "&qUser=" + qUser;
 				
 		}); 
 			

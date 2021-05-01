@@ -450,8 +450,17 @@
 
 		console.log(amount)				//구매 수량
 		console.log(sum.value)			//결재 금액
+		console.log($("#regId").val() )
 		
-		if(confirm("이 상품을 장바구니에 담으시겠습니까?")==false) return;
+		if ( "" == $("#regId").val() ){
+			
+			alert("회원전용입니다. 로그인을 먼저 해주세요.");
+			return;
+			
+		}else if( null != $("#regId").val()  ){
+			
+			if(confirm("이 상품을 장바구니에 담으시겠습니까?")==false) return;
+		}
 		
 		let url = "${hContext}/cart/do_insert.do";
 		let parameters = {
@@ -490,7 +499,16 @@
 	$("#addwish").on("click",function(){
 		console.log("addwish click");
 		
-		if(confirm("이 상품을 늘사는것에 담으시겠습니까?")==false) return;
+		if ( "" == $("#regId").val() ){
+			
+			alert("회원전용입니다. 로그인을 먼저 해주세요.");
+			return;
+			
+		}else if( null != $("#regId").val()  ){
+			
+			if(confirm("이 상품을 늘사는것에 담으시겠습니까?")==false) return;
+		}
+		
 
 		let url = "${hContext}/wishitem/do_insert.do";
 		let parameters = {

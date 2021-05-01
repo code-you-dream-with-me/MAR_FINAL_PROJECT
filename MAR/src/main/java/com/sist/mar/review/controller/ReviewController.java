@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ import com.sist.mar.cmn.Search;
 import com.sist.mar.cmn.StringUtil;
 import com.sist.mar.code.domain.Code;
 import com.sist.mar.code.service.CodeService;
+import com.sist.mar.member.domain.MemberVO;
 import com.sist.mar.review.domain.ReviewVO;
 import com.sist.mar.review.service.ReviewServiceImpl;
 
@@ -88,12 +91,31 @@ public class ReviewController {
 	
 	@RequestMapping(value = "/review/review_detail_view.do", method = RequestMethod.GET
 			,produces = "application/json;charset=UTF-8")
-	public String detailView(Model model, @RequestParam(value = "reviewNo", required = false)String reviewNo) throws Exception {
+	public String detailView(Model model, HttpSession session
+							,@RequestParam(value = "reviewNo", required = false)String reviewNo
+							,@RequestParam(value = "memberId", required = false)String memberId) throws Exception {
+		
+		
+		// 로그인 세션정보와 작성자 불일치시 정보 수정 삭제 불가능하게 막는다
+		if(null != session.getAttribute("member")) {
+			
+			MemberVO member = (MemberVO) session.getAttribute("member");
+			String checkMemberId = member.getMemberId();
+
+			model.addAttribute("checkMemberId", checkMemberId);
+			
+			LOG.debug("=======================");
+			LOG.debug("checkMemberId : " + checkMemberId);
+			LOG.debug("=======================");
+			
+		}
 		
 		model.addAttribute("reviewNo", reviewNo);
+		model.addAttribute("memberId", memberId);
 		
 		LOG.debug("=======================");
 		LOG.debug("reviewNo : " + reviewNo);
+		LOG.debug("memberId : " + memberId);
 		LOG.debug("=======================");
 		
 		return "review/review_detail";
@@ -101,14 +123,14 @@ public class ReviewController {
 	
 	@RequestMapping(value = "/review/review_reg_view.do", method = RequestMethod.GET
 			,produces = "application/json;charset=UTF-8")
-	public String regView(Model model, @RequestParam(value = "reviewNo", required = false)String reviewNo) throws Exception {
+	public String regView(Model model, @RequestParam(value = "orderNo", required = false)String orderNo) throws Exception {
 		
-//		model.addAttribute("reviewNo", reviewNo);
-//		model.addAttribute("orderNo", orderNo);
+		
+		model.addAttribute("orderNo", orderNo);
 //		model.addAttribute("qUser", qUser);
 		
 		LOG.debug("=======================");
-		LOG.debug("reviewNo : " + reviewNo);
+		LOG.debug("reviewNo : " + orderNo);
 		LOG.debug("=======================");
 		
 		return "review/review_reg";

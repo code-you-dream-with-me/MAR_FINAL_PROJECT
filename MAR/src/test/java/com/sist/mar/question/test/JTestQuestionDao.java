@@ -32,7 +32,7 @@ import com.sist.mar.question.domain.QuestionVO;
 
 //기존의 ApplicationContext context = new GenericXmlApplicationContext("/applicationContext.xml")가 한 일을 이걸로 마무리 + @Autowired로 연결시킴
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml"
-									, "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"})
+									, "file:src/main/webapp/WEB-INF/spring/appServlet/test-servlet-context.xml"})
 public class JTestQuestionDao {
 
 //	▼ 변수 ===============================================================

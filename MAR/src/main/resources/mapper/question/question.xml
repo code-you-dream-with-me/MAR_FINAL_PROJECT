@@ -81,11 +81,10 @@
 		                     , t1.*                                                                                                     
 		             FROM(SELECT *                                                                                                      
 		                  FROM question                                                                                                                                               
-		                  ORDER BY question_no ASC ) t1  
+		                  ORDER BY question_no DESC ) t1  
 		              <include refid="searchCondition" />                                                                                 
 		             )t2 
 		         WHERE rnum BETWEEN #{pageSize} * (#{pageNum} - 1) + 1 AND #{pageSize} * (#{pageNum} - 1) + #{pageSize}
-				 ORDER BY question_no DESC
 		     )A                                                                                                                         
 		 CROSS JOIN                                                                                                                     
 		     (SELECT COUNT(*) totalCnt                                                                                                 

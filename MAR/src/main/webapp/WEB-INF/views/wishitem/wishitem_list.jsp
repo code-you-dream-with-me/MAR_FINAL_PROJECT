@@ -167,7 +167,7 @@
 		    			pageTotal = Math.ceil(pageTotal);
 
 	    				$.each(parseDate, function(i, value) {
-	    					imgroot = "${hContext}" + value.image_path + value.image_save_name;
+	    					imgFullPath = "${hContext}" + value.image_path + value.image_save_name;
 	    					
 	    					html += "<tr>";
 	    					html += "   <td style='display: none;'>" + value.wishNo + "</td>";
@@ -175,7 +175,7 @@
 	    					html += "	<td class='info_gs'> ";
 	    					html += "		<div class='in-block'>";
 	    					html += "			<div class='img_wrap'>";
-	    					html += "				<img src='" + imgroot + "'  alt='이미지'>";
+	    					html += "				<img src='" + imgFullPath + "'  alt='이미지'>";
 	    					html += "			</div>";
 	    					html += "			<div class='info_goods_wrap'>";
 	    					html += "				<dl>";

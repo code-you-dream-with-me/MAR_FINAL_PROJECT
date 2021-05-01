@@ -192,7 +192,7 @@
 	    			
 					if (parseDate.length > 0) {
 						$.each(parseDate,function(i, value) {
-							imgroot = "${hContext}" + value.image_path + value.image_save_name;
+							imgFullPath = "${hContext}" + value.image_path + value.image_save_name;
 							
 							html += "<tr>";
 							html += "   <td class='cartNo' style='display: none;'>"+ value.cartNo + "</td>";
@@ -200,7 +200,7 @@
 							html += "	<td class='info_gs'>";
 							html += "		<div class='in-block'>";
 							html += "			<div class='img_wrap'>";
-							html += "				<img src='" + imgroot + "' alt='이미지'>";
+							html += "				<img src='" + imgFullPath + "' alt='이미지'>";
 							html += "			</div>";
 							html += "			<div class='info_goods_wrap'>";
  							html += "				<dl>";

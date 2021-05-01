@@ -104,7 +104,7 @@
 	          <div class="row g-3">
 
 				<!-- 변경필요 -->
-				<input type="hidden" name="regId" id="regId" value="sinangsong@gmail.com"/>
+				<input type="hidden" name="regId" id="regId" value="${sessionScope.member.memberId}"/>
 				<input type="hidden" name="imageListDel" id="imageListDel" value=""/>
 				<input type="hidden" name="imageList" id="imageList" value=""/>
 				<input type="hidden" name="itemNo" id="itemNo" value=""/>

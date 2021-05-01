@@ -107,7 +107,7 @@
 	<!-- header -->
 	
 	<!-- //header -->
-	<div class="btn" >
+	<div class="btn" id="btnDiv" >
 		  	<button type="button" class="btn1" id="deleteBtn" >삭제</button>
 		  	<button type="button" class="btn1" id="updateBtn" >수정</button>
 		</div>
@@ -118,7 +118,7 @@
 		<%-- ${sessionScope.member} --%>
 		<input type="hidden" name="itemNo" id="itemNo"/>
 		<input type="hidden" id="imageList" />
-		<input type="hidden" name="regId" id="regId" value="sinangsong@gmail.com"/>
+		<input type="hidden" name="regId" id="regId" value="${sessionScope.member.memberId}"/>
 		
 		<div class="table">
 			<table id="itemTable">
@@ -129,9 +129,13 @@
 			<!-- tbody -->
 			<tbody>
 				<h2 id="name"></h2>
-				<tr >
+				<tr>
 					<th>판매가격</th>
-					<td id="price" name="price" class="price"></td><td id="finalPrice" name="finalPrice" class="price"></td>
+					<td>
+					    <div class="caption" id="itemPrice">
+
+                        </div>
+					</td>
 				</tr>
 				<tr>
 					<th>중량/용량</th>
@@ -170,19 +174,19 @@
 								<input style="border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;"
 								type="text" id="sum" name="sum" size="8"></b>원</td>
 							</tr>   
-	-						
+							
 						</form>
 					</td>
 				</tr>
 			</tbody>
 		  </table>
 		</div>
-		
+	</div>
 		
 		<!-- 버튼 -->
 		<div class="btns">
-			<a href="#a" type="button" class="btn1" id="addwish">늘 사는 것</a>
-			<a href="#a" type="button" class="btn2" id="addcart">장바구니 담기</a>
+			<a  type="button" class="btn1" id="addwish">늘 사는 것</a>
+			<a  type="button" class="btn2" id="addcart">장바구니 담기</a>
 		</div>
 		
 		
@@ -216,6 +220,13 @@
 
 		doSelectOne(itemNo);
 		doRetrieveImage(itemNo);
+		
+	    var member = {
+		  		  memberId: '${sessionScope.member.memberId}', 
+		   		  auth: '${sessionScope.member.auth}'
+		    };
+		    
+		    if(member.auth != '1'){ $("#btnDiv").empty(); }
 				
 	});//--document ready 화면이 로딩되면 바로 수행
 	
@@ -266,9 +277,16 @@
 		  					html+="        <img src='${hContext}"+value.path + value.saveName +  "' style='width: 200px; height: 200px; object-fit: cover; '>";
 		  					html+=" 		   <div class='caption'>";
 		  					html+=" 			   <h3>"+value.name+"</h3>";  
-		  					html+=" 			   <span class='discount'>"+value.discount+"%</span>"; 
-		  					html+=" 			   <span class='final-price'>"+value.finalPrice+"</span>";
-		  					html+=" 			   <h3 class='origin-price'>"+value.price+"</h3> ";
+		  					
+		  					if(value.finalPrice == value.price){
+		  						html+=" 			   <h3 class='final-price'>"+value.price+"</h3> ";
+		  				
+		  					}else{
+			  					html+=" 			   <span class='discount'>"+value.discount+"%</span>"; 
+			  					html+=" 			   <span class='origin-price'>"+value.price+"</span>";
+			  					html+=" 			   <h3 class='final-price'>"+value.finalPrice+"</h3> ";
+		  					}
+		  					
 		  					html+=" 		  </div>";
 		  					html+="       </div>";
 		  					html+=" </div>";                                                                         
@@ -320,6 +338,7 @@
     			var weight = parseData.weight;
     			var expired = parseData.expired;
     			var detail = parseData.detail;
+    			var discount = parseData.discount;
     			
     			document.getElementById("name").innerHTML = name;
     			document.getElementById("production").innerHTML = production;
@@ -327,22 +346,32 @@
     			document.getElementById("expired").innerHTML = expired;
     			document.getElementById("detail").innerHTML = detail;
     			
-    			if(finalPrice != 0 && price!=finalPrice){
-    				document.getElementById("price").innerHTML = '<del>'+price+'</del>';
-        			document.getElementById("finalPrice").innerHTML = finalPrice;
+    			$("#itemPrice").empty();
+    		  	var html = "";
+    			if(price!=finalPrice){
+    				
+    				html+=" <span class='discount'>"+discount+"%</span>"; 
+    				html+=" <span class='origin-price'>"+price+"</span>";
+    				html+=" <h3 class='final-price'>"+finalPrice+"</h3> ";
         			
         			sell_price = parseData.finalPrice;
 	    			$("#sell_price").val(sell_price);
 	    			init(sell_price);
-    			}else if(finalPrice ==price ){
-    				document.getElementById("price").innerHTML = price;
+	    			
+    			}else if(finalPrice == price ){
     				
+    				html+=" <h3 class='final-price'>"+price+"</h3> ";
+
     				sell_price = parseData.price;
 	    			$("#sell_price").val(sell_price);
 	    			init(sell_price);
     				
     			}
 
+    			
+    			$("#itemPrice").append(html);
+    			
+    			
     			categoryNo = parseData.categoryNo;
     			console.log(categoryNo);
     			getRelatedList(categoryNo);
@@ -445,7 +474,8 @@
 				
 				
 			}else{ //등록 실패
-				alert(data.msgContents);
+				if(confirm(data.msgContents+"\n장바구니로 이동하시겠습니까?")==true)
+					window.location.href ="${hContext}/cart/cart_list.do";
 			}
 			
 		}); 
@@ -483,7 +513,9 @@
 				
 				
 			}else{ //등록 실패
-				alert(data.msgContents);
+				if(confirm(data.msgContents+"\늘 사는 것으로 이동하시겠습니까?")==true)
+					window.location.href ="${hContext}/wishitem/wishitem_list.do";
+				
 			}
 			
 		}); 

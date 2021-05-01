@@ -176,21 +176,31 @@
 				success : function(data) {//통신 성공
 					//들어온 데이터 json처리
 					var parseDate = JSON.parse(data);
+				
 					//기존 데이터 삭제
 					$("#cartTable > tbody").empty();
+					
 					//동적으로 html
 					var html = "";
+					
+					//가격 계산
 					var orgSum = 0;
 					var finalSum = 0;
+					
+	    			//이미지 변수 
+	    			let imgroot = "";
+	    			
 					if (parseDate.length > 0) {
 						$.each(parseDate,function(i, value) {
+							imgroot = "${hContext}" + value.image_path + value.image_save_name;
+							
 							html += "<tr>";
 							html += "   <td class='cartNo' style='display: none;'>"+ value.cartNo + "</td>";
 							html += "   <td class='itemNo' style='display: none;'>"+ value.itemNo + "</td>";
 							html += "	<td class='info_gs'>";
 							html += "		<div class='in-block'>";
 							html += "			<div class='img_wrap'>";
-							html += "				<img src='"+ value.image_save_name + "|" + value.image_path + "' alt='이미지'>";
+							html += "				<img src='" + imgroot + "' alt='이미지'>";
 							html += "			</div>";
 							html += "			<div class='info_goods_wrap'>";
  							html += "				<dl>";

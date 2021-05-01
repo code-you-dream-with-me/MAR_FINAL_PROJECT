@@ -44,7 +44,7 @@
 								<td class="info_gs">
 									<div class="in-block">
 										<div class="img_wrap">
-											<img src="${vo.image_path} ${vo.image_save_name}" alt="이미지">
+											<img src='${hContext}${vo.image_path}${vo.image_save_name}' alt="이미지">
 										</div>
 										<div class="info_goods_wrap">
 											<dl>

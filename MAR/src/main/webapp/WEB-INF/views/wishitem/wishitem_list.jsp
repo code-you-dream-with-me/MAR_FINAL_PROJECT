@@ -154,8 +154,12 @@
 	    			let totalCount = 0;
 	    			let pageTotal = 1;
 	    			
+	    			//이미지 변수 
+	    			let imgroot = "";
+	    			
 	    			//동적으로 html
 	    			var html = "";
+	    			
  	    			if(parseDate.length > 0) { //data가 있는 경우
  	    				//페이징변수
 		    			totalCount = parseDate[0].totalCnt;
@@ -163,13 +167,15 @@
 		    			pageTotal = Math.ceil(pageTotal);
 
 	    				$.each(parseDate, function(i, value) {
+	    					imgroot = "${hContext}" + value.image_path + value.image_save_name;
+	    					
 	    					html += "<tr>";
 	    					html += "   <td style='display: none;'>" + value.wishNo + "</td>";
 	    					html += "   <td style='display: none;'>" + value.itemNo + "</td>";
 	    					html += "	<td class='info_gs'> ";
 	    					html += "		<div class='in-block'>";
 	    					html += "			<div class='img_wrap'>";
-	    					html += "				<img src='" + value.image_save_name + "|" + value.image_path + "' alt='이미지'>";
+	    					html += "				<img src='" + imgroot + "'  alt='이미지'>";
 	    					html += "			</div>";
 	    					html += "			<div class='info_goods_wrap'>";
 	    					html += "				<dl>";

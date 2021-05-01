@@ -199,8 +199,6 @@
 	
 		<!-- 관련 상품 리스트 -->
 		<div>
-			<h3>Related Product</h3>
-		<div>
 			<h2>Related Product</h2>
 	 		<div id="relatedList" >
 	 		<div class="row"></div>

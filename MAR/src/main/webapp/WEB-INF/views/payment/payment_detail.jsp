@@ -63,7 +63,7 @@
         }
 
 
-        .button01 {
+        .moveToMain {
             width: 100%;
             padding: 10px;
             margin-bottom: 5px;
@@ -75,7 +75,7 @@
             border: 1px solid #2F5597;
         }
 
-        .button02 {
+        .moveToOrderList {
             width: 100%;
             padding: 10px;
             margin-bottom: 5px;
@@ -104,8 +104,8 @@
                         <h4>결제금액</h4>
                         <h3>${price}원</h3>
                     </div>
-                    <button class="button01">홈으로 이동</button></br>
-                    <button class="button02">주문내역 보기</button>
+                    <button class="moveToMain">메인으로 이동</button></br>
+                    <button class="moveToOrderList">주문내역 보기</button>
                     <h5>결제 후 하루 이내에 주문상세페이지에서 직접 주문 취소가 가능합니다.</h5>
                 </div>
             </div>
@@ -114,11 +114,19 @@
     
 
     <script>
-        // li의 마지막 메뉴 오른쪽 구분선 없애기
-        // $(document).ready(function () {
-        //     $("ul > li:last-child > a").css("border", "0 none");
-        // });
-
+		// 메인으로 이동 ------------------------------------------------
+		$(".moveToMain").on("click", function(e){
+			console.log("moveToMain");
+			window.location.href = "${hContext}/main/main_view.do";
+		});
+		
+		// 주문 내역으로 이동 ---------------------------------------------
+		$(".moveToOrderList").on("click", function(e){
+			console.log("moveToOrderList");
+			window.location.href = "${hContext}/ordering/ordering_view.do";
+		});
+		
+		
     </script>
 
 </body>

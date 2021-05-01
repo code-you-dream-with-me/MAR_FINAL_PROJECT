@@ -4,10 +4,11 @@ import com.sist.mar.cmn.DTO;
 
 public class Orderitem extends DTO {
 
-	private int orderitemNo; //주문상품 번호 (시퀀스)
-	private int orderNo;     //주문 번호
-	private int itemNo;      //상품 번호
-	private int quantity;     //수량
+	private int orderitemNo;    //주문상품 번호 (시퀀스)
+	private int orderNo;        //주문 번호
+	private int itemNo;         //상품 번호
+	private int quantity;       //수량
+	private String reviewState; //상태값(리뷰 작성 가능 여부)
 	
 	public Orderitem() {}
 
@@ -50,11 +51,20 @@ public class Orderitem extends DTO {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	
+	public String getReviewState() {
+		return reviewState;
+	}
+
+	public void setReviewState(String reviewState) {
+		this.reviewState = reviewState;
+	}
 
 	@Override
 	public String toString() {
-		return "Orderitem [orderitemNo=" + orderitemNo + ", orderNo=" + orderNo + ", itemNo="
-				+ itemNo + ", quantity=" + quantity + ", toString()=" + super.toString() + "]";
+		return "Orderitem [orderitemNo=" + orderitemNo + ", orderNo=" + orderNo + ", itemNo=" + itemNo + ", quantity="
+				+ quantity + ", reviewState=" + reviewState + ", toString()=" + super.toString() + "]";
 	}
+
 
 }

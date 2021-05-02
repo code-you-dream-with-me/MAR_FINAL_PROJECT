@@ -33,9 +33,11 @@
 		<choose>
 			<!-- 상품상세페이지용 -->
 			<when test=" '10'  == searchDiv ">
-						, orderitem Y
+				      , orderitem Y
+				      , item Z
 				WHERE  X.orderitem_no = Y.orderitem_no
-		        AND    Y.orderitem_no = #{searchWord}
+				AND    Z.item_no = Y.item_no
+				AND    Y.item_no = #{searchWord}
 			</when>
 			
 			<!-- 마이페이지용 -->

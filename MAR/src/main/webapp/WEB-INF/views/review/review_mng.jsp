@@ -60,7 +60,7 @@
 	
 		<!-- 제목 -->
 		<div class="page-header">
-			<h2>1:1 질의 수정</h2>
+			<h2>후기 등록</h2>
 		</div>
 		<!--// 제목 -->
 	
@@ -69,23 +69,20 @@
 
 		
 			<div class = "col-md-10 col-lg-10 text-right">
-				<input type = "button" class = "btn btn-primary btn-sm" value = "수정완료" id = "comUpdateBtn" />  
+				<input type = "button" class = "btn btn-primary btn-sm" value = "등록하기" id = "comInsertBtn" /> 
 			</div>
 			
 			
 			<div class = "form-horizontal col-md-12 col-lg-12">
-			
-				<h4>1:1 문의 정보</h4> <br/>
+				
 				<div class = "form-group">
 				
-					<label class="col-md-2 col-lg-2 control-label">1:1 문의 번호</label>
 					<div class = "col-md-2 col-lg-2">
-						<input type = "text"   readonly="readonly" class = "form-control" value= "${questionNo }" id = "questionNo" name = "questionNo" />  
+						<input type = "hidden"    class = "form-control" id = "reviewNo" name = "reviewNo" />  
 					</div>
 					
-					<label class="col-md-2 col-lg-2 control-label">등록일</label>
 					<div class = "col-md-3 col-lg-3">
-						<input type = "text" readonly="readonly" class = "form-control" id = "regDt" name = "regDt" /> 
+						<input type = "hidden"  class = "form-control" id = "regDt" name = "regDt" /> 
 					</div>
 					
 				</div>
@@ -93,27 +90,27 @@
 				<h4>고객 정보</h4> <br/>
 				<div class = "form-group">
 				
-					<label class="col-md-2 col-lg-2 control-label">주문번호</label>
+					<label class="col-md-2 col-lg-2 control-label">주문상품번호</label>
 					<div class = "col-md-2 col-lg-2">
-						<input type = "text" readonly="readonly" class = "form-control" id = "orderNo" name = "orderNo" /> 
+						<input type = "text"  readonly="readonly" class = "form-control" value= "${orderitemNo}" id = "orderItemNo" name = "orderItemNo" /> 
 					</div>
 					
 					<label class="col-md-2 col-lg-2 control-label">이메일(ID)</label>
 					<div class = "col-md-3 col-lg-3">
-						<input type = "text" readonly="readonly" class = "form-control" id = "qUser" name = "qUser" />  
+						<input type = "text"  readonly="readonly" class = "form-control" value= "${sessionScope.member.memberId}" id = "memberId" name = "memberId" />  
 					</div>
-		
+
 				</div>
-	
-			</div>			
+				
+			</div>		
 			
 			<div class = "form-horizontal">
 				<div class = "col-md-10 col-lg-10">
 					<h4>제목</h4>
-					<input type = "text" class = "form-control" id = "title" name = "title" /> <br/>
+					<input type = "text"  class = "form-control" id = "title" name = "title" /> <br/>
 					
 					<h4>내용</h4>
-					<textarea class="form-control" id = "contents" name = "contents" rows = "15" ></textarea> <br/>
+					<textarea class="form-control"  id = "contents" name = "contents" rows = "15" ></textarea> <br/>
 				</div>
 			</div>
 			
@@ -137,100 +134,61 @@
 		//jquery 객체생성이 완료
 		$(document).ready(function() {
 			console.log("1.document:최초수행!");
-			
-			//doSelectOne();
 	
 		});//--document ready
 		
 		
-		function doSelectOne(){
+		// comInsertBtn 클릭시 게시물 추가
+		$("#comInsertBtn").on("click", function(e) {
 			
-			console.log("doSelectOne");
-			
-			$.ajax({
-			  		type: "GET",
-			  		url : "${hContext}/question/do_selectOne.do",
-			  		asyn: "false",
-			  		dataType : "html",
-			  		data:{
-			  			questionNo : $("#questionNo").val()
-			  		},
-			  		success:function(data){	//통신 성공
-			  			var parseData = JSON.parse(data);
-			  			console.log("parseData:" + orderNo);
-			  		
-			  			var questionNo = parseData.questionNo;
-			  		    var orderNo = parseData.orderNo;
-			  		    var qUser = parseData.qUser;
-			  		    var title = parseData.title;
-			  		    var contents = parseData.contents;
-			  		    var regDt = parseData.regDt;
-			  		    
-			  		    $("#orderNo").val(orderNo);
-			  		    $("#qUser").val(qUser);
-			  		    $("#title").val(title);
-			  		    $("#contents").val(contents);
-			  		    $("#regDt").val(regDt);
-			  		  	$("#answerCheck").val(answerCheck);
-
-			  		    
-			      	},
-			      	error:function(data){//실패시 처리
-			      		console.log("error:"+data);
-			      	}
-			      	
-			  	});
-		}  		
-		
-		
-		// comUpdateBtn 클릭시 게시물 수정 확정
-		$("#comUpdateBtn").on("click", function(e) {
-			
-			console.log("comUpdateBtn");
+			console.log("comInsertBtn");
 			e.preventDefault();
 			
-			let title = $("#title").val();
-			console.log("title : " + title);
-			
-			// 제목
-			if(eUtil.ISEmpty(title) == true ){
-				alert("제목을 확인 하세요");
-				$("#title").focus();
+			if(eUtil.ISEmpty($("#title").val()) == true){
+				alert("제목을 입력해주세요");
+				$("title").focus();
 				return;
 			}
 			
-			let contents = $("#contents").val();
-			console.log("contents : " + contents);
-			
-			// 제목
-			if(eUtil.ISEmpty(contents) == true ){
-				alert("내용을 확인 하세요");
+			if(eUtil.ISEmpty($("#contents").val()) == true){
+				alert("내용을 입력해주세요");
 				$("#contents").focus();
 				return;
 			}
 			
-			let url = "${hContext}/question/do_update.do";
-			let parameter = {"questionNo" : $("#questionNo").val(),
-							 "title"	  : $("#title").val(),
-						 	 "contents"   : $("#contents").val(),
-							 "qUser"	  : $("#qUser").val()			};
+			let url = "${hContext}/review/do_insert.do";
+			let parameter = {
+							 "orderItemNo": $("#orderItemNo").val(),
+							 "memberId"   : $("#memberId").val(),
+							 "title" 	  : $("#title").val(),
+							 "contents"   : $("#contents").val(),
+																	};
 			let method	= "GET";
 			let async	= false;
 			
-			console.log("parameter : " + $("#questionNo").val());
+			console.log("parameter : " + $("#reviewNo").val());
 			
-			if(confirm("수정 하시겠습니까?") == false) return;
+			if(confirm("등록 하시겠습니까?") == false) return;
 			
 			EClass.callAjax(url, parameter, method, async, function(data) {
 				console.log("data : " + data);
 				console.log("data.msgContents : " + data.msgContents);
 				// "msgId":"1","msgContents"
 				
+				
+				var itemNo = $("#orderItemNo").val();
+				
 				alert(data.msgContents);
 				
-				if("1" == data.msgId){	// 수정 성공
-					window.location.href = "${hContext}/question/question_view.do";
-				}else{	// 수정 실패
+				if("1" == data.msgId){	// 추가 성공
+					
+					// 후기 추가 후 후기 게시판으로(마이페이지 searchDiv = 20)으로 이동
+					var searchDiv20 = "20";
+					window.location.href = "${hContext}/review/review_view.do?searchDiv20=" + searchDiv20;
+					
+					// 상품조회 페이지 후기 리스트 테스트
+					//window.location.href = "${hContext}/review/review_view.do?itemNo=" + itemNo;
+				}else{	// 삭제 실패
 					alert(data.msgId + " \n " +data.msgContents);
 				}
 			})

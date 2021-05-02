@@ -120,19 +120,26 @@
 	    		 	<!-- //버튼 -->
 	    		 	
 	    		 	<!-- hidden -->
-	    		 	<input type = "text"   name = "searchWord"	id = "searchWord"		 value = "${memberId }" />
+	    		 	<input type = "hidden"   name = "searchWord"	id = "searchWord"		 value = "${memberId }" />
 					<!-- // hidden -->
 	    		 	
 	    		</div>
 	    	</form>
-	    </div> </br>
+	    </div>
 	    <!--// 리스트 출력크기 조절 -->
+	    
+	    
+	    <div class = middle>
+	        <h4> <strong id = "totalCnt"> 고객님께서 구매하신 이력이 없습니다. </strong> </h4>
+		</div>	
+		                                                                                  
 	    
  		<!--// 주문리스트  -->
 			<!-- table -->
 			<div id = "orderingList">
                                                                                         
 				<div class="table-responsive">      
+
 <%-- 				
 
 --%>                                                               
@@ -194,7 +201,7 @@
 	    			pageNum: page
 	    		},
 	    		success:function(data){//통신 성공
-	    			alert(data);
+	    			//alert(data);
 	        		console.log("success data:" + data);
 	        		var parseData =  JSON.parse(data);
 	        		
@@ -221,10 +228,10 @@
 
 	        			$.each(parseData, function(i, value) {
 	        				
-	        				//console.log(i + "," + value.name);
+	        				document.getElementById("totalCnt").innerText = value.name + " 고객님은 지금까지 " + value.totalCnt + "건의 주문을 하셨습니다.";
 	        				
 	        				// 1/1000초인 milliSecond 기준 하루는 86400000ms이다.
-	        				
+	        	
 	        				// .getTime() : 지정된 시간 1970년 1월 1일 12시를 기준해서 지난 시간을 밀리초 단위로 구해줌
 	        				var sysdate = (new Date().getTime());
 	        				var orderDate = new Date(value.orderDate).getTime();
@@ -252,16 +259,16 @@
 	        				html += "			width='900px' height='150px' border = '0' >                                                           ";
 	        				html += "			<thead class='bg-primary'>                                                                            ";
 	        				html += "				<th class='text-left' colspan='3'>                                                                ";
-	        				html += "					<h4><strong>주문내역</strong></h4>                                                              ";
+	        				html += "					<h4><strong> &ensp; " + value.item_name + " 포함 " + value.orderItemCnt + " 건</strong></h4>                                                              ";
 	        				html += "				</th>                                                                                             ";
 	        				html += "			</thead>                                                                                              ";
 	        				html += "			<tbody> 											    											  ";
 	        				html += "				<tr>                                                                                              ";
 	        				html += "					<td width='150px' height='150px'>                                                             ";
-	        				html += "						<image src='' alt='이미지가 없습니다' width='150px' height='150px'></image>                    ";
+	        				html += "						<image src='${hContext}" + value.image_path + "' alt='item_img' width='150px' height='150px' />";
 	        				html += "					</td>                                                                                         ";
 	        				html += "                   <div>                                                                					      ";
-	        				html += "					<td width='600px' height='150px' onclick = 'doSelectOne("+ value.orderNo + "," + value.orderState + ");'>               ";
+	        				html += "					<td width='600px' height='150px' onclick = 'doSelectOne("+ value.orderNo + ");'>  			  ";
 	        				html += "						<h5 name = 'orderNo'>                                                                     ";
 	        				html += "							<strong>&ensp;&ensp;주문번호 : " + value.orderNo + "번</strong>                          ";
 	        				html += "						</h5>                                                                                     ";
@@ -275,7 +282,7 @@
 	        				
 	        				if(value.request == null){
 	        				
-	        					html += "							<strong>&ensp;&ensp;요청사항 : 특별히 입력하지 않으셨습니다. </strong>                     ";
+	        					html += "							<strong>&ensp;&ensp;요청사항 : </strong>                     						  ";
 	        				
 	        				}else{
 	        				
@@ -288,6 +295,7 @@
 	        				html += "                                                                                                                 ";
 	        				html += "					<td width='150px' height='150px' class='text-center'>                                         ";
 	        				
+	        				// 86400000ms(1/1000초) = 24*60*60*1000 = 1일
 	        				if(value.orderState == 1 && parseInt(new Date().getTime() - new Date(value.orderDate).getTime(), 10) >= 86400000){
         						
 	        					html += "					<input type='button' class='btn-success btn-mine' value='결제완료' disabled='disabled' /> </br> </br>   	";       				
@@ -414,7 +422,7 @@
 		}
 		
 		
-		function doSelectOne(num1, num2){
+/* 		function doSelectOne(num1, num2){
 			
 			console.log("doSelectOne");
 			
@@ -424,13 +432,53 @@
 			console.log("orderNo : " + orderNo);
 			console.log("orderState : " + orderState);
 			
+
+	        		
+			
 			window.location.href = "${hContext}/ordering/ordering_item_detail_view.do?orderNo=" + orderNo + "&orderState=" + orderState;
 			
-		}
+		} */
 			
 					
 					
-					
+		function doSelectOne(num){
+			
+			console.log("doSelectOne");
+			
+			$.ajax({
+			  		type: "GET",
+			  		url : "${hContext}/ordering/do_selectOne.do",
+			  		asyn: "true",
+			  		dataType : "html",
+			  		data:{
+			  			orderNo : num
+			  		},
+			  		success:function(data){	//통신 성공
+			  			
+			  			var parseData = JSON.parse(data);
+			  			console.log("parseData:" + data);
+			  		
+			  			var orderNo = parseData.orderNo;
+			  		    var memberId = parseData.memberId;
+			  		    var price = parseData.price;
+			  		    var name = parseData.name;
+			  		    var phone = parseData.phone;
+			  		    var address = parseData.address;
+			  		 	var request = parseData.request;
+			  			var orderState = parseData.orderState;
+			  			var orderDate = parseData.orderDate;
+			  		  	
+			  		 	 window.location.href = "${hContext}/ordering/ordering_item_detail_view.do?orderNo=" + orderNo + "&orderState=" + orderState  + "&orderDate=" + orderDate;
+
+			      	},
+			      	error:function(data){//실패시 처리
+			      		console.log("error:"+data);
+			      	}
+			      	
+			  	});
+			
+		}  		
+						
 
 
 			

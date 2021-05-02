@@ -114,12 +114,12 @@
 	    		 	<input type = "hidden"   name = "price"			id = "price"			 	 value = "" />
 	    		 	<input type = "hidden"   name = "name"			id = "name"					 value = "" />
 	    		 	<input type = "hidden"   name = "orderState"	id = "orderState"			 value = "${ordering.orderState}" />
-	    		 	<input type = "hidden"   name = "orderDate"		id = "orderDate"			 value = "" />
+	    		 	<input type = "text"   name = "orderDate"		id = "orderDate"			 value = "${ordering.orderDate}" />
 					<!-- // hidden -->	
 	    		 	
 	    		</div>
 	    	</form>
-	    </div> </br>
+	    </div> 
 	    <!--// 전체주문 정보 -->
 	    
  		<!--// 주문 상품 리스트  -->
@@ -149,7 +149,7 @@
 		//jquery 객체생성이 완료
 		$(document).ready(function() {
 			console.log("1.document:최초수행!");
-			doSelectOne();
+			//doSelectOne();
 			doRetrieveItem();
 
 		});//--document ready
@@ -163,20 +163,12 @@
 		});
 		
 		
-		// 리스트 출력 크기 조절 적용
-		$("#listSizeRefresh").on("click", function(e){
-			console.log("listSizeRefresh");
-			e.preventDefault();	// 두번 호출 방지
-			doRetrieve();
-		});
-		
-		
 		// 페이징 처리
 		function doRetrieveItem(){
 	      	$.ajax({
 	    		type: "GET",
 	    		url:"${hContext }/ordering/do_selectItemlist.do",
-	    		asyn:"false",
+	    		asyn:"true",
 	    		dataType:"html",
 	    		data:{
 	    			orderNo : $("#orderNo").val()
@@ -225,47 +217,60 @@
         				html += "			<tbody> 																						      ";
         				html += "				<tr>                                                                                              ";
         				html += "					<td width='150px' height='120px'>                                                             ";
-        				html += "						<image src='' alt='이미지가 없습니다' width='150px' height='120px'></image>                    ";
+        				html += "						<image src='${hContext}" + value.image_path + "' alt='item_img' width='150px' height='120px'/>       ";
         				html += "					</td>                                                                                         ";
         				html += "                   <div>                                                                						  ";
         				html += "					<td width='400px' height='120px'>                                                             ";
         				html += "						<h4>                                                                       				  ";
-        				html += "							<strong>상품명 : " + value.itemName + " </strong>                       				  ";
+        				html += "							<strong>상품명 : " + value.item_name + " </strong>                       				  ";
         				html += "						</h4>                                                                                     ";
-        				html += "						<h6>   " + value.orderItemCnt + "개 구매하셨습니다  </h6>                                      ";
+        				html += "						<h6>   " + value.quantity + "개 구매하셨습니다  </h6>                                  	      ";
         				html += "					</td>                                                                                         ";
-        				html += "                   <td width='200px' height='120px'>                                                             ";
+        				html += "                   <td width='200px' height='120px' class='text-center'>                                                             ";
         												
 						if($("#orderState").val() == 1 && parseInt(new Date().getTime() - new Date($("#orderDate").val()).getTime(), 10) >= 86400000){
        						
-							html += "					<h6>   " + new Date($("#orderDate").val()).toLocaleDateString() + " 에 주문하신 물건들이 <br>결제완료 되었습니다 </h6> ";       				
+							html += "					<h5>   " + new Date($("#orderDate").val()).toLocaleDateString() + " 에<br> 주문하신 물건들이 <br>결제완료 되었습니다 </h5> ";       				
         					
         				}else if($("#orderState").val() == 2){
         					
-        					html += "					<h6>   " + new Date($("#orderDate").val()).toLocaleDateString() + " 에 주문하신 내역이 <br>취소 중입니다 </h6> ";
+        					html += "					<h5>   " + new Date($("#orderDate").val()).toLocaleDateString() + " 에<br> 주문하신 내역이 <br>취소 중입니다 </h5> ";
 
         				}else if($("#orderState").val() == 3){
         					
-        					html += "					<h6>   " + new Date($("#orderDate").val()).toLocaleDateString() + " 에 주문하신 내역이 <br>취소 확정되었습니다 </h6> ";
+        					html += "					<h5>   " + new Date($("#orderDate").val()).toLocaleDateString() + " 에<br> 주문하신 내역이 <br>취소 확정되었습니다 </h5> ";
 
         				}else{
         					
-        					html += "					<h6>   " + new Date($("#orderDate").val()).toLocaleDateString() + " 에 주문하신 물건들이 <br>배송중에 있습니다 </h6> "; 
+        					html += "					<h5>   " + new Date($("#orderDate").val()).toLocaleDateString() + " 에<br> 주문하신 물건들이 <br>배송중에 있습니다 </h5> "; 
 
         				}
 
         				html += "					</td>                                                                                         ";
         				
         				html += "					<td width='150px' height='120px' class='text-center'>                                         ";
-        				html += "						<input type='button' class='btn-primary btn-mine' value='후기쓰기' onclick = 'doReviewInsert("+ value.orderitemNo +");' /> ";
+
+        				
+        				if(value.reviewState == 1 && parseInt(new Date().getTime() - new Date($("#orderDate").val()).getTime(), 10) >= 86400000 * 7){
+        					
+        					html += "					<h5><strong> 후기 작성 <br> 기간 초과 </strong></h5> 										  ";
+        				
+        				}else if(value.reviewState == 1){ 
+        				
+        					html += "					<input type='button' class='btn-primary btn-mine' value='후기쓰기' onclick = 'doReviewInsert("+ value.orderitemNo +");' /> ";
+
+        				}else if(value.reviewState == 2){
+        					
+        					html += "					<input type='button' class='btn-info btn-mine' value='후기있음' disabled = 'disabled' /> 	  ";
+
+        				}
+        				
         				html += "					</td>                                                                                         ";
         				
         				html += "				    </div>                                                                                        ";
         				html += "				</tr>                                                                                             ";
         				html += "			</tbody>                                                                                              ";
-        				html += "		</table> </br>                                                                                 			     ";
-        				
-
+        				html += "		</table> </br>                                                                                 			  ";
 	        				
         			});
 		
@@ -282,49 +287,6 @@
 	    	});
 	      	
 		}
-		
-		
-		function doSelectOne(){
-			
-			console.log("doSelectOne");
-			
-			$.ajax({
-			  		type: "GET",
-			  		url : "${hContext}/ordering/do_selectOne.do",
-			  		asyn: "true",
-			  		dataType : "html",
-			  		data:{
-			  			orderNo : $("#orderNo").val()
-			  		},
-			  		success:function(data){	//통신 성공
-			  			var parseData = JSON.parse(data);
-			  			console.log("parseData:" + orderNo);
-			  		
-			  			var orderNo = parseData.orderNo;
-			  		    var memberId = parseData.memberId;
-			  		    var price = parseData.price;
-			  		    var name = parseData.name;
-			  		    var phone = parseData.phone;
-			  		    var address = parseData.address;
-			  		 	var request = parseData.request;
-			  			var orderState = parseData.orderState;
-			  			var orderDate = parseData.orderDate;
-			  		    
-			  		    $("#orderNo").val(orderNo);
-			  		    $("#price").val(price);
-			  		    $("#name").val(name);
-			  		    $("#orderState").val(orderState);
-			  		  	$("#orderDate").val(orderDate);
-			  		    
-			      	},
-			      	error:function(data){//실패시 처리
-			      		console.log("error:"+data);
-			      	}
-			      	
-			  	});
-			
-		}  		
-		
 		
 		
 		function doReviewInsert(num){

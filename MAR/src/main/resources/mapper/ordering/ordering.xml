@@ -13,21 +13,27 @@
 
 	<select id="doSelectItemList" parameterType="Orderitem" resultType="Orderitem">
 	
-		SELECT t1.orderitem_no 		AS orderitemNo,
-		       t1.order_no 			AS orderNo,
-		       t1.item_no 			AS itemNo,
+		SELECT t1.orderitem_no 		    AS orderitemNo,
+		       t4.path || t4.save_name  AS image_path,
+		       t1.order_no 		    	AS orderNo,
+		       t1.item_no 		    	AS itemNo,
 		       t1.quantity,
-		       COUNT(*) OVER() 		AS totalCnt,
-		       t2.order_date 		AS orderDate,
-      		   t3.name				AS itemName
+		       t1.review_state 			AS reviewState,
+		       COUNT(*) OVER() 		    AS totalCnt,
+		       t2.order_date 		    AS orderDate,
+		       t3.name				    AS item_name
 		FROM  orderitem t1
 		        , ordering t2
 		        , item t3
+		        , image t4
 		WHERE t1.order_no = #{orderNo}
 		AND   t1.order_no = t2.order_no
 		AND   t1.item_no = t3.item_no      
-		ORDER BY t1.orderitem_no
-	
+		AND   t1.item_no = t4.from_no
+		AND   t4.main_image = 1
+		AND   t4.from_tb = 1
+		ORDER BY t1.orderitem_no ASC
+			
 	</select>
 
 
@@ -64,7 +70,9 @@
 	<!-- doRetrieve -->
  	<select id="doRetrieve" parameterType="Search" resultType="Ordering">
 
-		SELECT  t2.rnum				AS num
+		SELECT  
+		         t2.rnum			AS num
+		        , t2.path           AS image_path  
 		        , t2.order_no       AS orderNo
 		        , t2.member_id      AS memberId
 		        , t2.price
@@ -72,26 +80,40 @@
 		        , t2.phone
 		        , t2.address
 		        , t2.request
+		        , t2.item_name
 		        , t2.order_state    AS orderState
 		        , t2.order_date     AS orderDate
 		        , t2.orderItemCnt
 		        , t2.totalCnt		AS totalCnt
 		FROM(
-		        SELECT DISTINCT ROWNUM rnum
+		        SELECT ROWNUM rnum
 		                , t1.*
 		                , COUNT(*) OVER() totalCnt
 		        FROM(
-		                SELECT DISTINCT A.*
+		                SELECT 
+		                        C.path || C.save_name AS path
+		                       , A.*
+		                       , B.orderitem_no
+		                       , D.name				  AS item_name
 		                       , COUNT(*) OVER(PARTITION BY A.order_no) orderItemCnt
 		                FROM 
-		                    (SELECT *
-		                     FROM ordering
-		                     ) A
+		                     ordering A
 		                     , orderitem B 
-		                WHERE  A.order_no = B.order_no    
-		                AND member_id = #{searchWord}
+		                     , image C
+		                     , item D
+		                WHERE A.order_no = B.order_no 
+		                AND B.item_no = C.from_no
+		                AND B.item_no = D.item_no
+		                AND C.main_image = 1
+		                AND C.from_tb = 1
+		                AND A.member_id = #{searchWord}
 		                ORDER BY A.order_no DESC      
 		             )t1
+				WHERE (t1.order_no , t1.orderitem_no) 
+                    	IN (SELECT t1.order_no
+                               	 , MAX(t1.orderitem_no) 
+	                        FROM orderitem t1 
+	                        GROUP BY t1.order_no)     
 		        )t2
 		WHERE rnum BETWEEN #{pageSize} * (#{pageNum} - 1) + 1 AND #{pageSize} * (#{pageNum} - 1) + #{pageSize}
 

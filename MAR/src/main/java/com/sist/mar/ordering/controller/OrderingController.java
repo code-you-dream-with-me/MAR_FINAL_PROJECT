@@ -72,19 +72,18 @@ public class OrderingController {
 		}
 		
 		LOG.debug(listPageSizeList.toString());
-		
-		// 로그인 없이 조회 테스트
+
 		
 		// 로그인 관련
-		String memberId = "test01";
+		String memberId = "";
 		
 		// 로그인 가정한 조회 테스트
-//		if(null != session.getAttribute("member")) {
-//			
-//			MemberVO member = (MemberVO) session.getAttribute("member");
-//			memberId = member.getMemberId();
-//
-//		}
+		if(null != session.getAttribute("member")) {
+			
+			MemberVO member = (MemberVO) session.getAttribute("member");
+			memberId = member.getMemberId();
+
+		}
 		
 		// 페이즈 사이즈 코드
 		// 그렇게 모든 메서드를 거치고 난 결과를 ModelAndView로 볼 수 있게 조치
@@ -112,7 +111,6 @@ public class OrderingController {
 	public String orderingItemDetailView(Ordering ordering) throws SQLException {
 	
 
-		
 		return "ordering/ordering_item_detail";	
 		
 	}
@@ -230,8 +228,7 @@ public class OrderingController {
 		
 		
 	}
-	
-	
+
 	
 	/**
 	 * 주문상품조회

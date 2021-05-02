@@ -19,7 +19,7 @@
                 	</c:choose>
                     <li><a href="#">고객센터</a></li>
                     <c:if test="${member.auth == 1}"><!-- 관리자 아이디 들어올 시 보임 -->
-                    	 <li><a href="#">관리자영역</a></li>
+                    	 <li><a href="${hContext }/admin/admin_view.do">관리자영역</a></li>
                     </c:if>
                 </ul>
             </nav>

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.sist.mar.cmn.Message;
 import com.sist.mar.cmn.StringUtil;
+import com.sist.mar.code.domain.Code;
 import com.sist.mar.code.service.CodeService;
 import com.sist.mar.main.domain.CateSearchVO;
 import com.sist.mar.main.domain.MainRecipeVO;
@@ -50,6 +51,20 @@ public class MainController {
 		LOG.debug("search param: "+search);
 		LOG.debug("================================");
 		
+//		List codeListParam = new ArrayList<String>();
+//		codeListParam.add("MAIN_PAGE_SIZE");//페이지사이즈
+//		
+//		List<Code> codeList = getCodePageRetrieve(codeListParam);
+//		
+//		List<Code> mainPageSize = new ArrayList<Code>();
+//		for(Code vo:codeList) {
+//			if(vo.getMstCode().equals("MAIN_PAGE_SIZE")) {
+//				mainPageSize.add(vo);
+//				LOG.debug(vo.toString());
+//			}
+//		}
+//		LOG.debug(mainPageSize.toString());
+		
 		//NVL처리
 		//검색어가 없을 시 ""처리
 		search.setSearchWord(StringUtil.nvl(search.getSearchWord(), ""));
@@ -64,7 +79,7 @@ public class MainController {
 		}
 		//페이지사이즈에 0이 들어올 시
 		if(search.getPageSize()==0) {
-			search.setPageSize(10);//10으로 만들어줌
+			search.setPageSize(12);//12으로 만들어줌
 		}
 		
 		LOG.debug("================================");
@@ -79,6 +94,7 @@ public class MainController {
 		
 		//model로 list를 화면에 넘겨줌
 		model.addAttribute("list",list);
+		//model.addAttribute("MAIN_PAGE_SIZE",mainPageSize);
 				
 		return "main/main";
 	}
@@ -104,7 +120,7 @@ public class MainController {
 		}
 		//페이지사이즈에 0이 들어올 시
 		if(search.getPageSize()==0) {
-			search.setPageSize(10);//10으로 만들어줌
+			search.setPageSize(12);//12으로 만들어줌
 		}
 		
 		LOG.debug("================================");
@@ -148,7 +164,7 @@ public class MainController {
 		}
 		//페이지사이즈에 0이 들어올 시
 		if(search.getPageSize()==0) {
-			search.setPageSize(10);//10으로 만들어줌
+			search.setPageSize(12);//12으로 만들어줌
 		}
 		
 		LOG.debug("================================");
@@ -194,6 +210,14 @@ public class MainController {
 		LOG.debug("================================");
 		
 		return messageJson;
+	}
+	
+	private List<?> getCodePageRetrieve(List<String> codeList) throws SQLException {
+		
+		Map<String,Object> codeMap = new HashMap<String,Object>();
+		codeMap.put("codeList",codeList);
+		
+		return codeService.getCodeRetrieve(codeMap);
 	}
 
 

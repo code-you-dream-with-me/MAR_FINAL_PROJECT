@@ -80,7 +80,8 @@
 	    		 	<!-- //버튼 -->
 	    		 	
 	    		 	<!-- hidden -->
-	    		 	<input type = "hidden"   name = "reviewNo"		 value = "" />
+	    		 	<input type = "hidden"   id = "searchDiv"		 value = "${searchDiv}" />
+	    		 	<input type = "hidden"   id = "searchWord"		 value = "${searchWord}" />
 					<!-- // hidden -->
 	    		 	
 	    		</div>

@@ -218,7 +218,11 @@
 				alert(data.msgContents);
 				
 				if("1" == data.msgId){	// 삭제 성공
-					window.location.href = "${hContext}/review/review_view.do";
+					
+					// 삭제 후 후기 게시판으로(마이페이지 searchDiv = 20)으로 이동
+					var searchDiv20 = "20";
+					window.location.href = "${hContext}/review/review_view.do?searchDiv20=" + searchDiv20;
+
 				}else{	// 삭제 실패
 					alert(data.msgId + " \n " +data.msgContents);
 				}
@@ -227,7 +231,7 @@
 		});
 		
 		
-		// doUpdateBtn click 시 테이블의 데이터 박스로 전달
+		// doUpdateBtn click 시 수정 화면인 review_mng_view로 이동
  		$("#doUpdateBtn").on("click", function(e){
  			
  			console.log("doUpdateBtn");
@@ -245,10 +249,12 @@
 			}
 			
 			var reviewNo = $("#reviewNo").val();
+			var memberId = $("#memberId").val();
 			
 			console.log("reviewNo : " + reviewNo);
+			console.log("memberId : " + memberId);
 			
-			window.location.href = "${hContext}/review/review_mng_view.do?reviewNo=" + reviewNo;
+			window.location.href = "${hContext}/review/review_mng_view.do?reviewNo=" + reviewNo + "&memberId" + memberId;
 				
 		}); 
 		

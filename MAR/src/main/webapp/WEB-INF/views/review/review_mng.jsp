@@ -60,7 +60,7 @@
 	
 		<!-- 제목 -->
 		<div class="page-header">
-			<h2>후기 열람</h2>
+			<h2>후기 수정</h2>
 		</div>
 		<!--// 제목 -->
 	
@@ -227,10 +227,17 @@
 				console.log("data.msgContents : " + data.msgContents);
 				// "msgId":"1","msgContents"
 				
+				var reviewNo = $("#reviewNo").val();
+				var memberId = $("#memberId").val();
+				
+				console.log("reviewNo : " + reviewNo);
+				console.log("memberId : " + memberId);
+				
 				alert(data.msgContents);
 				
+				// 수정 성공하면 해당 글의 review_detail.jsp(review_detail_view.do로 이동)
 				if("1" == data.msgId){	// 수정 성공
-					window.location.href = "${hContext}/review/review_view.do";
+					window.location.href = "${hContext}/review/review_detail_view.do?reviewNo=" + reviewNo + "&memberId=" + memberId;
 				}else{	// 수정 실패
 					alert(data.msgId + " \n " +data.msgContents);
 				}

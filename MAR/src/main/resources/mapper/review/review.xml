@@ -30,50 +30,49 @@
 	<!-- sql : 해당 element는 다른 구문에서 재사용 가능한 sql구문을 정의할 때 사용된다
 		 where 엘리먼트는 태그에 의해 컨텐츠가 리턴되면 단순히 “WHERE”만을 추가한다. 게다가 컨텐츠가 “AND”나 “OR”로 시작한다면 그 “AND”나 “OR”를 지워버린다. -->
 	<sql id="searchCondition">
-		<where>
-			<choose>
-				<when test=" '10'  == searchDiv ">
-				</when>
+		<choose>
+			<!-- 상품상세페이지용 -->
+			<when test=" '10'  == searchDiv ">
+						, orderitem Y
+				WHERE  X.orderitem_no = Y.orderitem_no
+		        AND    Y.orderitem_no = #{searchWord}
+			</when>
 			
-				<when test=" '20'  == searchDiv ">
-					member_id = #{searchWord}    
-				</when>
-			</choose> 
-		</where>
+			<!-- 마이페이지용 -->
+			<when test=" '20'  == searchDiv ">
+				WHERE member_id = #{searchWord}    
+			</when>
+		</choose> 
 	</sql>
 	
 	
 	<!-- doRetrieve -->
 	<select id="doRetrieve" parameterType="Search" resultType="ReviewVO">
 
-		 SELECT A.*,                                                                                                                    
-		        B.*                                                                                                                      
-		 FROM(    
-		        SELECT t2.rnum 			AS num,   
-		        	   t2.review_no 	AS reviewNo, 		                                                                                                     
-		               t2.member_id 	AS memberId, 		                                                                                                       
-		               t2.orderitem_no 	AS orderItemNo,                                                                                                       
-		               t2.title			AS title,                                                                                        				
-		               t2.contents		AS contents, 	                                                                                   			
-		               t2.read_cnt		AS readCnt,                                                                                                                                                                                                                                                                                                                                                                              
-		               DECODE(TO_CHAR(SYSDATE, 'YYYYMMDD'), TO_CHAR(t2.reg_dt, 'YYYYMMDD')
-		                          , TO_CHAR(t2.reg_dt, 'HH24:MI')             
-		                          , TO_CHAR(t2.reg_dt, 'YYYYMMDD')) AS regDt
-		         FROM(                                                                                                                
-		             SELECT ROWNUM rnum                                                                                                 
-		                     , t1.*                                                                                                     
-		             FROM(SELECT *                                                                                                      
-		                  FROM review                                                                                                                                               
-		                  ORDER BY review_no DESC ) t1  
-		             <include refid="searchCondition" />                                                                              
-		             )t2 
-		        WHERE rnum BETWEEN #{pageSize} * (#{pageNum} - 1) + 1 AND #{pageSize} * (#{pageNum} - 1) + #{pageSize}
-		     )A                                                                                                                         
-		 CROSS JOIN                                                                                                                     
-		     (SELECT COUNT(*) totalCnt                                                                                                 
-		     FROM review    
-		     <include refid="searchCondition" />                                                                                                         
-		     )B     
+		SELECT t2.rnum 			AS num,   
+		       t2.review_no 	AS reviewNo, 		                                                                                                     
+		       t2.member_id 	AS memberId, 		                                                                                                       
+		       t2.orderitem_no 	AS orderItemNo,                                                                                                       
+		       t2.title			AS title,                                                                                        				
+		       t2.contents		AS contents, 	                                                                                   			
+		       t2.read_cnt		AS readCnt,                                                                                                                                                                                                                                                                                                                                                                              
+		       DECODE(TO_CHAR(SYSDATE, 'YYYYMMDD'), TO_CHAR(t2.reg_dt, 'YYYYMMDD')
+		                  , TO_CHAR(t2.reg_dt, 'HH24:MI')             
+		                  , TO_CHAR(t2.reg_dt, 'YYYYMMDD')) AS regDt,
+		       t2.totalCnt      
+		FROM(                                                                                                                
+		     SELECT ROWNUM rnum                                                                                                 
+		             , t1.*     
+		             , COUNT(*) OVER() totalCnt
+		     FROM(
+		          SELECT X.*                                                                                                      
+		          FROM review X     
+				  <include refid="searchCondition" />    
+		          ORDER BY X.review_no DESC
+		          ) t1 
+		     )t2 
+		WHERE rnum BETWEEN #{pageSize} * (#{pageNum} - 1) + 1 AND #{pageSize} * (#{pageNum} - 1) + #{pageSize}		
+		  
 
 	   <!--  WHERE rnum BETWEEN 10 * (1 - 1) + 1 AND 10 * (1 - 1) + 10 -->                                                                                                                                                                          															
       

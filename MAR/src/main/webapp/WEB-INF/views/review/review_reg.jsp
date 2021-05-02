@@ -92,12 +92,12 @@
 				
 					<label class="col-md-2 col-lg-2 control-label">주문상품번호</label>
 					<div class = "col-md-2 col-lg-2">
-						<input type = "text"  readonly="readonly" class = "form-control" id = "orderItemNo" name = "orderItemNo" /> 
+						<input type = "text"  readonly="readonly" class = "form-control" value= "${orderitemNo}" id = "orderItemNo" name = "orderItemNo" /> 
 					</div>
 					
 					<label class="col-md-2 col-lg-2 control-label">이메일(ID)</label>
 					<div class = "col-md-3 col-lg-3">
-						<input type = "text"  readonly="readonly" class = "form-control" value= "${sessionScope.member}" id = "memberId" name = "memberId" />  
+						<input type = "text"  readonly="readonly" class = "form-control" value= "${sessionScope.member.memberId}" id = "memberId" name = "memberId" />  
 					</div>
 
 				</div>
@@ -157,13 +157,12 @@
 			}
 			
 			let url = "${hContext}/review/do_insert.do";
-			let parameter = {"reviewNo"   : $("#reviewNo").val(),
+			let parameter = {
 							 "orderItemNo": $("#orderItemNo").val(),
 							 "memberId"   : $("#memberId").val(),
 							 "title" 	  : $("#title").val(),
 							 "contents"   : $("#contents").val(),
-							 "readCnt"    : $("#readCnt").val(),
-							 "regDt"	  : $("#regDt").val()			};
+																	};
 			let method	= "GET";
 			let async	= false;
 			
@@ -176,10 +175,19 @@
 				console.log("data.msgContents : " + data.msgContents);
 				// "msgId":"1","msgContents"
 				
+				
+				var itemNo = $("#orderItemNo").val();
+				
 				alert(data.msgContents);
 				
-				if("1" == data.msgId){	// 삭제 성공
-					window.location.href = "${hContext}/review/review_view.do";
+				if("1" == data.msgId){	// 추가 성공
+					
+					// 후기 추가 후 후기 게시판으로(마이페이지 searchDiv = 20)으로 이동
+					var searchDiv20 = "20";
+					window.location.href = "${hContext}/review/review_view.do?searchDiv20=" + searchDiv20;
+					
+					// 상품조회 페이지 후기 리스트 테스트
+					//window.location.href = "${hContext}/review/review_view.do?itemNo=" + itemNo;
 				}else{	// 삭제 실패
 					alert(data.msgId + " \n " +data.msgContents);
 				}

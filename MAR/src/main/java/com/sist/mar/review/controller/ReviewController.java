@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -50,7 +51,9 @@ public class ReviewController {
 
 //	▼ 뷰 =================================================================
 	@RequestMapping(value = "review/review_view.do", method = RequestMethod.GET)
-	public String view(Model model) throws SQLException {
+	public String view(Model model, HttpServletRequest req, HttpSession session
+						, @RequestParam(value = "searchDiv20", required = false) String searchDiv20
+						, @RequestParam(value = "itemNo", required = false) String itemNo) throws SQLException {
 		
 		List codeListParam = new ArrayList<String>();
 		codeListParam.add("LIST_PAGE_SIZE");		// 페이지 사이즈 
@@ -71,9 +74,52 @@ public class ReviewController {
 		
 		LOG.debug(listPageSizeList.toString());
 		
+		// 상품상세페이지에 연결하기 전 테스트 (화면연결들어가면 //하면 됨)
+		// itemNo = "2";
+		
+		// 마이페이지에 연결하기 전 테스트	(화면연결들어가면 //하면 됨)
+		// searchDiv20 = "20";
+		
+		// (마이페이지에서의 접근은 searchDiv20을 "20"으로 받게 되어있다)
+		// searchDiv20 못받음 = null ( = searchDiv = "10") : 상품상세조회용 DIV 
+		// searchDiv20 받음   = "20" ( = searchDiv = "10") : 마이페이지용 DIV 
+		String searchDiv = StringUtil.nvl(searchDiv20, "10");
+		String searchWord = "";
+		
+		// 상품상세조회에서 받아오는 itemNo값을 searchWord라는 이름으로 받아 해당되는 상풍 리뷰 검색
+		if(searchDiv.equals("10")) {
+		
+			searchWord = itemNo;
+			
+			LOG.debug("=======================");
+			LOG.debug("상품상세페이지용 후기출력용 searchWord(상품번호)와 div(10)");
+			LOG.debug("=======================");
+		
+		// 마이페이지에서 searchDiv20이라는 값을 "20"으로 받아서 이를 searchWord라는 이름으로 받아 회원이 쓴 리뷰 검색
+		}else if(searchDiv.equals("20")){
+			
+			MemberVO member = (MemberVO) session.getAttribute("member");
+			searchWord = member.getMemberId();
+			
+			LOG.debug("=======================");
+			LOG.debug("마이페이지용 내가 쓴 후기 출력용 searchWord(유저id)와 div(20)");
+			LOG.debug("=======================");
+			
+		}
+		
 		// 페이즈 사이즈 코드
 		// 그렇게 모든 메서드를 거치고 난 결과를 ModelAndView로 볼 수 있게 조치
 		model.addAttribute("LIST_PAGE_SIZE", listPageSizeList);
+		model.addAttribute("searchDiv", searchDiv);
+		model.addAttribute("searchWord", searchWord);
+		
+		LOG.debug("=======================");
+		LOG.debug("searchDiv : " + searchDiv);
+		LOG.debug("=======================");
+		
+		LOG.debug("=======================");
+		LOG.debug("searchWord : " + searchWord);
+		LOG.debug("=======================");
 		
 		return VIEW_NAME;
 		
@@ -123,14 +169,14 @@ public class ReviewController {
 	
 	@RequestMapping(value = "/review/review_reg_view.do", method = RequestMethod.GET
 			,produces = "application/json;charset=UTF-8")
-	public String regView(Model model, @RequestParam(value = "orderNo", required = false)String orderNo) throws Exception {
+	public String regView(Model model, @RequestParam(value = "orderitemNo", required = false)String orderitemNo) throws Exception {
 		
 		
-		model.addAttribute("orderNo", orderNo);
+		model.addAttribute("orderitemNo", orderitemNo);
 //		model.addAttribute("qUser", qUser);
 		
 		LOG.debug("=======================");
-		LOG.debug("reviewNo : " + orderNo);
+		LOG.debug("orderitemNo : " + orderitemNo);
 		LOG.debug("=======================");
 		
 		return "review/review_reg";
@@ -381,51 +427,4 @@ public class ReviewController {
 	}
 	
 	
-//	@RequestMapping(value = "/review/do_retrieveSelf.do", method = RequestMethod.GET ,
-// 			produces = "application/json;charset=UTF-8")
-//	@ResponseBody
-//	public String doRetrieveSelf(Search search) throws SQLException {
-//	
-//		LOG.debug("=======================");
-//		LOG.debug("search : " + search);
-//		LOG.debug("=======================");
-//		
-//		// NVL처리
-//		
-//		// 검색구분
-//		search.setSearchDiv(StringUtil.nvl(search.getSearchDiv(), ""));
-//		
-//		// 검색어
-//		search.setSearchWord(StringUtil.nvl(search.getSearchWord(), ""));
-//		
-//		// 페이지 넘버
-//		if(search.getPageNum() == 0) {
-//		search.setPageNum(1);
-//		}
-//		
-//		// 페이지 사이즈
-//		if(search.getPageSize() == 0) {
-//		search.setPageSize(10);
-//		}
-//		
-//		LOG.debug("=======================");
-//		LOG.debug("param_init : " + search);
-//		LOG.debug("=======================");
-//		
-//		List<ReviewVO> list = (List<ReviewVO>) this.ReviewServiceImpl.doRetrieveSelf(search);
-//		for(ReviewVO vo : list) {
-//			LOG.debug(vo.toString());
-//		}
-//		
-//		// List to Json
-//		Gson gson = new Gson();
-//		
-//		String jsonList = gson.toJson(list);
-//		
-//		LOG.debug("=======================");
-//		LOG.debug("jsonList : " + jsonList);
-//		LOG.debug("=======================");
-//		
-//		return jsonList;
-//	}	
 }

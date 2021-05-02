@@ -27,6 +27,7 @@ public class OrderingDaoImpl {
 	SqlSessionTemplate sqlSessionTemplate;
 	
 	public OrderingDaoImpl() {}
+
 	
 	/**
 	 * 전체 주문내역 목록 조회

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.sist.mar.cmn.DTO;
 import com.sist.mar.review.dao.ReviewDaoImpl;
+import com.sist.mar.review.domain.ReviewVO;
 
 @Service
 public class ReviewServiceImpl{
@@ -19,6 +20,16 @@ public class ReviewServiceImpl{
 	public ReviewServiceImpl(){}
 
 
+	public int doReviewStateInsert(DTO dto) throws SQLException {
+		
+		return reviewDaoImpl.doReviewStateInsert(dto);
+	}
+	
+	public int doReviewStateDel(DTO dto) throws SQLException {
+		
+		return reviewDaoImpl.doReviewStateDel(dto);
+	}
+	
 	public int doReadCnt(DTO dto) throws SQLException {
 		
 		return reviewDaoImpl.doReadCnt(dto);
@@ -29,11 +40,12 @@ public class ReviewServiceImpl{
 		
 		return reviewDaoImpl.doDelete(dto);
 	}
-
-
+	
+	
 	public int doInsert(DTO dto) throws SQLException {
 		
 		return reviewDaoImpl.doInsert(dto);
+						
 	}
 
 
@@ -54,11 +66,12 @@ public class ReviewServiceImpl{
 		
 		return reviewDaoImpl.doRetrieve(dto);
 	}
+
+
+	public DTO doSelectMyOne(DTO dto) throws SQLException {
+		
+		return reviewDaoImpl.doSelectMyOne(dto);
+	}
 	
-	
-//	public List<?> doRetrieveSelf(DTO dto) throws SQLException {
-//		
-//		return reviewDaoImpl.doRetrieveSelf(dto);
-//	}
 	
 }

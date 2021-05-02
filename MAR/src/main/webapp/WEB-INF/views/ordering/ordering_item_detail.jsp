@@ -114,7 +114,7 @@
 	    		 	<input type = "hidden"   name = "price"			id = "price"			 	 value = "" />
 	    		 	<input type = "hidden"   name = "name"			id = "name"					 value = "" />
 	    		 	<input type = "hidden"   name = "orderState"	id = "orderState"			 value = "${ordering.orderState}" />
-	    		 	<input type = "text"   name = "orderDate"		id = "orderDate"			 value = "${ordering.orderDate}" />
+	    		 	<input type = "hidden"   name = "orderDate"		id = "orderDate"			 value = "${ordering.orderDate}" />
 					<!-- // hidden -->	
 	    		 	
 	    		</div>
@@ -149,7 +149,6 @@
 		//jquery 객체생성이 완료
 		$(document).ready(function() {
 			console.log("1.document:최초수행!");
-			//doSelectOne();
 			doRetrieveItem();
 
 		});//--document ready
@@ -261,7 +260,7 @@
 
         				}else if(value.reviewState == 2){
         					
-        					html += "					<input type='button' class='btn-info btn-mine' value='후기있음' disabled = 'disabled' /> 	  ";
+        					html += "					<input type='button' class='btn-info btn-mine' value='후기보기' onclick = 'doSelectMyOne("+ value.orderitemNo +");' /> ";
 
         				}
         				
@@ -289,6 +288,7 @@
 		}
 		
 		
+		// 리뷰 쓰기로 이동
 		function doReviewInsert(num){
 
 			console.log("doReviewInsert");
@@ -302,8 +302,21 @@
 
 		}
 		
-		
+		// 내 리뷰 보기
+		function doSelectMyOne(num){
+			
+			console.log("doReviewInsert");
+			
+			var orderitemNo = num;
 
+			console.log("orderitemNo : " + orderitemNo);
+			
+			window.location.href = "${hContext}/review/review_detail_view.do?orderitemNo=" + orderitemNo;
+			
+		}
+		
+		
+		
     </script>
     <!--// javascript --> 
     

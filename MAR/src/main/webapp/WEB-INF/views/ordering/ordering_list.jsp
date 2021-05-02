@@ -130,7 +130,7 @@
 	    
 	    
 	    <div class = middle>
-	        <h4> <strong id = "totalCnt"> 고객님께서 구매하신 이력이 없습니다. </strong> </h4>
+	        <h4> <strong id = "totalCnt"> </strong> </h4>
 		</div>	
 		                                                                                  
 	    
@@ -228,7 +228,7 @@
 
 	        			$.each(parseData, function(i, value) {
 	        				
-	        				document.getElementById("totalCnt").innerText = value.name + " 고객님은 지금까지 " + value.totalCnt + "건의 주문을 하셨습니다.";
+	        				document.getElementById("totalCnt").innerText = value.name + " 고객님! 지금까지 " + value.totalCnt + "건의 주문을 하셨습니다.";
 	        				
 	        				// 1/1000초인 milliSecond 기준 하루는 86400000ms이다.
 	        	
@@ -407,7 +407,7 @@
 			
 		}
 		
-		
+		// 1:1 질의 입력
 		function doQuestionInsert(num){
 
 			console.log("doQuestionInsert");
@@ -420,27 +420,9 @@
 			// window.location.href = "${hContext}/question/question_reg_view.do";
 
 		}
-		
-		
-/* 		function doSelectOne(num1, num2){
-			
-			console.log("doSelectOne");
-			
-			var orderNo = num1;
-			var orderState = num2;
-			
-			console.log("orderNo : " + orderNo);
-			console.log("orderState : " + orderState);
-			
-
-	        		
-			
-			window.location.href = "${hContext}/ordering/ordering_item_detail_view.do?orderNo=" + orderNo + "&orderState=" + orderState;
-			
-		} */
 			
 					
-					
+		// 주문 상품 조회로 이동			
 		function doSelectOne(num){
 			
 			console.log("doSelectOne");

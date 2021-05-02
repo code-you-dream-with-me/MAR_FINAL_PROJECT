@@ -18,15 +18,12 @@ public class DTO {
 	private int num;                 //번호
 	private int orderItemCnt;        //해당주문의 총상품 종류번호
 	private int totalCnt;            //총글수
-	//주문상품조회
-	private String itemName;			 //상품명(주문번호를 단서로 otherItem 쿼리 뽑고, 그곳의 상품번호를 단서로 상품명을 뽑는건 3중 조인으로 가능한데, 
-									 //		문제는 otheritem vo에 이를 받을 관련변수 없어서 추가)
 	
 	
 	public DTO() {}
 
 	public DTO(String item_name, int item_price, int item_discount, int item_final_price, String image_save_name,
-			String image_path, int num, int totalCnt) {
+			String image_path, int num, int orderItemCnt, int totalCnt) {
 		super();
 		this.item_name = item_name;
 		this.item_price = item_price;

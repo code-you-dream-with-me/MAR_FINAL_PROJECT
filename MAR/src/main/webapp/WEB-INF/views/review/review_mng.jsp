@@ -60,7 +60,7 @@
 	
 		<!-- 제목 -->
 		<div class="page-header">
-			<h2>1:1 질의 수정</h2>
+			<h2>후기 수정</h2>
 		</div>
 		<!--// 제목 -->
 	
@@ -74,13 +74,14 @@
 			
 			
 			<div class = "form-horizontal col-md-12 col-lg-12">
-			
-				<h4>1:1 문의 정보</h4> <br/>
+				
+				<h4>후기 정보</h4> <br/>
 				<div class = "form-group">
 				
-					<label class="col-md-2 col-lg-2 control-label">1:1 문의 번호</label>
+					<label class="col-md-2 col-lg-2 control-label"> 후기 번호</label>
 					<div class = "col-md-2 col-lg-2">
-						<input type = "text"   readonly="readonly" class = "form-control" value= "${questionNo }" id = "questionNo" name = "questionNo" />  
+						<input type = "hidden" readonly="readonly" value= "${reviewNo }" id = "param" name = "param"/>
+						<input type = "text"   readonly="readonly" class = "form-control" value= "${reviewNo }" id = "reviewNo" name = "reviewNo" />  
 					</div>
 					
 					<label class="col-md-2 col-lg-2 control-label">등록일</label>
@@ -93,27 +94,27 @@
 				<h4>고객 정보</h4> <br/>
 				<div class = "form-group">
 				
-					<label class="col-md-2 col-lg-2 control-label">주문번호</label>
+					<label class="col-md-2 col-lg-2 control-label">주문상품번호</label>
 					<div class = "col-md-2 col-lg-2">
-						<input type = "text" readonly="readonly" class = "form-control" id = "orderNo" name = "orderNo" /> 
+						<input type = "text" readonly="readonly" class = "form-control" id = "orderItemNo" name = "orderItemNo" /> 
 					</div>
 					
 					<label class="col-md-2 col-lg-2 control-label">이메일(ID)</label>
 					<div class = "col-md-3 col-lg-3">
-						<input type = "text" readonly="readonly" class = "form-control" id = "qUser" name = "qUser" />  
+						<input type = "text" readonly="readonly" class = "form-control" id = "memberId" name = "memberId" />  
 					</div>
-		
+
 				</div>
-	
-			</div>			
+				
+			</div>		
 			
 			<div class = "form-horizontal">
 				<div class = "col-md-10 col-lg-10">
 					<h4>제목</h4>
-					<input type = "text" class = "form-control" id = "title" name = "title" /> <br/>
+					<input type = "text"  class = "form-control" id = "title" name = "title" /> <br/>
 					
 					<h4>내용</h4>
-					<textarea class="form-control" id = "contents" name = "contents" rows = "15" ></textarea> <br/>
+					<textarea class="form-control"  id = "contents" name = "contents" rows = "15" ></textarea> <br/>
 				</div>
 			</div>
 			
@@ -138,7 +139,7 @@
 		$(document).ready(function() {
 			console.log("1.document:최초수행!");
 			
-			//doSelectOne();
+			doSelectOne();
 	
 		});//--document ready
 		
@@ -149,29 +150,28 @@
 			
 			$.ajax({
 			  		type: "GET",
-			  		url : "${hContext}/question/do_selectOne.do",
+			  		url : "${hContext}/review/do_selectOne.do",
 			  		asyn: "false",
 			  		dataType : "html",
 			  		data:{
-			  			questionNo : $("#questionNo").val()
+			  			reviewNo : $("#param").val()
 			  		},
 			  		success:function(data){	//통신 성공
 			  			var parseData = JSON.parse(data);
-			  			console.log("parseData:" + orderNo);
+			  			console.log("parseData:" + reviewNo);
 			  		
-			  			var questionNo = parseData.questionNo;
-			  		    var orderNo = parseData.orderNo;
-			  		    var qUser = parseData.qUser;
+			  			var reviewNo = parseData.reviewNo;
+			  		    var memberId = parseData.memberId;
+			  		    var orderItemNo = parseData.orderItemNo;
 			  		    var title = parseData.title;
 			  		    var contents = parseData.contents;
 			  		    var regDt = parseData.regDt;
 			  		    
-			  		    $("#orderNo").val(orderNo);
-			  		    $("#qUser").val(qUser);
+			  		    $("#orderItemNo").val(orderItemNo);
+			  		    $("#memberId").val(memberId);
 			  		    $("#title").val(title);
 			  		    $("#contents").val(contents);
 			  		    $("#regDt").val(regDt);
-			  		  	$("#answerCheck").val(answerCheck);
 
 			  		    
 			      	},
@@ -181,6 +181,7 @@
 			      	
 			  	});
 		}  		
+		
 		
 		
 		// comUpdateBtn 클릭시 게시물 수정 확정
@@ -209,15 +210,15 @@
 				return;
 			}
 			
-			let url = "${hContext}/question/do_update.do";
-			let parameter = {"questionNo" : $("#questionNo").val(),
+			let url = "${hContext}/review/do_update.do";
+			let parameter = {"reviewNo" : $("#reviewNo").val(),
 							 "title"	  : $("#title").val(),
 						 	 "contents"   : $("#contents").val(),
-							 "qUser"	  : $("#qUser").val()			};
+							 "memberId"	  : $("#memberId").val()			};
 			let method	= "GET";
 			let async	= false;
 			
-			console.log("parameter : " + $("#questionNo").val());
+			console.log("parameter : " + $("#reviewNo").val());
 			
 			if(confirm("수정 하시겠습니까?") == false) return;
 			
@@ -226,10 +227,17 @@
 				console.log("data.msgContents : " + data.msgContents);
 				// "msgId":"1","msgContents"
 				
+				var reviewNo = $("#reviewNo").val();
+				var memberId = $("#memberId").val();
+				
+				console.log("reviewNo : " + reviewNo);
+				console.log("memberId : " + memberId);
+				
 				alert(data.msgContents);
 				
+				// 수정 성공하면 해당 글의 review_detail.jsp(review_detail_view.do로 이동)
 				if("1" == data.msgId){	// 수정 성공
-					window.location.href = "${hContext}/question/question_view.do";
+					window.location.href = "${hContext}/review/review_detail_view.do?reviewNo=" + reviewNo + "&memberId=" + memberId;
 				}else{	// 수정 실패
 					alert(data.msgId + " \n " +data.msgContents);
 				}

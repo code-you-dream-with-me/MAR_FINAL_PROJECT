@@ -13,8 +13,6 @@
     Copyright (C) by KandJang All right reserved.
 */
  --%>
-<%@ page import="com.sist.mar.order.domain.Ordering"%>
-<%@ page import="com.sist.mar.question.domain.QuestionVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- core -->
@@ -62,11 +60,10 @@
 	
 		<!-- 제목 -->
 		<div class="page-header">
-			<h2>1:1 질의 등록</h2>
+			<h2>후기 등록</h2>
 		</div>
 		<!--// 제목 -->
 	
-		
 		<!--  form -->
 		<form action = "" class = "form-horizontal">
 
@@ -77,11 +74,11 @@
 			
 			
 			<div class = "form-horizontal col-md-12 col-lg-12">
-			
+				
 				<div class = "form-group">
-					
+				
 					<div class = "col-md-2 col-lg-2">
-						<input type = "hidden"  class = "form-control" id = "questionNo" name = "questionNo" />  
+						<input type = "hidden"    class = "form-control" id = "reviewNo" name = "reviewNo" />  
 					</div>
 					
 					<div class = "col-md-3 col-lg-3">
@@ -89,31 +86,31 @@
 					</div>
 					
 				</div>
-								
+				
 				<h4>고객 정보</h4> <br/>
 				<div class = "form-group">
 				
-					<label class="col-md-2 col-lg-2 control-label">주문번호</label>
+					<label class="col-md-2 col-lg-2 control-label">주문상품번호</label>
 					<div class = "col-md-2 col-lg-2">
-						<input type = "text" readonly="readonly"  value= "${orderNo }" class = "form-control" id = "orderNo" name = "orderNo" /> 
+						<input type = "text"  readonly="readonly" class = "form-control" value= "${orderitemNo}" id = "orderItemNo" name = "orderItemNo" /> 
 					</div>
 					
 					<label class="col-md-2 col-lg-2 control-label">이메일(ID)</label>
 					<div class = "col-md-3 col-lg-3">
-						<input type = "text" readonly="readonly" value= "${qUser }" class = "form-control" id = "qUser" name = "qUser" />  
+						<input type = "text"  readonly="readonly" class = "form-control" value= "${sessionScope.member.memberId}" id = "memberId" name = "memberId" />  
 					</div>
-		
+
 				</div>
-	
-			</div>	
+				
+			</div>		
 			
 			<div class = "form-horizontal">
 				<div class = "col-md-10 col-lg-10">
 					<h4>제목</h4>
-					<input type = "text" class = "form-control" id = "title" name = "title" /> <br/>
+					<input type = "text"  class = "form-control" id = "title" name = "title" /> <br/>
 					
 					<h4>내용</h4>
-					<textarea class="form-control" id = "contents" name = "contents" rows = "15" ></textarea> <br/>
+					<textarea class="form-control"  id = "contents" name = "contents" rows = "15" ></textarea> <br/>
 				</div>
 			</div>
 			
@@ -139,7 +136,6 @@
 			console.log("1.document:최초수행!");
 	
 		});//--document ready
-			
 		
 		
 		// comInsertBtn 클릭시 게시물 추가
@@ -160,16 +156,17 @@
 				return;
 			}
 			
-			let url = "${hContext}/question/do_insert.do";
-			let parameter = {"orderNo" 	  : $("#orderNo").val(),
-							 "qUser" 	  : $("#qUser").val(),
+			let url = "${hContext}/review/do_insert.do";
+			let parameter = {
+							 "orderItemNo": $("#orderItemNo").val(),
+							 "memberId"   : $("#memberId").val(),
 							 "title" 	  : $("#title").val(),
 							 "contents"   : $("#contents").val(),
-							 "regDt"	  : $("#regDt").val()			};
+																	};
 			let method	= "GET";
 			let async	= false;
 			
-			console.log("parameter : " + parameter);
+			console.log("parameter : " + $("#reviewNo").val());
 			
 			if(confirm("등록 하시겠습니까?") == false) return;
 			
@@ -178,11 +175,20 @@
 				console.log("data.msgContents : " + data.msgContents);
 				// "msgId":"1","msgContents"
 				
+				
+				var itemNo = $("#orderItemNo").val();
+				
 				alert(data.msgContents);
 				
-				if("1" == data.msgId){	// 등록 성공
-					window.location.href = "${hContext}/question/question_view.do";
-				}else{	// 등록 실패
+				if("1" == data.msgId){	// 추가 성공
+					
+					// 후기 추가 후 후기 게시판으로(마이페이지 searchDiv = 20)으로 이동
+					var searchDiv20 = "20";
+					window.location.href = "${hContext}/review/review_view.do?searchDiv20=" + searchDiv20;
+					
+					// 상품조회 페이지 후기 리스트 테스트
+					//window.location.href = "${hContext}/review/review_view.do?itemNo=" + itemNo;
+				}else{	// 삭제 실패
 					alert(data.msgId + " \n " +data.msgContents);
 				}
 			})

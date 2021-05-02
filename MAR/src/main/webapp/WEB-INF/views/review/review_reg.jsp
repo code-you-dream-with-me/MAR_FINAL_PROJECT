@@ -13,6 +13,8 @@
     Copyright (C) by KandJang All right reserved.
 */
  --%>
+<%@ page import="com.sist.mar.order.domain.Ordering"%>
+<%@ page import="com.sist.mar.question.domain.QuestionVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- core -->
@@ -60,10 +62,11 @@
 	
 		<!-- 제목 -->
 		<div class="page-header">
-			<h2>후기 등록</h2>
+			<h2>1:1 질의 등록</h2>
 		</div>
 		<!--// 제목 -->
 	
+		
 		<!--  form -->
 		<form action = "" class = "form-horizontal">
 
@@ -74,11 +77,11 @@
 			
 			
 			<div class = "form-horizontal col-md-12 col-lg-12">
-				
+			
 				<div class = "form-group">
-				
+					
 					<div class = "col-md-2 col-lg-2">
-						<input type = "hidden"    class = "form-control" id = "reviewNo" name = "reviewNo" />  
+						<input type = "hidden"  class = "form-control" id = "questionNo" name = "questionNo" />  
 					</div>
 					
 					<div class = "col-md-3 col-lg-3">
@@ -86,31 +89,31 @@
 					</div>
 					
 				</div>
-				
+								
 				<h4>고객 정보</h4> <br/>
 				<div class = "form-group">
 				
-					<label class="col-md-2 col-lg-2 control-label">주문상품번호</label>
+					<label class="col-md-2 col-lg-2 control-label">주문번호</label>
 					<div class = "col-md-2 col-lg-2">
-						<input type = "text"  readonly="readonly" class = "form-control" id = "orderItemNo" name = "orderItemNo" /> 
+						<input type = "text" readonly="readonly"  value= "${orderNo }" class = "form-control" id = "orderNo" name = "orderNo" /> 
 					</div>
 					
 					<label class="col-md-2 col-lg-2 control-label">이메일(ID)</label>
 					<div class = "col-md-3 col-lg-3">
-						<input type = "text"  readonly="readonly" class = "form-control" value= "${sessionScope.member}" id = "memberId" name = "memberId" />  
+						<input type = "text" readonly="readonly" value= "${qUser }" class = "form-control" id = "qUser" name = "qUser" />  
 					</div>
-
+		
 				</div>
-				
-			</div>		
+	
+			</div>	
 			
 			<div class = "form-horizontal">
 				<div class = "col-md-10 col-lg-10">
 					<h4>제목</h4>
-					<input type = "text"  class = "form-control" id = "title" name = "title" /> <br/>
+					<input type = "text" class = "form-control" id = "title" name = "title" /> <br/>
 					
 					<h4>내용</h4>
-					<textarea class="form-control"  id = "contents" name = "contents" rows = "15" ></textarea> <br/>
+					<textarea class="form-control" id = "contents" name = "contents" rows = "15" ></textarea> <br/>
 				</div>
 			</div>
 			
@@ -136,6 +139,7 @@
 			console.log("1.document:최초수행!");
 	
 		});//--document ready
+			
 		
 		
 		// comInsertBtn 클릭시 게시물 추가
@@ -156,18 +160,16 @@
 				return;
 			}
 			
-			let url = "${hContext}/review/do_insert.do";
-			let parameter = {"reviewNo"   : $("#reviewNo").val(),
-							 "orderItemNo": $("#orderItemNo").val(),
-							 "memberId"   : $("#memberId").val(),
+			let url = "${hContext}/question/do_insert.do";
+			let parameter = {"orderNo" 	  : $("#orderNo").val(),
+							 "qUser" 	  : $("#qUser").val(),
 							 "title" 	  : $("#title").val(),
 							 "contents"   : $("#contents").val(),
-							 "readCnt"    : $("#readCnt").val(),
 							 "regDt"	  : $("#regDt").val()			};
 			let method	= "GET";
 			let async	= false;
 			
-			console.log("parameter : " + $("#reviewNo").val());
+			console.log("parameter : " + parameter);
 			
 			if(confirm("등록 하시겠습니까?") == false) return;
 			
@@ -178,9 +180,9 @@
 				
 				alert(data.msgContents);
 				
-				if("1" == data.msgId){	// 삭제 성공
-					window.location.href = "${hContext}/review/review_view.do";
-				}else{	// 삭제 실패
+				if("1" == data.msgId){	// 등록 성공
+					window.location.href = "${hContext}/question/question_view.do";
+				}else{	// 등록 실패
 					alert(data.msgId + " \n " +data.msgContents);
 				}
 			})

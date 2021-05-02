@@ -60,7 +60,7 @@
 	
 		<!-- 제목 -->
 		<div class="page-header">
-			<h2>후기 등록</h2>
+			<h2>후기 수정</h2>
 		</div>
 		<!--// 제목 -->
 	
@@ -69,20 +69,24 @@
 
 		
 			<div class = "col-md-10 col-lg-10 text-right">
-				<input type = "button" class = "btn btn-primary btn-sm" value = "등록하기" id = "comInsertBtn" /> 
+				<input type = "button" class = "btn btn-primary btn-sm" value = "수정완료" id = "comUpdateBtn" />  
 			</div>
 			
 			
 			<div class = "form-horizontal col-md-12 col-lg-12">
 				
+				<h4>후기 정보</h4> <br/>
 				<div class = "form-group">
 				
+					<label class="col-md-2 col-lg-2 control-label"> 후기 번호</label>
 					<div class = "col-md-2 col-lg-2">
-						<input type = "hidden"    class = "form-control" id = "reviewNo" name = "reviewNo" />  
+						<input type = "hidden" readonly="readonly" value= "${reviewNo }" id = "param" name = "param"/>
+						<input type = "text"   readonly="readonly" class = "form-control" value= "${reviewNo }" id = "reviewNo" name = "reviewNo" />  
 					</div>
 					
+					<label class="col-md-2 col-lg-2 control-label">등록일</label>
 					<div class = "col-md-3 col-lg-3">
-						<input type = "hidden"  class = "form-control" id = "regDt" name = "regDt" /> 
+						<input type = "text" readonly="readonly" class = "form-control" id = "regDt" name = "regDt" /> 
 					</div>
 					
 				</div>
@@ -92,12 +96,12 @@
 				
 					<label class="col-md-2 col-lg-2 control-label">주문상품번호</label>
 					<div class = "col-md-2 col-lg-2">
-						<input type = "text"  readonly="readonly" class = "form-control" value= "${orderitemNo}" id = "orderItemNo" name = "orderItemNo" /> 
+						<input type = "text" readonly="readonly" class = "form-control" id = "orderItemNo" name = "orderItemNo" /> 
 					</div>
 					
 					<label class="col-md-2 col-lg-2 control-label">이메일(ID)</label>
 					<div class = "col-md-3 col-lg-3">
-						<input type = "text"  readonly="readonly" class = "form-control" value= "${sessionScope.member.memberId}" id = "memberId" name = "memberId" />  
+						<input type = "text" readonly="readonly" class = "form-control" id = "memberId" name = "memberId" />  
 					</div>
 
 				</div>
@@ -134,61 +138,107 @@
 		//jquery 객체생성이 완료
 		$(document).ready(function() {
 			console.log("1.document:최초수행!");
+			
+			doSelectOne();
 	
 		});//--document ready
 		
 		
-		// comInsertBtn 클릭시 게시물 추가
-		$("#comInsertBtn").on("click", function(e) {
+		function doSelectOne(){
 			
-			console.log("comInsertBtn");
+			console.log("doSelectOne");
+			
+			$.ajax({
+			  		type: "GET",
+			  		url : "${hContext}/review/do_selectOne.do",
+			  		asyn: "false",
+			  		dataType : "html",
+			  		data:{
+			  			reviewNo : $("#param").val()
+			  		},
+			  		success:function(data){	//통신 성공
+			  			var parseData = JSON.parse(data);
+			  			console.log("parseData:" + reviewNo);
+			  		
+			  			var reviewNo = parseData.reviewNo;
+			  		    var memberId = parseData.memberId;
+			  		    var orderItemNo = parseData.orderItemNo;
+			  		    var title = parseData.title;
+			  		    var contents = parseData.contents;
+			  		    var regDt = parseData.regDt;
+			  		    
+			  		    $("#orderItemNo").val(orderItemNo);
+			  		    $("#memberId").val(memberId);
+			  		    $("#title").val(title);
+			  		    $("#contents").val(contents);
+			  		    $("#regDt").val(regDt);
+
+			  		    
+			      	},
+			      	error:function(data){//실패시 처리
+			      		console.log("error:"+data);
+			      	}
+			      	
+			  	});
+		}  		
+		
+		
+		
+		// comUpdateBtn 클릭시 게시물 수정 확정
+		$("#comUpdateBtn").on("click", function(e) {
+			
+			console.log("comUpdateBtn");
 			e.preventDefault();
 			
-			if(eUtil.ISEmpty($("#title").val()) == true){
-				alert("제목을 입력해주세요");
-				$("title").focus();
+			let title = $("#title").val();
+			console.log("title : " + title);
+			
+			// 제목
+			if(eUtil.ISEmpty(title) == true ){
+				alert("제목을 확인 하세요");
+				$("#title").focus();
 				return;
 			}
 			
-			if(eUtil.ISEmpty($("#contents").val()) == true){
-				alert("내용을 입력해주세요");
+			let contents = $("#contents").val();
+			console.log("contents : " + contents);
+			
+			// 제목
+			if(eUtil.ISEmpty(contents) == true ){
+				alert("내용을 확인 하세요");
 				$("#contents").focus();
 				return;
 			}
 			
-			let url = "${hContext}/review/do_insert.do";
-			let parameter = {
-							 "orderItemNo": $("#orderItemNo").val(),
-							 "memberId"   : $("#memberId").val(),
-							 "title" 	  : $("#title").val(),
-							 "contents"   : $("#contents").val(),
-																	};
+			let url = "${hContext}/review/do_update.do";
+			let parameter = {"reviewNo" : $("#reviewNo").val(),
+							 "title"	  : $("#title").val(),
+						 	 "contents"   : $("#contents").val(),
+							 "memberId"	  : $("#memberId").val()			};
 			let method	= "GET";
 			let async	= false;
 			
 			console.log("parameter : " + $("#reviewNo").val());
 			
-			if(confirm("등록 하시겠습니까?") == false) return;
+			if(confirm("수정 하시겠습니까?") == false) return;
 			
 			EClass.callAjax(url, parameter, method, async, function(data) {
 				console.log("data : " + data);
 				console.log("data.msgContents : " + data.msgContents);
 				// "msgId":"1","msgContents"
 				
+				var reviewNo = $("#reviewNo").val();
+				var memberId = $("#memberId").val();
 				
-				var itemNo = $("#orderItemNo").val();
+				console.log("reviewNo : " + reviewNo);
+				console.log("memberId : " + memberId);
 				
 				alert(data.msgContents);
 				
-				if("1" == data.msgId){	// 추가 성공
-					
-					// 후기 추가 후 후기 게시판으로(마이페이지 searchDiv = 20)으로 이동
-					var searchDiv20 = "20";
-					window.location.href = "${hContext}/review/review_view.do?searchDiv20=" + searchDiv20;
-					
-					// 상품조회 페이지 후기 리스트 테스트
-					//window.location.href = "${hContext}/review/review_view.do?itemNo=" + itemNo;
-				}else{	// 삭제 실패
+				// 수정 성공하면 해당 글의 review_detail.jsp(review_detail_view.do로 이동)
+				if("1" == data.msgId){	// 수정 성공
+					window.location.href = "${hContext}/review/review_detail_view.do?reviewNo=" + reviewNo + "&memberId=" + memberId;
+				}else{	// 수정 실패
 					alert(data.msgId + " \n " +data.msgContents);
 				}
 			})

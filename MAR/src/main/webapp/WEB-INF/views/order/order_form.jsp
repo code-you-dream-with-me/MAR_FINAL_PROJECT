@@ -62,7 +62,7 @@
 								</td>
 								<td class="cout_pay_wrap"><c:choose>
 										<c:when test="${vo.item_price eq vo.item_final_price}">
-											<input type="text" name="item_price" id="item_price"
+											<input type="text" name="item_price" class="item_price"
 												value="${vo.item_price}원">
 											<input type="hidden" name="item_final_price"
 												class="item_final_price" value="${vo.item_final_price}원">
@@ -74,14 +74,12 @@
 														<span>${vo.item_price}원</span>
 													</div>
 												</div>
-												<input type="text" name="item_final_price"
-													class="item_final_price" value="${vo.item_final_price}원">
+												<input type="text" name="item_final_price" class="item_final_price" value="${vo.item_final_price}원">
 											</div>
 										</c:otherwise>
-									</c:choose> <c:set var="row_sum_price"
-										value="${row_sum_price + (vo.item_price * vo.quantity)}" /> <c:set
-										var="row_sum_sale"
-										value="${row_sum_sale + (vo.item_final_price * vo.quantity)}" />
+									</c:choose> 
+										<c:set var="row_sum_price" value="${row_sum_price + (vo.item_price * vo.quantity)}" />
+									    <c:set var="row_sum_sale" value="${row_sum_sale + (vo.item_final_price * vo.quantity)}" />
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -187,6 +185,7 @@
 		// 입력값에 맞는 가격 변경 --------------------------------------------------
 		$(document).ready(function() {
 			console.log("document");
+			//주문상품에 맞는 가격 계산
 			$("#tota_origin_price").val(${row_sum_price});
 			$("#total_sale_price").val(${row_sum_price - row_sum_sale});
 			$("#total_final_price").val(${row_sum_sale});
@@ -207,8 +206,10 @@
 			let method    = "POST";
 			let async     = "true";
 			EClass.callAjax(url, paramters, method, async, function(data) {
+				//성공시 메세지 출력
 				alert(data.msgContents);
-				window.location.href = "${hContext}/order/do_payment.do?memberName="
+				//GET방식으로 결제 완료 페이지로 이동
+				window.location.href = "${hContext}/payment/do_payment.do?memberName="
 						             + $('#member_name').val() + "&price=" + $('#total_final_price').val();
 			});	 
 		}
@@ -240,7 +241,7 @@
 			
 			var IMP = window.IMP; 
 			//=================================================================
-		    IMP.init('실행시에만 입력'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+		    IMP.init('실행전입력'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 		    //=================================================================
 		    var msg;
 		        

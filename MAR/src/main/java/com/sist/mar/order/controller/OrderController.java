@@ -44,13 +44,6 @@ public class OrderController {
 		LOG.debug("= order_form() =");
 		LOG.debug("================");
 		
-		//HttpSession session
-		//세션으로 memberId
-		//if(null != session.getAttribute("member")) {
-		//	MemberVO member = (MemberVO) session.getAttribute("member");
-		//	memberId = member.getuId();
-		//}
-		
 		//장바구니 정보
 		List<Cart> list = (List<Cart>) cartService.doRetrieve(memberId);
 		//회원정보
@@ -75,13 +68,6 @@ public class OrderController {
 		
 		int flag = 0;
 		String resultMsg = "";
-		
-		//HttpSession session
-		//세션으로 memberId
-		//if(null != session.getAttribute("member")) {
-		//	MemberVO member = (MemberVO) session.getAttribute("member");
-		//	ordering.setmemberId(member.getuId());
-		//}
 		
 		//nvl 처리
 		ordering.setOrderState(StringUtil.nvl(ordering.getOrderState(), "1"));

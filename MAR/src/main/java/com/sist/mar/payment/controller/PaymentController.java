@@ -35,8 +35,8 @@ public class PaymentController {
 	
 	private IamportClient api;
 	
-	private String api_key = "실행시 입력";
-	private String api_secret = "실행시 입력";
+	private String api_key = "실행전입력";
+	private String api_secret = "실행전입력";
 	
 	public PaymentController() {
     	// REST API 키와 REST API secret 를 아래처럼 순서대로 입력한다.

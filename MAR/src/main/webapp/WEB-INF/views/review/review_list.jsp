@@ -29,7 +29,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
-    <title>후기</title>
+    <title>1:1 문의</title>
     
     <!-- 부트스트랩 -->
     <link href="${hContext}/resources/css/bootstrap.min.css" rel="stylesheet">
@@ -60,13 +60,13 @@
 	
 		<!-- 제목 -->
 		<div class="page-header">
-			<h2>후기 목록</h2>
+			<h2>1:1문의</h2>
 		</div>
 		<!--// 제목 -->
 	
-	    <!-- 검색영역 -->
+	    <!-- 리스트 출력크기 조절 -->
 	    <div class="row">
-	    	<form action="/MAR/review/review.do" method="get" name="review_frm" class="form-inline  col-lg-12 col-md-12 text-right" >
+	    	<form action="/MAR/question/question.do" method="get" id="question_frm" name="question_frm" class="form-inline  col-lg-12 col-md-12 text-right" >
 	    		<div class="form-group">
 
 					<select name = "pageSize" id = "pageSize" class = "form-control input-sm text-center">
@@ -80,29 +80,28 @@
 	    		 	<!-- //버튼 -->
 	    		 	
 	    		 	<!-- hidden -->
-	    		 	<input type = "hidden"   id = "searchDiv"		 value = "${searchDiv}" />
-	    		 	<input type = "hidden"   id = "searchWord"		 value = "${searchWord}" />
+	    		 	<input type = "hidden"   name = "searchDiv"	id = "searchDiv" 	 value = "${searchDiv }" />
+	    		 	<input type = "hidden"   name = "searchWord"	id = "searchWord" 	 value = "${searchWord }" />
 					<!-- // hidden -->
 	    		 	
 	    		</div>
 	    	</form>
 	    </div> </br>
-	    <!--// 검색영역 -->
+	    <!--// 리스트 출력크기 조절 -->
 	
 
-	
 		<!-- table -->
 		<div class="table-responsive">
 			<!-- table -->
-			<table id="reviewTable" class="table table-striped table-bordered table-hover table-condensed">
+			<table id="questionTable" class="table table-striped table-bordered table-hover table-condensed">
 				<thead class="bg-primary">
-					<th class="text-center col-lg-1 col-md-1  col-xs-1">등록순서</th>
-					<th class="text-center col-lg-1 col-md-1  col-xs-1">후기번호</th>
+					<th class="text-center col-lg-1 col-md-1  col-xs-1">글번호</th>
+					<th class="text-center col-lg-1 col-md-1  col-xs-1">답변여부</th>
+					<th class="text-center col-lg-1 col-md-1  col-xs-1">질의번호</th>
 					<th class="text-center col-lg-6 col-md-6  col-xs-6">제목</th>
 					<th class="text-center col-lg-1 col-md-1  col-xs-1">글쓴이(ID)</th>
-					<th class="text-center col-lg-1 col-md-1  col-xs-1">주문상품번호</th>
+					<th class="text-center col-lg-1 col-md-1  col-xs-1">주문번호</th>
 					<th class="text-center col-lg-1 col-md-1  col-xs-1">등록일</th>
-					<th class="text-center col-lg-1 col-md-1  col-xs-1">조회수</th>
 				</thead>
 				<tbody>
 				</tbody>
@@ -141,20 +140,20 @@
 		});
 		
 		
-		// 페이징 크기 조절 적용
+		// 리스트 출력 크기 조절 적용
 		$("#listSizeRefresh").on("click", function(e){
 			console.log("listSizeRefresh");
 			e.preventDefault();	// 두번 호출 방지
 			doRetrieve(1);
 		});
-		
+
 		
 		// 페이징 처리
 		function doRetrieve(page){
 			console.log("page : " + page);
 	      	$.ajax({
 	    		type: "GET",
-	    		url:"${hContext }/review/do_retrieve.do",
+	    		url:"${hContext }/question/do_retrieve.do",
 	    		asyn:"true",
 	    		dataType:"html",
 	    		data:{
@@ -169,7 +168,7 @@
 	        		var parseData =  JSON.parse(data);
 	        		
 	        		// 기존 데이터 삭제.
-	        		$("#reviewTable>tbody").empty();
+	        		$("#questionTable>tbody").empty();
 	        		var html = "";
 	        		
 	        		console.log("parseData.length : " + parseData.length);
@@ -194,12 +193,12 @@
 	        				
 	        				html += "<tr>";
 	        				html += "	<td class='text-center'>"+ value.num + "</td>";
-	        				html += "	<td class='text-center'>"+ value.reviewNo + "</td>";
-	        				html += "	<td class='text-center'>"+ value.title + "</td>";
-	        				html += "	<td class='text-left'>"+ value.memberId +"</td>";
-	        				html += "	<td class='text-left'>"+ value.orderItemNo +"</td>";
-	        				html += "	<td class='text-left'>"+ value.regDt +"</td>";
-	        				html += "	<td class='text-left'>"+ value.readCnt +"</td>";
+	        				html += "	<td class='text-center'>"+ value.answerCheck +"</td>";
+	        				html += "	<td class='text-left'>"+ value.questionNo +"</td>";
+	        				html += "	<td class='text-left'>"+ value.title +"</td>";
+	        				html += "	<td class='text-left'>"+ value.qUser +"</td>";
+	        				html += "	<td class='text-left'>"+ value.orderNo +"</td>";
+	        				html += "	<td class='text-center'>"+ value.regDt +"</td>";
 	        				html += "</tr>";
 	        				
 	        			});
@@ -211,7 +210,7 @@
 	        		}
 	        		
 	        		// tbody에 데이터 추가	
-	        		$("#reviewTable>tbody").append(html);
+	        		$("#questionTable>tbody").append(html);
 	        		
 	        		// 페이징
 	        		console.log(pageTotal + " , " + page);
@@ -259,22 +258,29 @@
 		}
 		
 		
+		
 		// table click 시 테이블의 데이터 박스로 전달
- 		$("#reviewTable>tbody").on("click", "tr", function(e){
+ 		$("#questionTable>tbody").on("click", "tr", function(e){
 			
 			e.preventDefault();
 			// console.log("userTable>tbody");
 			
 			let tds = $(this).children();
-			var reviewNo = tds.eq(1).text();
-			var memberId = tds.eq(3).text();
 			
-			console.log("reviewNo : " + reviewNo);
-			console.log("memberId : " + memberId);
+			var answerCheck = tds.eq(1).text();
+			var questionNo = tds.eq(2).text();
+			var qUser 		= tds.eq(4).text();
 			
-			window.location.href = "${hContext}/review/review_detail_view.do?reviewNo=" + reviewNo + "&memberId=" + memberId;
+			console.log("questionNo : " + questionNo);
+			console.log("answerCheck : " + answerCheck);
+			console.log("qUser : " + qUser);
+			
+			window.location.href = "${hContext}/question/question_detail_view.do?questionNo=" + questionNo + "&answerCheck=" + answerCheck+ "&qUser=" + qUser;
 				
 		}); 
+			
+		
+		
 		
     </script>
     <!--// javascript -->    

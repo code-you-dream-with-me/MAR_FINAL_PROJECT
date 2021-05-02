@@ -27,6 +27,7 @@ import com.sist.mar.cmn.StringUtil;
 import com.sist.mar.code.domain.Code;
 import com.sist.mar.code.service.CodeService;
 import com.sist.mar.member.domain.MemberVO;
+import com.sist.mar.order.domain.Orderitem;
 import com.sist.mar.review.domain.ReviewVO;
 import com.sist.mar.review.service.ReviewServiceImpl;
 
@@ -139,7 +140,8 @@ public class ReviewController {
 			,produces = "application/json;charset=UTF-8")
 	public String detailView(Model model, HttpSession session
 							,@RequestParam(value = "reviewNo", required = false)String reviewNo
-							,@RequestParam(value = "memberId", required = false)String memberId) throws Exception {
+							,@RequestParam(value = "memberId", required = false)String memberId
+							,@RequestParam(value = "orderitemNo", required = false)String orderitemNo) throws Exception {
 		
 		
 		// 로그인 세션정보와 작성자 불일치시 정보 수정 삭제 불가능하게 막는다
@@ -158,10 +160,12 @@ public class ReviewController {
 		
 		model.addAttribute("reviewNo", reviewNo);
 		model.addAttribute("memberId", memberId);
+		model.addAttribute("orderitemNo", orderitemNo);
 		
 		LOG.debug("=======================");
 		LOG.debug("reviewNo : " + reviewNo);
 		LOG.debug("memberId : " + memberId);
+		LOG.debug("orderitemNo : " + orderitemNo);
 		LOG.debug("=======================");
 		
 		return "review/review_detail";
@@ -211,6 +215,11 @@ public class ReviewController {
 		
 		if(1 == flag) {
 			resultMsg = review.getMemberId() + "님\n삭제성공.";
+			
+			Orderitem orderitem = new Orderitem();
+			orderitem.setOrderitemNo(review.getOrderitemNo());
+			doReviewStateDel(orderitem); 
+			
 		}else {
 			resultMsg = "삭제 실패.";
 		}
@@ -230,7 +239,33 @@ public class ReviewController {
 		
 	}
 	
-
+	// 리뷰 삭제시 리뷰상태 2 -> 1로 변경
+	public String doReviewStateDel(Orderitem orderitem) throws SQLException {
+		
+		LOG.debug("=======================");
+		LOG.debug("param : " + orderitem);
+		LOG.debug("=======================");
+		
+		int flag = this.reviewServiceImpl.doReviewStateDel(orderitem);
+		
+		String resultMsg = "";
+		
+		Message message = new Message();
+		message.setMsgId(flag + "");
+		message.setMsgContents(resultMsg);
+		
+		Gson gson = new Gson();
+		String jsonStr = gson.toJson(message);
+		
+		LOG.debug("=======================");
+		LOG.debug("jsonStr : " + jsonStr);
+		LOG.debug("=======================");
+		
+		return jsonStr;
+		
+	}
+	
+	
 	@RequestMapping(value = "/review/do_insert.do", method =  RequestMethod.GET
 					, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -258,6 +293,9 @@ public class ReviewController {
 		String resultMsg = "";
 		if(1 == flag) {
 			resultMsg = review.getMemberId() + "님\n후기 등록성공.";
+			Orderitem orderitem = new Orderitem();
+			orderitem.setOrderitemNo(review.getOrderitemNo());
+			doReviewStateInsert(orderitem); 
 		}else {
 			resultMsg = "후기 등록실패.";
 		}
@@ -276,6 +314,33 @@ public class ReviewController {
 		return jsonStr;
 		
 	}
+	
+	// 리뷰 추가시 리뷰상태 1 -> 2로 변경
+	public String doReviewStateInsert(Orderitem orderitem) throws SQLException {
+		
+		LOG.debug("=======================");
+		LOG.debug("param : " + orderitem);
+		LOG.debug("=======================");
+		
+		int flag = this.reviewServiceImpl.doReviewStateInsert(orderitem);
+		
+		String resultMsg = "";
+		
+		Message message = new Message();
+		message.setMsgId(flag + "");
+		message.setMsgContents(resultMsg);
+		
+		Gson gson = new Gson();
+		String jsonStr = gson.toJson(message);
+		
+		LOG.debug("=======================");
+		LOG.debug("jsonStr : " + jsonStr);
+		LOG.debug("=======================");
+		
+		return jsonStr;
+		
+	}
+	
 	
 	
 	@RequestMapping(value = "/review/do_update.do", method = RequestMethod.GET ,
@@ -347,7 +412,37 @@ public class ReviewController {
 		
 	}
 	
+	// 주문상품목록에서 리뷰 보기 누르면 접근
+	@RequestMapping(value = "/review/do_selectMyOne.do", method = RequestMethod.GET ,
+ 			produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String doSelectMyOne(ReviewVO review) throws SQLException {
+		
+		LOG.debug("=======================");
+		LOG.debug("ReviewVO : " + review);
+		LOG.debug("=======================");
+		
+		ReviewVO outVO = (ReviewVO) this.reviewServiceImpl.doSelectMyOne(review);
+		
+		//this.doReadCnt(review);
+		
+		LOG.debug("=======================");
+		LOG.debug("outVO : " + outVO);
+		LOG.debug("=======================");
+		
+		Gson gson = new Gson();
+		String jsonStr = gson.toJson(outVO);
+		
+		LOG.debug("=======================");
+		LOG.debug("jsonStr : " + jsonStr);
+		LOG.debug("=======================");
+		
+		return jsonStr;
+		
+		
+	}
 	
+	// 후기 게시판에서 접근시 조회
 	@RequestMapping(value = "/review/do_selectOne.do", method = RequestMethod.GET ,
  			produces = "application/json;charset=UTF-8")
 	@ResponseBody

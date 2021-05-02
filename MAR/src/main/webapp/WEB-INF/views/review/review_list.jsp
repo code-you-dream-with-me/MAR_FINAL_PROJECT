@@ -197,7 +197,7 @@
 	        				html += "	<td class='text-center'>"+ value.reviewNo + "</td>";
 	        				html += "	<td class='text-center'>"+ value.title + "</td>";
 	        				html += "	<td class='text-left'>"+ value.memberId +"</td>";
-	        				html += "	<td class='text-left'>"+ value.orderItemNo +"</td>";
+	        				html += "	<td class='text-left'>"+ value.orderitemNo +"</td>";
 	        				html += "	<td class='text-left'>"+ value.regDt +"</td>";
 	        				html += "	<td class='text-left'>"+ value.readCnt +"</td>";
 	        				html += "</tr>";

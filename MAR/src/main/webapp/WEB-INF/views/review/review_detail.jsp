@@ -82,7 +82,7 @@
 					<label class="col-md-2 col-lg-2 control-label"> 후기 번호</label>
 					<div class = "col-md-2 col-lg-2">
 						<input type = "hidden" readonly="readonly" value= "${checkMemberId }" id = "checkMemberId" name = "checkMemberId"/>
-						<input type = "text"   readonly="readonly" class = "form-control" value= "${reviewNo }" id = "reviewNo" name = "reviewNo" />  
+						<input type = "text"   readonly="readonly" value= "${reviewNo }" class = "form-control" id = "reviewNo" name = "reviewNo" />  
 					</div>
 					
 					<label class="col-md-2 col-lg-2 control-label">등록일</label>
@@ -97,7 +97,7 @@
 				
 					<label class="col-md-2 col-lg-2 control-label">주문상품번호</label>
 					<div class = "col-md-2 col-lg-2">
-						<input type = "text" readonly="readonly" class = "form-control" id = "orderItemNo" name = "orderItemNo" /> 
+						<input type = "text" readonly="readonly" class = "form-control" value= "${orderitemNo }" id = "orderitemNo" name = "orderitemNo" /> 
 					</div>
 					
 					<label class="col-md-2 col-lg-2 control-label">이메일(ID)</label>
@@ -140,11 +140,57 @@
 		$(document).ready(function() {
 			console.log("1.document:최초수행!");
 			
-			doSelectOne();
-	
+				
+				doSelectOne();
+				
+				doSelectMyOne();
+
+			
 		});//--document ready
 		
 		
+		// 주문상품목록을 통한 접근
+		function doSelectMyOne(){
+			
+			console.log("doSelectMyOne");
+			
+			$.ajax({
+			  		type: "GET",
+			  		url : "${hContext}/review/do_selectMyOne.do",
+			  		asyn: "true",
+			  		dataType : "html",
+			  		data:{
+			  			orderitemNo : $("#orderitemNo").val()
+			  		},
+			  		success:function(data){	//통신 성공
+			  			var parseData = JSON.parse(data);
+			  			console.log("orderitemNo:" + orderitemNo);
+			  		
+			  			var reviewNo = parseData.reviewNo;
+			  		    var memberId = parseData.memberId;
+			  		    var orderitemNo = parseData.orderitemNo;
+			  		    var title = parseData.title;
+			  		    var contents = parseData.contents;
+			  		    var regDt = parseData.regDt;
+			  		    
+			  		    $("#reviewNo").val(reviewNo);
+			  		    $("#memberId").val(memberId);
+			  		    $("#memberId").val(memberId);
+			  		    $("#title").val(title);
+			  		    $("#contents").val(contents);
+			  		    $("#regDt").val(regDt);
+
+			  		    
+			      	},
+			      	error:function(data){//실패시 처리
+			      		console.log("error:"+data);
+			      	}
+			      	
+			  	});
+		}  		
+		
+		
+		// 일반 후기 게시판(상품이던 마이페이지건)을 통한 접근
 		function doSelectOne(){
 			
 			console.log("doSelectOne");
@@ -152,24 +198,24 @@
 			$.ajax({
 			  		type: "GET",
 			  		url : "${hContext}/review/do_selectOne.do",
-			  		asyn: "false",
+			  		asyn: "true",
 			  		dataType : "html",
 			  		data:{
 			  			reviewNo : $("#reviewNo").val()
 			  		},
 			  		success:function(data){	//통신 성공
 			  			var parseData = JSON.parse(data);
-			  			console.log("parseData:" + reviewNo);
+			  			console.log("reviewNo:" + reviewNo);
 			  		
 			  			var reviewNo = parseData.reviewNo;
 			  		    var memberId = parseData.memberId;
-			  		    var orderItemNo = parseData.orderItemNo;
+			  		    var orderitemNo = parseData.orderitemNo;
 			  		    var title = parseData.title;
 			  		    var contents = parseData.contents;
 			  		    var regDt = parseData.regDt;
 			  		    
-			  		    $("#orderItemNo").val(orderItemNo);
 			  		    $("#memberId").val(memberId);
+			  		    $("#orderitemNo").val(orderitemNo);
 			  		    $("#title").val(title);
 			  		    $("#contents").val(contents);
 			  		    $("#regDt").val(regDt);

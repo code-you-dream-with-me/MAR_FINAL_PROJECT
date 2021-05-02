@@ -17,7 +17,7 @@
 	
 		<id 	property="reviewNo" 	 column="review_no" />		
 		<result property="memberId" 	 column="member_id"/>
-		<result property="orderItemNo"	 column="orderitem_no"/>
+		<result property="orderitemNo"	 column="orderitem_no"/>
 		<result property="title"  		 column="title"/>
 		<result property="contents" 	 column="contents"/>
 		<result property="readCnt" 	 	 column="read_cnt"/>
@@ -54,7 +54,7 @@
 		SELECT t2.rnum 			AS num,   
 		       t2.review_no 	AS reviewNo, 		                                                                                                     
 		       t2.member_id 	AS memberId, 		                                                                                                       
-		       t2.orderitem_no 	AS orderItemNo,                                                                                                       
+		       t2.orderitem_no 	AS orderitemNo,                                                                                                       
 		       t2.title			AS title,                                                                                        				
 		       t2.contents		AS contents, 	                                                                                   			
 		       t2.read_cnt		AS readCnt,                                                                                                                                                                                                                                                                                                                                                                              
@@ -98,6 +98,41 @@
 	</select>
 	
 	
+	<!-- doSelectOne (uId는 oracle 자체 키워드니 ""를 꼭 써야함)-->
+	<select id="doSelectMyOne" parameterType="Orderitem" resultMap="reviewResult">
+		
+		SELECT A.review_no, 	            					  
+			   A.member_id,	                					  
+			   A.orderitem_no, 			  
+			   A.title,			                   				  
+			   A.contents,		                   				  
+			   A.read_cnt,		 	                   				  	    				  
+			   TO_CHAR(A.reg_dt, 'YYYY/MM/DD HH24MISS') reg_dt  	    			  
+		FROM   review A, orderitem B                 					  
+		WHERE B.orderitem_no = #{orderitemNo}
+		AND   B.orderitem_no = A.orderitem_no
+		
+	</select>
+	
+	
+	<!-- doReviewStateInsert -->
+	<update id="doReviewStateInsert" parameterType="Orderitem">
+	
+		UPDATE orderitem
+		SET    review_state = 2
+		WHERE  orderitem_no = #{orderitemNo}                
+	
+	</update>
+	
+	<!-- doReviewStateDelete -->
+	<update id="doReviewStateDel" parameterType="Orderitem">
+	
+		UPDATE orderitem
+		SET    review_state = 1
+		WHERE  orderitem_no = #{orderitemNo}                
+	
+	</update>
+	
 	<!-- doReadCnt -->
 	<update id="doReadCnt" parameterType="ReviewVO">
 	
@@ -140,7 +175,7 @@
 		)VALUES(
 				  REVIEW_SEQ.NEXTVAL
 				, #{memberId}
-				, #{orderItemNo} 		
+				, #{orderitemNo} 		
 				, #{title} 	
 				, #{contents} 	
 				, SYSDATE

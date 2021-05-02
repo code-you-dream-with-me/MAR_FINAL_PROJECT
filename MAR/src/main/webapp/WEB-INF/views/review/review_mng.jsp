@@ -96,7 +96,7 @@
 				
 					<label class="col-md-2 col-lg-2 control-label">주문상품번호</label>
 					<div class = "col-md-2 col-lg-2">
-						<input type = "text" readonly="readonly" class = "form-control" id = "orderItemNo" name = "orderItemNo" /> 
+						<input type = "text" readonly="readonly" class = "form-control" id = "orderitemNo" name = "orderitemNo" /> 
 					</div>
 					
 					<label class="col-md-2 col-lg-2 control-label">이메일(ID)</label>
@@ -162,12 +162,12 @@
 			  		
 			  			var reviewNo = parseData.reviewNo;
 			  		    var memberId = parseData.memberId;
-			  		    var orderItemNo = parseData.orderItemNo;
+			  		    var orderitemNo = parseData.orderitemNo;
 			  		    var title = parseData.title;
 			  		    var contents = parseData.contents;
 			  		    var regDt = parseData.regDt;
 			  		    
-			  		    $("#orderItemNo").val(orderItemNo);
+			  		    $("#orderitemNo").val(orderitemNo);
 			  		    $("#memberId").val(memberId);
 			  		    $("#title").val(title);
 			  		    $("#contents").val(contents);

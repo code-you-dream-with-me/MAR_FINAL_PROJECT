@@ -6,7 +6,7 @@ public class ReviewVO extends DTO{
 
 	private int reviewNo;		// 후기글 번호(PK, 시퀀스 적용)
 	private String memberId;	// 회원 이메일(ID)
-	private int orderItemNo;	// 주문상품번호 (원칙적으로 FK)
+	private int orderitemNo;	// 주문상품번호 (원칙적으로 FK)
 	private String title;		// 제목
 	private String contents;	// 내용
 	private int readCnt;		// 조회수
@@ -21,7 +21,7 @@ public class ReviewVO extends DTO{
 		super();
 		this.reviewNo = reviewNo;
 		this.memberId = memberId;
-		this.orderItemNo = orderItemNo;
+		this.orderitemNo = orderitemNo;
 		this.title = title;
 		this.contents = contents;
 		this.readCnt = readCnt;
@@ -44,12 +44,12 @@ public class ReviewVO extends DTO{
 		this.memberId = memberId;
 	}
 
-	public int getOrderItemNo() {
-		return orderItemNo;
+	public int getOrderitemNo() {
+		return orderitemNo;
 	}
 
-	public void setOrderItemNo(int orderItemNo) {
-		this.orderItemNo = orderItemNo;
+	public void setOrderitemNo(int orderitemNo) {
+		this.orderitemNo = orderitemNo;
 	}
 
 	public String getTitle() {
@@ -86,7 +86,7 @@ public class ReviewVO extends DTO{
 
 	@Override
 	public String toString() {
-		return "ReviewVO [reviewNo=" + reviewNo + ", memberId=" + memberId + ", orderItemNo=" + orderItemNo + ", title="
+		return "ReviewVO [reviewNo=" + reviewNo + ", memberId=" + memberId + ", orderitemNo=" + orderitemNo + ", title="
 				+ title + ", contents=" + contents + ", readCnt=" + readCnt + ", regDt=" + regDt + ", toString()="
 				+ super.toString() + "]";
 	}

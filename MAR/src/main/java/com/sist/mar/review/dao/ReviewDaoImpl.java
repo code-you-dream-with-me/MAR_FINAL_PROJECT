@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.sist.mar.cmn.DTO;
 import com.sist.mar.cmn.Search;
+import com.sist.mar.order.domain.Orderitem;
 import com.sist.mar.review.domain.ReviewVO;
 
 /* 
@@ -57,6 +58,29 @@ public class ReviewDaoImpl {
 		
 	}
 	
+	
+	/**
+	 * 후기 작성시 orderItem의 reviewState 1 -> 2로 변환 
+	 */
+	public int doReviewStateDel(DTO dto) {
+		
+		int flag = 0;
+		Orderitem orderitem = (Orderitem) dto;
+		
+		// mybatis sql : NAMESPACE + . + id;
+		String statement = this.NAMESPACE + ".doReviewStateInsert";
+		
+		LOG.debug("============================");
+		LOG.debug("=orderitem=" + orderitem);
+		LOG.debug("=statement=" + statement);
+		LOG.debug("============================");
+		
+		flag = this.sqlSessionTemplate.update(statement, orderitem);
+		return flag;
+		
+	}
+	
+	
 	/**
 	 * 후기 삭제
 	 */
@@ -78,6 +102,28 @@ public class ReviewDaoImpl {
 		
 	}
 
+	
+	/**
+	 * 후기 작성시 orderItem의 reviewState 1 -> 2로 변환 
+	 */
+	public int doReviewStateInsert(DTO dto) {
+		
+		int flag = 0;
+		Orderitem orderitem = (Orderitem) dto;
+		
+		// mybatis sql : NAMESPACE + . + id;
+		String statement = this.NAMESPACE + ".doReviewStateInsert";
+		
+		LOG.debug("============================");
+		LOG.debug("=orderitem=" + orderitem);
+		LOG.debug("=statement=" + statement);
+		LOG.debug("============================");
+		
+		flag = this.sqlSessionTemplate.update(statement, orderitem);
+		return flag;
+		
+	}
+	
 	/**
 	 * 후기 등록
 	 */
@@ -99,6 +145,38 @@ public class ReviewDaoImpl {
 		
 	}
 
+	
+	/**
+	 * 후기 수정
+	 */
+	public DTO doSelectMyOne(DTO dto) throws SQLException {
+		
+		ReviewVO inVO = (ReviewVO) dto;
+
+		String statement = this.NAMESPACE + ".doSelectMyOne";
+		
+		LOG.debug("============================");
+		LOG.debug("=inVO=" + inVO);
+		LOG.debug("=statement=" + statement);
+		LOG.debug("============================");
+		
+		ReviewVO outVO = this.sqlSessionTemplate.selectOne(statement, inVO);
+		
+		LOG.debug("============================");
+		LOG.debug("=outVO=" + outVO);
+		LOG.debug("============================");
+		
+		if(null == outVO) {
+			LOG.debug("++++++++++++++++++++++++++++");
+			LOG.debug("=null == outVO : " + outVO);
+			LOG.debug("++++++++++++++++++++++++++++");
+			throw new EmptyResultDataAccessException("여기 EmptyResultDataAccessException",1);
+		}
+		
+		return outVO;
+		
+	}
+	
 	/**
 	 * 후기 조회
 	 */
@@ -202,6 +280,8 @@ public class ReviewDaoImpl {
 		return list;
 		
 	}
+
+
 	
 	
 

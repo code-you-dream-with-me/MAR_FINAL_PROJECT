@@ -92,7 +92,7 @@
 				
 					<label class="col-md-2 col-lg-2 control-label">주문상품번호</label>
 					<div class = "col-md-2 col-lg-2">
-						<input type = "text"  readonly="readonly" class = "form-control" value= "${orderitemNo}" id = "orderItemNo" name = "orderItemNo" /> 
+						<input type = "text"  readonly="readonly" class = "form-control" value= "${orderitemNo}" id = "orderitemNo" name = "orderitemNo" /> 
 					</div>
 					
 					<label class="col-md-2 col-lg-2 control-label">이메일(ID)</label>
@@ -158,7 +158,7 @@
 			
 			let url = "${hContext}/review/do_insert.do";
 			let parameter = {
-							 "orderItemNo": $("#orderItemNo").val(),
+							 "orderitemNo": $("#orderitemNo").val(),
 							 "memberId"   : $("#memberId").val(),
 							 "title" 	  : $("#title").val(),
 							 "contents"   : $("#contents").val(),
@@ -176,7 +176,7 @@
 				// "msgId":"1","msgContents"
 				
 				
-				var itemNo = $("#orderItemNo").val();
+				var itemNo = $("#orderitemNo").val();
 				
 				alert(data.msgContents);
 				

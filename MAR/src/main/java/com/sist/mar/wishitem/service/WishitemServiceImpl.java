@@ -22,9 +22,10 @@ public class WishitemServiceImpl implements WishitemService {
 	@Autowired
 	public WishitemDao wishDao;
 	
+	//기본생성자
 	public WishitemServiceImpl() {}
 	
-	// dao에 있는 삭제, 등록, 단건조회, 목록조회
+	// dao에 있는 삭제, 등록, 단건조회, 목록조회, 아이템체크
 	@Override
 	public int doDelete(String param) throws SQLException {
 		return this.wishDao.doDelete(param);

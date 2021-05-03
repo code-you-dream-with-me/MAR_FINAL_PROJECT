@@ -29,7 +29,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
-    <title>후기</title>
+    <title>후기 </title>
     
     <!-- 부트스트랩 -->
     <link href="${hContext}/resources/css/bootstrap.min.css" rel="stylesheet">
@@ -59,8 +59,7 @@
 		<!--//header -->
 	
 		<!-- 제목 -->
-		<div class="page-header">
-			<h2>후기 목록</h2>
+		<div class="page-header" id = "reviewTitle">
 		</div>
 		<!--// 제목 -->
 	
@@ -128,6 +127,7 @@
 		//jquery 객체생성이 완료
 		$(document).ready(function() {
 			console.log("1.document:최초수행!");
+			reviewTitle();
 			doRetrieve(1);
 
 		});//--document ready
@@ -147,6 +147,26 @@
 			e.preventDefault();	// 두번 호출 방지
 			doRetrieve(1);
 		});
+		
+		
+		// memberId가 관리자냐 소비자냐에 따라 제목 변경
+		function reviewTitle(){
+			
+			if($("#searchDiv").val() == 10){
+				
+				document.getElementById("reviewTitle").innerHTML = "<h2>상품 후기 목록</h2>";
+					
+				console.log("searchDiv : "  + $("#searchDiv").val());
+				
+			}else if($("#searchDiv").val() == 20){
+				
+				document.getElementById("reviewTitle").innerHTML = "<h2>내가 쓴 후기 목록</h2>";
+				
+				console.log("searchDiv : "  + $("#searchDiv").val());
+				
+			}
+				
+		}
 		
 		
 		// 페이징 처리
@@ -197,7 +217,7 @@
 	        				html += "	<td class='text-center'>"+ value.reviewNo + "</td>";
 	        				html += "	<td class='text-center'>"+ value.title + "</td>";
 	        				html += "	<td class='text-left'>"+ value.memberId +"</td>";
-	        				html += "	<td class='text-left'>"+ value.orderitemNo +"</td>";
+	        				html += "	<td class='text-center'>"+ value.orderitemNo +"</td>";
 	        				html += "	<td class='text-left'>"+ value.regDt +"</td>";
 	        				html += "	<td class='text-left'>"+ value.readCnt +"</td>";
 	        				html += "</tr>";

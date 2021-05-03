@@ -133,9 +133,9 @@ public class OrderingController {
 		String resultMsg = "";
 		
 		if(1 == flag) {
-			resultMsg = ordering.getMemberId()  + "님께서\n주문취소요청을 보내셨습니다";
+			resultMsg = ordering.getOrderNo()  + "번 주문에서 \n취소요청이 들어왔습니다";
 		}else {
-			resultMsg = ordering.getMemberId()  + "님께서\n주문취소요청을 보내시는데 실패하셨습니다";
+			resultMsg = ordering.getOrderNo()  + "번 주문의 \n취소요청이 전달되지 못했습니다";
 		}
 		
 		Message message = new Message();

@@ -60,7 +60,7 @@ public class ReviewDaoImpl {
 	
 	
 	/**
-	 * 후기 작성시 orderItem의 reviewState 1 -> 2로 변환 
+	 * 후기 작성시 orderItem의 reviewState 2 -> 1로 변환 
 	 */
 	public int doReviewStateDel(DTO dto) {
 		
@@ -68,7 +68,7 @@ public class ReviewDaoImpl {
 		Orderitem orderitem = (Orderitem) dto;
 		
 		// mybatis sql : NAMESPACE + . + id;
-		String statement = this.NAMESPACE + ".doReviewStateInsert";
+		String statement = this.NAMESPACE + ".doReviewStateDel";
 		
 		LOG.debug("============================");
 		LOG.debug("=orderitem=" + orderitem);

@@ -248,7 +248,8 @@
 			
 			let url = "${hContext}/review/do_delete.do";
 			let parameter = {"reviewNo" : $("#reviewNo").val(),
-							 "memberId" : $("#memberId").val()			};
+							 "memberId" : $("#memberId").val(),
+							 "orderitemNo" : $("#orderitemNo").val()};
 			let method	= "GET";
 			let async	= false;
 			

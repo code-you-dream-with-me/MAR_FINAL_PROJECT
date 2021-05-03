@@ -245,23 +245,30 @@
 
         				}
 
-        				html += "					</td>                                                                                         ";
+        				html += "					</td>                                                                                       						";
         				
-        				html += "					<td width='150px' height='120px' class='text-center'>                                         ";
+        				html += "					<td width='150px' height='120px' class='text-center'>                                     						    ";
 
         				
-        				if(value.reviewState == 1 && parseInt(new Date().getTime() - new Date($("#orderDate").val()).getTime(), 10) >= 86400000 * 7){
+         				if(value.reviewState == 1 && parseInt(new Date().getTime() - new Date($("#orderDate").val()).getTime(), 10) >= 86400000 * 7){
         					
-        					html += "					<h5><strong> 후기 작성 <br> 기간 초과 </strong></h5> 										  ";
-        				
-        				}else if(value.reviewState == 1){ 
-        				
-        					html += "					<input type='button' class='btn-primary btn-mine' value='후기쓰기' onclick = 'doReviewInsert("+ value.orderitemNo +");' /> ";
+        					html += "					<h4><strong> 후기 작성 <br> 기간 초과 </strong></h4> 																";
 
         				}else if(value.reviewState == 2){
         					
         					html += "					<input type='button' class='btn-info btn-mine' value='후기보기' onclick = 'doSelectMyOne("+ value.orderitemNo +");' /> ";
 
+        				}else if($("#orderState").val() == 2 ){
+        					
+        					html += "					<input type='button' class='btn-defalut btn-mine active' disabled = 'disabled' value='주문취소 중' />						";
+        					
+        				}else if($("#orderState").val() == 3){
+        					
+        					html += "					<h4><strong> 주문취소 완료된 <br> 상품입니다. </strong></h4> 	 					";				
+        					
+        				}else if(value.reviewState == 1){ 
+        				
+        					html += "					<input type='button' class='btn-primary btn-mine' value='후기쓰기' onclick = 'doReviewInsert("+ value.orderitemNo +");' /> ";
         				}
         				
         				html += "					</td>                                                                                         ";
@@ -293,6 +300,23 @@
 
 			console.log("doReviewInsert");
 			
+			if($("#orderState").val() == 2 || $("#orderState").val() == 3){
+				
+				alert("주문 취소 중이거나 취소된 상품은 후기를 작성하실 수 없습니다.");
+				return;
+				
+			}else if($("#orderState").val() == 1 && parseInt(new Date().getTime() - new Date($("#orderDate").val()).getTime(), 10) >= 86400000 * 7){
+				
+				alert("후기 작성 가능 기간이 초과했습니다.");
+				return;
+				
+			}else if($("#orderState").val() == 1 && parseInt(new Date().getTime() - new Date($("#orderDate").val()).getTime(), 10) < 86400000){
+				
+				alert("후기는 결제 완료시부터 1주일간만 적을 수 있습니다.");
+				return;
+				
+			}	
+				
 			var orderitemNo = num;
 			
 			console.log("orderitemNo : " + orderitemNo);

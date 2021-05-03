@@ -32,11 +32,7 @@ public class WishitemController {
 		LOG.debug("===================");
 		LOG.debug("= wishitem_list() =");
 		LOG.debug("===================");
-		
-		//처음 조회 속도 향상을 위해 전체 검색 1회 실행
-		Search search = new Search("", "", 10, 1);
-		doRetrieve(search);
-		
+
 		return "wishitem/wishitem_list";
 	}
 		

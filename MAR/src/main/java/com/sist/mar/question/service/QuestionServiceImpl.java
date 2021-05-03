@@ -33,7 +33,6 @@ public class QuestionServiceImpl {
 
 	public DTO doSelectOne(DTO dto) throws SQLException {
 		
-		questionDaoImpl.answerCheck(dto);
 		return questionDaoImpl.doSelectOne(dto);
 	}
 

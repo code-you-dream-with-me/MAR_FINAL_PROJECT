@@ -168,7 +168,7 @@ public class QuestionController {
 		LOG.debug("qUser : " + qUser);
 		LOG.debug("=======================");
 		
-		return "question/question_detail";
+		return "question/question_detail_answer";
 	}
 	
 	@RequestMapping(value = "/question/question_reg_view.do", method = RequestMethod.GET

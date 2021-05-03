@@ -51,20 +51,6 @@ public class MainController {
 		LOG.debug("search param: "+search);
 		LOG.debug("================================");
 		
-//		List codeListParam = new ArrayList<String>();
-//		codeListParam.add("MAIN_PAGE_SIZE");//페이지사이즈
-//		
-//		List<Code> codeList = getCodePageRetrieve(codeListParam);
-//		
-//		List<Code> mainPageSize = new ArrayList<Code>();
-//		for(Code vo:codeList) {
-//			if(vo.getMstCode().equals("MAIN_PAGE_SIZE")) {
-//				mainPageSize.add(vo);
-//				LOG.debug(vo.toString());
-//			}
-//		}
-//		LOG.debug(mainPageSize.toString());
-		
 		//NVL처리
 		//검색어가 없을 시 ""처리
 		search.setSearchWord(StringUtil.nvl(search.getSearchWord(), ""));
@@ -94,7 +80,6 @@ public class MainController {
 		
 		//model로 list를 화면에 넘겨줌
 		model.addAttribute("list",list);
-		//model.addAttribute("MAIN_PAGE_SIZE",mainPageSize);
 				
 		return "main/main";
 	}
@@ -211,14 +196,5 @@ public class MainController {
 		
 		return messageJson;
 	}
-	
-	private List<?> getCodePageRetrieve(List<String> codeList) throws SQLException {
-		
-		Map<String,Object> codeMap = new HashMap<String,Object>();
-		codeMap.put("codeList",codeList);
-		
-		return codeService.getCodeRetrieve(codeMap);
-	}
-
 
 }

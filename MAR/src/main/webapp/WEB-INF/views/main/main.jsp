@@ -95,6 +95,7 @@
 <body>
 <%-- 		 <c:set var="item" value="${MAIN_PAGE_SIZE }"/>
  		<input type="text" name="pageSize" id="pageSize" value="<c:out value='${item.detCode }'"/> --%>
+ 		${list.listDiv }
  		<div class="container01" id="listContainer">
  		<input type="hidden" name="member" id="member" value="${sessionScope.member}"/>
 			<div class="row">
@@ -113,71 +114,34 @@
 	//jquery 객채생성 완료
 	$(document).ready(function() {//화면이 로딩되면 바로 수행
 		console.log("1.document:최초수행!");
-		doRetrieve(1); 
-	});
 	
-	//paging
-	//param 	 : pageTotal(총페이지수 = 총글수/페이지사이즈(12)), page(현재 페이지)
-	//maxVisible : bottom page
-	function renderingPage(pageTotal,page) {
-		//이전에 연결된 Event 핸들러를 요소에서 제거
-		$("#page-selection").unbind('page');//jquery.bootpag에 있는 page요소를 언바인딩 해줌
+		if( listDiv == null) {
+			doMainRetrieve(1); 
+		}
 		
-		$("#page-selection").bootpag({
-		    total: pageTotal,
-		    page: page,
-		    maxVisible: 5,
-		    leaps: true,
-		    firstLastUse: true,
-		    first: '←',
-		    last: '→',
-		    wrapClass: 'pagination',
-		    activeClass: 'active',
-		    disabledClass: 'disabled',
-		    nextClass: 'next',
-		    prevClass: 'prev',
-		    lastClass: 'last',
-		    firstClass: 'first'
-		}).on("page", function(event, num){
-		    doRetrieve(num); //--num에 페이지 번호가 들어가서 ajax서버 호출
-		}); 
-	}
+	});
 
 	
 	//기본 조회(메인화면 로드시 실행)
-	function doRetrieve(page) {
+	function doMainRetrieve(page) {
       	$.ajax({
     		type: "GET",
     		url:"${hContext}/main/do_retrieve.do",
     		asyn:"true",
     		dataType:"html",
     		data:{  listDiv: $("#listDiv").val(),
-    				//pageSize: $("#pageSize").val(),
-    				searchWord: $("#searchWord").val(),
+    				searchWord: $("#mainSearchWord").val(),
     				pageNum: page },
     		success:function(data){//통신 성공
         		console.log("success data:"+data);
     			var parseData = JSON.parse(data);
     			console.log("parseData.length:"+parseData.length);
-    			
+
     			//기존데이터 삭제 (id가 listContainer인 요소의 클래스값이 row인 div요소를 제거)
     			$("#listContainer>.row").empty();
     			var html = ""; 
     			
-    			//페이징 변수 추가
-    			let totalCount = 0;
-    			let pageTotal  = 1;
-    			//console.log("totalCount:"+parseData[0].totalCnt);//totalCount:40
-    		
-    			
-     			if(parseData.length>0) {//데이터가 있는경우
-    				//페이지 추가
-    				totalCount = parseData[0].totalCnt;
-    				console.log("totalCount: "+totalCount);
-    				pageTotal = (totalCount/$("#pageSize").val());// 42/10 = 4.2
-    				console.log("pageTotal: "+pageTotal);
-    				pageTotal = Math.ceil(pageTotal);// 42/10 = 4.2 -> 5
-    				console.log("pageTotal: "+pageTotal);
+    			if(parseData.length>0) {//데이터가 있는경우
 
     				//목록 추가
     				$.each(parseData, function(i, value) {
@@ -193,16 +157,11 @@
     					html += " 			</div>                                                                                 ";
     					html += " 		</div>                                                                                     ";
     					html += " 	</div>                                                                                         ";
-     
+
     				});
     			}
     			//container에 데이터 추가
     			$("#listContainer>.row").append(html); 
-    			
-    			//paging(페이징): 총페이지, 현재글번호
-    			console.log(pageTotal+", "+page);
-    			renderingPage(pageTotal,page);
-    			
         	},
         	error:function(data){//실패시 처리
         		console.log("error:"+data);
@@ -218,7 +177,8 @@
 		window.location.href = "${hContext}/item/item_deview.do?itemNo="+itemNo;
 	}
 	
-
+	
+	
 
 </script>
 

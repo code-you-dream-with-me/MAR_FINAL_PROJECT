@@ -59,12 +59,19 @@
 		<!--// header -->
 		
 		<!-- container -->
-		<tiles:insertAttribute name="container"/>
+		<div id="bodyContainer">
+			<tiles:insertAttribute name="container"/>
+		</div>
 		<!--// container -->
 		
 		<!-- footer -->
 		<tiles:insertAttribute name="footer"/>
 		<!--// footer -->
 	</div>
+	
+	<script type="text/javascript">
+		
+	</script>
+	
 </body>
 </html>

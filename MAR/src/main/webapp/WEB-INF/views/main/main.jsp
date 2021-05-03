@@ -95,7 +95,6 @@
 <body>
 <%-- 		 <c:set var="item" value="${MAIN_PAGE_SIZE }"/>
  		<input type="text" name="pageSize" id="pageSize" value="<c:out value='${item.detCode }'"/> --%>
- 		${list.listDiv }
  		<div class="container01" id="listContainer">
  		<input type="hidden" name="member" id="member" value="${sessionScope.member}"/>
 			<div class="row">
@@ -114,10 +113,6 @@
 	//jquery 객채생성 완료
 	$(document).ready(function() {//화면이 로딩되면 바로 수행
 		console.log("1.document:최초수행!");
-	
-		if( listDiv == null) {
-			doMainRetrieve(1); 
-		}
 		
 	});
 

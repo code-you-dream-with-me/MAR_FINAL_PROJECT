@@ -77,11 +77,23 @@
 
   </head>
   <body class="bg-light">
-	
+
+<header class="bd-header py-3 d-flex bg-light" >
+  <div class="container-fluid d-flex align-items-center" style="background-color: #f9f9fa; height: 50px;">
+    <a href="${hContext}/main/main_view.do"><img class="mb-4" src="${hContext}/resources/image_source/markit_logo.png" style="width: 120px; margin-top: 20px;" ></a>
+    <ul class="nav" style="center">
+      <li class="nav-item"><a href="#" class="nav-link" style="color: black; font-weight: bold;">${sessionScope.member.name} 관리자</a></li>
+      <li class="nav-item"><a href="#" class="nav-link">고객센터</a></li>
+      <li class="nav-item"><a href='javascript:goLogout();' class="nav-link">로그아웃</a></li>
+    </ul>
+  </div>
+</header>
 	
 	<!-- 오른쪽 네비게이션 -->
 	<aside class="bd-aside sticky-xl-top text-muted align-self-start mb-3 mb-xl-5 px-2">
-	  <h2 class="h6 pt-4 pb-3 mb-4 border-bottom">${sessionScope.member.name} 관리자</h2>
+	  <div style="margin-top: 30px;">
+	    <h2 class="h6 pt-4 pb-3 mb-4 border-bottom"></h2>
+	  </div> 
 	  <nav class="small" id="toc">
 	    <ul class="list-unstyled">
 	    
@@ -105,8 +117,10 @@
 	
 	<div class="bd-cheatsheet container-fluid bg-body">
 	  <section id="content">
-	    <h2 class="sticky-xl-top fw-bold pt-3 pt-xl-5 pb-2 pb-xl-3">관리자</h2>
-	    
+	  
+	  
+	    <h2 class="sticky-xl-top fw-bold pt-3 pt-xl-5 pb-2 pb-xl-3"></h2>
+	   
 	    <!-- 회원 목록 -->
 	    <article class="my-3" id="member_list">
 	    
@@ -149,13 +163,12 @@
 	          <thead>
 	          	<tr>
 	              <th scope="col" width="10%">상품번호</th>
-	              <th scope="col" width="25%">상품명</th>
+	              <th scope="col" width="30%">상품명</th>
 	              <th scope="col" width="10%">종류</th>
 	              <th scope="col" width="10%">가격
 	                <input type="button" class="orderBtn" name="ItemPrice" id="ItemPrice" value="○" />
 	              </th>
 	              <th scope="col" width="8%"  >할인률</th>
-	              <th scope="col" width="5%"> </th>
 	              <th scope="col" width="10%">최종가격</th>
 	              <th scope="col" width="12%">판매량
 	                <input type="button" class="orderBtn" name="ItemSales" id="ItemSales" value="○" />
@@ -353,8 +366,9 @@
     	let tds = $(this).children();
     	var itemNo = tds.eq(0).text();
     	console.log("itemNo:"+itemNo);
-        /* window.location.href = "${hContext}/item/item_deview.do?itemNo="+itemNo; */
+        window.location.href = "${hContext}/item/item_deview.do?itemNo="+itemNo;
   });
+
 
 
   //상품 등록 페이지로 이동 
@@ -414,15 +428,14 @@
 	  			var html = "";
 	  			
 	  			if(parseData.length > 0){ 
-	  				
+
 	  				$.each(parseData, function(i, value) {
 	  					html += "   <tr>                              ";
 	  					html += "     <td>"+ value.itemNo +"</td>   ";
 	  					html += "     <td>"+ value.name +"</td>      ";
 	  					html += "     <td>"+ value.categoryNo +"</td>      ";
 	  					html += "     <td>"+ value.price +"</td>    ";
-	  					html += "     <td><input type='text' onclick='event.cancelBubble=true' id='discountNum"+value.itemNo+"' value='"+ value.discount +"' style='width: 40px;'/></td>    ";
-	  					html += "     <td><input type='button'class='wordBtn' value='수정' onclick='discount("+value.itemNo+");' /></td>    ";
+	  					html += "     <td><input type='text' onclick='event.cancelBubble=true' onkeyup='enterkey("+value.itemNo+");' id='discountNum"+value.itemNo+"' value='"+ value.discount +"' style='width: 40px;'/></td>    ";
 	  					html += "     <td>"+ value.price*(100-value.discount)/100 +"</td>    ";
 	  					html += "     <td>"+ value.sales +"</td>    ";
 	  					html += "     <td>"+ value.regDt +"</td>      ";
@@ -442,6 +455,15 @@
 	  	});     	
 	  	
 	  }
+
+  
+  function enterkey(itemNo){
+	  if (window.event.keyCode == 13){
+		  console.log(itemNo);
+		  discount(itemNo);
+	  }
+
+  }
   
   function discount(itemNo) {
 	  
@@ -683,7 +705,11 @@
 		}	
   });  
   
-  
+	function goLogout() {
+		if(false == confirm("로그아웃 하시겠습니까?"))return;
+		window.location.href = '<c:out value="${hContext}/member/do_logoff.do" />'
+		
+	}
   
   </script>
 

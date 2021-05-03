@@ -37,7 +37,7 @@
 	<script src="${hContext}/resources/js/bootstrap.min.js"></script>
 
     <!-- Bootstrap core CSS -->
-	<link href="${hContext}/resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+	<%-- <link href="${hContext}/resources/assets/dist/css/bootstrap.min.css" rel="stylesheet"> --%>
 
     <style>
       .bd-placeholder-img {
@@ -63,6 +63,12 @@
       }
       th {
       	background-color: #f5f5f5;
+      }
+      textarea {
+      	border: none; 
+        resize: none; 
+        font-size: large;
+        width: 950px;
       }
       textarea:focus  {
         outline: none;
@@ -98,20 +104,21 @@
   </head>
 
   <body>
-  <div class="container01">
   <br/><br/><br/>
+  <div class="container01">
 	<div class="container">
 	  <div class="row g-5">	
 		  
 		  <input type="hidden" id="imageList" />
-		  
-		  <div class="bd-example" id="btnDiv">
-		  	<button type="button" class="btn btn-primary" id="reicpeDeleteBtn" style="float: right; margin-right: -20px;">삭제</button>
-		  	<button type="button" class="btn btn-primary" id="reicpeUpdateBtn" style="float: right; margin-right: 10px;">수정</button>
-		  </div>
   	  	  <input type="hidden" id="recipeNo" name="recipeNo" /> 
 		  
-		  <table>
+		  <div class="bd-example" id="btnDiv" style="margin-bottom: 20px;">
+		  	<button type="button" class="btn btn-primary" id="reicpeDeleteBtn" style="float: right; margin-right: 0px;">삭제</button>
+		  	<button type="button" class="btn btn-primary" id="reicpeUpdateBtn" style="float: right; margin-right: 10px;">수정</button>
+		  </div>
+		  <br/>
+		  
+		  <table style="width: 100%; margin: 30px 0px;">
 		  	<thead>
 			  <tr>
 			  	<th>제목</th>
@@ -136,7 +143,7 @@
 		  
 		  <div id="recipeImage"></div>
 		  
-		  <textarea id="recipeContents" rows="50" style="border: none; resize: none; font-size: large;" readonly="readonly"></textarea>
+		  <textarea id="recipeContents" rows="50" readonly="readonly"></textarea>
 		  
 		  <h4>Recipe item</h4>
 		  <hr/>
@@ -210,7 +217,7 @@
 		  		    document.getElementById("recipeRegId").innerHTML = recipe.regId;
 		  		    document.getElementById("recipeRegDt").innerHTML = recipe.regDt;
 		  		    document.getElementById("recipeReadCnt").innerHTML = recipe.readCnt;
-		  		    document.getElementById("recipeUrlAddr").innerHTML = "<iframe width='950px' height='540px' src='"+ recipe.urlAddr +"' title='YouTube video player'  allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
+		  		    document.getElementById("recipeUrlAddr").innerHTML = "<iframe width='950px' height='540px' style='margin-bottom: 15px;' src='"+ recipe.urlAddr +"' title='YouTube video player'  allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
 		  		    document.getElementById("recipeContents").innerHTML = recipe.contents;
 		  		    
 		      	},
@@ -289,6 +296,7 @@
 	
 	function selectItem(SimpleItemNo) {
 		console.log("selectItem: "+SimpleItemNo);
+		window.location.href = "${hContext}/item/item_deview.do?itemNo="+SimpleItemNo;
 	}
 	
 	

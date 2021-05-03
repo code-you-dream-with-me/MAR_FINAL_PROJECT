@@ -47,7 +47,7 @@
 	
 	<!-- 재욱님 화면 -->
 	<!-- recipe_detail.jsp -->
-	<definition name="*/recipe_detail" extends="third-layout">
+	<definition name="*/recipe_detail" extends="first-layout">
 		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
 		<put-attribute name="container" value="/WEB-INF/views/{1}/recipe_detail.jsp"/>
 	</definition>
@@ -94,10 +94,10 @@
 		
 	<!-- 재욱님 화면 -->
 	<!-- admin_main.jsp -->
-	<definition name="*/admin_main" extends="third-layout">
+<!-- 	<definition name="*/admin_main" extends="third-layout">
 		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
 		<put-attribute name="container" value="/WEB-INF/views/{1}/admin_main.jsp"/>
-	</definition>
+	</definition> -->
 
 
 </tiles-definitions>

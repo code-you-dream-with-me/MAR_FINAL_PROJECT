@@ -73,6 +73,12 @@
 		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
 		<put-attribute name="container" value="/WEB-INF/views/{1}/wishitem_list.jsp"/>
 	</definition>
+	
+	<!-- question_detail.answer -->
+	<definition name="*/question_detail_answer" extends="second-layout">
+		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
+		<put-attribute name="container" value="/WEB-INF/views/{1}/question_detail_answer.jsp"/>
+	</definition>
 
 	
 	<!--// layout02 동적화면 적용 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>-->

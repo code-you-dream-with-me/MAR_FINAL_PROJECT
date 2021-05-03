@@ -57,7 +57,7 @@
 	 .btns > a { display: inline-block; width: 140px; height:40px; font-size: 16px; color:#fff; line-height: 40px; }
 	 .btns > a.btn1 { background: #666;}
 	 .btns > a.btn2 { background: #2f5597;} 
-	 .btn {text-aglin:center; display: inline-block; width: 140px; height:40px; font-size: 16px; color:#fff; }
+	 .btn {float: center; background: #fff; text-aglin:center; display: inline-block; font-size: 14px; color:#2f5597; margin-right:5px; }
 	 .hidden {display:none;}
 	 
 	 input[type=text] {font-size: 22px; }
@@ -103,6 +103,9 @@
 	    text-decoration:line-through;
 	    text-decoration-color: #949494;
 	}
+	table thead th { 
+		color: white; 
+		font-size:10pt; }
 	
 </style>
 	
@@ -112,13 +115,18 @@
 	<!-- header -->
 	
 	<!-- //header -->
+	
+
 	<div class="container01">
-	<div class="btn" id="btnDiv" >
-		  	<button type="button" class="btn1" id="deleteBtn" >삭제</button>
-		  	<button type="button" class="btn1" id="updateBtn" >수정</button>
+
+		<div class="btn" id="btnDiv" >
+		  	<button type="button"  class="btn btn-primary btn-sm"id="deleteBtn" style="float: right;">삭제</button>
+		  	<button type="button"  class="btn btn-primary btn-sm"id="updateBtn" style="float: right;">수정</button>
 		</div>
+		
 
 	<div class="item_view" >
+	
 
 		<!-- hidden -->
 		<%-- ${sessionScope.member} --%>
@@ -195,6 +203,7 @@
 			<a  type="button" class="btn2" id="addcart">장바구니 담기</a>
 		</div>
 		
+
 		
 		<!-- 메인이미지 -->
  		<div class="img" id="mainimg">
@@ -242,8 +251,7 @@
 					</select>	
 	    		  	
 	    		  	<!-- 버튼 -->
-	    		 	<!-- <input type="button" class="btn"  value="목록 크기 적용" id = "listSizeRefresh" /> -->
-	    		 	<a  type="button" class="btn2" value="목록 크기 적용" id = "listSizeRefresh">조회</a>
+	    		 	 <input type="button" class="btn btn-primary btn-sm"  value="목록 크기 적용" id = "listSizeRefresh" /> 
 	    		 	<!-- //버튼 -->
 	    		 	
 	    		 	<!-- hidden -->
@@ -590,9 +598,7 @@ function renderingPage(pageTotal , page){
     				
     			}
 
-    			
     			$("#itemPrice").append(html);
-    			
     			
     			categoryNo = parseData.categoryNo;
     			console.log(categoryNo);
@@ -660,7 +666,6 @@ function renderingPage(pageTotal , page){
 		
 		
 	} 
-		
 		
 	//장바구니 담기
 	$("#addcart").on("click",function(){

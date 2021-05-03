@@ -255,9 +255,9 @@ public class ItemController {
 		int flag = itemService.doUpdate(item);
 		String resultMsg = "";
 		if(1 == flag) {
-			resultMsg = item.getName()+"\n수정 성공";
+			resultMsg = item.getName()+"\n 상품이 수정되었습니다.";
 		}else {
-			resultMsg = item.getName()+"\n수정 실패";
+			resultMsg = item.getName()+"\n수정에 실패하였습니다.";
 		}
 		
 		Message message=new Message();
@@ -288,9 +288,9 @@ public class ItemController {
 		String resultMsg = "";
 		
 		if(1==flag) {
-			resultMsg = item.getItemNo()+"\n삭제 성공";
+			resultMsg = item.getItemNo()+"\n삭제되었습니다.";
 		}else {
-			resultMsg = "삭제 실패";
+			resultMsg = "삭제가 실패되었습니다.";
 		}
 		
 		Message message = new Message();
@@ -323,9 +323,9 @@ public class ItemController {
 		String resultMsg = "";
 		
 		if(1==flag) {
-			resultMsg = item.getName()+"\n등록 성공";
+			resultMsg = item.getName()+"\n등록되었습니다.";
 		}else {
-			resultMsg = "등록 실패";
+			resultMsg = "등록을 실패하였습니다.";
 		}
 		
 		Message message = new Message();

@@ -174,9 +174,9 @@ public class AnswerController {
 		String resultMsg = "";
 
 		if (1 == flag) {
-			resultMsg = answer.getaUser() + "님 답변 \n삭제 성공";
+			resultMsg = "답변을 삭제하였습니다.";
 		} else {
-			resultMsg = "삭제 실패";
+			resultMsg = "답변 삭제에 실패하셨습니다.";
 		}
 
 		Message message = new Message();
@@ -207,9 +207,9 @@ public class AnswerController {
 		String resultMsg = "";
 
 		if (1 == flag) {
-			resultMsg = answer.getaUser() + "님 답변 \n등록 성공";
+			resultMsg = answer.getaUser() + "님 답변이 등록되었습니다.";
 		} else {
-			resultMsg = "답변 등록 실패";
+			resultMsg = "답변 등록에 실패하셨습니다.";
 		}
 
 		Message message = new Message();

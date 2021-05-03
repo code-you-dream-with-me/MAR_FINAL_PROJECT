@@ -8,6 +8,7 @@
 	<definition name="first-layout" template="/WEB-INF/views/tiles/layouts/layout01.jsp">
 		<put-attribute name="title" value=""/>
 		<put-attribute name="header" value="/WEB-INF/views/tiles/template/header.jsp"/>
+		<put-attribute name="menubar" value="/WEB-INF/views/tiles/template/menubar.jsp"/>
 		<put-attribute name="container" value=""/>
 		<put-attribute name="footer" value="/WEB-INF/views/tiles/template/footer.jsp"/>
 	</definition>
@@ -44,17 +45,7 @@
 		<put-attribute name="container" value="/WEB-INF/views/{1}/item_detail_review.jsp"/>
 	</definition> 
 	
-	<!-- 재욱님 화면 -->
-	<!-- admin_main.jsp -->
-	<definition name="*/admin_main" extends="first-layout">
-		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
-		<put-attribute name="container" value="/WEB-INF/views/{1}/admin_main.jsp"/>
-	</definition>
-	<!-- recipe_detail.jsp -->
-	<definition name="*/recipe_detail" extends="first-layout">
-		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
-		<put-attribute name="container" value="/WEB-INF/views/{1}/recipe_detail.jsp"/>
-	</definition>
+
 	
 	<!--// layout01 동적화면 적용 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>-->
 
@@ -64,6 +55,7 @@
 	<definition name="second-layout" template="/WEB-INF/views/tiles/layouts/layout02.jsp">
 		<put-attribute name="title" value=""/>
 		<put-attribute name="header" value="/WEB-INF/views/tiles/template/header.jsp"/>
+		<put-attribute name="menubar" value="/WEB-INF/views/tiles/template/menubar.jsp"/>
 		<put-attribute name="sidebar" value="/WEB-INF/views/tiles/template/sidebar.jsp"/>
 		<put-attribute name="container" value=""/>
 		<put-attribute name="footer" value="/WEB-INF/views/tiles/template/footer.jsp"/>
@@ -79,5 +71,26 @@
 
 	
 	<!--// layout02 동적화면 적용 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>-->
+	
+	<definition name="third-layout" template="/WEB-INF/views/tiles/layouts/layout03.jsp">
+		<put-attribute name="title" value=""/>
+		<put-attribute name="header" value="/WEB-INF/views/tiles/template/header.jsp"/>
+		<put-attribute name="container" value=""/>
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/template/footer.jsp"/>
+	</definition>
+	
+		
+		
+	<!-- 재욱님 화면 -->
+	<!-- admin_main.jsp -->
+	<definition name="*/admin_main" extends="third-layout">
+		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
+		<put-attribute name="container" value="/WEB-INF/views/{1}/admin_main.jsp"/>
+	</definition>
+	<!-- recipe_detail.jsp -->
+	<definition name="*/recipe_detail" extends="third-layout">
+		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
+		<put-attribute name="container" value="/WEB-INF/views/{1}/recipe_detail.jsp"/>
+	</definition>
 
 </tiles-definitions>

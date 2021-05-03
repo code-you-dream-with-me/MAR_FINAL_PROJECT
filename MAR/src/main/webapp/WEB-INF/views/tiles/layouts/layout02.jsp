@@ -102,7 +102,7 @@
     width: 80%;
     height: auto;/*높이 자동변경*/
     padding: 0 0 0 20px;
-    border: 2px solid #2F5597;
+    /* border: 2px solid #2F5597; */
 }
 </style>
 
@@ -112,6 +112,9 @@
 		<!-- header -->
 		<tiles:insertAttribute name="header"/>
 		<!--// header -->
+		<!-- manubar -->
+		<tiles:insertAttribute name="menubar"/>
+		<!--// manubar -->
 		
 		<!-- container -->
         <div class="parent_container">

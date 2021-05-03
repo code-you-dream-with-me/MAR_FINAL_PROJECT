@@ -57,11 +57,12 @@
 		<!-- header -->
 		<tiles:insertAttribute name="header"/>
 		<!--// header -->
+		<!-- manubar -->
+		<tiles:insertAttribute name="menubar"/>
+		<!--// manubar -->
 		
 		<!-- container -->
-		<div id="bodyContainer">
-			<tiles:insertAttribute name="container"/>
-		</div>
+		<tiles:insertAttribute name="container"/>
 		<!--// container -->
 		
 		<!-- footer -->

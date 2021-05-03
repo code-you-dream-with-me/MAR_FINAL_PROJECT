@@ -298,19 +298,19 @@
 	        				// 86400000ms(1/1000초) = 24*60*60*1000 = 1일
 	        				if(value.orderState == 1 && parseInt(new Date().getTime() - new Date(value.orderDate).getTime(), 10) >= 86400000){
         						
-	        					html += "					<input type='button' class='btn-success btn-mine' value='결제완료' disabled='disabled' /> </br> </br>   	";       				
+	        					html += "					<input type='button' class='btn-success btn-mine active' value='결제완료' disabled='disabled' /> </br> </br>   	";       				
 	        					
 	        				}else if(value.orderState == 2){
 	        					
-	        					html += "					<input type='button' class='btn-info btn-mine' value='주문취소중' disabled='disabled' /> </br> </br>   	";
+	        					html += "					<input type='button' class='btn-defalut btn-mine active' value='주문취소중' disabled='disabled' /> </br> </br>   	";
 
 	        				}else if(value.orderState == 3){
 	        					
-	        					html += "					<input type='button' class='btn-defalut btn-mine' value='취소완료' disabled='disabled' /> </br> </br>   	";
+	        					html += "					<h4><strong> 주문취소 완료 </strong></h4> </br>    	";
 
 	        				}else{
 	        					
-	        					html += "					<input type='button' class='btn-primary btn-mine' value='주문취소'  onclick = 'doUndoRequest("+ value.orderNo +");' /> </br> </br>   	";
+	        					html += "					<input type='button' class='btn-primary btn-mine' aria-pressed='true' value='주문취소'  onclick = 'doUndoRequest("+ value.orderNo +");' /> </br> </br>   	";
 
 	        				}
 	        				

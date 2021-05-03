@@ -26,6 +26,7 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	public CartDao cartDao;
 	
+	//기본 생성자
 	public OrderServiceImpl() {}
 	
 	// 주문 --------------------------------------------------------

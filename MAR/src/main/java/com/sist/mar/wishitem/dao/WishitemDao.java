@@ -28,7 +28,7 @@ public class WishitemDao {
 //=============================================================================
 	/**
 	 * 늘사는것목록 페이지 - 삭제버튼 
-	 * param = wish_no(-> String param -> int로 변경할 수도 있음)
+	 * param = wish_no
 	 * return flag(성공=1/실패=0)
 	 */
 	public int doDelete(String param) throws SQLException {
@@ -39,7 +39,7 @@ public class WishitemDao {
 //=============================================================================	
 	/**
 	 * 상품상세 페이지 - 늘사는것담기버튼
-	 * param = wish_no(시퀀스 변경전 - 테스트 후 시퀀스로 넣을 예정), member_id, item_no 
+	 * param = member_id, item_no 
 	 * return flag(성공=1/실패=0)
 	 */
 	public int doInsert(DTO dto) throws SQLException {
@@ -51,7 +51,7 @@ public class WishitemDao {
 //=============================================================================
 	/**
 	 * 늘사는것 -> 팝업창(장바구니로 이동하기 전 수량 선택)
-	 * param = wish_no(-> String param -> int로 변경할 수도 있음)
+	 * param = wish_no
 	 * return Wishitem(wish전부 + item 가격,이름,할인,할인가격 + image 저장명,경로)
 	 */
 	public DTO doSelectOne(String param) throws SQLException {

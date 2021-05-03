@@ -30,10 +30,7 @@ public class CartController {
 		LOG.debug("===============");
 		LOG.debug("= cart_list() =");
 		LOG.debug("===============");
-		
-		//처음 조회 속도 향상을 위해 전체 검색 1회 실행
-		doRetrieve("");
-		
+
 		return "cart/cart_list";
 	}
 	

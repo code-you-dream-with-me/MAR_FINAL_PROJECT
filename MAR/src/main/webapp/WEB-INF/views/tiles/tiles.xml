@@ -39,10 +39,10 @@
 	
 	<!-- 한솔님 화면 -->
 	<!-- item_detail.jsp -->
-	<definition name="*/item_detail" extends="first-layout">
+ 	<definition name="*/item_detail_review" extends="first-layout">
 		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
-		<put-attribute name="container" value="/WEB-INF/views/{1}/item_detail.jsp"/>
-	</definition>
+		<put-attribute name="container" value="/WEB-INF/views/{1}/item_detail_review.jsp"/>
+	</definition> 
 	
 	<!-- 재욱님 화면 -->
 	<!-- admin_main.jsp -->

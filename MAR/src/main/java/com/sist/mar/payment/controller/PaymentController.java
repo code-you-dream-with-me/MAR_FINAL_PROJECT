@@ -35,11 +35,12 @@ public class PaymentController {
 	
 	private IamportClient api;
 	
+	//아임포트 페이지에 있는 REST API 키와 REST API secret를 순서대로 입력
 	private String api_key = "실행전입력";
 	private String api_secret = "실행전입력";
 	
+	//기본생성자
 	public PaymentController() {
-    	// REST API 키와 REST API secret 를 아래처럼 순서대로 입력한다.
 		this.api = new IamportClient(api_key, api_secret);
 	}
 	
@@ -53,18 +54,18 @@ public class PaymentController {
 	
 	// 결제 완료 페이지 --------------------------------------------------------------------------------
 	@RequestMapping(value = "payment/do_payment.do", method = RequestMethod.GET)
-	public String doPayment(String memberName, int price, String payNo, Model model) throws SQLException {
+	public String doPayment(String memberName, int price, Model model) throws SQLException {
 		LOG.debug("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★");
 		LOG.debug("doPayment");
 		LOG.debug("memberName : " + memberName);
 		LOG.debug("price : " + price);
-		LOG.debug("payNo : " + payNo);
 		LOG.debug("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★");
 		
+		//동일한 이름으로 화면으로 전송
 		model.addAttribute("memberName", memberName);
 		model.addAttribute("price", price);
-		model.addAttribute("payNo", payNo);
 		
+		//전송할 화면
 		return "payment/payment_detail";
 	}
 	
@@ -82,10 +83,10 @@ public class PaymentController {
 		//취소 진행
 		boolean cancelCheck=false;
 		String resultMsg = "";
-		if(auth_response.getResponse()!=null){
+		if(auth_response.getResponse()!=null){ //권한이 존재한다면
 			CancelData cancel_data = new CancelData(payNo, true);
 			IamportResponse<Payment> payment_response = client.cancelPaymentByImpUid(cancel_data);
-			if(payment_response.getResponse()!=null){
+			if(payment_response.getResponse()!=null){ //취소 성공시
 				cancelCheck=true;
 				resultMsg = "결제가 취소되었습니다.";
 				
@@ -93,11 +94,12 @@ public class PaymentController {
 				//재욱님 dao 추가부분
 				//=====================================
 
-			}else{
+			}else{ //취소 실패시
 				resultMsg = "취소되지 않았습니다.";			
 			}			  				
 		}
 		
+		//메세지 객체에 메세지를 담아 페이지로 전송
 		Message msg = new Message();
 		msg.setMsgContents(resultMsg);
 		return msg;

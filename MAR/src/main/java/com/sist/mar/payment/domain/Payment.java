@@ -4,10 +4,10 @@ import com.sist.mar.cmn.DTO;
 
 public class Payment extends DTO {
 
-	private String payNo;
-	private int orderNo;
-	private String state;
-	private String datetime;
+	private String payNo;    //결제번호(아임포트 사이트에서 받기)
+	private int orderNo;     //주문번호
+	private String state;    //결제상태 (결제완료시1, 결제취소시0)
+	private String datetime; //결제일시 (SYSDATE)
 	
 	public Payment() {}
 

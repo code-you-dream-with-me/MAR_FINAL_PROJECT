@@ -59,9 +59,11 @@
 		<!--//header -->
 	
 		<!-- 제목 -->
-		<div class="page-header">
-			<h2>1:1문의</h2>
+
+		<div class="page-header" id = "authTitle">
+			
 		</div>
+
 		<!--// 제목 -->
 	
 	    <!-- 리스트 출력크기 조절 -->
@@ -95,13 +97,14 @@
 			<!-- table -->
 			<table id="questionTable" class="table table-striped table-bordered table-hover table-condensed">
 				<thead class="bg-primary">
-					<th class="text-center col-lg-1 col-md-1  col-xs-1">글번호</th>
-					<th class="text-center col-lg-1 col-md-1  col-xs-1">답변여부</th>
+					<!-- <th class="text-center col-lg-1 col-md-1  col-xs-1" style="visibility:hidden;">글번호</th> -->
 					<th class="text-center col-lg-1 col-md-1  col-xs-1">질의번호</th>
-					<th class="text-center col-lg-6 col-md-6  col-xs-6">제목</th>
+					<th class="text-center col-lg-1 col-md-1  col-xs-1">답변여부</th>
+					<th class="text-center col-lg-7 col-md-7  col-xs-7">제목</th>
 					<th class="text-center col-lg-1 col-md-1  col-xs-1">글쓴이(ID)</th>
 					<th class="text-center col-lg-1 col-md-1  col-xs-1">주문번호</th>
 					<th class="text-center col-lg-1 col-md-1  col-xs-1">등록일</th>
+
 				</thead>
 				<tbody>
 				</tbody>
@@ -127,6 +130,7 @@
 		//jquery 객체생성이 완료
 		$(document).ready(function() {
 			console.log("1.document:최초수행!");
+			authTitle();
 			doRetrieve(1);
 
 		});//--document ready
@@ -144,8 +148,29 @@
 		$("#listSizeRefresh").on("click", function(e){
 			console.log("listSizeRefresh");
 			e.preventDefault();	// 두번 호출 방지
+	
 			doRetrieve(1);
 		});
+
+		// memberId가 관리자냐 소비자냐에 따라 제목 변경
+		function authTitle(){
+			
+			if($("#searchDiv").val() == 10){
+				
+				document.getElementById("authTitle").innerHTML = "<h2>나의 1:1문의</h2>";
+					
+				console.log("searchDiv : "  + $("#searchDiv").val());
+				
+			}else if($("#searchDiv").val() == 20){
+				
+				document.getElementById("authTitle").innerHTML = "<h2>1:1문의(관리자용)</h2>";
+				
+				console.log("searchDiv : "  + $("#searchDiv").val());
+				
+			}
+				
+		}
+		
 
 		
 		// 페이징 처리
@@ -191,13 +216,23 @@
 	        			$.each(parseData, function(i, value) {
 	        				//console.log(i + "," + value.name);
 	        				
+	        				
 	        				html += "<tr>";
-	        				html += "	<td class='text-center'>"+ value.num + "</td>";
-	        				html += "	<td class='text-center'>"+ value.answerCheck +"</td>";
-	        				html += "	<td class='text-left'>"+ value.questionNo +"</td>";
+	        				// html += "	<td class='text-center'  style='visibility:hidden;'>"+ value.num + "</td>";
+	        				html += "	<td class='text-center'>"+ value.questionNo +"</td>";
+	        				if(value.answerCheck == 0){
+	        					
+	        					html += "	<td class='text-center'></td>";
+	        					
+	        				}else if(value.answerCheck == 1){
+	        				
+	        					html += "	<td class='text-center'><img alt='Brand' src='${hContext }/resources/image_source/comment01.png' width='30%></td>";
+	        					html += "	<td class='text-center'></td>";
+	        				}
+	        				
 	        				html += "	<td class='text-left'>"+ value.title +"</td>";
 	        				html += "	<td class='text-left'>"+ value.qUser +"</td>";
-	        				html += "	<td class='text-left'>"+ value.orderNo +"</td>";
+	        				html += "	<td class='text-center'>"+ value.orderNo +"</td>";
 	        				html += "	<td class='text-center'>"+ value.regDt +"</td>";
 	        				html += "</tr>";
 	        				
@@ -211,6 +246,7 @@
 	        		
 	        		// tbody에 데이터 추가	
 	        		$("#questionTable>tbody").append(html);
+	        		
 	        		
 	        		// 페이징
 	        		console.log(pageTotal + " , " + page);

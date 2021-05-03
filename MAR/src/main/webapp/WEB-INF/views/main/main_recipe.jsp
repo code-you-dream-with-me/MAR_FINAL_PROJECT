@@ -100,17 +100,16 @@
 			<div class="row">
 				<!-- 동적 부분 -->
 				<c:forEach var="vo" items="${list}">
-					<div class='col-sm-6 col-md-3'>                                        
-						<div class='thumbnail' onclick='moveToItem("+value.itemNo+")'>     
-							<img src='${hContext}${vo.path}'alt='item_img'>           
-							<div class='caption'>                                          
-								<h3>${vo.name}</h3>                                    
-								<span class='discount'>${vo.discount}%</span>          
-								<span class='final-price'>${vo.finalPrice}원</span>     
-								<h3 class='origin-price'>${vo.price}원</h3>             
-							</div>                                                         
-						</div>                                                             
-					</div>
+					<div class='col-sm-6 col-md-3'>                                         
+						<div class='thumbnail' onclick='moveToRecipe("+value.recipeNo+")'>    
+							<img src='${hContext}${vo.path}' alt='item_img'>              
+							<div class='caption'>                                             
+								<h3>${vo.title}</h3>                                      
+								<span class='material-icons-outlined eye'> remove_red_eye </span>
+								<h4>${vo.readCnt}</h4>                                    
+							</div>                                                            
+						</div>                                                                
+					</div>		
 				</c:forEach>
 				<!-- 동적 부분 -->  
 			</div>

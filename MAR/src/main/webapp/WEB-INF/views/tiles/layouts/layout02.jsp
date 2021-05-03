@@ -120,7 +120,7 @@
         <div class="parent_container">
             <div class="container_row">
 				<tiles:insertAttribute name="sidebar"/>
-                <tiles:insertAttribute name="container"/>
+                <tiles:insertAttribute name="container"/>   
             </div>
         </div>
         <!--// container -->

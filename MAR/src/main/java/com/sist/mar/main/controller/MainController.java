@@ -27,7 +27,6 @@ import com.sist.mar.main.domain.CateSearchVO;
 import com.sist.mar.main.domain.MainRecipeVO;
 import com.sist.mar.main.domain.MainVO;
 import com.sist.mar.main.service.MainService;
-import com.sist.mar.member.domain.MemberVO;
 
 @Controller
 public class MainController {
@@ -40,6 +39,8 @@ public class MainController {
 	CodeService codeService;
 	
 	public MainController() {}
+	
+	private String VIEW_NAME = "main/main";
 	
 	//<<<<<main화면 연결>>>>>
 	@RequestMapping(value= "main/main_view.do")
@@ -80,15 +81,15 @@ public class MainController {
 		
 		//model로 list를 화면에 넘겨줌
 		model.addAttribute("list",list);
+
 				
-		return "main/main";
+		return VIEW_NAME;
 	}
 
 	//<<<<목록조회 메서드>>>>
 	@RequestMapping(value="main/do_retrieve.do", method=RequestMethod.GET
 			,produces = "application/json;charset=UTF-8")
-	@ResponseBody
-	public String doRetrieve(CateSearchVO search) throws SQLException {
+	public String doRetrieve(Model model,CateSearchVO search) throws SQLException {
 		LOG.debug(" ٩( ᐛ )و Controller의 doRetrieve()시작! ");
 		LOG.debug("================================");
 		LOG.debug("search param: "+search);
@@ -117,21 +118,19 @@ public class MainController {
 		for(MainVO vo:list) {
 			LOG.debug(vo.toString());
 		}
+
+		//model로 list를 화면에 넘겨줌
+		model.addAttribute("list",list);
+
+				
+		return VIEW_NAME;
 		
-		Gson gson = new Gson();
-		String jsonList = gson.toJson(list);//object -> json 
-		LOG.debug("================================");
-		LOG.debug("jsonList: "+jsonList);
-		LOG.debug("================================");
-		
-		return jsonList;
 	}
 	
 	//<<<<레시피목록 메서드>>>>
 	@RequestMapping(value="main/do_recipe_retrieve.do", method=RequestMethod.GET
 			,produces = "application/json;charset=UTF-8")
-	@ResponseBody
-	public String doRecipeRetrieve(CateSearchVO search) throws SQLException {
+	public String doRecipeRetrieve(Model model,CateSearchVO search) throws SQLException {
 		LOG.debug(" ٩( ᐛ )و Controller의 doRecipeRetrieve()시작! ");
 		LOG.debug("================================");
 		LOG.debug("search param: "+search);
@@ -162,13 +161,10 @@ public class MainController {
 			LOG.debug(vo.toString());
 		}
 		
-		Gson gson = new Gson();
-		String jsonList = gson.toJson(list);//object -> json 
-		LOG.debug("================================");
-		LOG.debug("jsonList: "+jsonList);
-		LOG.debug("================================");
-		
-		return jsonList;
+		//model로 list를 화면에 넘겨줌
+		model.addAttribute("list",list);
+
+		return "main/main_recipe";
 	}
 	
 	//장바구니 갈때는 로그인 세션이 필요..아 @Responsebody안해줘서 안됐던거였다.. 진짜 어이없다..
@@ -196,5 +192,16 @@ public class MainController {
 		
 		return messageJson;
 	}
+	
+	private List<?> getCodePageRetrieve(List<String> codeList) throws SQLException {
+		
+		Map<String,Object> codeMap = new HashMap<String,Object>();
+		codeMap.put("codeList",codeList);
+		
+		return codeService.getCodeRetrieve(codeMap);
+	}
+
+
+
 
 }

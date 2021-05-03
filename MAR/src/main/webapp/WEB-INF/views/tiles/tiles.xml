@@ -83,6 +83,8 @@
 	
 	<!--// layout02 동적화면 적용 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>-->
 	
+	
+	<!--▶layout03 -->
 	<definition name="third-layout" template="/WEB-INF/views/tiles/layouts/layout03.jsp">
 		<put-attribute name="title" value=""/>
 		<put-attribute name="header" value="/WEB-INF/views/tiles/template/header.jsp"/>
@@ -90,7 +92,8 @@
 		<put-attribute name="footer" value="/WEB-INF/views/tiles/template/footer.jsp"/>
 	</definition>
 	
-		
+	<!-- layout03 동적화면 적용 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>-->
+	
 		
 	<!-- 재욱님 화면 -->
 	<!-- admin_main.jsp -->
@@ -98,6 +101,10 @@
 		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
 		<put-attribute name="container" value="/WEB-INF/views/{1}/admin_main.jsp"/>
 	</definition> -->
+	
+	<!--// layout03 동적화면 적용 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>-->
+
+	
 
 
 </tiles-definitions>

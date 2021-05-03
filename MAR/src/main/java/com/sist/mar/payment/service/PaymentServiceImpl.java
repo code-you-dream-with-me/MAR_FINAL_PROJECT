@@ -18,8 +18,10 @@ public class PaymentServiceImpl implements PaymentService {
 	@Autowired
 	public PaymentDao paymentDao;
 	
+	//기본 생성자
 	public PaymentServiceImpl() {}
 
+	// dao에 있는 결제정보 등록
 	@Override
 	public int doInsert(DTO dto) throws SQLException {
 		return this.paymentDao.doInsert(dto);

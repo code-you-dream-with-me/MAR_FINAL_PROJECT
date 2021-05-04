@@ -13,6 +13,7 @@
     Copyright (C) by KandJang All right reserved.
 */
  --%>
+<%@ page import="com.sist.mar.question.domain.QuestionVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- core -->
@@ -28,110 +29,221 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
-    <title>후기 상세조회</title>
+    <title>후기 상세</title>
     
-    <!-- 부트스트랩 -->
-    <link href="${hContext}/resources/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- IE8 에서 HTML5 요소와 미디어 쿼리를 위한 HTML5 shim 와 Respond.js -->
-    <!-- WARNING: Respond.js 는 당신이 file:// 을 통해 페이지를 볼 때는 동작하지 않습니다. -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    
+    <!-- 부트스트랩 : 합쳐지고 최소화된 최신 CSS-->
+    <link href="/boot/css/bootstrap.min.css" rel="stylesheet"> 
+    <!-- https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css -->
+​
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="/boot/css/bootstrap-theme.min.css">
+    <%-- <link href="${hContext}/resources/css/bootstrap.min.css" rel="stylesheet"> --%>
+    <!-- https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css -->
+​
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap" rel="stylesheet">
+​
     <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <%-- <script src="hContext/resources/js/jquery.min.js"></script> --%>
-    
-    <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
-    <script src="${hContext}/resources/js/bootstrap.min.js"></script>
-    <script src="${hContext}/resources/js/eclass.js"></script>
-    <script src="${hContext}/resources/js/eutil.js"></script>
-    <script src="${hContext}/resources/js/jquery.bootpag.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="/boot/js/bootstrap.min.js"></script>
+    <%-- <script src="${hContext}/resources/js/bootstrap.min.js"></script> --%>
+    <!-- https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js -->
+	
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" > </script>
+	
+    <style>
+    /* 이 부분은 tiles합칠때 지우셔야 합니다 */
+        #wrap {
+            width: 90%;/*960px*/
+            height: auto;
+            margin: 0 auto;
+        }
+        /*부모컨테이너 부분 : 사이드바 + 작업컨테이너*/
+        .parent_container {
+            width: 70%; /*672px%960px*/
+            height: auto;
+            margin: 0 auto;
+            padding: 20px 2.083333%; /*20px%960px 가변패딩*/
+            /* border: 2px solid #2F5597;/*표시선*/
+        }
+        .container_row {
+            display: flex;
+            flex-direction: row;
+        }
+    /* 이 부분은 tiles합칠때 지우셔야 합니다 */   
+       /*각자 작업한 화면 넣는 부분*/
+       .work_container {
+           width: 80%;
+           height: auto;/*높이 자동변경*/
+           padding: 0 0 0 20px;
+       }
+       .work_container h6 {
+           color:rgb(77, 77, 77);
+           margin: 0px 0px 0px 0px;
+           font-size:25px;
+       }
+       .work_container hr {
+           margin: 10px 0px 25px 0px;
+       }
+       .work_table {
+           width: 100%;
+       } 
+       .work_table td {
+           border: 2px solid #a9c0e7;
+       }
+       .td_title {
+           width: 12%;
+           text-align: center;
+           background-color: #DAE3F3;
+           color: #3B3838;
+           font-weight: bold;
+       }
+       .td_body01 {
+           height: 40px;
+       }
+       .td_body01 input {
+           width: 100%;
+           height: 100%;
+           border: none;
+       }
+       .td_body02 {
+           height: 400px;
+       }
+       .td_body02 textarea {
+           width: 100%;
+           height: 95%;
+           resize: none;
+           border: none;
+       }
+       .button_area {
+           text-align: right;
+           margin-top: 20px;
+       }
+       .button_area button {
+           width: 100px;
+           padding: 5px;
+           margin-bottom: 5px;
+           background-color: #2F5597;
+           border-radius: 4px;
+           font-size: 14px;
+           color: rgb(255, 255, 255);
+           border: 1px solid #2F5597
+       }
+       
+       .anwer.form-control {
+		    display: block;
+		    width: 100%;
+		    height: calc(1.5em + .75rem + 2px);
+		    padding: .375rem .75rem;
+		    font-size: 1rem;
+		    font-weight: 400;
+		    line-height: 1.5;
+		    color: #495057;
+		    background-color: #fff;
+		    background-clip: padding-box;
+		    border: 1px solid #ced4da;
+		    border-radius: .25rem;
+		    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+		}
+	
+	     /* 답변부분 */
+        .answer_box { 
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .jumbotron {
+            border-radius: 4px;
+            padding-top: 10px;
+        }
+
+        .jumbotron textarea {
+            margin: 0 auto;
+            width: 95%;
+            height: 250px;
+            resize: none;
+            border: none;
+        }
+
+        .button_space button {
+            width: 100px;
+            padding: 5px;
+            background-color: #2F5597;
+            border-radius: 4px;
+            font-size: 14px;
+            color: rgb(255, 255, 255);
+            border: 1px solid #2F5597;
+            margin: 10px 22px 0px 0px;
+        }
+        
+   </style>
+</head>
+
 </head>
 <body>
 
-	<!-- div container -->
-	<div class="wrap container">
-	
-		<!-- header -->
-		<!--//header -->
-	
-		<!-- 제목 -->
-		<div class="page-header">
-			<h2>후기 열람</h2>
-		</div>
-		<!--// 제목 -->
-	
-		<!--  form -->
-		<form action = "" class = "form-horizontal">
+	<!-- header -->
+	<!--//header -->
 
-		
-			<div class = "col-md-10 col-lg-10 text-right">
+	<div class="work_container"><!-- col-xs-12 col-md-10 -->
+
+		<h6>후기 상세</h6>	 <hr>
+	                    
+		<table class="work_table">
+	                   
+	                   
+			<div class = "button_space col-md-12 col-lg-12 text-right">
 				<input type = "button" class = "btn btn-primary btn-sm" value = "수정" id = "doUpdateBtn" /> 
 				<input type = "button" class = "btn btn-primary btn-sm" value = "삭제" id = "doDeleteBtn" /> 
+				<br><br>
 			</div>
 			
+			<tbody>
+			    <tr>
+			        <td class="td_title">제목</td>
+			 
+			        <td class="td_body01" id = "title">
+			        	
+			        </td>
+			    </tr>
+			    <tr>
+			        <td class="td_title">후기번호</td>
+			        
+			        <td class="td_body01" >
+			            <h5 id = "reviewNo!"> </h5>
+			        </td>
+			    </tr>
+			    <tr>
+			        <td class="td_title">내용</td>
+			        <td class="td_body02">
+			            <h5 id = "contents"> </h5> 
+			        </td>
+			    </tr>
+			</tbody>
 			
-			<div class = "form-horizontal col-md-12 col-lg-12">
-				
-				<h4>후기 정보</h4> <br/>
-				<div class = "form-group">
-				
-					<label class="col-md-2 col-lg-2 control-label"> 후기 번호</label>
-					<div class = "col-md-2 col-lg-2">
-						<input type = "hidden" readonly="readonly" value= "${checkMemberId }" id = "checkMemberId" name = "checkMemberId"/>
-						<input type = "text"   readonly="readonly" value= "${reviewNo }" class = "form-control" id = "reviewNo" name = "reviewNo" />  
-					</div>
-					
-					<label class="col-md-2 col-lg-2 control-label">등록일</label>
-					<div class = "col-md-3 col-lg-3">
-						<input type = "text" readonly="readonly" class = "form-control" id = "regDt" name = "regDt" /> 
-					</div>
-					
-				</div>
-				
-				<h4>고객 정보</h4> <br/>
-				<div class = "form-group">
-				
-					<label class="col-md-2 col-lg-2 control-label">주문상품번호</label>
-					<div class = "col-md-2 col-lg-2">
-						<input type = "text" readonly="readonly" class = "form-control" value= "${orderitemNo }" id = "orderitemNo" name = "orderitemNo" /> 
-					</div>
-					
-					<label class="col-md-2 col-lg-2 control-label">이메일(ID)</label>
-					<div class = "col-md-3 col-lg-3">
-						<input type = "text" readonly="readonly" class = "form-control" value= "${memberId }" id = "memberId" name = "memberId" />  
-					</div>
+		</table> <br><br>
+		
+	   	<!-- hidden -->
+	   	 <input type = "text"     id = "reviewNo"	 	 value = "${reviewNo}" />
+ 		 <input type = "text"     id = "orderitemNo"	 value = "${orderitemNo}" />
+ 		 <input type = "hidden"   id = "searchDiv"		 value = "${searchDiv}" />
+ 		 <input type = "hidden"   id = "searchWord"		 value = "${searchWord}" />
+		<!-- // hidden -->
 
-				</div>
-				
-			</div>		
-			
-			<div class = "form-horizontal">
-				<div class = "col-md-10 col-lg-10">
-					<h4>제목</h4>
-					<input type = "text" readonly="readonly" class = "form-control" id = "title" name = "title" /> <br/>
-					
-					<h4>내용</h4>
-					<textarea class="form-control" readonly="readonly" id = "contents" name = "contents" rows = "15" ></textarea> <br/>
-				</div>
-			</div>
-			
-			<div class = "col-md-10 col-lg-10">
-				<input type = "button" class = "btn btn-primary btn-sm" value = "사진추가" id = "thumbBtn" /> 
-			</div>
-			
-		</form>	  
-		<!-- form -->
+	</div>                    
 		  
 		<!-- footer -->
 		<!--// footer -->
-
-	</div>
-	<!-- //div container -->
-
+	
+	<!-- //div container -->		
+	
 
     <!-- javascript -->
 	<script type="text/javascript">
@@ -172,13 +284,10 @@
 			  		    var title = parseData.title;
 			  		    var contents = parseData.contents;
 			  		    var regDt = parseData.regDt;
-			  		    
-			  		    $("#reviewNo").val(reviewNo);
-			  		    $("#memberId").val(memberId);
-			  		    $("#memberId").val(memberId);
-			  		    $("#title").val(title);
-			  		    $("#contents").val(contents);
-			  		    $("#regDt").val(regDt);
+
+			  		    document.getElementById("title").innerHTML = "<h5>" + title + "</h5>";
+			  		    document.getElementById("reviewNo!").innerText = reviewNo;
+			  			document.getElementById("contents").innerText = contents;
 
 			  		    
 			      	},
@@ -190,7 +299,7 @@
 		}  		
 		
 		
-		// 일반 후기 게시판(상품이던 마이페이지건)을 통한 접근
+		// 내가 쓴 후기 게시판을 통한 접근
 		function doSelectOne(){
 			
 			console.log("doSelectOne");
@@ -214,12 +323,9 @@
 			  		    var contents = parseData.contents;
 			  		    var regDt = parseData.regDt;
 			  		    
-			  		    $("#memberId").val(memberId);
-			  		    $("#orderitemNo").val(orderitemNo);
-			  		    $("#title").val(title);
-			  		    $("#contents").val(contents);
-			  		    $("#regDt").val(regDt);
-
+			  		    document.getElementById("title").innerHTML = "<h5>" + title + "</h5>";
+			  		    document.getElementById("reviewNo!").innerText = reviewNo;
+			  			document.getElementById("contents").innerText = contents;
 			  		    
 			      	},
 			      	error:function(data){//실패시 처리

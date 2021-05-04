@@ -97,7 +97,7 @@ public class JTestReviewController {
 		MockHttpServletRequestBuilder creatMessage = MockMvcRequestBuilders.get("/review/do_insert.do")	
 														.param("reviewNo" , String.valueOf(review04.getReviewNo()))
 														.param("memberId", review04.getMemberId())		
-														.param("orderItemNo", review04.getOrderItemNo() + "")
+														.param("orderItemNo", review04.getOrderitemNo() + "")
 														.param("title", review04.getTitle())
 														.param("contents", review04.getContents())
 														.param("readCnt", String.valueOf(review04.getReadCnt()));
@@ -187,7 +187,7 @@ public class JTestReviewController {
 		MockHttpServletRequestBuilder creatMessage = MockMvcRequestBuilders.get("/review/do_update.do")	
 														.param("reviewNo" , String.valueOf(review01.getReviewNo()))
 														.param("memberId", review01.getMemberId())		
-														.param("orderItemNo", review01.getOrderItemNo() + "")
+														.param("orderItemNo", review01.getOrderitemNo() + "")
 														.param("title", review01.getTitle() + "수정con2")
 														.param("contents", review01.getContents() + "수정con2")
 														.param("readCnt", String.valueOf(review01.getReadCnt()));
@@ -385,7 +385,7 @@ public class JTestReviewController {
 		//비교
 		assertThat(vsVo.getReviewNo(), is(review.getReviewNo()));
 		assertThat(vsVo.getMemberId(), is(review.getMemberId()));
-		assertThat(vsVo.getOrderItemNo(), is(review.getOrderItemNo()));
+		assertThat(vsVo.getOrderitemNo(), is(review.getOrderitemNo()));
 		
 		//컬럼추가 :
 		assertThat(vsVo.getTitle(), is(review.getTitle()));

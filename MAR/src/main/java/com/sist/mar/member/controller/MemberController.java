@@ -54,8 +54,6 @@ public class MemberController {
 			member.setMemberId(inVO.getMemberId());
 		}
 		
-		member.setMemberId("test01");
-		
 		MemberVO outVO = memberService.doSelectOne(member);
 		
 		//화면으로 전송

@@ -98,24 +98,28 @@
  		<input type="text" name="pageSize" id="pageSize" value="<c:out value='${item.detCode }'"/> --%>
  		<div class="container01">
  		<input type="hidden" name="member" id="member" value="${sessionScope.member}"/>
-			<div class="row">
-				<!-- 동적 부분 -->
-				<c:forEach var="vo" items="${list}">
-					<div class='col-sm-6 col-md-3'>                                        
-						<div class='thumbnail' onclick='moveToItem("${vo.itemNo}")'>     
-							<img src='${hContext}${vo.path}'alt='item_img'>           
-							<div class='caption'>                                          
-								<h3>${vo.name}</h3>                                    
-								<span class='discount'>${vo.discount}%</span>          
-								<span class='final-price'>${vo.finalPrice}원</span>     
-								<h3 class='origin-price'>${vo.price}원</h3>             
-							</div>                                                         
-						</div>                                                             
+			<c:forEach var="vo" items="${list}" varStatus="status">
+				<c:if test="${ status.index % 4 eq 0 }">
+					<div class="row">
+						<c:forEach var="j" begin="${ status.index }" end="${ status.index + (4 - 1) }" step="1">
+							<c:if test="${ list[j] ne null }">
+								<div class='col-sm-6 col-md-3'>
+									<div class='thumbnail' onclick='moveToItem("${list[j].itemNo}")'>
+										<img src='${hContext}${list[j].path}' alt='item_img'>
+										<div class='caption'>
+											<h3>${vo.name}</h3>
+											<span class='discount'>${list[j].discount}%</span> 
+											<span class='final-price'>${list[j].finalPrice}원</span>
+											<h3 class='origin-price'>${list[j].price}원</h3>
+										</div>
+									</div>
+								</div>
+							</c:if>
+						</c:forEach>
 					</div>
-				</c:forEach>
-				<!-- 동적 부분 -->  
-			</div>
-        </div>
+				</c:if>
+			</c:forEach>
+		</div>
         
         <!-- pagenation -->
 		<div class="text-center">
@@ -129,14 +133,12 @@
 	$(document).ready(function() {//화면이 로딩되면 바로 수행
 		console.log("1.document:최초수행!");
 	});
-	
+
 	//상품 상세로 이동
-	function moveToItem(itemNo){
-		window.location.href = "${hContext}/item/item_deview.do?itemNo="+itemNo;
+	function moveToItem(itemNo) {
+		window.location.href = "${hContext}/item/item_deview.do?itemNo="
+				+ itemNo;
 	}
-	
-
-
 </script>
 
 </body>

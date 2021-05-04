@@ -381,7 +381,7 @@ p {
 .btn {
     display: inline-block;
     font-weight: 400;
-    color: #212529;
+    color: #ffff;
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
@@ -415,10 +415,10 @@ button, input, optgroup, select, textarea {
     line-height: inherit;
     !important
 }
-
-
-element.style {
+.answer-contents{
+	padding: 20px 0px 20px 0px;
 }
+
 textarea.form-control {
     height: auto;
     !important
@@ -546,7 +546,7 @@ textarea {
 				<div class="card-body">
 					<div class="tab-content" >
 						<div class="form-group">
-							<textarea class="form-control" id="answer" rows="3" placeholder="문의에 대한 답변을 달아주세요"></textarea>
+							<textarea class="form-control" id="answer" rows="7" placeholder="문의에 대한 답변을 달아주세요"></textarea>
 						</div>
 				</div>
 				<div class="text-right">
@@ -557,10 +557,12 @@ textarea {
                 <!--- Form Ends -->
 
 				<!--contents begins -->
-				<section class="card mt-4">
-					<div id="answerList" class="border p-2">
-					</div>
-				</section>
+				<div class="answer-contents">
+					<section class="card mt-4">
+						<div id="answerList" class="border p-2">
+						</div>
+					</section>
+				</div>
 				<!--contents  end -->                
 		  </div>
 		</div>  
@@ -735,7 +737,7 @@ textarea {
  			        html+="            <div class='card-body'>";
  			        html+="                <div class='tab-content' >";
  			        html+="                        <div class='form-group'>";
- 			        html+="                            <textarea  class='form-control' id='answer' rows='3'>"+contents+"</textarea>";
+ 			        html+="                            <textarea  class='form-control' id='answer' rows='7'>"+contents+"</textarea>";
  			        html+="                        </div>";
  			        html+="                </div>";
  			        html+="                <div class='text-right'>";
@@ -800,7 +802,7 @@ textarea {
  					htmL+="<div class='card-body'>";
  					htmL+="	<div class='tab-content' >";
  					htmL+="			<div class='form-group'>";
- 					htmL+="				<textarea class='form-control' id='answer' rows='3' placeholder='문의에 대한 답변을 달아주세요'></textarea>";
+ 					htmL+="				<textarea class='form-control' id='answer' rows='7' placeholder='문의에 대한 답변을 달아주세요'></textarea>";
  					htmL+="			</div>";
  					htmL+="	</div>";
  					htmL+="	<div class='text-right'>";

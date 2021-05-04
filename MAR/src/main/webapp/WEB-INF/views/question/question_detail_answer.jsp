@@ -25,49 +25,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
-    <title>1:1 문의</title>
-    
-    <!-- 부트스트랩 -->
-	<link rel="stylesheet" href="${hContext}/resources/css/bootstrapcdn.css" > 
- 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" > 
- 
-    
-	<link rel="stylesheet" href="${hContext}/resources/css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="${hContext}/resources/css/layout.css">
- 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script> 
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	
+<%-- 	<link href="${hContext}/resources/css/bootstrap.min.css" rel="stylesheet"> --%>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" >
+ 	
+<%-- 	<link rel="stylesheet" href="${hContext}/resources/css/bootstrapcdn.css" >   --%>
+     <link rel="stylesheet" href="${hContext}/resources/boot/css/bootstrap-theme.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!--   	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>   -->
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" > </script> 
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-     <script src="${hContext}/resources/js/bootstrap.min.js"></script>  
-      <script src="${hContext}/resources/js/eclass.js"></script>
-     <script src="${hContext}/resources/js/eutil.js"></script>
-    <script src="${hContext}/resources/js/jquery.bootpag.js"></script> 
-
-    <style>
-    /* 이 부분은 tiles합칠때 지우셔야 합니다 */
-        #wrap {
-            width: 90%;/*960px*/
-            height: auto;
-            margin: 0 auto;
-        }
-        /*부모컨테이너 부분 : 사이드바 + 작업컨테이너*/
-        .parent_container {
-            width: 70%; /*672px%960px*/
-            height: auto;
-            margin: 0 auto;
-            padding: 20px 2.083333%; /*20px%960px 가변패딩*/
-            /* border: 2px solid #2F5597;/*표시선*/
-        }
-        .container_row {
-            display: flex;
-            flex-direction: row;
-        }
-    /* 이 부분은 tiles합칠때 지우셔야 합니다 */   
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" > </script>
+ 	<script src="${hContext}/resources/js/jquery.min.js"></script>
+	 	
+    <style> 
        /*각자 작업한 화면 넣는 부분*/
        .work_container {
            width: 80%;
@@ -127,7 +105,324 @@
            border: 1px solid #2F5597
        }
        
-       .anwer.form-control {
+@charset "UTF-8";
+
+.card {
+	position: relative;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	min-width: 0;
+	word-wrap: break-word;
+	background-color: #fff;
+	background-clip: border-box;
+	border: 1px solid rgba(0, 0, 0, .125);
+	border-radius: .25rem
+}
+
+.card>hr {
+	margin-right: 0;
+	margin-left: 0
+}
+
+.card>.list-group:first-child .list-group-item:first-child {
+	border-top-left-radius: .25rem;
+	border-top-right-radius: .25rem
+}
+
+.card>.list-group:last-child .list-group-item:last-child {
+	border-bottom-right-radius: .25rem;
+	border-bottom-left-radius: .25rem
+}
+
+.tab-content>.tab-pane {
+	display: none
+}
+
+.tab-content>.active {
+	display: block
+}
+
+.card-body {
+	-ms-flex: 1 1 auto;
+	flex: 1 1 auto;
+	min-height: 1px;
+	padding: 1.25rem
+}
+
+.card-title {
+	margin-bottom: .75rem
+}
+
+.card-subtitle {
+	margin-top: -.375rem;
+	margin-bottom: 0
+}
+
+.card-text:last-child {
+	margin-bottom: 0
+}
+
+.card-link:hover {
+	text-decoration: none
+}
+
+.card-link+.card-link {
+	margin-left: 1.25rem
+}
+
+.card-header {
+	padding: .75rem 1.25rem;
+	margin-bottom: 0;
+	background-color: rgba(0, 0, 0, .03);
+	border-bottom: 1px solid rgba(0, 0, 0, .125)
+}
+
+.card-header:first-child {
+	border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0
+}
+
+.card-header+.list-group .list-group-item:first-child {
+	border-top: 0
+}
+
+.card-footer {
+	padding: .75rem 1.25rem;
+	background-color: rgba(0, 0, 0, .03);
+	border-top: 1px solid rgba(0, 0, 0, .125)
+}
+
+.card-footer:last-child {
+	border-radius: 0 0 calc(.25rem - 1px) calc(.25rem - 1px)
+}
+
+.card-header-tabs {
+	margin-right: -.625rem;
+	margin-bottom: -.75rem;
+	margin-left: -.625rem;
+	border-bottom: 0
+}
+
+.card-header-pills {
+	margin-right: -.625rem;
+	margin-left: -.625rem
+}
+
+.card-img-overlay {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 1.25rem
+}
+
+.card-img, .card-img-bottom, .card-img-top {
+	-ms-flex-negative: 0;
+	flex-shrink: 0;
+	width: 100%
+}
+
+.card-img, .card-img-top {
+	border-top-left-radius: calc(.25rem - 1px);
+	border-top-right-radius: calc(.25rem - 1px)
+}
+
+.card-img, .card-img-bottom {
+	border-bottom-right-radius: calc(.25rem - 1px);
+	border-bottom-left-radius: calc(.25rem - 1px)
+}
+
+.card-deck .card {
+	margin-bottom: 15px
+}
+
+.form-group {
+	margin-bottom: 1rem
+}
+
+.form-control {
+	
+	width: 100%;
+	height: calc(1.5em + .75rem + 2px);
+	padding: .375rem .75rem;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #495057;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid #ced4da;
+	border-radius: .25rem;
+	transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out
+}
+
+.form-control.is-valid, .was-validated .form-control:valid {
+	border-color: #28a745;
+	padding-right: calc(1.5em + .75rem);
+	background-image:
+		url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath fill='%2328a745' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+	background-repeat: no-repeat;
+	background-position: right calc(.375em + .1875rem) center;
+	background-size: calc(.75em + .375rem) calc(.75em + .375rem)
+}
+
+.form-control.is-valid:focus, .was-validated .form-control:valid:focus {
+	border-color: #28a745;
+	box-shadow: 0 0 0 .2rem rgba(40, 167, 69, .25)
+}
+
+.text-right {
+	text-align: right !important
+}
+.container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.mb-2, .my-2 {
+    margin-bottom: .5rem!important;
+}
+
+.mt-2, .my-2 {
+    margin-top: .5rem!important;
+}
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+user agent stylesheet
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+.p-2 {
+    padding: .5rem!important;
+}
+.m-0 {
+    margin: 0!important;
+}
+.pl-2, .px-2 {
+    padding-left: .5rem!important;
+}
+.flex-grow-1 {
+    -ms-flex-positive: 1!important;
+    flex-grow: 1!important;
+}
+
+.text-decoration-none {
+    text-decoration: none!important;
+}
+.text-primary {
+    color: #007bff!important;
+}
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: .25rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+}
+
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.dropdown, .dropleft, .dropright, .dropup {
+    position: relative;
+}
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 10rem;
+    padding: .5rem 0;
+    margin: .125rem 0 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;
+}	
+	
+	.btn {
+	    display: inline-block;
+	    font-weight: 400;
+	    color: #212529;
+	    text-align: center;
+	    vertical-align: middle;
+	    cursor: pointer;
+	    -webkit-user-select: none;
+	    -moz-user-select: none;
+	    -ms-user-select: none;
+	    user-select: none;
+	    background-color: transparent;
+	    border: 1px solid transparent;
+	    padding: .375rem .75rem;
+	    font-size: 1rem;
+	    line-height: 1.5;
+	    border-radius: .25rem;
+	    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+	}
+	
+
+textarea.form-control {
+    height: auto;
+    !important
+}
+textarea {
+    overflow: auto;
+    resize: vertical;
+    !important
+}
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    !important
+}
+
+
+element.style {
+}
+textarea.form-control {
+    height: auto;
+    !important
+}
+.form-control {
     display: block;
     width: 100%;
     height: calc(1.5em + .75rem + 2px);
@@ -141,74 +436,123 @@
     border: 1px solid #ced4da;
     border-radius: .25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    !important
 }
+textarea {
+    overflow: auto;
+    resize: vertical;
+    !important
+}
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    !important
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+    !important
+}
+user agent stylesheet
+textarea {
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    color: -internal-light-dark(black, white);
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: auto;
+    background-color: -internal-light-dark(rgb(255, 255, 255), rgb(59, 59, 59));
+    -webkit-rtl-ordering: logical;
+    flex-direction: column;
+    resize: auto;
+    cursor: text;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    column-count: initial !important;
+    margin: 0em;
+    font: 400 13.3333px Arial;
+    border-width: 1px;
+    border-style: solid;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    border-image: initial;
+    padding: 2px;
+    !important
+}
+
    </style>
 </head>
 
 </head>
 <body>
 
-		<!-- header -->
-		<!--//header -->
+	<!-- header -->
+	<!--//header -->
 
-	
-		
-		 <div class="work_container"><!-- col-xs-12 col-md-10 -->
-                    <h6>1:1문의</h6>
-                    <hr>
-                    <table class="work_table">
-                    
-                   	<div class = "col-md-10 col-lg-10 text-right">
-						<input type = "button" class = "btn btn-primary btn-sm" value = "수정" id = "doUpdateBtn" /> 
-						<input type = "button" class = "btn btn-primary btn-sm" value = "삭제" id = "doDeleteBtn" /> 
-					</div>
-                        <tbody>
-                            <tr>
-                                <td class="td_title">제목</td>
-                                <td class="td_body01" id = "title">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="td_title">주문번호</td>
-                                <td class="td_body01" >
-                                    <input id = "orderNo" type="text" readonly="readonly" >
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="td_title">내용</td>
-                                <td class="td_body02">
-                                    <textarea readonly="readonly" id = "contents"></textarea>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    
-                   <!-- answer -->
-		
-	<input type="hidden" name="questionNo" id="questionNo"  value= "${questionNo }" /> 
-	<input type="hidden" name="regId" id="regId" value="${sessionScope.member.memberId}"/>
-	
-	<div class="container-fluid my-5">
-		<div class="row">
-			<div class="col-12">
+	<div class="work_container"><!-- col-xs-12 col-md-10 -->
+
+		<h6>1:1문의</h6>	 <hr>
+	                    
+		<table class="work_table">
+	                   
+	                   
+			<div class = "button_space col-md-12 col-lg-12 text-right">
+				<input type = "button" class = "btn btn-primary btn-sm" value = "수정" id = "doUpdateBtn" /> 
+				<input type = "button" class = "btn btn-primary btn-sm" value = "삭제" id = "doDeleteBtn" /> 
+				<br><br>
+			</div>
 			
+			<tbody>
+			    <tr>
+			        <td class="td_title">제목</td>
+			 
+			        <td class="td_body01" id = "title">
+			        	
+			        </td>
+			    </tr>
+			    <tr>
+			        <td class="td_title">주문번호</td>
+			        
+			        <td class="td_body01" >
+			            <h5 id = "orderNo"> </h5>
+			        </td>
+			    </tr>
+			    <tr>
+			        <td class="td_title">내용</td>
+			        <td class="td_body02">
+			            <h5 id = "contents"> </h5> 
+			        </td>
+			    </tr>
+			</tbody>
+			
+		</table> <br><br>
+	                   
+        <div>
+	    <!-- answer -->
+		<input type="hidden" name="questionNo" id="questionNo"  value= "${questionNo }" /> 
+		<input type="hidden" name="regId" id="regId" value="${sessionScope.member.memberId}"/>
+		
 				<!--- Form Begins -->
                 <section class="card" id="answerForm">
+ 
                 <div class="card-header" >
 				</div>
 				<div class="card-body">
 					<div class="tab-content" >
-						<div class="tab-pane fade show active"  role="tabpanel" aria-labelledby="posts-tab">
-							<div class="form-group">
-								<textarea class="form-control" id="answer" rows="3" placeholder="문의에 대한 답변을 달아주세요"></textarea>
-							</div>
+						<div class="form-group">
+							<textarea class="form-control" id="answer" rows="3" placeholder="문의에 대한 답변을 달아주세요"></textarea>
 						</div>
 				</div>
 				<div class="text-right">
 					<button type="button" class="btn btn-primary" id="doInsertButton">답변등록</button>
 				</div>
 				</div>
-                </section>
+                </section> 
                 <!--- Form Ends -->
 
 				<!--contents begins -->
@@ -216,21 +560,8 @@
 					<div id="answerList" class="border p-2">
 					</div>
 				</section>
-				<!--contents  end -->
-			</div>
-		</div>
-	</div>
-		<!-- //answer -->
-                    
-                    
-                </div>
-		
-
-		
-
-		
-		
-		  
+				<!--contents  end -->                
+		  </div>
 		<!-- footer -->
 		<!--// footer -->
 
@@ -242,7 +573,7 @@
     <!-- javascript -->
 	<script type="text/javascript">
 	
-		var member = { memberId: '${sessionScope.member.memberId}', 
+		var members = { memberId: '${sessionScope.member.memberId}', 
 	 		       	       auth: '${sessionScope.member.auth}' };
 	
 		//jquery 객체생성이 완료
@@ -250,10 +581,8 @@
 			console.log("1.document:최초수행!");
 			
 			doSelectOne();
-			
 			doSelectOnee();
-			   
-			if(member.auth != '1')  { $("#answerForm").empty();}
+			//if(member.auth != '1')  { $("#answerForm").empty();}
 	
 		});//--document ready
 
@@ -261,11 +590,10 @@
 		function doSelectOne(){
 			
 			console.log("doSelectOne");
-			
 			$.ajax({
 			  		type: "GET",
 			  		url : "${hContext}/question/do_selectOne.do",
-			  		asyn: false,
+			  		asyn: "false",
 			  		dataType : "html",
 			  		data:{
 			  			questionNo : $("#questionNo").val()
@@ -280,10 +608,15 @@
 			  		    var title = parseData.title;
 			  		    var contents = parseData.contents;
 			  		    var regDt = parseData.regDt;
+			  		    var answerCheck = parseData.answerCheck;
 			  		    
-			  		    document.getElementById("title").innerHTML = title;
-			  		    $("#orderNo").val(orderNo);
-			  		    $("#contents").val(contents);
+			  		    document.getElementById("title").innerHTML = "<h5>" + title + "</h5>";
+			  		    document.getElementById("orderNo").innerText = orderNo;
+			  			document.getElementById("contents").innerText = contents;
+			  			
+			  			
+			  		   // $("#orderNo").val(orderNo);
+			  		   // $("#contents").val(contents);
 			  		    //$("#qUser").val(qUser);
 			  		    //$("#regDt").val(regDt);
 			  	
@@ -370,7 +703,7 @@
  			console.log("doUpdate");
  			console.log(answerNo);
  			
- 			if(member.auth != '1')  { alert("관리자만 수정가능합니다."); return; }
+ 			if(members.auth != '1')  { alert("관리자만 수정가능합니다."); return; }
  			
  			//window.location.href = "${hContext}/answer/answer_moview.do?answerNo="+answerNo;
  			$("#answerList").empty();
@@ -406,11 +739,9 @@
  			        html+="            </div>";
  			        html+="            <div class='card-body'>";
  			        html+="                <div class='tab-content' >";
- 			        html+="                    <div class='tab-pane fade show active'  role='tabpanel' aria-labelledby='posts-tab'>";
  			        html+="                        <div class='form-group'>";
- 			        html+="                            <textarea class='form-control' id='answer' rows='3'>"+contents+"</textarea>";
+ 			        html+="                            <textarea  class='form-control' id='answer' rows='3'>"+contents+"</textarea>";
  			        html+="                        </div>";
- 			        html+="                    </div>";
  			        html+="                </div>";
  			        html+="                <div class='text-right'>";
  			        html+="                	<button type='button' class='btn btn-primary' onclick='doUpdateButton("+answerNo+");'>답변수정</button>";
@@ -473,16 +804,16 @@
  					htmL+="</div>";
  					htmL+="<div class='card-body'>";
  					htmL+="	<div class='tab-content' >";
- 					htmL+="		<div class='tab-pane fade show active'  role='tabpanel' aria-labelledby='posts-tab'>";
  					htmL+="			<div class='form-group'>";
  					htmL+="				<textarea class='form-control' id='answer' rows='3' placeholder='문의에 대한 답변을 달아주세요'></textarea>";
  					htmL+="			</div>";
- 					htmL+="		</div>";
  					htmL+="	</div>";
  					htmL+="	<div class='text-right'>";
  					htmL+="		<button type='button' class='btn btn-primary' id='doInsertButton'>답변등록</button>";
  					htmL+="	</div>";
  					htmL+="</div>"; 
+ 					
+ 	              
  					
  					$("#answerForm").append(htmL);
  					doSelectOnee();
@@ -500,17 +831,12 @@
  			console.log("doDelete");
  			console.log(answerNo);
  			
- 			if(member.auth != '1')  { alert("관리자만 삭제가능합니다."); return; }
+ 			if(members.auth != '1')  { alert("관리자만 삭제가능합니다."); return; }
  			
  			let url = "${hContext}/answer/do_delete.do";
  			let parameters ={"answerNo":answerNo};
  			let method = "POST";
  			let async = true;
- 			
- 		      if(member.memberId == ""){
- 		    	  alert("관리자 계정이 아니면 이용할 수 없는 페이지 입니다.");
- 		    	  window.location.href = "${hContext}/member/sign_in_view.do";
- 		      }
  		
  			if(confirm("삭제 하시겠습니까?")==false) return;
  			

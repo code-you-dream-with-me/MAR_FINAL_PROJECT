@@ -93,15 +93,16 @@
 </style>
 </head>
 <body>
+
 <%-- 		 <c:set var="item" value="${MAIN_PAGE_SIZE }"/>
  		<input type="text" name="pageSize" id="pageSize" value="<c:out value='${item.detCode }'"/> --%>
- 		<div class="container01" id="listContainer">
+ 		<div class="container01">
  		<input type="hidden" name="member" id="member" value="${sessionScope.member}"/>
 			<div class="row">
 				<!-- 동적 부분 -->
 				<c:forEach var="vo" items="${list}">
 					<div class='col-sm-6 col-md-3'>                                        
-						<div class='thumbnail' onclick='moveToItem("+value.itemNo+")'>     
+						<div class='thumbnail' onclick='moveToItem("${vo.itemNo}")'>     
 							<img src='${hContext}${vo.path}'alt='item_img'>           
 							<div class='caption'>                                          
 								<h3>${vo.name}</h3>                                    

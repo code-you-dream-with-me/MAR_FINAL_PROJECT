@@ -101,7 +101,7 @@
 				<!-- 동적 부분 -->
 				<c:forEach var="vo" items="${list}">
 					<div class='col-sm-6 col-md-3'>                                         
-						<div class='thumbnail' onclick='moveToRecipe("+value.recipeNo+")'>    
+						<div class='thumbnail' onclick='moveToRecipe("${vo.recipeNo}")'>    
 							<img src='${hContext}${vo.path}' alt='item_img'>              
 							<div class='caption'>                                             
 								<h3>${vo.title}</h3>                                      

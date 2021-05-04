@@ -95,6 +95,9 @@ public class MainController {
 		LOG.debug("search param: "+search);
 		LOG.debug("================================");
 		
+		
+		
+		
 		//NVL처리
 		//검색어가 없을 시 ""처리
 		search.setSearchWord(StringUtil.nvl(search.getSearchWord(), ""));

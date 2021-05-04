@@ -60,7 +60,7 @@
 
   </head>
   <body class="bg-light">
-    
+  <div class="container01"> 
 	<div class="container">
 	  <main>
 	    <div class="py-5 text-center">
@@ -328,6 +328,6 @@
 		$("#whichMainImage").val(i);
 	}
 	</script>
-
+  </div>
   </body>
 </html>

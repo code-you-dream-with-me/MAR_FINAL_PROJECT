@@ -102,6 +102,30 @@
 		<put-attribute name="container" value="/WEB-INF/views/{1}/admin_main.jsp"/>
 	</definition> -->
 	
+	<!-- recipe_reg.jsp -->
+ 	<definition name="*/recipe_reg" extends="third-layout">
+		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
+		<put-attribute name="container" value="/WEB-INF/views/{1}/recipe_reg.jsp"/>
+	</definition>
+	
+	<!-- recipe_mod.jsp -->
+ 	<definition name="*/recipe_mod" extends="third-layout">
+		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
+		<put-attribute name="container" value="/WEB-INF/views/{1}/recipe_mod.jsp"/>
+	</definition>
+	
+	<!-- item_reg.jsp -->
+ 	<definition name="*/item_reg" extends="third-layout">
+		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
+		<put-attribute name="container" value="/WEB-INF/views/{1}/item_reg.jsp"/>
+	</definition>
+	
+	<!-- item_mod.jsp -->
+ 	<definition name="*/item_mod" extends="third-layout">
+		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
+		<put-attribute name="container" value="/WEB-INF/views/{1}/item_mod.jsp"/>
+	</definition>
+	
 	<!--// layout03 동적화면 적용 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>-->
 
 	

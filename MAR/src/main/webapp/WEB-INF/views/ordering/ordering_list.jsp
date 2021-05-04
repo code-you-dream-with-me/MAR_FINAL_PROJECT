@@ -96,7 +96,7 @@
 <body>
 
 	<!-- div container -->
-	<div class="container">
+	<div class="container02">
 	
 		<!-- 제목 -->
 		<div class="page-header">

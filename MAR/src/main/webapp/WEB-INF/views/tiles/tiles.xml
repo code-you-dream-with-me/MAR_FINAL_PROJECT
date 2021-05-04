@@ -79,6 +79,17 @@
 		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
 		<put-attribute name="container" value="/WEB-INF/views/{1}/question_detail_answer.jsp"/>
 	</definition>
+	
+	<!-- ordering_list.jsp -->
+	<definition name="*/ordering_list" extends="second-layout">
+		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
+		<put-attribute name="container" value="/WEB-INF/views/{1}/ordering_list.jsp"/>
+	</definition>
+	<!-- ordering_item_detail.jsp -->
+	<definition name="*/ordering_item_detail" extends="second-layout">
+		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
+		<put-attribute name="container" value="/WEB-INF/views/{1}/ordering_item_detail.jsp"/>
+	</definition>
 
 	
 	<!--// layout02 동적화면 적용 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>-->

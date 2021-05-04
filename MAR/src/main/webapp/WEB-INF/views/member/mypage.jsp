@@ -37,7 +37,7 @@
 <body>
 	<!-- center -->
 	<div class="container02">
-		<h2 class="control-label">회원 정보 수정<span style="font-size:16px;">(*)은 필수 입력입니다.</span></h2>
+		<h2 class="control-label">회원 정보 수정<span style="font-size:16px;">&nbsp &nbsp (*)은 필수 입력입니다.</span></h2>
 		<form class="form-horizontal">
 		  <div class="form-group">
 		    <label for="inputEmail3" class="col-sm-2 control-label">아이디</label>

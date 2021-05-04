@@ -126,7 +126,7 @@
 			<!-- table -->
   
 				
-            <h5><strong> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 주문번호 : ${ordering.orderNo}번 </strong></h5>
+            <h5><strong> &emsp;&emsp; 주문번호 : ${ordering.orderNo}번 </strong></h5>
                                                                            
 			<div class="table-responsive" id = "orderingItem">      
                                                             
@@ -173,7 +173,7 @@
 	    			orderNo : $("#orderNo").val()
 	    		},
 	    		success:function(data){//통신 성공
-	    			alert(data);
+	    			// alert(data);
 	        		console.log("success data:" + data);
 	        		var parseData =  JSON.parse(data);
 	        		

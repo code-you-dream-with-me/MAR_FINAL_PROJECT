@@ -95,9 +95,9 @@
 			<!-- table -->
 			<table id="reviewTable" class="table table-striped table-bordered table-hover table-condensed">
 				<thead class="bg-primary">
-					<th class="text-center col-lg-1 col-md-1  col-xs-1">등록순서</th>
+					<!-- <th class="text-center col-lg-1 col-md-1  col-xs-1">등록순서</th> -->
 					<th class="text-center col-lg-1 col-md-1  col-xs-1">후기번호</th>
-					<th class="text-center col-lg-6 col-md-6  col-xs-6">제목</th>
+					<th class="text-center col-lg-7 col-md-7  col-xs-7">제목</th>
 					<th class="text-center col-lg-1 col-md-1  col-xs-1">글쓴이(ID)</th>
 					<th class="text-center col-lg-1 col-md-1  col-xs-1">주문상품번호</th>
 					<th class="text-center col-lg-1 col-md-1  col-xs-1">등록일</th>
@@ -213,7 +213,7 @@
 	        				//console.log(i + "," + value.name);
 	        				
 	        				html += "<tr>";
-	        				html += "	<td class='text-center'>"+ value.num + "</td>";
+	        				//html += "	<td class='text-center'>"+ value.num + "</td>";
 	        				html += "	<td class='text-center'>"+ value.reviewNo + "</td>";
 	        				html += "	<td class='text-center'>"+ value.title + "</td>";
 	        				html += "	<td class='text-left'>"+ value.memberId +"</td>";
@@ -286,8 +286,8 @@
 			// console.log("userTable>tbody");
 			
 			let tds = $(this).children();
-			var reviewNo = tds.eq(1).text();
-			var memberId = tds.eq(3).text();
+			var reviewNo = tds.eq(0).text();
+			var memberId = tds.eq(2).text();
 			
 			console.log("reviewNo : " + reviewNo);
 			console.log("memberId : " + memberId);

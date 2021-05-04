@@ -146,6 +146,7 @@
 
   $(document).ready(function() {
       
+	  
       var member = {
     		  memberId: '${sessionScope.member.memberId}', 
     		  pw: '${sessionScope.member.pw}', 

@@ -106,6 +106,7 @@
 
 				<input type="hidden" name="regId" id="regId" value="${sessionScope.member.memberId}"/>
 				<input type="hidden" name="imageList" id="imageList" value=""/>
+				<input type="hidden" name="whichMainImage" id="whichMainImage" value="0"/>
 	
 	            <div class="col-12">
 	              <label for="title" class="form-label">상품명<span class="text-muted"></span></label>

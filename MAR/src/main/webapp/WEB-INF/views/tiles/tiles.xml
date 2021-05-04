@@ -73,7 +73,7 @@
 	<definition name="*/wishitem_list" extends="second-layout">
 		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
 		<put-attribute name="container" value="/WEB-INF/views/{1}/wishitem_list.jsp"/>
-	</definition>
+	</definition> 
 	
 	<!-- 승호님 -->
 	<!-- question_detail.answer -->

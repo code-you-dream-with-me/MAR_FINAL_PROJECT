@@ -59,7 +59,7 @@
        
 <script>
         
-        $(document).ready(function () {8
+        $(document).ready(function () {
             $(".dropdown-toggle").dropdown()
         });
         

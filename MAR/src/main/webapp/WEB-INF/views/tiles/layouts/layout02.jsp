@@ -35,7 +35,7 @@
 <script src="${hContext}/resources/js/bootstrap.min.js"></script>
 <!-- js간략화 -->
 <script src="${hContext}/resources/js/eclass.js"></script><!-- ajax js -->
-<script src="${hContext}/resources/js/eutil.js"></script><!-- 빈칸인식js -->
+<%-- <script src="${hContext}/resources/js/eutil.js"></script><!-- 빈칸인식js --> --%>
 <script src="${hContext}/resources/js/jquery.bootpag.js"></script><!-- 페이징js -->
 
 <title><tiles:getAsString name="title"/></title>

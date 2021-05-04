@@ -68,18 +68,19 @@
 	
 	<!-- layout02 동적화면 적용 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>-->
 	
+	<!-- 예빈님 -->
 	<!-- wishitem_list.jsp -->
 	<definition name="*/wishitem_list" extends="second-layout">
 		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
 		<put-attribute name="container" value="/WEB-INF/views/{1}/wishitem_list.jsp"/>
 	</definition>
 	
+	<!-- 승호님 -->
 	<!-- question_detail.answer -->
 	<definition name="*/question_detail_answer" extends="second-layout">
 		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
 		<put-attribute name="container" value="/WEB-INF/views/{1}/question_detail_answer.jsp"/>
 	</definition>
-	
 	<!-- ordering_list.jsp -->
 	<definition name="*/ordering_list" extends="second-layout">
 		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
@@ -90,8 +91,27 @@
 		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
 		<put-attribute name="container" value="/WEB-INF/views/{1}/ordering_item_detail.jsp"/>
 	</definition>
-
-	
+	<!-- review_detail.jsp -->
+	<definition name="*/review_detail" extends="second-layout">
+		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
+		<put-attribute name="container" value="/WEB-INF/views/{1}/review_detail.jsp"/>
+	</definition>
+	<!-- review_list.jsp -->
+	<definition name="*/review_list" extends="second-layout">
+		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
+		<put-attribute name="container" value="/WEB-INF/views/{1}/review_list.jsp"/>
+	</definition>
+	<!-- review_mng.jsp -->
+	<definition name="*/review_mng" extends="second-layout">
+		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
+		<put-attribute name="container" value="/WEB-INF/views/{1}/review_mng.jsp"/>
+	</definition>
+	<!-- review_reg.jsp -->
+	<definition name="*/review_reg" extends="second-layout">
+		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
+		<put-attribute name="container" value="/WEB-INF/views/{1}/review_reg.jsp"/>
+	</definition>	
+		
 	<!--// layout02 동적화면 적용 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>-->
 	
 	

@@ -100,10 +100,11 @@
 					<!-- <th class="text-center col-lg-1 col-md-1  col-xs-1" style="visibility:hidden;">글번호</th> -->
 					<th class="text-center col-lg-1 col-md-1  col-xs-1">질의번호</th>
 					<th class="text-center col-lg-1 col-md-1  col-xs-1">답변여부</th>
-					<th class="text-center col-lg-7 col-md-7  col-xs-7">제목</th>
+					<th class="text-center col-lg-6 col-md-6  col-xs-6">제목</th>
 					<th class="text-center col-lg-1 col-md-1  col-xs-1">글쓴이(ID)</th>
 					<th class="text-center col-lg-1 col-md-1  col-xs-1">주문번호</th>
 					<th class="text-center col-lg-1 col-md-1  col-xs-1">등록일</th>
+					<th class="text-center col-lg-1 col-md-1  col-xs-1"  style="visibility:hidden;">답변여부</th>
 
 				</thead>
 				<tbody>
@@ -222,6 +223,7 @@
 	        				html += "	<td class='text-center'>"+ value.questionNo +"</td>";
 	        				if(value.answerCheck == 0){
 	        					
+	       
 	        					html += "	<td class='text-center'></td>";
 	        					
 	        				}else if(value.answerCheck == 1){
@@ -234,6 +236,7 @@
 	        				html += "	<td class='text-left'>"+ value.qUser +"</td>";
 	        				html += "	<td class='text-center'>"+ value.orderNo +"</td>";
 	        				html += "	<td class='text-center'>"+ value.regDt +"</td>";
+	        				html += "	<td class='text-center'  style='visibility:hidden;'>"+ value.answerCheck +"</td>";
 	        				html += "</tr>";
 	        				
 	        			});
@@ -303,9 +306,10 @@
 			
 			let tds = $(this).children();
 			
-			var answerCheck = tds.eq(1).text();
-			var questionNo = tds.eq(2).text();
-			var qUser 		= tds.eq(4).text();
+
+			var questionNo = tds.eq(0).text();
+			var qUser 		= tds.eq(3).text();
+			var answerCheck = tds.eq(6).text();
 			
 			console.log("questionNo : " + questionNo);
 			console.log("answerCheck : " + answerCheck);

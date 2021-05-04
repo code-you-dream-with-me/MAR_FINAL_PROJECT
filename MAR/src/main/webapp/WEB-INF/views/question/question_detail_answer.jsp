@@ -584,7 +584,7 @@ textarea {
 			
 			doSelectOne();
 			doSelectOnee();
-			if(member.auth != '1')  { $("#answerForm").empty();}
+			if(members.auth != '1')  { $("#answerForm").empty();}
 	
 		});//--document ready
 

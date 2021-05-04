@@ -114,10 +114,6 @@
 				</div>
 			</div>
 			
-			<div class = "col-md-10 col-lg-10">
-				<input type = "button" class = "btn btn-primary btn-sm" value = "사진추가" id = "thumbBtn" /> 
-			</div>
-			
 		</form>	  
 		<!-- form -->
 		  

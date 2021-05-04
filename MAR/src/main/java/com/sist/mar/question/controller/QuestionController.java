@@ -233,9 +233,9 @@ public class QuestionController {
 		String resultMsg = "";
 		
 		if(1 == flag) {
-			resultMsg = question.getqUser() + "님\n삭제성공.";
+			resultMsg = question.getQuestionNo() + "번의 1:1질의글이 \n삭제 성공했습니다.";
 		}else {
-			resultMsg = "삭제 실패.";
+			resultMsg = "1:1 질의 삭제 실패했습니다.";
 		}
 		
 		Message message = new Message();

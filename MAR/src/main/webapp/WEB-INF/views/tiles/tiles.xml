@@ -76,10 +76,25 @@
 	</definition> 
 	
 	<!-- 승호님 -->
+	<!-- question_list -->
+	<definition name="*/question_list" extends="second-layout">
+		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
+		<put-attribute name="container" value="/WEB-INF/views/{1}/question_list.jsp"/>
+	</definition>
 	<!-- question_detail.answer -->
 	<definition name="*/question_detail_answer" extends="second-layout">
 		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
 		<put-attribute name="container" value="/WEB-INF/views/{1}/question_detail_answer.jsp"/>
+	</definition>
+	<!-- question_mng -->
+	<definition name="*/question_mng" extends="second-layout">
+		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
+		<put-attribute name="container" value="/WEB-INF/views/{1}/question_mng.jsp"/>
+	</definition>
+	<!-- question_reg -->
+	<definition name="*/question_reg" extends="second-layout">
+		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
+		<put-attribute name="container" value="/WEB-INF/views/{1}/question_reg.jsp"/>
 	</definition>
 	<!-- ordering_list.jsp -->
 	<definition name="*/ordering_list" extends="second-layout">

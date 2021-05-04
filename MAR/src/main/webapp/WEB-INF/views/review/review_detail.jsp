@@ -231,8 +231,8 @@
 		</table> <br><br>
 		
 	   	<!-- hidden -->
-	   	 <input type = "text"     id = "reviewNo"	 	 value = "${reviewNo}" />
- 		 <input type = "text"     id = "orderitemNo"	 value = "${orderitemNo}" />
+	   	 <input type = "hidden"   id = "reviewNo"	 	 value = "${reviewNo}" />
+ 		 <input type = "hidden"   id = "orderitemNo"	 value = "${orderitemNo}" />
  		 <input type = "hidden"   id = "searchDiv"		 value = "${searchDiv}" />
  		 <input type = "hidden"   id = "searchWord"		 value = "${searchWord}" />
 		<!-- // hidden -->
@@ -342,7 +342,7 @@
 			console.log("doDeleteBtn");
 			e.preventDefault();
 			
-			if($("#checkMemberId").val() == null )  {
+			if($("sessionScope.member") == null )  {
 				alert("삭제를 누르기 전에 로그인을 먼저 해주세요.");
 				return;
 			}
@@ -391,7 +391,7 @@
 			e.preventDefault();
 			
 			
-			if($("#checkMemberId").val() == null )  {
+			if($("sessionScope.member") == null ) {
 				alert("수정을 누르기 전에 로그인을 먼저 해주세요.");
 				return;
 			}

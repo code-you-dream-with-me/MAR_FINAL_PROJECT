@@ -75,7 +75,7 @@
     	//마이페이지 이동 ---------------------------------------------------------------------------
         function headerToMypage() {
 			if("" != member.memberId) {
-				window.location.href = "${hContext}/ordering/ordering_view.do";
+				window.location.href = "${hContext}/ordering/ordering_view.do?memberId=${member.memberId}";
 			} else {
 				alert("로그인이 필요합니다.");
 				return;

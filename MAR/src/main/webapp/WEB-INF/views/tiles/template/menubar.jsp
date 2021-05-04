@@ -8,7 +8,7 @@
                 <!--class="navbar navbar-default"-->
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                	<input type="hidden" name="pageSize" id="pageSize"/>
+                	<input type="hidden" name="menuPageSize" id="menuPageSize"/>
                     <ul class="nav navbar-nav" name="listDiv" id="listDiv" >
                         <li class="dropdown" value="10" class="e">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">카테고리 <span class="caret"></span></a>

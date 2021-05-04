@@ -584,7 +584,7 @@ textarea {
 			
 			doSelectOne();
 			doSelectOnee();
-			if(member.auth != '1')  { $("#answerForm").empty();}
+			if(members.auth != '1')  { $("#answerForm").empty(); }
 	
 		});//--document ready
 
@@ -615,14 +615,7 @@ textarea {
 			  		    document.getElementById("title").innerHTML = "<h5>" + title + "</h5>";
 			  		    document.getElementById("orderNo").innerText = orderNo;
 			  			document.getElementById("contents").innerText = contents;
-			  			
-			  			
-			  		   // $("#orderNo").val(orderNo);
-			  		   // $("#contents").val(contents);
-			  		    //$("#qUser").val(qUser);
-			  		    //$("#regDt").val(regDt);
-			  	
-			  		    
+		  		    
 			      	},
 			      	error:function(data){//실패시 처리
 			      		console.log("error:"+data);

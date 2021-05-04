@@ -54,5 +54,13 @@
 		FROM member
 		WHERE member_id = #{memberId}	
 	</select>
+	
+	<update id="doUpdate" parameterType="MemberVO">
+		UPDATE member
+		SET pw = #{pw},
+		    phone = #{phone},
+		    address = #{address}
+		WHERE member_id = #{memberId}
+	</update>
 
 </mapper>

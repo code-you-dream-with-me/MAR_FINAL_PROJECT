@@ -563,10 +563,11 @@ textarea {
 				</section>
 				<!--contents  end -->                
 		  </div>
+		</div>  
 		<!-- footer -->
 		<!--// footer -->
 
-
+	
 	
 	<!-- //div container -->
 
@@ -583,7 +584,7 @@ textarea {
 			
 			doSelectOne();
 			doSelectOnee();
-			//if(member.auth != '1')  { $("#answerForm").empty();}
+			if(member.auth != '1')  { $("#answerForm").empty();}
 	
 		});//--document ready
 

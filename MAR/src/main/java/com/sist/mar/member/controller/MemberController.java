@@ -44,6 +44,27 @@ public class MemberController {
 		return "sign/sign_up";
 	}
 	
+	@RequestMapping(value = "member/mypage_view.do", method = RequestMethod.GET
+			,produces = "application/json;charset=UTF-8")
+	public String viewMypage(Model model, HttpSession session, MemberVO member) throws Exception {
+		
+		//세션 받아서 회원정보 검색
+		if(null != session.getAttribute("member")) {
+			MemberVO inVO= (MemberVO) session.getAttribute("member");
+			member.setMemberId(inVO.getMemberId());
+		}
+		
+		member.setMemberId("test01");
+		
+		MemberVO outVO = memberService.doSelectOne(member);
+		
+		//화면으로 전송
+		model.addAttribute("vo", outVO);
+		
+		//화면
+		return "member/mypage";
+	}
+	
 	
 	@RequestMapping(value = "member/do_register.do", method = RequestMethod.POST
 			,produces = "application/json;charset=UTF-8")
@@ -118,6 +139,23 @@ public class MemberController {
 		
 		return gson.toJson(message);
 		
+	}
+	
+	@RequestMapping(value = "member/do_update.do", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String doUpdate(MemberVO member) throws Exception {
+		LOG.debug("doUpdate");
+		
+		Message message = new Message();
+		message.setMsgId(Integer.toString(memberService.doUpdate(member)));
+		
+		if(message.getMsgId().equals("1")) message.setMsgContents("수정되었습니다.");
+		else message.setMsgContents("수정되지 않았습니다.");
+		
+		Gson gson = new Gson();
+		LOG.debug("메세지: "+gson.toJson(message));
+		
+		return gson.toJson(message);
 	}
 	
 	

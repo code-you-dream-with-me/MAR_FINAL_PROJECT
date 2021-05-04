@@ -138,7 +138,7 @@
 		$(document).ready(function() {
 			console.log("1.document:최초수행!");
 			
-			//doSelectOne();
+			doSelectOne();
 	
 		});//--document ready
 		

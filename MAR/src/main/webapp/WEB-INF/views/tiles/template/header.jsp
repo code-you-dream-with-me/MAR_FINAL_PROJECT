@@ -36,7 +36,7 @@
 <script>
 		
         // 전역변수 (세션정보) ---------------------------------------------
-        var memberSession;
+        var member;
 
        // document ----------------------------------------------------
          $(document).ready(function () {
@@ -44,8 +44,8 @@
              $("ul > li:last-child > a").css("border", "0 none");
              
              //로그인 세션
-             memberSession = {memberId : "${sessionScope.member.memberId}"};
-             console.log("member : " + memberSession.memberId);
+             member = {memberId : "${sessionScope.member.memberId}"};
+             console.log("member : " + member.memberId);
              
          });
          

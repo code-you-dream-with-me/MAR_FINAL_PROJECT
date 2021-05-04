@@ -9,9 +9,9 @@
                     </div>
                     <ul>
                         <li><a href="#" onclick="sidebarToOrderingList()">주문내역</a></li>
-                        <li><a href="#"  onclick="sidebarToWishList()">늘 사는 것</a></li>
-                        <li><a href="#"  onclick="sidebarToItemReview()">상품후기</a></li>
-                        <!-- <li><a href="#">개인 정보 수정</a></li> -->
+                        <li><a href="#" onclick="sidebarToWishList()">늘 사는 것</a></li>
+                        <li><a href="#" onclick="sidebarToItemReview()">상품후기</a></li>
+                        <li><a href="#" onclick="sidebarToMemberUpdate()">개인 정보 수정</a></li>
                     </ul>
                    
                  </div>
@@ -38,6 +38,11 @@
 	function sidebarToItemReview(ths) {
 		console.log("sidebarToItemReview");
 		window.location.href = "${hContext}/review/review_view.do?searchDiv20=20&memberId=${member.memberId}"
+	}
+	
+	function sidebarToMemberUpdate(ths) {
+		console.log("sidebarToMemberUpdate");
+		window.location.href = "${hContext}/member/mypage_view.do?memberId=${member.memberId}";
 	}
 
 

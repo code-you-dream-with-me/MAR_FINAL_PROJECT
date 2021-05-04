@@ -1,3 +1,5 @@
+<%@page import="com.sist.mar.cmn.StringUtil"%>
+<%@page import="com.sist.mar.main.domain.CateSearchVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -94,10 +96,9 @@
 </head>
 <body>
 
-<%-- 		 <c:set var="item" value="${MAIN_PAGE_SIZE }"/>
- 		<input type="text" name="pageSize" id="pageSize" value="<c:out value='${item.detCode }'"/> --%>
  		<div class="container01">
  		<input type="hidden" name="member" id="member" value="${sessionScope.member}"/>
+		<form action="${hContext }/main/do_retrieve.do" id="searchFrm" name="searchFrm" method="get">
 			<c:forEach var="vo" items="${list}" varStatus="status">
 				<c:if test="${ status.index % 4 eq 0 }">
 					<div class="row">
@@ -119,25 +120,74 @@
 					</div>
 				</c:if>
 			</c:forEach>
+		</form>
 		</div>
         
         <!-- pagenation -->
-		<div class="text-center">
+<!-- 		<div class="text-center">
 		    <div id="page-selection" class="text-center"></div>
-		</div>
+		</div> -->
 	    <!--// pagenation -->	
-	
+	    
+
 	
 <script type="text/javascript">
 	//jquery 객채생성 완료
 	$(document).ready(function() {//화면이 로딩되면 바로 수행
 		console.log("1.document:최초수행!");
 	});
+	
 
-	//상품 상세로 이동
+	
+/* 	//페이징 변수 추가
+	let totalCount = 0;
+	let pageTotal  = 1;
+	let pageSize = 12;
+	let page = 1;
+	//console.log("totalCount:"+${list[0].totalCnt});//totalCount:40
+	
+	totalCount = ${list[0].totalCnt};
+	console.log("totalCount: "+totalCount);
+	pageTotal = (totalCount/pageSize);// 42/10 = 4.2
+	console.log("pageTotal: "+pageTotal);
+	pageTotal = Math.ceil(pageTotal);// 42/10 = 4.2 -> 5
+	console.log("pageTotal: "+pageTotal);
+	
+	//paging(페이징): 총페이지, 현재글번호
+	console.log(pageTotal+", "+page);
+	mainRenderingPage(pageTotal,page);
+	    			
+	//paging
+	//param 	 : pageTotal(총페이지수 = 총글수/페이지사이즈(10)), page(현재 페이지)
+	//maxVisible : bottom page
+	function mainRenderingPage(pageTotal,page) {
+		//이전에 연결된 Event 핸들러를 요소에서 제거
+		$("#page-selection").unbind('page');//jquery.bootpag에 있는 page요소를 언바인딩 해줌
+		
+		$("#page-selection").bootpag({
+		    total: pageTotal,
+		    page: page,
+		    maxVisible: 10,
+		    leaps: true,
+		    firstLastUse: true,
+		    first: '←',
+		    last: '→',
+		    wrapClass: 'pagination',
+		    activeClass: 'active',
+		    disabledClass: 'disabled',
+		    nextClass: 'next',
+		    prevClass: 'prev',
+		    lastClass: 'last',
+		    firstClass: 'first'
+		}).on("page", function(event, num){
+			//--num에 페이지 번호가 들어가서 ajax서버 호출
+		}); 
+	} */
+
+
+	//상품 상세로 이동----------------------------------------------------------------------
 	function moveToItem(itemNo) {
-		window.location.href = "${hContext}/item/item_deview.do?itemNo="
-				+ itemNo;
+		window.location.href = "${hContext}/item/item_deview.do?itemNo="+ itemNo;
 	}
 </script>
 

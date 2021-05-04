@@ -147,7 +147,6 @@
 					<th>판매가격</th>
 					<td>
 					    <div class="caption" id="itemPrice">
-
                         </div>
 					</td>
 				</tr>
@@ -221,6 +220,7 @@
 	        </div>
 		</div>
 		</div>
+		
 		<!-- 상세이미지 -->
   		<div class="detailimg" id="detailimg">
 		</div> 

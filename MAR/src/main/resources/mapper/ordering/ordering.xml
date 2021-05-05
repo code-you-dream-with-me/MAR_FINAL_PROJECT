@@ -142,7 +142,7 @@
 
 	<update id="yebin_doUpdate_item" parameterType="Orderitem">
 		UPDATE item
-		<![CDATA[SET sales += #{quantity}]]>
+		SET sales = sales + #{quantity}
 		WHERE item_no = #{itemNo}
 	</update>
 

@@ -52,8 +52,8 @@
     
 <main class="form-signin">
   <form>
-    <img class="mb-4" src="${hContext}/resources/image_source/markit_logo.png" alt="" width="200" >
-    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+    <a href="javascript:headerToMain();"><img class="mb-4" src="${hContext}/resources/image_source/markit_logo.png" alt="" width="300" ></a>
+    
 
     <div class="form-floating">
       <input type="email" class="form-control" id="memberId" placeholder="name@example.com">
@@ -79,6 +79,10 @@
 
 
 	<script type="text/javascript">
+	
+		function headerToMain() {
+			window.location.href = "${hContext}/main/main_view.do";
+		}
 		
 		$("#signUpBtn").on("click", function(){
 			console.log("signUpBtn");

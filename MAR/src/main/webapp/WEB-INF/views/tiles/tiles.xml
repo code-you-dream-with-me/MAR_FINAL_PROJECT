@@ -66,6 +66,16 @@
 		<put-attribute name="footer" value="/WEB-INF/views/tiles/template/footer.jsp"/>
 	</definition>
 	
+	<!--▶layout04 -->
+	<definition name="fourth-layout" template="/WEB-INF/views/tiles/layouts/layout04.jsp">
+		<put-attribute name="title" value=""/>
+		<put-attribute name="header" value="/WEB-INF/views/tiles/template/header.jsp"/>
+		<put-attribute name="menubar" value="/WEB-INF/views/tiles/template/menubar.jsp"/>
+		<put-attribute name="sidebar02" value="/WEB-INF/views/tiles/template/sidebar02.jsp"/>
+		<put-attribute name="container" value=""/>
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/template/footer.jsp"/>
+	</definition>
+	
 	<!-- layout02 동적화면 적용 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>-->
 	
 	<!-- 예빈님 -->
@@ -82,22 +92,22 @@
 	
 	<!-- 승호님 -->
 	<!-- question_list -->
-	<definition name="*/question_list" extends="second-layout">
+	<definition name="*/question_list" extends="fourth-layout">
 		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
 		<put-attribute name="container" value="/WEB-INF/views/{1}/question_list.jsp"/>
 	</definition>
 	<!-- question_detail.answer -->
-	<definition name="*/question_detail_answer" extends="second-layout">
+	<definition name="*/question_detail_answer" extends="fourth-layout">
 		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
 		<put-attribute name="container" value="/WEB-INF/views/{1}/question_detail_answer.jsp"/>
 	</definition>
 	<!-- question_mng -->
-	<definition name="*/question_mng" extends="second-layout">
+	<definition name="*/question_mng" extends="fourth-layout">
 		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
 		<put-attribute name="container" value="/WEB-INF/views/{1}/question_mng.jsp"/>
 	</definition>
 	<!-- question_reg -->
-	<definition name="*/question_reg" extends="second-layout">
+	<definition name="*/question_reg" extends="fourth-layout">
 		<put-attribute name="title" value="마킷:: 봄날의 장터"/>
 		<put-attribute name="container" value="/WEB-INF/views/{1}/question_reg.jsp"/>
 	</definition>

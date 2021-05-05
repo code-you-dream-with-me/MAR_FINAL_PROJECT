@@ -49,7 +49,7 @@
 	<div class="container">
 	  <main>
 	    <div class="py-5 text-center">
-	      <img class="d-block mx-auto mb-4" src="${hContext}/resources/image_source/good_food-wallpaper-800x480.jpg" alt="" style="height: 100px; border-radius: 10px;" >
+	      <%-- <img class="d-block mx-auto mb-4" src="${hContext}/resources/image_source/good_food-wallpaper-800x480.jpg" alt="" style="height: 100px; border-radius: 10px;" > --%>
 	      <h2>레시피 등록</h2><br/>
 	      <p class="lead">레시피 등록화면 입니다. 안내에 따라 각 항목을 정확히 작성바랍니다.</p>
 	    </div>

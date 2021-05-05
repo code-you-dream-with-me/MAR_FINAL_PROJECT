@@ -109,7 +109,7 @@
 	<div class="container">
 	  <div class="row g-5">	
 		  
-		  <input type="hidden" id="imageList" />
+		  <input type="hidden" id="imageList" value="" />
   	  	  <input type="hidden" id="recipeNo" name="recipeNo" /> 
 		  
 		  <div class="bd-example" id="btnDiv" style="margin-bottom: 20px;">
@@ -143,7 +143,7 @@
 		  
 		  <div id="recipeImage"></div>
 		  
-		  <textarea id="recipeContents" rows="50" readonly="readonly"></textarea>
+		  <textarea id="recipeContents" rows="80" readonly="readonly"></textarea>
 		  
 		  <h4>Recipe item</h4>
 		  <hr/>
@@ -175,6 +175,8 @@
 	    };
 	    
 	    if(member.auth != '1'){ $("#btnDiv").empty(); }
+	    
+	    console.log("imageList:"+$("#imageList").val());
 	    
 	});
 	
@@ -240,9 +242,11 @@
 	  		},
 	  		success:function(data){//통신 성공
 	  			
-	  			$("#imageList").val(data);
 	  			var parseData = JSON.parse(data);
 	  			console.log(parseData);
+	  			
+	  			
+	  			
 	  			
 	  			var SimpleItemNo = 0;
 	  			var SimpleItemName = "";
@@ -315,6 +319,9 @@
 	  			var parseData = JSON.parse(data);
 	  			console.log(parseData);
 	  			
+	  			$("#imageList").val(data);
+	  			//console.log($("#imageList").val());
+	  			
 	  		    var html = "";
 	  		    
 	  			if(parseData.length > 0){ 
@@ -356,6 +363,8 @@
 	  			recipeNo: recipeNo
 	  		},
 	  		success:function(data){//통신 성공
+	  			
+	  			console.log("imageList:"+$("#imageList").val());
 	  			
 	  			$.ajax({
 	  		  		type: "GET",

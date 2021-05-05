@@ -83,7 +83,7 @@
     <a href="${hContext}/main/main_view.do"><img class="mb-4" src="${hContext}/resources/image_source/markit_logo.png" style="width: 120px; margin-top: 20px;" ></a>
     <ul class="nav" style="center">
       <li class="nav-item"><a href="#" class="nav-link" style="color: black; font-weight: bold;">${sessionScope.member.name} 관리자</a></li>
-      <li class="nav-item"><a href="#" class="nav-link">고객센터</a></li>
+      <li class="nav-item"><a href="${hContext}/question/question_view.do" class="nav-link">고객센터</a></li>
       <li class="nav-item"><a href='javascript:goLogout();' class="nav-link">로그아웃</a></li>
     </ul>
   </div>
@@ -551,7 +551,8 @@
 	  					
 	  					switch(value.orderState) {
   						case "2" : html += "<td><input type='button' class='wordBtn' value='승인' onclick='approve("+value.orderNo +","+ orderWord+");'  /><input type='button' class='wordBtn' value='거부' onclick='reject("+value.orderNo +","+ orderWord+");'  /></td>"; break;
-  						case "3" : html += "<td><input type='button' class='wordBtn' value='승인취소' onclick='returnn("+value.orderNo +","+ orderWord+");' style='width: 82px;' /></td>"; break;
+  						//case "3" : html += "<td><input type='button' class='wordBtn' value='승인취소' onclick='returnn("+value.orderNo +","+ orderWord+");' style='width: 82px;' /></td>"; break;
+  						case "3" : html += "<td></td>"; break;
   						default  : html += "<td>"+ "" +"</td>    ";  break;
 	  					}
 	  					

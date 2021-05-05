@@ -253,13 +253,14 @@
 	  		asyn:"false",
 	  		dataType:"html",
 	  		data:{
-	  			fromTb:2,
+	  			fromTb:1,
 	  			fromNo:itemNo
 	  		},
 	  		success:function(data){//통신 성공
 	  		
 	  			//console.log(parseData);
 	  			$("#imageListDel").val(data);
+	  			
 	  			
 	      	},
 	      	error:function(data){//실패시 처리
@@ -281,6 +282,7 @@
   //팝업 창 띄우기
   function showPopup(frm) { 
 	console.log('showPopup()');
+	$("#whichMainImage").val('');
 	
 	var title ="파일 업로드";
 	var option  ="toolbar=0,scrollbars=no,resizable=no,status=yes,width=500,height=300,left=300,top=50";
@@ -320,6 +322,7 @@
   			regId: $("#regId").val(),
   			name: $("#name").val(),
   			price: $("#price").val(),
+  			finalPrice: $("#price").val(),
   			production: $("#production").val(),
   			weight: $("#weight").val(),
   			expired: $("#expired").val(),
@@ -329,6 +332,8 @@
   		success:function(data){//통신 성공
       		var message = JSON.parse(data);
   			console.log(message.msgContents);
+  			
+  			console.log($("#imageListDel").val());
   			
   			var mainImageNum = $("#whichMainImage").val();
   			if("" == mainImageNum){
@@ -346,8 +351,8 @@
   		  		dataType:"html",
   		  		data:{
   		  			
-  		  			fromNo: itemNo,
   		  			fromTb: 1,
+		  			fromNo: itemNo,
 		  			imageListDel: $("#imageListDel").val(),
 		  			imageListNew: $("#imageList").val(),
 		  		    MainImage: mainImageNum

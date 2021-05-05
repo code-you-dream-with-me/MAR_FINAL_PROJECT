@@ -59,6 +59,11 @@
       	font-size: small;
       	padding: 2px;
       }
+      
+      .form-signin h3 {
+      	margin:-50px;
+      }
+      
     </style>
 
 
@@ -71,9 +76,9 @@
   
   <br/><br/><br/>
 	  <main class="form-signin">
-	  
+	    <a href="javascript:headerToMain();"><img class="mb-4" src="${hContext}/resources/image_source/markit_logo.png" alt="" width="300" ></a>
 		<div class="py-5 text-center">
-		  <h2>회원가입</h2>
+		  <h3>회원가입</h3>
 		</div>
 
         <form id="signUpFrm" name="signUpFrm">
@@ -115,6 +120,10 @@
 	<script src="${hContext}/resources/assets/recipe/form-validation.js"></script>  
 	
 	<script type="text/javascript">
+	
+		function headerToMain() {
+			window.location.href = "${hContext}/main/main_view.do";
+		}
 		
 		$("#idCheckBtn").on("click", function(e){
 	    	console.log("idCheckBtn");

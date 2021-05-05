@@ -64,7 +64,7 @@
 	<div class="container">
 	  <main>
 	    <div class="py-5 text-center">
-	      <img class="d-block mx-auto mb-4" src="${hContext}/resources/image_source/item.jpg" alt="" style="height: 100px; border-radius: 10px;" >
+	      <%-- <img class="d-block mx-auto mb-4" src="${hContext}/resources/image_source/item.jpg" alt="" style="height: 100px; border-radius: 10px;" > --%>
 	      <h2>상품 등록</h2><br/>
 	      <p class="lead">상품 등록화면 입니다. 안내에 따라 각 항목을 정확히 작성바랍니다.</p>
 	    </div>
@@ -81,8 +81,6 @@
 	          <h4 class="d-flex justify-content-between align-items-center mb-3">
 	            <span class="text-primary">이미지</span>
 	            
-	            <!-- 등록한 이미지가 몇 개인지 보여 줄 칸 -->
-	            <span class="badge bg-primary rounded-pill">3</span>
 	
 	           <!-- 등록한 이미지가 몇 개인지 보여 줄 칸 -->
 	            <div id="imageCntView"></div>

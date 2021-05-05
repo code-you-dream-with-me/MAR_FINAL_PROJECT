@@ -227,7 +227,7 @@
         				html += "					</td>                                                                                         ";
         				html += "                   <td width='200px' height='120px' class='text-center'>                                                             ";
         												
-						if($("#orderState").val() == 1 && parseInt(new Date().getTime() - new Date($("#orderDate").val()).getTime(), 10) >= 86400000){
+						if($("#orderState").val() == 4){
        						
 							html += "					<h5>   " + new Date($("#orderDate").val()).toLocaleDateString() + " 에<br> 주문하신 물건들이 <br>결제완료 되었습니다 </h5> ";       				
         					
@@ -239,7 +239,7 @@
         					
         					html += "					<h5>   " + new Date($("#orderDate").val()).toLocaleDateString() + " 에<br> 주문하신 내역이 <br>취소 확정되었습니다 </h5> ";
 
-        				}else{
+        				}else if($("#orderState").val() == 1){
         					
         					html += "					<h5>   " + new Date($("#orderDate").val()).toLocaleDateString() + " 에<br> 주문하신 물건들이 <br>배송중에 있습니다 </h5> "; 
 
@@ -266,9 +266,14 @@
         					
         					html += "					<h4><strong> 주문취소 완료된 <br> 상품입니다. </strong></h4> 	 					";				
         					
-        				}else if(value.reviewState == 1){ 
+        				}else if($("#orderState").val() == 1){ 
         				
+        					html += "					<h4><strong> 결제완료 상품만 <br> 후기 작성 가능합니다.  </strong></h4> 	 		";
+        					
+        				}else if(value.reviewState == 1){
+        					
         					html += "					<input type='button' class='btn-primary btn-mine' value='후기쓰기' onclick = 'doReviewInsert("+ value.orderitemNo +");' /> ";
+
         				}
         				
         				html += "					</td>                                                                                         ";
@@ -295,7 +300,7 @@
 		}
 		
 		
-		// 리뷰 쓰기로 이동
+		// 리뷰 쓰기로 이동 (alert 설정은 왜 했냐고 하면, 이를 통해 원지 않는 조건을 뚫고 리뷰 쓰기를 2중으로 방지하는 장치라고 하면 됨)
 		function doReviewInsert(num){
 
 			console.log("doReviewInsert");
@@ -305,14 +310,14 @@
 				alert("주문 취소 중이거나 취소된 상품은 후기를 작성하실 수 없습니다.");
 				return;
 				
-			}else if($("#orderState").val() == 1 && parseInt(new Date().getTime() - new Date($("#orderDate").val()).getTime(), 10) >= 86400000 * 7){
+			}else if($("#orderState").val() == 4 && parseInt(new Date().getTime() - new Date($("#orderDate").val()).getTime(), 10) >= 86400000 * 7){
 				
 				alert("후기 작성 가능 기간이 초과했습니다.");
 				return;
 				
-			}else if($("#orderState").val() == 1 && parseInt(new Date().getTime() - new Date($("#orderDate").val()).getTime(), 10) < 86400000){
+			}else if($("#orderState").val() == 1){
 				
-				alert("후기는 결제 완료시부터 1주일간만 적을 수 있습니다.");
+				alert("후기는 결제완료가 되고나서 적을 수 있습니다.");
 				return;
 				
 			}	

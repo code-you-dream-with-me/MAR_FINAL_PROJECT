@@ -320,6 +320,7 @@
   			regId: $("#regId").val(),
   			name: $("#name").val(),
   			price: $("#price").val(),
+  			finalPrice: $("#price").val(),
   			production: $("#production").val(),
   			weight: $("#weight").val(),
   			expired: $("#expired").val(),

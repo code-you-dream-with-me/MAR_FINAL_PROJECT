@@ -143,7 +143,7 @@
 		  
 		  <div id="recipeImage"></div>
 		  
-		  <textarea id="recipeContents" rows="50" readonly="readonly"></textarea>
+		  <textarea id="recipeContents" rows="80" readonly="readonly"></textarea>
 		  
 		  <h4>Recipe item</h4>
 		  <hr/>

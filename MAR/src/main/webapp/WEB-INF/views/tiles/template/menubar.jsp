@@ -134,14 +134,14 @@
         	if(e.which == 13){
         		console.log("Enter:"+e.which);
         		e.preventDefault();//두번 호출되지 않게 함
-        		window.location.href = "${hContext}/main/do_retrieve.do?searchWord="+$("#mainSearchWord").val();
+        		window.location.href = "${hContext}/main/do_retrieve.do?listDiv=20&searchWord="+$("#mainSearchWord").val(); 
         	}       
         });
      	
-     	function headerToSearchWord(ths) {
+      	function headerToSearchWord(ths) {
 			var tds = $(ths).closest("tr").find("input");
-			window.location.href = "${hContext}/main/do_retrieve.do?searchWord="+tds.val();
-		}
+			window.location.href = "${hContext}/main/do_retrieve.do?listDiv=20&searchWord="+tds.val();
+		} 
      	
     	
     	//레시피 상세로 이동 ------------------------------------------------------------------------

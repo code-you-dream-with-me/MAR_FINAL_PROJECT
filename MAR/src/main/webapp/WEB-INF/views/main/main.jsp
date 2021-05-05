@@ -108,10 +108,17 @@
 									<div class='thumbnail' onclick='moveToItem("${list[j].itemNo}")'>
 										<img src='${hContext}${list[j].path}' alt='item_img'>
 										<div class='caption'>
-											<h3>${vo.name}</h3>
-											<span class='discount'>${list[j].discount}%</span> 
-											<span class='final-price'>${list[j].finalPrice}원</span>
-											<h3 class='origin-price'>${list[j].price}원</h3>
+											<h3>${list[j].name}</h3>
+											<c:choose>
+												<c:when test="${list[j].finalPrice == list[j].price}">
+													<span class='final-price'>${list[j].finalPrice}원</span>
+												</c:when>
+												<c:otherwise>
+													<span class='discount'>${list[j].discount}%</span> 
+													<span class='final-price'>${list[j].finalPrice}원</span>
+													<h3 class='origin-price'>${list[j].price}원</h3>												
+												</c:otherwise>
+											</c:choose>
 										</div>
 									</div>
 								</div>

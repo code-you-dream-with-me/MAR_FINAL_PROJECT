@@ -269,15 +269,15 @@
 	        				html += "					</td>                                                                                         ";
 	        				html += "                   <div>                                                                					      ";
 	        				html += "					<td width='600px' height='150px' onclick = 'doSelectOne("+ value.orderNo + ");'>  			  ";
-	        				html += "						<h5 name = 'orderNo'>                                                                     ";
-	        				html += "							<strong>&ensp;&ensp;주문번호 : " + value.orderNo + "번</strong>                          ";
-	        				html += "						</h5>                                                                                     ";
+	        				//html += "						<h5 name = 'orderNo'>                                                                     ";
+	        				//html += "							<strong>&ensp;&ensp;주문번호 : " + value.orderNo + "번</strong>                          ";
+	        				//html += "						</h5>                                                                                     ";
 	        				html += "						<h5 name = 'price'>                                                                       ";
 	        				html += "							<strong>&ensp;&ensp;결제금액 : " + value.price + "원</strong>                            ";
 	        				html += "						</h5>                                                                                     ";
-	        				html += "						<h5 class = 'orderState'>                                                                 ";
-	        				html += "							<strong>&ensp;&ensp;주문상태 : " + value.orderState + "</strong>                        ";
-	        				html += "						</h5>                                                                                     ";
+	        				//html += "						<h5 class = 'orderState'>                                                                 ";
+	        				//html += "							<strong>&ensp;&ensp;주문상태 : " + value.orderState + "</strong>                        ";
+	        				//html += "						</h5>                                                                                     ";
 	        				html += "						<h5 name = 'request'>                                                                     ";
 	        				
 	        				if(value.request == null){

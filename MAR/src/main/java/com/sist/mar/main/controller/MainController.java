@@ -66,7 +66,7 @@ public class MainController {
 		}
 		//페이지사이즈에 0이 들어올 시
 		if(search.getPageSize()==0) {
-			search.setPageSize(12);//12으로 만들어줌
+			search.setPageSize(200);//12으로 만들어줌
 		}
 		
 		LOG.debug("================================");
@@ -81,6 +81,7 @@ public class MainController {
 		
 		//model로 list를 화면에 넘겨줌
 		model.addAttribute("list",list);
+		model.addAttribute("search",search);
 
 				
 		return VIEW_NAME;
@@ -106,7 +107,7 @@ public class MainController {
 		}
 		//페이지사이즈에 0이 들어올 시
 		if(search.getPageSize()==0) {
-			search.setPageSize(12);//12으로 만들어줌
+			search.setPageSize(200);//12으로 만들어줌
 		}
 		
 		LOG.debug("================================");
@@ -121,7 +122,7 @@ public class MainController {
 
 		//model로 list를 화면에 넘겨줌
 		model.addAttribute("list",list);
-
+		model.addAttribute("search",search);
 				
 		return VIEW_NAME;
 		
@@ -148,7 +149,7 @@ public class MainController {
 		}
 		//페이지사이즈에 0이 들어올 시
 		if(search.getPageSize()==0) {
-			search.setPageSize(12);//12으로 만들어줌
+			search.setPageSize(200);//12으로 만들어줌
 		}
 		
 		LOG.debug("================================");

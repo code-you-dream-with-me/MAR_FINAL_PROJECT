@@ -11,6 +11,16 @@
 <link rel="stylesheet" type="text/css" href="${hContext}/resources/css/normalize.css">
 <link rel="stylesheet" type="text/css" href="${hContext}/resources/css/y_base.css">
 <title>CART_LIST</title>
+<style type="text/css">
+ a {
+     font-size: 14px;
+ }
+ 
+ .search_input {
+	 font-family: none;
+ }
+ 
+</style>
 </head>	
 <body>
 	<!-- center -->

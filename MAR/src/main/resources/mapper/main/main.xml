@@ -53,13 +53,12 @@
 		    WHERE ROWNUM <= (#{pageSize}*(#{pageNum}-1)+#{pageSize})  
 		    )g2
 		    WHERE rnum >= (#{pageSize}*(#{pageNum}-1)+1)
-		    ]]>   
+		    ]]>
+		    AND name LIKE '%'||#{searchWord}||'%'  
 		)A CROSS JOIN(
 		    SELECT COUNT(*) totalCnt
 		    FROM item
 		)B
-		--검색 조회
-		WHERE name LIKE '%'||#{searchWord}||'%'
 	</select>
 	
 	<select id="doRecipeRetrieve"  parameterType="CateSearchVO" resultType="MainRecipeVO">
@@ -93,12 +92,11 @@
 		    )g2
 		    WHERE rnum >= (#{pageSize}*(#{pageNum}-1)+1)
 		    ]]> 
+		    AND title LIKE '%'||#{searchWord}||'%'
 		)A CROSS JOIN(
 		    SELECT COUNT(*) totalCnt
 		    FROM recipe
 		)B
-		--검색 조회
-		WHERE title LIKE '%'||#{searchWord}||'%'
 	
 	</select>
 	

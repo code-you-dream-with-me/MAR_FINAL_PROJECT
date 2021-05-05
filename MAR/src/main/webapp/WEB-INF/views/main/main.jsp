@@ -129,14 +129,18 @@
 			</c:forEach>
 		</form>
 		</div>
-        
-        <!-- pagenation -->
-<!-- 		<div class="text-center">
-		    <div id="page-selection" class="text-center"></div>
-		</div> -->
-	    <!--// pagenation -->	
-	    
+		<input type="text" name="listDivv" id="listDivv" value="${search.searchWord}"/>
 
+<%--  	    <div class="text-center">	
+	 		<input type="button" class="btn btn-primary btn-lg" value="이전" id="doPreviousPage" onclick="doNumMinus()"/>  
+	 		<input type="text" name="listDivv" id="listDivv" value="${search.listDiv}"/>
+	 		<input type="text" name="cateNoo" id="cateNoo" value="${search.categoryNo}"/>
+	 		
+	 		현재페이지<input type="text" name="pageNum" id="pageNum" value="${search.pageNum}"/>
+	 		총페이지<input type="text" name="lastNum" id="lastNum" value=""/>
+				
+			<input type="button" class="btn btn-primary btn-lg" value="다음" id="doNextPage"	onclick="doNumPlus()"/>  
+		</div><br>  --%>
 	
 <script type="text/javascript">
 	//jquery 객채생성 완료
@@ -144,53 +148,56 @@
 		console.log("1.document:최초수행!");
 	});
 	
-
 	
-/* 	//페이징 변수 추가
+/*  	//페이징 변수 추가
 	let totalCount = 0;
 	let pageTotal  = 1;
 	let pageSize = 12;
 	let page = 1;
-	//console.log("totalCount:"+${list[0].totalCnt});//totalCount:40
+	var pageNum = $("#pageNum").val();
+
 	
-	totalCount = ${list[0].totalCnt};
+	console.log("pageNum:" + pageNum);
+	totalCount = ${list[0].totalCnt}//totalCount:아이템개수
 	console.log("totalCount: "+totalCount);
 	pageTotal = (totalCount/pageSize);// 42/10 = 4.2
 	console.log("pageTotal: "+pageTotal);
 	pageTotal = Math.ceil(pageTotal);// 42/10 = 4.2 -> 5
 	console.log("pageTotal: "+pageTotal);
 	
+	$("#lastNum").val(pageTotal);
+	
 	//paging(페이징): 총페이지, 현재글번호
 	console.log(pageTotal+", "+page);
-	mainRenderingPage(pageTotal,page);
-	    			
-	//paging
-	//param 	 : pageTotal(총페이지수 = 총글수/페이지사이즈(10)), page(현재 페이지)
-	//maxVisible : bottom page
-	function mainRenderingPage(pageTotal,page) {
-		//이전에 연결된 Event 핸들러를 요소에서 제거
-		$("#page-selection").unbind('page');//jquery.bootpag에 있는 page요소를 언바인딩 해줌
+	
+	function doNumMinus(listDiv,cateNo,pageNum){
 		
-		$("#page-selection").bootpag({
-		    total: pageTotal,
-		    page: page,
-		    maxVisible: 10,
-		    leaps: true,
-		    firstLastUse: true,
-		    first: '←',
-		    last: '→',
-		    wrapClass: 'pagination',
-		    activeClass: 'active',
-		    disabledClass: 'disabled',
-		    nextClass: 'next',
-		    prevClass: 'prev',
-		    lastClass: 'last',
-		    firstClass: 'first'
-		}).on("page", function(event, num){
-			//--num에 페이지 번호가 들어가서 ajax서버 호출
-		}); 
-	} */
-
+		if(pageNum == 1){
+			alert("첫 페이지 입니다");
+			return;
+		}
+		pageNum = String(parseInt(pageNum) - 1);
+		console.log("pageNum:" + pageNum);
+		var listDiv = $("#listDivv").val();
+		var cateNo = $("#cateNoo").val();
+		
+		window.location.href = "${hContext}/main/do_retrieve.do?listDiv="+listDiv+"&categoryNo="+cateNo+"&pageNum="+pageNum;
+	}
+	
+	function doNumPlus(listDiv,cateNo,pageNum){
+		
+		if(pageTotal <= pageNum){
+			alert("마지막 페이지 입니다");
+			return;
+		}
+		pageNum = String(parseInt(pageNum) + 1);
+		console.log("pageNum:" + pageNum);
+		var listDiv = $("#listDivv").val();
+		var cateNo = $("#cateNoo").val();
+		
+		window.location.href = "${hContext}/main/do_retrieve.do?listDiv="+listDiv+"&categoryNo="+cateNo+"&pageNum="+pageNum;
+	}
+ */
 
 	//상품 상세로 이동----------------------------------------------------------------------
 	function moveToItem(itemNo) {

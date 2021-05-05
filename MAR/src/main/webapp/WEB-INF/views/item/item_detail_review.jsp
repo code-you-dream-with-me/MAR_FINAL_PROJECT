@@ -45,7 +45,7 @@
 	 .item_view { position: relative; margin: 10px; padding: 0 0 0 480px; width: 880px; box-sizing: border-box;}
 	 .item_view .img { position: absolute; left: 0; top: 0; } 
      .item_view .img > img { width: 400px; height: 480px; border:1px solid #e8e8e8; }
-     .detailimg {object-fit:cover; width: 900px; margin: 20px 0 100px 210px; padding: 100 0 100 100px; }
+     .detailimg {object-fit:cover; width: 900px; margin: 20px 0 100px 270px; padding: 100 0 100 100px; }
 	 .item_view h2 { margin: 0 0 15px; padding: 0 0 20px; border-bottom:2px solid #333; font-size:24px; color:#232323; line-height: 26px;}
 	  .h3 { margin: 0 0 15px; padding: 0 0 20px; border-bottom:2px solid #333; font-size:24px; color:#232323; line-height: 26px;}
 	 .item_view table th,
@@ -224,7 +224,7 @@
 		<!-- 상세이미지 -->
   		<div class="detailimg" id="detailimg">
 		</div> 
-	</div>
+	
 	
 	<!-- review list -->
 	<!-- div container -->
@@ -294,7 +294,7 @@
 
 	</div>
 	<!-- //div container -->
-
+</div>
 <!-- javascript -->
 
 <script type="text/javascript">

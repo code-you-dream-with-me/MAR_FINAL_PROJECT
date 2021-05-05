@@ -143,5 +143,30 @@ public class OrderingDaoImpl {
 	}	
 	
 	
-
+	//item_sales 업데이트 ==========================================================================
+	/* 1. 회원에 따른 주문테이블 조회 */
+	public List<?> doRetrieveOrdering(DTO dto) throws SQLException {
+		Ordering ordering = (Ordering) dto;
+		String statement = this.NAMESPACE + ".yebin_doRetrieve_ordering";
+		return this.sqlSessionTemplate.selectList(statement, ordering);
+	}
+	/* 3. 주문번호에 따른 수량 조회 */
+	public List<?> doRetrieveOrderitem(DTO dto) throws SQLException {
+		Orderitem orderitem = (Orderitem) dto;
+		String statement = this.NAMESPACE + ".yebin_doRetrieve_orderitem";
+		return this.sqlSessionTemplate.selectList(statement, orderitem);
+	}
+	/* 2. 1일 이상이 지난 주문건에 대해서 주문상태 4로 업데이트 */
+	public int doUpdateOrdering(DTO dto) throws SQLException {
+		Ordering ordering = (Ordering) dto;
+		String statement = this.NAMESPACE + ".yebin_doUpdate_Ordering";
+		return this.sqlSessionTemplate.update(statement, ordering);
+	}
+	/* 4. 조회된 수량으로 sales 업데이트 */
+	public int doUpdateItem(DTO dto) throws SQLException {
+		Orderitem orderitem = (Orderitem) dto;
+		String statement = this.NAMESPACE + ".yebin_doUpdate_item";
+		return this.sqlSessionTemplate.update(statement, orderitem);
+	}
+	//===========================================================================================
 }

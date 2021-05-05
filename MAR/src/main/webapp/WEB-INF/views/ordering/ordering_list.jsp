@@ -227,21 +227,8 @@
 	        			pageTotal = Math.ceil(pageTotal) ;				// 42/10 = 4.2 -> 5
 
 	        			$.each(parseData, function(i, value) {
-	        				
+	        		
 	        				document.getElementById("totalCnt").innerText = value.name + " 고객님! 지금까지 " + value.totalCnt + "건의 주문을 하셨습니다.";
-	        				
-	        				// 1/1000초인 milliSecond 기준 하루는 86400000ms이다.
-	        	
-	        				// .getTime() : 지정된 시간 1970년 1월 1일 12시를 기준해서 지난 시간을 밀리초 단위로 구해줌
-	        				var sysdate = (new Date().getTime());
-	        				var orderDate = new Date(value.orderDate).getTime();
-	        				
-	        				//console.log("sysdate : " + sysdate );
-	        				//console.log("orderDate : " + orderDate);
-	        				
-	        				var vaildTime = (parseInt(sysdate, 10) - parseInt(orderDate, 10));
-	        				
-	        				console.log("vaildTime : " + vaildTime);
 	        				
 	        				html += "	<div class='table-responsive'>                                                                                ";
 	        				html += "																												  ";		        				
@@ -295,8 +282,7 @@
 	        				html += "                                                                                                                 ";
 	        				html += "					<td width='150px' height='150px' class='text-center'>                                         ";
 	        				
-	        				// 86400000ms(1/1000초) = 24*60*60*1000 = 1일
-	        				if(value.orderState == 1 && parseInt(new Date().getTime() - new Date(value.orderDate).getTime(), 10) >= 86400000){
+	        				if(value.orderState == 4) {
         						
 	        					html += "					<input type='button' class='btn-success btn-mine active' value='결제완료' disabled='disabled' /> </br> </br>   	";       				
 	        					
@@ -322,7 +308,6 @@
 	        				html += "		</table> </br>  </br>                                                                                     ";
 	        				html += "	</div> </br>   </br>                                                                                          ";
 
-		        				
 	        			});
 
 	 

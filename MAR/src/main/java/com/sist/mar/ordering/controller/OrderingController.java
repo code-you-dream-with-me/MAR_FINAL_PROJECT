@@ -3,6 +3,7 @@ package com.sist.mar.ordering.controller;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -82,8 +83,13 @@ public class OrderingController {
 			
 			MemberVO member = (MemberVO) session.getAttribute("member");
 			memberId = member.getMemberId();
+			
+			//하루가 지난 상품에 대해 판매량 업데이트
+			doUpdateStateAndSales(memberId);
 
 		}
+		
+		
 		
 		// 페이즈 사이즈 코드
 		// 그렇게 모든 메서드를 거치고 난 결과를 ModelAndView로 볼 수 있게 조치
@@ -259,5 +265,40 @@ public class OrderingController {
 		
 		return jsonStr;
 	}
+	
+	//주문 상태 update 및 구매 수량 update =================================================================================
+	private void doUpdateStateAndSales(String memberId) throws SQLException {
+		LOG.debug("=========================");
+		LOG.debug("= doUpdateStateAndSales =");
+		LOG.debug("= memberId = " + memberId);
+		LOG.debug("=========================");
+		
+		//세션값을 ordering에 setting
+		Ordering ordering = new Ordering();
+		Orderitem orderitem = new Orderitem();
+		ordering.setMemberId(memberId);
+		
+		//세션값으로 주문한지 하루가 지난 주문 조회
+		List<Ordering> orderingList = (List<Ordering>) orderingServiceImpl.doRetrieveOrdering(ordering);
+		
+		for(Ordering orderingVO : orderingList) {
+			
+			//하루가 지나면 상태값을 4로 업데이트
+			orderingServiceImpl.doUpdateOrdering(orderingVO);
+			
+			//orderingVO의 각 주문번호들을 orderitem에 setting
+			orderitem.setOrderNo(orderingVO.getOrderNo());
+			//주문번호로 주문상품들의 상품번호와 상품수량 조회
+			List<Orderitem> orderitemList = (List<Orderitem>) orderingServiceImpl.doRetrieveOrderitem(orderitem);
+			
+			for(Orderitem orderitemVO : orderitemList) {
+				
+				//상품번호에 맞는 상품수량 업데이트 (sales += 수량)
+				orderingServiceImpl.doUpdateItem(orderitemVO);
+			}
+		}
+	}
+	//=============================================================================================================
+
 	
 }

@@ -119,4 +119,31 @@
 
 	</select>
 
+	<select id="yebin_doRetrieve_ordering" parameterType="Ordering" resultType="Ordering">
+		SELECT order_no AS orderNo
+    	FROM ordering
+    	WHERE order_state = 1
+    	<![CDATA[AND 1 <= SYSDATE - order_date ]]>
+    	  AND member_id = #{memberId}
+	</select>
+	
+	<select id="yebin_doRetrieve_orderitem" parameterType="Orderitem" resultType="Orderitem">
+		SELECT item_no AS itemNo,
+		       quantity
+		FROM orderitem
+		WHERE order_no = #{orderNo}
+	</select>
+
+	<update id="yebin_doUpdate_Ordering" parameterType="Ordering">
+		UPDATE ordering 
+		SET order_state = 4
+		WHERE order_no = #{orderNo}
+	</update>
+
+	<update id="yebin_doUpdate_item" parameterType="Orderitem">
+		UPDATE item
+		<![CDATA[SET sales += #{quantity}]]>
+		WHERE item_no = #{itemNo}
+	</update>
+
 </mapper>

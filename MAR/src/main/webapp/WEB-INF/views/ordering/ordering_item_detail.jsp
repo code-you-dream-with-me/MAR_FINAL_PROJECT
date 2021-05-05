@@ -125,8 +125,8 @@
  		<!--// 주문 상품 리스트  -->
 			<!-- table -->
   
-				
-            <%-- <!--  --><h5><strong> &emsp;&emsp; 주문번호 : ${ordering.orderNo}번 </strong></h5> --%>
+  
+				            <!--<h5><strong> &emsp;&emsp; 주문번호 : ${ordering.orderNo}번 </strong></h5> -->
                                                                            
 			<div class="table-responsive" id = "orderingItem">      
                                                             

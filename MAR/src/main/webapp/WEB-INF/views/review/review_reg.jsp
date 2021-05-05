@@ -107,7 +107,7 @@
 			<div class = "form-horizontal">
 				<div class = "col-md-10 col-lg-10">
 					<h4>제목</h4>
-					<input type = "text"  class = "form-control" id = "title" name = "title" /> <br/>
+					<input type = "text"  class = "form-control" id = "title" name = "title"  maxlength="50" /> <br/>
 					
 					<h4>내용</h4>
 					<textarea class="form-control"  id = "contents" name = "contents" rows = "15" ></textarea> <br/>

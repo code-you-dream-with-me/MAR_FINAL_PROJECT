@@ -59,12 +59,14 @@ public class OrderServiceImpl implements OrderService {
 		
 		//성공여부 //flag = 2(등록,삭제 성공)/1(등록 성공, 삭제 실패)/0(실패)
 		int flag = 0;
-		if(list.size() == vsflag) {
-			flag = 1; 
-			flag += this.orderDao.doDeleteCart(memberId);
-		} else {
-			flag = 0; 
+		if(0 != vsflag) { //vsflag != 0 (등록성공)
+			flag = 1;
+			vsflag = orderDao.doDeleteCart(memberId);
+			if(0 != vsflag) { //vsflag != 0 (삭제성공)
+				flag = 2;
+			}
 		}
+		
 		return flag;
 	}
 	//-----------------------------------------------------------

@@ -129,7 +129,7 @@
 			</c:forEach>
 		</form>
 		</div>
-		<input type="text" name="listDivv" id="listDivv" value="${search.searchWord}"/>
+		
 
 <%--  	    <div class="text-center">	
 	 		<input type="button" class="btn btn-primary btn-lg" value="이전" id="doPreviousPage" onclick="doNumMinus()"/>  

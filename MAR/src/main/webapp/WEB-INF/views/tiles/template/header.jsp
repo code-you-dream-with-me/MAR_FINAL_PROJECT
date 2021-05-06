@@ -54,6 +54,8 @@
     		if(false == confirm("로그아웃 하시겠습니까?"))return;
     		window.location.href = '<c:out value="${hContext}/member/do_logoff.do" />'
     		
+    		headerToMain()
+    		
     	}
 
      	// 로고 클릭 시 메인으로 이동 -----------------------------------------

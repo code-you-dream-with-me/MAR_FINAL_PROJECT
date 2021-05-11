@@ -60,9 +60,13 @@ Markit은 조이름인 mar와 하나의 묶은 그 전부를 의미하는 kit을
 ​
 ​
 ## 3.3. 개발 환경
+![개발도구](https://user-images.githubusercontent.com/72611381/117753845-23a5d680-b254-11eb-8a2b-90857c2ccd57.PNG)
 
 ​
 ​
+## 3.4. 프로젝트 진행일정
+- **WBS**
+![MAR_WBS](https://user-images.githubusercontent.com/72611381/115733750-21bec500-a3c4-11eb-8372-2f2a24034455.png)
 
 ​
 ​
@@ -71,11 +75,6 @@ Markit은 조이름인 mar와 하나의 묶은 그 전부를 의미하는 kit을
 
 ![mar요구사항정의서](https://user-images.githubusercontent.com/72611381/115550595-fe711880-a2e4-11eb-8eea-4fa038c40df4.png)
 
-​
-​
-## 6. WBS
-
-![MAR_WBS](https://user-images.githubusercontent.com/72611381/115733750-21bec500-a3c4-11eb-8372-2f2a24034455.png)
 
 ​
 ​

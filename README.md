@@ -58,27 +58,23 @@ Markit은 조이름인 mar와 하나의 묶은 그 전부를 의미하는 kit을
 ## 3.3. 개발 환경
 ![개발도구](https://user-images.githubusercontent.com/72611381/117753845-23a5d680-b254-11eb-8a2b-90857c2ccd57.PNG)
 
-​
-​
 ## 3.4. 프로젝트 진행일정
 - **WBS**
-![WBS](https://user-images.githubusercontent.com/72611381/117754856-23a6d600-b256-11eb-8196-6c76e623c14d.PNG)  
+![WBS](https://user-images.githubusercontent.com/72611381/117754856-23a6d600-b256-11eb-8196-6c76e623c14d.PNG)    
 
 
 ​
 ​
-[▲목차](#0-목차) 
+[▲목차](#0-목차)
 # 4. 프로젝트 설계
 ## 4.1. 요구사항정의서
 ![image](https://user-images.githubusercontent.com/72611381/117756220-bcd6ec00-b258-11eb-9071-1398d68aee36.png)
 ![image](https://user-images.githubusercontent.com/72611381/117756233-c52f2700-b258-11eb-9313-91b032fad579.png)
 
-
 ​
 ​
 ## 4.2. 개발아키텍쳐 : MVC
 ![April_WBS](https://github.com/HYKim8/April/blob/master/aprilPrj/src/main/webapp/WEB-INF/doc/April_MVC.png "April_MVC")
-
 
 ​
 ​
@@ -89,6 +85,7 @@ Markit은 조이름인 mar와 하나의 묶은 그 전부를 의미하는 kit을
 ​
 ## 4.4. ERD
 - ERD를 통해 테이블의 식별/비식별 관계 연결
+![ERD](https://user-images.githubusercontent.com/72611381/117757153-7edac780-b25a-11eb-8286-2867e47380b3.PNG)  
 
 ​
 ​

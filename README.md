@@ -2,8 +2,7 @@
 [1. 목적](#1-목적)  
 [2. Mar팀 소개](#2-mar-팀-소개)  
 [3. 프로젝트 소개](#3-프로젝트-소개)   
-[5. 요구사항정의서](#5-요구사항정의서)  
-[6. WBS](#6-wbs)  
+[4. Markit 설계](#4-markit-설계-과정)  
 [7. 개발아키텍쳐 : MVC](#7-개발아키텍쳐--mvc)  
 [8. 개발 목록](#8-개발-목록)    
 [9. 단위테스트](#9-단위테스트)  
@@ -66,13 +65,14 @@ Markit은 조이름인 mar와 하나의 묶은 그 전부를 의미하는 kit을
 ​
 ## 3.4. 프로젝트 진행일정
 - **WBS**
-![MAR_WBS](https://user-images.githubusercontent.com/72611381/115733750-21bec500-a3c4-11eb-8372-2f2a24034455.png)
+![WBS](https://user-images.githubusercontent.com/72611381/117754856-23a6d600-b256-11eb-8196-6c76e623c14d.PNG)  
+
 
 ​
 ​
 [▲목차](#0-목차) 
-## 5. 요구사항정의서
-
+# 4. Markit 설계
+## 4.1. 요구사항정의서
 ![mar요구사항정의서](https://user-images.githubusercontent.com/72611381/115550595-fe711880-a2e4-11eb-8eea-4fa038c40df4.png)
 
 

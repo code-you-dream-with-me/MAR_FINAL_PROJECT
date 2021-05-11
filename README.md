@@ -8,7 +8,6 @@
 [9. 단위테스트](#9-단위테스트)  
 [10. 통합테스트](#10-통합테스트)  
 [11. 이행](#11-이행)  
-[12. 개발 URL](#12-개발-url)  
 
 ​
 ​
@@ -73,20 +72,20 @@ Markit은 조이름인 mar와 하나의 묶은 그 전부를 의미하는 kit을
 [▲목차](#0-목차) 
 # 4. 프로젝트 설계
 ## 4.1. 요구사항정의서
-![mar요구사항정의서](https://user-images.githubusercontent.com/72611381/115550595-fe711880-a2e4-11eb-8eea-4fa038c40df4.png)
+![image](https://user-images.githubusercontent.com/72611381/117756220-bcd6ec00-b258-11eb-9071-1398d68aee36.png)
+![image](https://user-images.githubusercontent.com/72611381/117756233-c52f2700-b258-11eb-9313-91b032fad579.png)
 
 
 ​
 ​
-## 7. 개발아키텍쳐 : MVC
-
+## 4.2. 개발아키텍쳐 : MVC
 ![April_WBS](https://github.com/HYKim8/April/blob/master/aprilPrj/src/main/webapp/WEB-INF/doc/April_MVC.png "April_MVC")
 
 
 ​
 ​
-[▲목차](#0-목차) 
-## 8. 개발 목록
+## 4.3. 테이블 정의서
+
 
 ​
 ​
@@ -102,9 +101,4 @@ Markit은 조이름인 mar와 하나의 묶은 그 전부를 의미하는 kit을
 ​
 [▲목차](#0-목차) 
 ## 11. 이행
-
-​
-​
-## 12. 개발 URL 
-
 

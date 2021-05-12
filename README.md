@@ -118,6 +118,9 @@ Markit은 조이름인 mar와 하나의 묶은 그 전부를 의미하는 kit을
 
 베스트 메뉴를 판매량이 높은 순서로 상품목록을 보여줍니다. 판매량은 구매확정이 될 시 Item테이블의 sales컬럼의 숫자가 업데이트 되도록 구현하여 결제 부분에서 더 자세히 설명드리겠습니다.
 ![2021-05-12 15-14-11 mkv_000040083](https://user-images.githubusercontent.com/72611381/117928392-76f05580-b336-11eb-8953-b56d34777e03.gif)
+![image](https://user-images.githubusercontent.com/72611381/117929361-aeabcd00-b337-11eb-82f5-70d081739a70.png)  
+
+
 ![2021-05-12 15-14-11 mkv_000048483](https://user-images.githubusercontent.com/72611381/117928408-7bb50980-b336-11eb-9584-3a1510cd62b0.gif)
 ![2021-05-12 15-14-11 mkv_000058167](https://user-images.githubusercontent.com/72611381/117928417-7eaffa00-b336-11eb-913d-4b5bbbff35ee.gif)
 ![2021-05-12 15-14-11 mkv_000069567](https://user-images.githubusercontent.com/72611381/117928429-82dc1780-b336-11eb-805a-0a4011a26cd8.gif)

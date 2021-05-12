@@ -122,10 +122,19 @@ Markit은 조이름인 mar와 하나의 묶은 그 전부를 의미하는 kit을
 
 알뜰쇼핑을 누르면 할인율이 적용된 상품을 볼 수 있고 이 할인율은 관리자가 직접 등록하도록 구현하였습니다.
 ![2021-05-12 15-14-11 mkv_000048483](https://user-images.githubusercontent.com/72611381/117928408-7bb50980-b336-11eb-9584-3a1510cd62b0.gif)  
+![image](https://user-images.githubusercontent.com/72611381/117930438-f2530680-b338-11eb-80cf-8d490ed5f7d6.png)  
 
-레시피 메뉴는 관리자가 등록한 레시피 목록을 띄워줍니다.
+레시피 메뉴는 관리자가 등록한 레시피 목록을 띄워주고 레시피의 상세페이지로 이동가능합니다.
 ![2021-05-12 15-14-11 mkv_000058167](https://user-images.githubusercontent.com/72611381/117928417-7eaffa00-b336-11eb-913d-4b5bbbff35ee.gif)
+
+Markit은 오직 회원만 상품을 구매할 수 있도록 했기 때문에 결제할 상품을 담아두는 장바구니는 로그인 후 불러올 수 있도록 하였습니다.
 ![2021-05-12 15-14-11 mkv_000069567](https://user-images.githubusercontent.com/72611381/117928429-82dc1780-b336-11eb-805a-0a4011a26cd8.gif)
+
+검색창에 원하는 상품을 조회하기 위해 상품이름을 입력하여 검색할 수 있습니다. 
 ![2021-05-12 15-14-11 mkv_000078767](https://user-images.githubusercontent.com/72611381/117928437-85d70800-b336-11eb-892f-87e56dd78975.gif)
+
+로그인세션에 따라 변하는 메뉴를 확인하실 수 있습니다.
 ![2021-05-12 15-14-11 mkv_000101633](https://user-images.githubusercontent.com/72611381/117928445-88396200-b336-11eb-8970-ce4cb11ddd8c.gif)
+
+Tiles적용으로 
 ![2021-05-12 15-14-11 mkv_000131667](https://user-images.githubusercontent.com/72611381/117928455-8a9bbc00-b336-11eb-80b7-90ce0223738d.gif)

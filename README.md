@@ -116,12 +116,14 @@ Markit은 조이름인 mar와 하나의 묶은 그 전부를 의미하는 kit을
 신상품 메뉴를 누르면 가장 최근에 등록된 상품목록을 보여줍니다.
 ![2021-05-12 15-14-11 mkv_000032500](https://user-images.githubusercontent.com/72611381/117928375-7061de00-b336-11eb-87dd-43b34e9c0707.gif)  
 
-베스트 메뉴를 판매량이 높은 순서로 상품목록을 보여줍니다. 판매량은 구매확정이 될 시 Item테이블의 sales컬럼의 숫자가 업데이트 되도록 구현하여 결제 부분에서 더 자세히 설명드리겠습니다.
+베스트 메뉴를 판매량이 높은 순서로 상품목록을 보여줍니다. 판매량은 구매확정이 될 시 Item테이블의 sales컬럼의 숫자가 업데이트 되도록 구현하였습니다. 상세한 설명은 결제 부분에서 더 자세히 설명드리겠습니다.
 ![2021-05-12 15-14-11 mkv_000040083](https://user-images.githubusercontent.com/72611381/117928392-76f05580-b336-11eb-8953-b56d34777e03.gif)
-![image](https://user-images.githubusercontent.com/72611381/117929361-aeabcd00-b337-11eb-82f5-70d081739a70.png)  
+![image](https://user-images.githubusercontent.com/72611381/117929527-e450b600-b337-11eb-9027-001dfce14e32.png)
 
+알뜰쇼핑을 누르면 할인율이 적용된 상품을 볼 수 있고 이 할인율은 관리자가 직접 등록하도록 구현하였습니다.
+![2021-05-12 15-14-11 mkv_000048483](https://user-images.githubusercontent.com/72611381/117928408-7bb50980-b336-11eb-9584-3a1510cd62b0.gif)  
 
-![2021-05-12 15-14-11 mkv_000048483](https://user-images.githubusercontent.com/72611381/117928408-7bb50980-b336-11eb-9584-3a1510cd62b0.gif)
+레시피 메뉴는 관리자가 등록한 레시피 목록을 띄워줍니다.
 ![2021-05-12 15-14-11 mkv_000058167](https://user-images.githubusercontent.com/72611381/117928417-7eaffa00-b336-11eb-913d-4b5bbbff35ee.gif)
 ![2021-05-12 15-14-11 mkv_000069567](https://user-images.githubusercontent.com/72611381/117928429-82dc1780-b336-11eb-805a-0a4011a26cd8.gif)
 ![2021-05-12 15-14-11 mkv_000078767](https://user-images.githubusercontent.com/72611381/117928437-85d70800-b336-11eb-892f-87e56dd78975.gif)
